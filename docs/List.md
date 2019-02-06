@@ -39,8 +39,6 @@ A data storage and manipulation library for javascript
         * [.keys()](#List+keys) ⇒ <code>Object</code>
         * [.every(callback, [thisArg])](#List+every) ⇒ <code>Boolean</code>
         * [.filter(callback, [thisArg])](#List+filter) ⇒ <code>Array</code>
-        * [.flat([depth])](#List+flat) ⇒ <code>Array</code>
-        * [.flatMap(callback, [thisArg])](#List+flatMap) ⇒ <code>Array</code>
         * [.forEach(callback, [thisArg])](#List+forEach) ⇒ <code>undefined</code>
         * [.toLocaleString([locales], [options])](#List+toLocaleString) ⇒ <code>String</code>
         * [.join([separator])](#List+join) ⇒ <code>String</code>
@@ -276,29 +274,6 @@ See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaS
 
 ### list.filter(callback, [thisArg]) ⇒ <code>Array</code>
 See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
-
-<a name="List+flat"></a>
-
-### list.flat([depth]) ⇒ <code>Array</code>
-See [Array.prototype.flat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type | Default |
-| --- | --- | --- |
-| [depth] | <code>Number</code> | <code>1</code> | 
-
-<a name="List+flatMap"></a>
-
-### list.flatMap(callback, [thisArg]) ⇒ <code>Array</code>
-See [Array.prototype.flatMap()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
 
 **Kind**: instance method of [<code>List</code>](#List)  
 

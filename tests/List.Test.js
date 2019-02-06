@@ -560,7 +560,9 @@ describe('List', () => {
 		const keys = new List([1, 2, 3]).keys();
 
 		for (let key of keys) {
-			testVar++;
+			if (key !== undefined) {
+				testVar++;
+			}
 		}
 		assert.equal(testVar, 3);
 	});
@@ -571,22 +573,6 @@ describe('List', () => {
 
 	it('.filter should return a new array', () => {
 		assert.deepEqual(new List([1, 2, 3]).filter((item) => item > 1), [2, 3]);
-	});
-
-	it('.flat should call a callback for every item in array', () => {
-		assert.deepEqual(new List([1, 2, [4, 5]]).flat(), [1, 2, 4, 5]);
-	});
-
-	it('.flatMap should call a callback for every item in array', () => {
-		const list = new List([{
-			value: 1
-		}, {
-			value: 2
-		}, {
-			value: [4, 5]
-		}]);
-		const output = list.flatMap((item) => item.value);
-		assert.deepEqual(output, [1, 2, 4, 5]);
 	});
 
 	it('.forEach should call a callback for every item in array', () => {

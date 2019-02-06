@@ -410,29 +410,6 @@ List.prototype.sorter = methodFunction({
  * @returns {Array}
  */
 /**
- * See [Array.prototype.flat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
- *
- * @method flat
- * @memberOf List
- * @instance
- *
- * @arg {Number} [depth=1]
- *
- * @returns {Array}
- */
-/**
- * See [Array.prototype.flatMap()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
- *
- * @method flatMap
- * @memberOf List
- * @instance
- *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
- *
- * @returns {Array}
- */
-/**
  * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
  *
  * @method forEach
@@ -530,8 +507,6 @@ List.prototype.sorter = methodFunction({
 [
 	'every',
 	'filter',
-	'flat',
-	'flatMap',
 	'forEach',
 	'toLocaleString',
 	'join',

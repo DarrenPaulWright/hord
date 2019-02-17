@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { List } from '../src/index';
+import { List } from '../src';
 import { sortedIndexOf } from '../src/List';
 
 const buildArray = (length) => {

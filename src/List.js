@@ -382,7 +382,7 @@ List.prototype.sorter = methodFunction({
 ].forEach((key) => {
 	List.prototype[key] = function() {
 		return this[ARRAY][key]();
-	}
+	};
 });
 
 /**
@@ -518,5 +518,5 @@ List.prototype.sorter = methodFunction({
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
 		return this[ARRAY][key](...args);
-	}
+	};
 });

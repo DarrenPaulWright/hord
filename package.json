@@ -11,7 +11,8 @@
 		"major": "npm version major -m \"Increment major version to %s\"",
 		"docs-readme": "jsdoc2md src/index.js > README.md --template docs.hbs --partial scope.hbs",
 		"docs-list": "jsdoc2md src/List.js > docs/List.md --template docs.hbs",
-		"docs": "npm run docs-readme && npm run docs-list"
+		"docs-schema": "jsdoc2md src/Schema.js > docs/Schema.md --template docs.hbs",
+		"docs": "npm run docs-readme && npm run docs-list && npm run docs-schema"
 	},
 	"repository": {
 		"type": "git",
@@ -31,7 +32,8 @@
 	"author": "Darren Paul Wright <Darren@DarrenPaulWright.com>",
 	"license": "MIT",
 	"dependencies": {
-		"type-enforcer": "^0.3.0"
+		"object-agent": "^0.2.5",
+		"type-enforcer": "^0.3.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.2.2",

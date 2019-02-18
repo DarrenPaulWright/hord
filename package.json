@@ -33,6 +33,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"object-agent": "^0.2.5",
+		"on-change": "^1.0.0",
 		"type-enforcer": "^0.3.3"
 	},
 	"devDependencies": {

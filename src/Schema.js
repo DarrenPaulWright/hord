@@ -308,7 +308,7 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @param {Object} item
+	 * @arg {Object} item
 	 *
 	 * @returns {Object[]} An array of error objects. Each object contains: "error" - A message about the type of error, "path" - The path within the given item to the value causing the error, "value" - The value at this path, "item" -  The original item being validated
 	 */
@@ -334,7 +334,7 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @param {Object} item
+	 * @arg {Object} item
 	 *
 	 * @returns {Object} The enforced item
 	 */

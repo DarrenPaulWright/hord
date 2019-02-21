@@ -21,7 +21,7 @@ A data storage and manipulation library for javascript
 <a name="new_Schema_new"></a>
 
 ### new Schema(schema)
-Schema enforcement
+Schema enforcement.
 
 
 | Param | Type |

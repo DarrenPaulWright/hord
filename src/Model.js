@@ -54,5 +54,3 @@ export default function Model(schemaDefinition) {
 
 	return model;
 };
-
-//TODO needs a method findPaths that returns an array of paths that test true for a given callback (ie find all paths with index: true)

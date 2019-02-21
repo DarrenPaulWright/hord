@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import Model from '../src/Model';
+import { Model } from '../src';
 
 describe('Model', () => {
 	it('should be able to get initial values', () => {

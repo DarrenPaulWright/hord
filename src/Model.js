@@ -1,7 +1,7 @@
 import { diffUpdate, forOwn, get, intersection, mapOwn, set, unset } from 'object-agent';
 import onChange from 'on-change';
 import { methodKeyValue } from 'type-enforcer';
-import Schema from './Schema';
+import Schema from './Schema/Schema';
 
 export default function Model(schemaDefinition) {
 	const schema = new Schema(schemaDefinition);

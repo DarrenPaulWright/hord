@@ -11,7 +11,7 @@
 		"major": "npm version major -m \"Increment major version to %s\"",
 		"docs-readme": "jsdoc2md src/index.js > README.md --template docs.hbs --partial scope.hbs",
 		"docs-list": "jsdoc2md src/List.js > docs/List.md --template docs.hbs",
-		"docs-schema": "jsdoc2md src/Schema.js > docs/Schema.md --template docs.hbs",
+		"docs-schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md --template docs.hbs",
 		"docs-model": "jsdoc2md src/Model.js > docs/Model.md --template docs.hbs",
 		"docs-collection": "jsdoc2md src/Collection.js > docs/Collection.md --template docs.hbs",
 		"docs": "npm run docs-readme && npm run docs-list && npm run docs-schema && npm run docs-model && npm run docs-collection"

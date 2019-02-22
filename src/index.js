@@ -19,6 +19,6 @@
  * @name Installation
  */
 export { default as List } from './List';
-export { default as Schema } from './Schema';
+export { default as Schema } from './Schema/Schema';
 export { default as Model } from './Model';
 export { default as Collection } from './Collection';

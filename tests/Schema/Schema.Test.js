@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { clone } from 'object-agent';
+import { clone, deepEqual } from 'object-agent';
 import { Enum } from 'type-enforcer';
 import { Schema } from '../../src/index';
 import { schemaTestTypes } from '../testValues';
@@ -1751,6 +1751,77 @@ describe('Schema', () => {
 
 				assert.deepEqual(schema.enforce(item), output);
 			});
+		});
+	});
+
+	describe('.eachRule', () => {
+		it('should call the callback for every rule', () => {
+			let total = 0;
+			let testVar = 0;
+
+			const schema = new Schema({
+				testKey: [{
+					level2: Number
+				}],
+				testKey2: String
+			});
+
+			schema.eachRule((path, rule) => {
+				total++;
+				if (deepEqual(path, []) && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, ['testKey']) && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, ['testKey', 0]) && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, ['testKey', 0, 'level2']) && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, ['testKey2']) && rule) {
+					testVar++;
+				}
+			});
+
+			assert.equal(total, 5);
+			assert.equal(testVar, 5);
+		});
+
+		it('should stop calling the callback after true is returned', () => {
+			let total = 0;
+			let testVar = 0;
+
+			const schema = new Schema({
+				testKey: [{
+					level2: Number
+				}],
+				testKey2: String
+			});
+
+			schema.eachRule((path, rule) => {
+				total++;
+				if (deepEqual(path, []) && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, ['testKey']) && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, ['testKey', 0]) && rule) {
+					testVar++;
+					return true;
+				}
+				if (deepEqual(path, ['testKey', 0, 'level2']) && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, ['testKey2']) && rule) {
+					testVar++;
+				}
+			});
+
+			assert.equal(total, 4);
+			assert.equal(testVar, 4);
 		});
 	});
 });

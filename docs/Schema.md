@@ -20,6 +20,7 @@ A data storage and manipulation library for javascript
     * [new Schema(schema)](#new_Schema_new)
     * [.validate(item)](#Schema+validate) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.enforce(item)](#Schema+enforce) ⇒ <code>Object</code>
+    * [.eachRule(callback)](#Schema+eachRule)
 
 <a name="new_Schema_new"></a>
 
@@ -56,6 +57,17 @@ Enforce an items structure against the schema. This function mutates the origina
 | Param | Type |
 | --- | --- |
 | item | <code>Object</code> | 
+
+<a name="Schema+eachRule"></a>
+
+### schema.eachRule(callback)
+Calls a callback for each rule that will be used to validate this schema.
+
+**Kind**: instance method of [<code>Schema</code>](#Schema)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| callback | <code>function</code> | Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level. |
 
 
 ## License

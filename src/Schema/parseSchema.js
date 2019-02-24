@@ -1,4 +1,4 @@
-import { forOwn, isEmpty } from 'object-agent';
+import { forOwn, isEmpty, traverse } from 'object-agent';
 import { castArray, enforce, Enum, is } from 'type-enforcer';
 import findRule from './findRule';
 import ERRORS from './schemaErrors';
@@ -86,6 +86,10 @@ export default function(schema) {
 	if (isEmpty(schemaValues.content)) {
 		throw new Error('Schema must contain a value');
 	}
+
+	traverse(schemaValues, (path, value) => {
+		Object.freeze(value);
+	});
 
 	return schemaValues;
 };

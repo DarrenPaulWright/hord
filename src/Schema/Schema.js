@@ -78,4 +78,25 @@ export default class Schema {
 		processValue(item, this[RULES], [], null, true);
 		return isEmpty(item) ? undefined : item;
 	}
+
+	/**
+	 * Calls a callback for each rule that will be used to validate this schema.
+	 *
+	 * @memberOf Schema
+	 * @instance
+	 *
+	 * @arg {Function} callback - Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level.
+	 */
+	eachRule(callback) {
+		const processRule = (path, rule) => {
+			if (callback(path, rule)) {
+				return true;
+			}
+			if (rule.content) {
+				rule.content.some((item) => processRule(path.concat(item.key || 0), item));
+			}
+		};
+
+		processRule([], this[RULES]);
+	}
 }

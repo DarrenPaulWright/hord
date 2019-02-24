@@ -283,7 +283,7 @@ export default class Collection extends Array {
 				return input.reduce((result, item) => result.concat(flatten(item, depth, parent)), input instanceof Collection ? new Collection() : []);
 			}
 
-			const child = clone(input);
+			const child = clone(input, [childKey]);
 			if (saveDepth) {
 				child.depth = depth;
 			}
@@ -292,9 +292,9 @@ export default class Collection extends Array {
 			if (!onChild.call(self, child, parent)) {
 				output.push(child);
 
-				if (childKey in child) {
+				if (input && childKey in input) {
 					if (!onParent.call(self, child, parent)) {
-						output = output.concat(flatten(child[childKey], depth + 1, child));
+						output = output.concat(flatten(input[childKey], depth + 1, child));
 					}
 					delete child[childKey];
 				}

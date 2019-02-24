@@ -1,4 +1,7 @@
 # hord
+
+A data storage and manipulation library for javascript
+
 [![npm][npm]][npm-url]
 [![build][build]][build-url]
 [![Coverage Status](https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch=master)](https://coveralls.io/github/DarrenPaulWright/hord?branch=master)
@@ -6,7 +9,7 @@
 [![size][size]][size-url]
 [![Known Vulnerabilities](https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile=package.json)](https://snyk.io/test/github/DarrenPaulWright/hord?targetFile=package.json)
 
-A data storage and manipulation library for javascript
+---
 
 <a name="Installation"></a>
 

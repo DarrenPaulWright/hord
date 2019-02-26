@@ -2,6 +2,7 @@ import { assert } from 'chai';
 import { List } from '../src/index';
 import { sortedIndexOf } from '../src/List';
 
+const defaultSorter = (a, b) => a.id === b.id ? 0 : a.id < b.id ? -1 : 1;
 const buildArray = (length) => {
 	const array = [];
 	for (let i = 0; i < length; i++) {
@@ -13,37 +14,41 @@ const buildArray = (length) => {
 const bigArray = buildArray(1000000);
 
 describe('sortedIndexOf', () => {
+	const bigArrayID = bigArray.map((id) => {
+		return {id: id};
+	});
+
 	it('should return the right index for the first item of an array', () => {
-		assert.equal(sortedIndexOf(bigArray, 0), 0);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 0}, defaultSorter), 0);
 	});
 
 	it('should return the right index for the last item of an array', () => {
-		assert.equal(sortedIndexOf(bigArray, 999999), 999999);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, defaultSorter), 999999);
 	});
 
 	it('should return the right index near the beginning of an array', () => {
-		assert.equal(sortedIndexOf(bigArray, 9), 9);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 9}, defaultSorter), 9);
 	});
 
 	it('should return the right index near the end of an array', () => {
-		assert.equal(sortedIndexOf(bigArray, 987300), 987300);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, defaultSorter), 987300);
 	});
 
 	it('should return the right index just before the middle of an array', () => {
-		assert.equal(sortedIndexOf(bigArray, 499500), 499500);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, defaultSorter), 499500);
 	});
 
 	it('should return the right index just after the middle of an array', () => {
-		assert.equal(sortedIndexOf(bigArray, 500009), 500009);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, defaultSorter), 500009);
 	});
 
 	it('should return -1 for a value that isn\'t in the array', () => {
-		assert.equal(sortedIndexOf(bigArray, 1000001), -1);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, defaultSorter), -1);
 	});
 
 	describe('isLast = true', () => {
 		it('should return -1 for a value that isn\'t in the array', () => {
-			assert.equal(sortedIndexOf(bigArray, 1000001, null, false, true), -1);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, defaultSorter, false, true), -1);
 		});
 
 		it('should return the index of the last of multiple items in the array', () => {
@@ -69,31 +74,31 @@ describe('sortedIndexOf', () => {
 
 	describe('isInsert = true', () => {
 		it('should return the right index for the first item of an array', () => {
-			assert.equal(sortedIndexOf(bigArray, 0, null, true), 0);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 0}, defaultSorter, true), 0);
 		});
 
 		it('should return the right index for the last item of an array', () => {
-			assert.equal(sortedIndexOf(bigArray, 999999, null, true), 999999);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, defaultSorter, true), 999999);
 		});
 
 		it('should return the right index near the beginning of an array', () => {
-			assert.equal(sortedIndexOf(bigArray, 9, null, true), 9);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 9}, defaultSorter, true), 9);
 		});
 
 		it('should return the right index near the end of an array', () => {
-			assert.equal(sortedIndexOf(bigArray, 987300, null, true), 987300);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, defaultSorter, true), 987300);
 		});
 
 		it('should return the right index just before the middle of an array', () => {
-			assert.equal(sortedIndexOf(bigArray, 499500, null, true), 499500);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, defaultSorter, true), 499500);
 		});
 
 		it('should return the right index just after the middle of an array', () => {
-			assert.equal(sortedIndexOf(bigArray, 500009, null, true), 500009);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, defaultSorter, true), 500009);
 		});
 
 		it('should return the last index for a value that is greater than all others in the big array', () => {
-			assert.equal(sortedIndexOf(bigArray, 1000001, null, true), 999999);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, defaultSorter, true), 999999);
 		});
 
 		it('should return the last index for a value that is greater than all others in the array', () => {

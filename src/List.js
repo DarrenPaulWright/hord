@@ -31,7 +31,7 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 		if (diff < 0 || (isLast && !diff && !sorter(array[mid + 1], array[mid]))) {
 			low = mid + 1;
 		}
-		else if (diff > 0 || (!isLast && !sorter(array[mid - 1], array[mid]))) {
+		else if (diff > 0 || (!isLast && mid !== 0 && !sorter(array[mid - 1], array[mid]))) {
 			high = mid;
 		}
 		else {

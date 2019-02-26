@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Schema](docs/Schema.md)
 
+## [0.1.2] - 2019-02-25
+### Changed
+- Fixed a bug in [List](docs/List.md) when finding items at the beginning of the array
+
 ## [0.1.1] - 2019-02-06
 ### Changed
 - Removed .flat and .flatMap from [List](docs/List.md)
@@ -16,5 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
-[Unreleased]: https://github.com/DarrenPaulWright/hord/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/DarrenPaulWright/hord/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/DarrenPaulWright/hord/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/DarrenPaulWright/hord/compare/v0.1.0...v0.1.1

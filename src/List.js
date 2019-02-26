@@ -94,6 +94,26 @@ export default class List {
 	}
 
 	/**
+	 * Add an item to the list if it isn't already included. Uses binary search.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @arg {*} item - Item is inserted into the list such that the items are still sorted.
+	 *
+	 * @returns {this}
+	 */
+	addUnique(item) {
+		const sorter = this.sorter();
+		const index = sortedIndexOf(this[ARRAY], item, sorter, true);
+		if (sorter(this[ARRAY][index], item) !== 0) {
+			this[ARRAY].splice(index + 1, 0, item);
+		}
+
+		return this;
+	}
+
+	/**
 	 * Merges one or more arrays with the list.
 	 *
 	 * @memberOf List

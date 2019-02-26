@@ -19,6 +19,7 @@ A data storage and manipulation library for javascript
         * [.length](#List+length) ⇒ <code>Number</code>
         * [.sort()](#List+sort)
         * [.add(item)](#List+add) ⇒ <code>this</code>
+        * [.addUnique(item)](#List+addUnique) ⇒ <code>this</code>
         * [.concat(values)](#List+concat) ⇒ <code>this</code>
         * [.discard(item)](#List+discard) ⇒ <code>this</code>
         * [.values([values])](#List+values) ⇒ <code>this</code> \| <code>Array</code>
@@ -53,7 +54,14 @@ A data storage and manipulation library for javascript
 <a name="new_List_new"></a>
 
 ### new List([values])
-Always sorted array.List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.## Usage``` javascriptimport { List } from 'hord';```
+Always sorted array.
+
+List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
+
+## Usage
+``` javascript
+import { List } from 'hord';
+```
 
 
 | Param | Type |
@@ -76,6 +84,17 @@ Sort the items.
 
 ### list.add(item) ⇒ <code>this</code>
 Add an item to the list. Uses binary search.
+
+**Kind**: instance method of [<code>List</code>](#List)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| item | <code>\*</code> | Item is inserted into the list such that the items are still sorted. |
+
+<a name="List+addUnique"></a>
+
+### list.addUnique(item) ⇒ <code>this</code>
+Add an item to the list if it isn't already included. Uses binary search.
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
@@ -226,7 +245,17 @@ Gets the last item in the list without removing it.
 <a name="List+sorter"></a>
 
 ### list.sorter(sorter) ⇒ <code>\*</code>
-The sorting function. This function is used by .sort() and the binary search to determine equality.See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)If you're setting this, you may want to call this before setting the values, like this:``` javascriptimport { List } from 'hord';const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);```
+The sorting function. This function is used by .sort() and the binary search to determine equality.
+
+See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
+A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)
+
+If you're setting this, you may want to call this before setting the values, like this:
+``` javascript
+import { List } from 'hord';
+
+const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);
+```
 
 **Kind**: instance method of [<code>List</code>](#List)  
 

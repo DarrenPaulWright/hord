@@ -226,6 +226,47 @@ describe('List', () => {
 		});
 	});
 
+	describe('.addUnique', () => {
+		it('should add an item when no other values have been set', () => {
+			assert.deepEqual(new List().addUnique(2).values(), [2]);
+		});
+
+		it('should add an item to the beginning of the array', () => {
+			assert.deepEqual(new List([3, 4, 5]).addUnique(0).values(), [0, 3, 4, 5]);
+		});
+
+		it('should add an item in the middle of an array', () => {
+			assert.deepEqual(new List([3, 4, 5, 7, 8]).addUnique(6).values(), [3, 4, 5, 6, 7, 8]);
+		});
+
+		it('should add an item to the end of the array', () => {
+			assert.deepEqual(new List([3, 4, 5]).addUnique(10).values(), [3, 4, 5, 10]);
+		});
+
+		it('should NOT add a duplicate item to the beginning of the array', () => {
+			assert.deepEqual(new List([3, 4, 5]).addUnique(3).values(), [3, 4, 5]);
+		});
+
+		it('should NOT add a duplicate item in the middle of an array', () => {
+			assert.deepEqual(new List([3, 4, 5, 7, 8]).addUnique(5).values(), [3, 4, 5, 7, 8]);
+		});
+
+		it('should NOT add a duplicate item to the end of the array', () => {
+			assert.deepEqual(new List([3, 4, 5]).addUnique(5).values(), [3, 4, 5]);
+		});
+
+		const biggishArray = buildArray(100000);
+		const biggishArrayOutput = buildArray(100000);
+		biggishArrayOutput.unshift(-1);
+		it('should add the content of an array to a big array', () => {
+			const list = new List();
+			list.sorter(List.sorter.number.asc)
+				.values(biggishArray)
+				.addUnique(-1);
+			assert.deepEqual(list.values(), biggishArrayOutput);
+		});
+	});
+
 	describe('.discard', () => {
 		it('should remove an item from the beginning of the array', () => {
 			assert.deepEqual(new List([2, 3, 4, 5]).discard(2).values(), [3, 4, 5]);

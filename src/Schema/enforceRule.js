@@ -24,8 +24,11 @@ export default enforceRule = (rule, item, path, value) => {
 
 	if (newValue === undefined && !rule.isRequired) {
 		unset(item, path);
+		return true;
 	}
 	else if (newValue !== value) {
 		set(item, path, newValue);
+		return true;
 	}
+	return false;
 };

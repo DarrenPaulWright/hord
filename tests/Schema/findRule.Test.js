@@ -9,7 +9,6 @@ describe('findRule', () => {
 		}, {
 			key: 'test2',
 			content: [{
-				key: 0,
 				content: [{
 					key: 'test3'
 				}, {
@@ -27,7 +26,6 @@ describe('findRule', () => {
 		assert.deepEqual(findRule(['test2'], schema), {
 			key: 'test2',
 			content: [{
-				key: 0,
 				content: [{
 					key: 'test3'
 				}, {
@@ -39,12 +37,27 @@ describe('findRule', () => {
 
 	it('should return arrays', () => {
 		assert.deepEqual(findRule(['test2', 0], schema), {
-			key: 0,
 			content: [{
 				key: 'test3'
 			}, {
 				key: 'test4'
 			}]
+		});
+	});
+
+	it('should return the array content when an index greater than 0 is given', () => {
+		assert.deepEqual(findRule(['test2', 3], schema), {
+			content: [{
+				key: 'test3'
+			}, {
+				key: 'test4'
+			}]
+		});
+	});
+
+	it('should return the last leaf if a greater path is given', () => {
+		assert.deepEqual(findRule(['test1', 'test4', 50], schema), {
+			key: 'test1'
 		});
 	});
 

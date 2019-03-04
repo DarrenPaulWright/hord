@@ -39,15 +39,15 @@ A data storage and manipulation library for javascript
         * [.toString()](#List+toString) ⇒ <code>String</code>
         * [.keys()](#List+keys) ⇒ <code>Object</code>
         * [.every(callback, [thisArg])](#List+every) ⇒ <code>Boolean</code>
-        * [.filter(callback, [thisArg])](#List+filter) ⇒ <code>Array</code>
         * [.forEach(callback, [thisArg])](#List+forEach) ⇒ <code>undefined</code>
         * [.toLocaleString([locales], [options])](#List+toLocaleString) ⇒ <code>String</code>
         * [.join([separator])](#List+join) ⇒ <code>String</code>
-        * [.map(callback, [thisArg])](#List+map) ⇒ <code>Array</code>
         * [.reduce(callback, [thisArg])](#List+reduce) ⇒ <code>\*</code>
         * [.reduceRight(callback, [thisArg])](#List+reduceRight) ⇒ <code>\*</code>
-        * [.slice([begin], [end])](#List+slice) ⇒ <code>Array</code>
         * [.some(callback, [thisArg])](#List+some) ⇒ <code>Boolean</code>
+        * [.filter(callback, [thisArg])](#List+filter) ⇒ [<code>List</code>](#List)
+        * [.map(callback, [thisArg])](#List+map) ⇒ [<code>List</code>](#List)
+        * [.slice([begin], [end])](#List+slice) ⇒ [<code>List</code>](#List)
     * _static_
         * [.sorter](#List.sorter)
 
@@ -299,18 +299,6 @@ See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaS
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
 
-<a name="List+filter"></a>
-
-### list.filter(callback, [thisArg]) ⇒ <code>Array</code>
-See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
-
 <a name="List+forEach"></a>
 
 ### list.forEach(callback, [thisArg]) ⇒ <code>undefined</code>
@@ -346,18 +334,6 @@ See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 | --- | --- | --- |
 | [separator] | <code>String</code> | <code>&#x27;,&#x27;</code> | 
 
-<a name="List+map"></a>
-
-### list.map(callback, [thisArg]) ⇒ <code>Array</code>
-See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
-
 <a name="List+reduce"></a>
 
 ### list.reduce(callback, [thisArg]) ⇒ <code>\*</code>
@@ -382,18 +358,6 @@ See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
 
-<a name="List+slice"></a>
-
-### list.slice([begin], [end]) ⇒ <code>Array</code>
-See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type | Default |
-| --- | --- | --- |
-| [begin] | <code>Number</code> | <code>0</code> | 
-| [end] | <code>Number</code> | <code>array.length</code> | 
-
 <a name="List+some"></a>
 
 ### list.some(callback, [thisArg]) ⇒ <code>Boolean</code>
@@ -405,6 +369,42 @@ See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 | --- | --- |
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
+
+<a name="List+filter"></a>
+
+### list.filter(callback, [thisArg]) ⇒ [<code>List</code>](#List)
+See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+**Kind**: instance method of [<code>List</code>](#List)  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
+
+<a name="List+map"></a>
+
+### list.map(callback, [thisArg]) ⇒ [<code>List</code>](#List)
+See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+
+**Kind**: instance method of [<code>List</code>](#List)  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
+
+<a name="List+slice"></a>
+
+### list.slice([begin], [end]) ⇒ [<code>List</code>](#List)
+See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
+**Kind**: instance method of [<code>List</code>](#List)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [begin] | <code>Number</code> | <code>0</code> | 
+| [end] | <code>Number</code> | <code>array.length</code> | 
 
 <a name="List.sorter"></a>
 

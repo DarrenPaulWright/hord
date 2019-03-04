@@ -11,7 +11,19 @@ A data storage and manipulation library for javascript
 <a name="Installation"></a>
 
 ## Installation
-With npm```npm install hord```## CompatibilityRequires:- Babel >= 7.2## Docs- [List](docs/List.md)
+With npm
+```
+npm install hord
+```
+
+## Compatibility
+
+Requires:
+- Babel >= 7.2
+
+## Docs
+
+- [List](docs/List.md)
 
 
 ## License

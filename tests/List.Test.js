@@ -433,13 +433,8 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => {
-					return a.value - b.value;
-				});
-
-			assert.deepEqual(list.findAll({
-				value: 5
-			}), [{
+				.sorter((a, b) => a.value - b.value);
+			const output = [{
 				value: 5,
 				other: 'ok'
 			}, {
@@ -448,7 +443,13 @@ describe('List', () => {
 			}, {
 				value: 5,
 				other: 'eh'
-			}]);
+			}];
+			const result = list.findAll({
+				value: 5
+			});
+
+			assert.isTrue(result instanceof List);
+			assert.deepEqual(result.values(), output);
 		});
 	});
 
@@ -618,7 +619,9 @@ describe('List', () => {
 	});
 
 	it('.filter should return a new array', () => {
-		assert.deepEqual(new List([1, 2, 3]).filter((item) => item > 1), [2, 3]);
+		const output = new List([1, 2, 3]).filter((item) => item > 1);
+		assert.isTrue(output instanceof List);
+		assert.deepEqual(output.values(), [2, 3]);
 	});
 
 	it('.forEach should call a callback for every item in array', () => {
@@ -642,9 +645,12 @@ describe('List', () => {
 		assert.deepEqual(new List([1, 2, 3]).join('|'), '1|2|3');
 	});
 
-	it('.map should return a mapped version of the array', () => {
+	it('.map should return a mapped version of the array as a list', () => {
 		const mapper = (item) => item + 'px';
-		assert.deepEqual(new List([1, 2, 3]).map(mapper), ['1px', '2px', '3px']);
+		const output = new List([1, 2, 3]).map(mapper);
+
+		assert.isTrue(output instanceof List);
+		assert.deepEqual(output.values(), ['1px', '2px', '3px']);
 	});
 
 	it('.reduce should return the result', () => {
@@ -657,8 +663,10 @@ describe('List', () => {
 		assert.deepEqual(new List([1, 2, 3]).reduceRight(mapper), 6);
 	});
 
-	it('.slice should return a new array', () => {
-		assert.deepEqual(new List([1, 2, 3, 4, 5, 6]).slice(2, 4), [3, 4]);
+	it('.slice should return a new List', () => {
+		const output = new List([1, 2, 3, 4, 5, 6]).slice(2, 4);
+		assert.isTrue(output instanceof List);
+		assert.deepEqual(output.values(), [3, 4]);
 	});
 
 	it('.some should call a callback for every item in array until true is returned', () => {

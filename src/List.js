@@ -249,7 +249,9 @@ export default class List {
 	 * @returns {Array} - An array of items or undefined
 	 */
 	findAll(item) {
-		return this[ARRAY].slice(this.indexOf(item), this.lastIndexOf(item) + 1);
+		return new List()
+			.sorter(this.sorter())
+			.values(this[ARRAY].slice(this.indexOf(item), this.lastIndexOf(item) + 1));
 	}
 
 	/**
@@ -422,18 +424,6 @@ List.prototype.sorter = methodFunction({
  * @returns {Boolean}
  */
 /**
- * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
- *
- * @method filter
- * @memberOf List
- * @instance
- *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
- *
- * @returns {Array}
- */
-/**
  * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
  *
  * @method forEach
@@ -469,18 +459,6 @@ List.prototype.sorter = methodFunction({
  * @returns {String}
  */
 /**
- * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
- *
- * @method map
- * @memberOf List
- * @instance
- *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
- *
- * @returns {Array}
- */
-/**
  * See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
  *
  * @method reduce
@@ -505,18 +483,6 @@ List.prototype.sorter = methodFunction({
  * @returns {*}
  */
 /**
- * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
- *
- * @method slice
- * @memberOf List
- * @instance
- *
- * @arg {Number} [begin=0]
- * @arg {Number} [end=array.length]
- *
- * @returns {Array}
- */
-/**
  * See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
  *
  * @method some
@@ -530,17 +496,62 @@ List.prototype.sorter = methodFunction({
  */
 [
 	'every',
-	'filter',
 	'forEach',
 	'toLocaleString',
 	'join',
-	'map',
 	'reduce',
 	'reduceRight',
-	'slice',
 	'some'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
 		return this[ARRAY][key](...args);
+	}
+});
+
+/**
+ * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+ *
+ * @method filter
+ * @memberOf List
+ * @instance
+ *
+ * @arg {Function} callback
+ * @arg {Object} [thisArg]
+ *
+ * @returns {List}
+ */
+/**
+ * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+ *
+ * @method map
+ * @memberOf List
+ * @instance
+ *
+ * @arg {Function} callback
+ * @arg {Object} [thisArg]
+ *
+ * @returns {List}
+ */
+/**
+ * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+ *
+ * @method slice
+ * @memberOf List
+ * @instance
+ *
+ * @arg {Number} [begin=0]
+ * @arg {Number} [end=array.length]
+ *
+ * @returns {List}
+ */
+[
+	'filter',
+	'map',
+	'slice'
+].forEach((key) => {
+	List.prototype[key] = function(...args) {
+		return new List()
+			.sorter(this.sorter())
+			.values(this[ARRAY][key](...args));
 	}
 });

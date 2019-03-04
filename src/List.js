@@ -13,6 +13,10 @@ const sorters = Object.freeze({
 	number: {
 		asc: numericSortAsc,
 		desc: numericSortDesc
+	},
+	id: {
+		asc: (a, b) => a.id === b.id ? 0 : a.id < b.id ? -1 : 1,
+		desc: (a, b) => a.id === b.id ? 0 : a.id > b.id ? -1 : 1
 	}
 });
 

@@ -124,6 +124,29 @@ export default class List {
 	}
 
 	/**
+	 * Get a new List of the unique (as determined by the sorter) values in this List.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {List}
+	 */
+	unique() {
+		const sorter = this.sorter();
+		const output = [];
+		let previous;
+
+		this.forEach((item, index) => {
+			if (index === 0 || sorter(previous, item)) {
+				output.push(item);
+				previous = item;
+			}
+		});
+
+		return new List().sorter(sorter).values(output);
+	}
+
+	/**
 	 * Merges one or more arrays with the list.
 	 *
 	 * @memberOf List
@@ -266,7 +289,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {Array} - An array of items or undefined
+	 * @returns {List} - A list of items
 	 */
 	findAll(item) {
 		return new List()

@@ -20,6 +20,7 @@ A data storage and manipulation library for javascript
         * [.sort()](#List+sort)
         * [.add(item)](#List+add) ⇒ <code>this</code>
         * [.addUnique(item)](#List+addUnique) ⇒ <code>this</code>
+        * [.unique()](#List+unique) ⇒ [<code>List</code>](#List)
         * [.concat(values)](#List+concat) ⇒ <code>this</code>
         * [.discard(item)](#List+discard) ⇒ <code>this</code>
         * [.discardAll()](#List+discardAll) ⇒ <code>this</code>
@@ -29,7 +30,7 @@ A data storage and manipulation library for javascript
         * [.includes(item)](#List+includes) ⇒ <code>Boolean</code>
         * [.find(item)](#List+find) ⇒ <code>\*</code>
         * [.findLast(item)](#List+findLast) ⇒ <code>\*</code>
-        * [.findAll(item)](#List+findAll) ⇒ <code>Array</code>
+        * [.findAll(item)](#List+findAll) ⇒ [<code>List</code>](#List)
         * [.findIndex(item)](#List+findIndex) ⇒ <code>Number</code>
         * [.findLastIndex(item)](#List+findLastIndex) ⇒ <code>Number</code>
         * [.first()](#List+first) ⇒ <code>\*</code>
@@ -103,6 +104,12 @@ Add an item to the list if it isn't already included. Uses binary search.
 | --- | --- | --- |
 | item | <code>\*</code> | Item is inserted into the list such that the items are still sorted. |
 
+<a name="List+unique"></a>
+
+### list.unique() ⇒ [<code>List</code>](#List)
+Get a new List of the unique (as determined by the sorter) values in this List.
+
+**Kind**: instance method of [<code>List</code>](#List)  
 <a name="List+concat"></a>
 
 ### list.concat(values) ⇒ <code>this</code>
@@ -203,11 +210,11 @@ Gets the last matching item from the list. Uses a binary search.
 
 <a name="List+findAll"></a>
 
-### list.findAll(item) ⇒ <code>Array</code>
+### list.findAll(item) ⇒ [<code>List</code>](#List)
 Gets all the matching items from the list. Uses a binary search.
 
 **Kind**: instance method of [<code>List</code>](#List)  
-**Returns**: <code>Array</code> - - An array of items or undefined  
+**Returns**: [<code>List</code>](#List) - - A list of items  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -405,6 +405,57 @@ describe('List', () => {
 		});
 	});
 
+	describe('.unique', () => {
+		it('should return a new list of unique values', () => {
+			const list = new List().sorter(List.sorter.id.asc).values([{
+				id: 1
+			}, {
+				id: 1
+			}, {
+				id: 2
+			}, {
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}, {
+				id: 5
+			}, {
+				id: 5
+			}, {
+				id: 6
+			}, {
+				id: 7
+			}, {
+				id: 8
+			}, {
+				id: 8
+			}, {
+				id: 8
+			}]);
+			const output = [{
+				id: 1
+			}, {
+				id: 2
+			}, {
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}, {
+				id: 6
+			}, {
+				id: 7
+			}, {
+				id: 8
+			}];
+
+			assert.deepEqual(list.unique().values(), output);
+		});
+	});
+
 	describe('.discard', () => {
 		it('should remove an item from the beginning of the array', () => {
 			assert.deepEqual(new List([2, 3, 4, 5]).discard(2).values(), [3, 4, 5]);

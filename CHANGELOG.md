@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added the method discardAll to [List](docs/List.md)
+- Added the method unique to [List](docs/List.md)
 
 ## [0.1.3] - 2019-02-26
 ### Added

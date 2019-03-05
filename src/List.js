@@ -108,10 +108,16 @@ export default class List {
 	 * @returns {this}
 	 */
 	addUnique(item) {
-		const sorter = this.sorter();
-		const index = sortedIndexOf(this[ARRAY], item, sorter, true);
-		if (sorter(this[ARRAY][index], item) !== 0) {
-			this[ARRAY].splice(index + 1, 0, item);
+		if (this[ARRAY].length === 0) {
+			this[ARRAY][0] = item;
+		}
+		else {
+			const sorter = this.sorter();
+			let index = sortedIndexOf(this[ARRAY], item, sorter, true);
+
+			if (index === -1 || sorter(this[ARRAY][index], item) !== 0) {
+				this[ARRAY].splice((index || -1) + 1, 0, item);
+			}
 		}
 
 		return this;

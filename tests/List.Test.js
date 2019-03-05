@@ -228,31 +228,169 @@ describe('List', () => {
 
 	describe('.addUnique', () => {
 		it('should add an item when no other values have been set', () => {
-			assert.deepEqual(new List().addUnique(2).values(), [2]);
+			const list = new List().sorter(List.sorter.id.asc);
+			const newValue = {
+				id: 2
+			};
+			const output = [{
+				id: 2
+			}];
+
+			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
 
 		it('should add an item to the beginning of the array', () => {
-			assert.deepEqual(new List([3, 4, 5]).addUnique(0).values(), [0, 3, 4, 5]);
+			const list = new List([{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}]).sorter(List.sorter.id.asc);
+			const newValue = {
+				id: 0
+			};
+			const output = [{
+				id: 0
+			}, {
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}];
+
+			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
 
 		it('should add an item in the middle of an array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).addUnique(6).values(), [3, 4, 5, 6, 7, 8]);
+			const list = new List([{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}, {
+				id: 7
+			}, {
+				id: 8
+			}]).sorter(List.sorter.id.asc);
+			const newValue = {
+				id: 6
+			};
+			const output = [{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}, {
+				id: 6
+			}, {
+				id: 7
+			}, {
+				id: 8
+			}];
+
+			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
 
 		it('should add an item to the end of the array', () => {
-			assert.deepEqual(new List([3, 4, 5]).addUnique(10).values(), [3, 4, 5, 10]);
+			const list = new List([{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}]).sorter(List.sorter.id.asc);
+			const newValue = {
+				id: 10
+			};
+			const output = [{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}, {
+				id: 10
+			}];
+
+			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
 
 		it('should NOT add a duplicate item to the beginning of the array', () => {
-			assert.deepEqual(new List([3, 4, 5]).addUnique(3).values(), [3, 4, 5]);
+			const list = new List([{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}]).sorter(List.sorter.id.asc);
+			const newValue = {
+				id: 3
+			};
+			const output = [{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}];
+
+			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
 
 		it('should NOT add a duplicate item in the middle of an array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).addUnique(5).values(), [3, 4, 5, 7, 8]);
+			const list = new List([{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}, {
+				id: 7
+			}, {
+				id: 8
+			}]).sorter(List.sorter.id.asc);
+			const newValue = {
+				id: 5
+			};
+			const output = [{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}, {
+				id: 7
+			}, {
+				id: 8
+			}];
+
+			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
 
 		it('should NOT add a duplicate item to the end of the array', () => {
-			assert.deepEqual(new List([3, 4, 5]).addUnique(5).values(), [3, 4, 5]);
+			const list = new List([{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}]).sorter(List.sorter.id.asc);
+			const newValue = {
+				id: 5
+			};
+			const output = [{
+				id: 3
+			}, {
+				id: 4
+			}, {
+				id: 5
+			}];
+
+			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
 
 		const biggishArray = buildArray(100000);

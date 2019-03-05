@@ -156,6 +156,20 @@ export default class List {
 	}
 
 	/**
+	 * Discard all items from the list.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {this}
+	 */
+	discardAll() {
+		this[ARRAY].length = 0;
+
+		return this;
+	}
+
+	/**
 	 * The current items in the list.
 	 *
 	 * @memberOf List

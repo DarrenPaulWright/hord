@@ -419,6 +419,20 @@ describe('List', () => {
 		});
 	});
 
+	describe('.discardAll', () => {
+		it('should do nothing to an empty list', () => {
+			assert.deepEqual(new List().discardAll().values(), []);
+		});
+
+		it('should remove all the items from a list', () => {
+			assert.deepEqual(new List([2, 3, 4, 5]).discardAll().values(), []);
+		});
+
+		it('should remove all the items from a big list', () => {
+			assert.deepEqual(new List(bigArray).discardAll().values(), []);
+		});
+	});
+
 	describe('.indexOf', () => {
 		it('should return -1 for an item that isn\'t in the array', () => {
 			assert.deepEqual(new List([3, 4, 5, 7, 8]).indexOf(6), -1);

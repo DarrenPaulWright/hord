@@ -22,6 +22,7 @@ A data storage and manipulation library for javascript
         * [.addUnique(item)](#List+addUnique) ⇒ <code>this</code>
         * [.concat(values)](#List+concat) ⇒ <code>this</code>
         * [.discard(item)](#List+discard) ⇒ <code>this</code>
+        * [.discardAll()](#List+discardAll) ⇒ <code>this</code>
         * [.values([values])](#List+values) ⇒ <code>this</code> \| <code>Array</code>
         * [.indexOf(item)](#List+indexOf) ⇒ <code>Number</code>
         * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>Number</code>
@@ -124,6 +125,12 @@ Discard an item from the list. Uses binary search.
 | --- | --- | --- |
 | item | <code>\*</code> | Uses the sorter function to determine equality. |
 
+<a name="List+discardAll"></a>
+
+### list.discardAll() ⇒ <code>this</code>
+Discard all items from the list.
+
+**Kind**: instance method of [<code>List</code>](#List)  
 <a name="List+values"></a>
 
 ### list.values([values]) ⇒ <code>this</code> \| <code>Array</code>

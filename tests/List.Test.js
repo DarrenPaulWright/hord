@@ -694,7 +694,7 @@ describe('List', () => {
 			list.sorter(List.sorter.number.asc)
 				.values(biggishArray)
 				.concat([-2, -1, -3]);
-			assert.deepEqual(list.map((item) => item), biggishArrayOutput);
+			assert.deepEqual(list.values(), biggishArrayOutput);
 		});
 	});
 

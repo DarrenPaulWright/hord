@@ -591,8 +591,9 @@ List.prototype.sorter = methodFunction({
 	'slice'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
-		return new List()
-			.sorter(this.sorter())
-			.values(this[ARRAY][key](...args));
+		const newList = new List()
+			.sorter(this.sorter());
+		newList[ARRAY] = this[ARRAY][key](...args);
+		return newList;
 	};
 });

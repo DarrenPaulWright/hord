@@ -832,8 +832,7 @@ describe('List', () => {
 		const mapper = (item) => item + 'px';
 		const output = new List([1, 2, 3]).map(mapper);
 
-		assert.isTrue(output instanceof List);
-		assert.deepEqual(output.values(), ['1px', '2px', '3px']);
+		assert.deepEqual(output, ['1px', '2px', '3px']);
 	});
 
 	it('.reduce should return the result', () => {

@@ -44,11 +44,11 @@ A data storage and manipulation library for javascript
         * [.forEach(callback, [thisArg])](#List+forEach) ⇒ <code>undefined</code>
         * [.toLocaleString([locales], [options])](#List+toLocaleString) ⇒ <code>String</code>
         * [.join([separator])](#List+join) ⇒ <code>String</code>
+        * [.map(callback, [thisArg])](#List+map) ⇒ <code>Array</code>
         * [.reduce(callback, [thisArg])](#List+reduce) ⇒ <code>\*</code>
         * [.reduceRight(callback, [thisArg])](#List+reduceRight) ⇒ <code>\*</code>
         * [.some(callback, [thisArg])](#List+some) ⇒ <code>Boolean</code>
         * [.filter(callback, [thisArg])](#List+filter) ⇒ [<code>List</code>](#List)
-        * [.map(callback, [thisArg])](#List+map) ⇒ [<code>List</code>](#List)
         * [.slice([begin], [end])](#List+slice) ⇒ [<code>List</code>](#List)
     * _static_
         * [.sorter](#List.sorter)
@@ -56,14 +56,7 @@ A data storage and manipulation library for javascript
 <a name="new_List_new"></a>
 
 ### new List([values])
-Always sorted array.
-
-List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
-
-## Usage
-``` javascript
-import { List } from 'hord';
-```
+Always sorted array.List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.## Usage``` javascriptimport { List } from 'hord';```
 
 
 | Param | Type |
@@ -259,17 +252,7 @@ Gets the last item in the list without removing it.
 <a name="List+sorter"></a>
 
 ### list.sorter(sorter) ⇒ <code>\*</code>
-The sorting function. This function is used by .sort() and the binary search to determine equality.
-
-See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
-A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)
-
-If you're setting this, you may want to call this before setting the values, like this:
-``` javascript
-import { List } from 'hord';
-
-const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);
-```
+The sorting function. This function is used by .sort() and the binary search to determine equality.See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)If you're setting this, you may want to call this before setting the values, like this:``` javascriptimport { List } from 'hord';const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);```
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
@@ -348,6 +331,18 @@ See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 | --- | --- | --- |
 | [separator] | <code>String</code> | <code>&#x27;,&#x27;</code> | 
 
+<a name="List+map"></a>
+
+### list.map(callback, [thisArg]) ⇒ <code>Array</code>
+See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+
+**Kind**: instance method of [<code>List</code>](#List)  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
+
 <a name="List+reduce"></a>
 
 ### list.reduce(callback, [thisArg]) ⇒ <code>\*</code>
@@ -388,18 +383,6 @@ See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 
 ### list.filter(callback, [thisArg]) ⇒ [<code>List</code>](#List)
 See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
-
-<a name="List+map"></a>
-
-### list.map(callback, [thisArg]) ⇒ [<code>List</code>](#List)
-See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 
 **Kind**: instance method of [<code>List</code>](#List)  
 

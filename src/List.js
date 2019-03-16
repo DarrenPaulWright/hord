@@ -500,6 +500,18 @@ List.prototype.sorter = methodFunction({
  * @returns {String}
  */
 /**
+ * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+ *
+ * @method map
+ * @memberOf List
+ * @instance
+ *
+ * @arg {Function} callback
+ * @arg {Object} [thisArg]
+ *
+ * @returns {Array}
+ */
+/**
  * See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
  *
  * @method reduce
@@ -540,6 +552,7 @@ List.prototype.sorter = methodFunction({
 	'forEach',
 	'toLocaleString',
 	'join',
+	'map',
 	'reduce',
 	'reduceRight',
 	'some'
@@ -562,18 +575,6 @@ List.prototype.sorter = methodFunction({
  * @returns {List}
  */
 /**
- * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
- *
- * @method map
- * @memberOf List
- * @instance
- *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
- *
- * @returns {List}
- */
-/**
  * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
  *
  * @method slice
@@ -587,7 +588,6 @@ List.prototype.sorter = methodFunction({
  */
 [
 	'filter',
-	'map',
 	'slice'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {

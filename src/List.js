@@ -1,18 +1,19 @@
-import { enforceFunction, isArray, methodFunction } from 'type-enforcer';
-
-const defaultSorter = (a, b) => a === b ? 0 : a < b ? -1 : 1;
-const numericSortAsc = (a, b) => a - b;
-const numericSortDesc = (a, b) => b - a;
+import defaultCompare from 'default-compare';
+import { isArray, methodFunction } from 'type-enforcer';
 
 const sorters = Object.freeze({
-	default: defaultSorter,
+	default: defaultCompare,
 	string: {
 		asc: (a, b) => a.localeCompare(b),
 		desc: (a, b) => b.localeCompare(a)
 	},
 	number: {
-		asc: numericSortAsc,
-		desc: numericSortDesc
+		asc: (a, b) => a - b,
+		desc: (a, b) => b - a
+	},
+	id: {
+		asc: (a, b) => defaultCompare(a, b, 'id'),
+		desc: (a, b) => defaultCompare(b, a, 'id')
 	}
 });
 
@@ -21,8 +22,6 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 	let low = 0;
 	let mid;
 	let diff;
-
-	sorter = enforceFunction(sorter, defaultSorter);
 
 	while (low < high) {
 		mid = high + low >>> 1;
@@ -71,8 +70,7 @@ export default class List {
 	 */
 	sort() {
 		if (this[ARRAY].length) {
-			const sorter = this.sorter();
-			this[ARRAY].sort(sorter === sorters.default ? undefined : sorter);
+			this[ARRAY].sort(this.sorter());
 		}
 		return this;
 	}
@@ -104,13 +102,42 @@ export default class List {
 	 * @returns {this}
 	 */
 	addUnique(item) {
-		const sorter = this.sorter();
-		const index = sortedIndexOf(this[ARRAY], item, sorter, true);
-		if (sorter(this[ARRAY][index], item) !== 0) {
-			this[ARRAY].splice(index + 1, 0, item);
+		if (this[ARRAY].length === 0) {
+			this[ARRAY][0] = item;
+		}
+		else {
+			const sorter = this.sorter();
+			let index = sortedIndexOf(this[ARRAY], item, sorter, true);
+
+			if (index === -1 || sorter(this[ARRAY][index], item) !== 0) {
+				this[ARRAY].splice((index || -1) + 1, 0, item);
+			}
 		}
 
 		return this;
+	}
+
+	/**
+	 * Get a new List of the unique (as determined by the sorter) values in this List.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {List}
+	 */
+	unique() {
+		const sorter = this.sorter();
+		const output = [];
+		let previous;
+
+		this.forEach((item, index) => {
+			if (index === 0 || sorter(previous, item)) {
+				output.push(item);
+				previous = item;
+			}
+		});
+
+		return new List().sorter(sorter).values(output);
 	}
 
 	/**
@@ -141,6 +168,20 @@ export default class List {
 	 */
 	discard(item) {
 		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this.sorter(), true), 1);
+
+		return this;
+	}
+
+	/**
+	 * Discard all items from the list.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {this}
+	 */
+	discardAll() {
+		this[ARRAY].length = 0;
 
 		return this;
 	}
@@ -242,10 +283,12 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {Array} - An array of items or undefined
+	 * @returns {List} - A list of items
 	 */
 	findAll(item) {
-		return this[ARRAY].slice(this.indexOf(item), this.lastIndexOf(item) + 1);
+		return new List()
+			.sorter(this.sorter())
+			.values(this[ARRAY].slice(this.indexOf(item), this.lastIndexOf(item) + 1));
 	}
 
 	/**
@@ -402,7 +445,7 @@ List.prototype.sorter = methodFunction({
 ].forEach((key) => {
 	List.prototype[key] = function() {
 		return this[ARRAY][key]();
-	}
+	};
 });
 
 /**
@@ -416,18 +459,6 @@ List.prototype.sorter = methodFunction({
  * @arg {Object} [thisArg]
  *
  * @returns {Boolean}
- */
-/**
- * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
- *
- * @method filter
- * @memberOf List
- * @instance
- *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
- *
- * @returns {Array}
  */
 /**
  * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
@@ -501,18 +532,6 @@ List.prototype.sorter = methodFunction({
  * @returns {*}
  */
 /**
- * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
- *
- * @method slice
- * @memberOf List
- * @instance
- *
- * @arg {Number} [begin=0]
- * @arg {Number} [end=array.length]
- *
- * @returns {Array}
- */
-/**
  * See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
  *
  * @method some
@@ -526,17 +545,51 @@ List.prototype.sorter = methodFunction({
  */
 [
 	'every',
-	'filter',
 	'forEach',
 	'toLocaleString',
 	'join',
 	'map',
 	'reduce',
 	'reduceRight',
-	'slice',
 	'some'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
 		return this[ARRAY][key](...args);
-	}
+	};
+});
+
+/**
+ * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+ *
+ * @method filter
+ * @memberOf List
+ * @instance
+ *
+ * @arg {Function} callback
+ * @arg {Object} [thisArg]
+ *
+ * @returns {List}
+ */
+/**
+ * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+ *
+ * @method slice
+ * @memberOf List
+ * @instance
+ *
+ * @arg {Number} [begin=0]
+ * @arg {Number} [end=array.length]
+ *
+ * @returns {List}
+ */
+[
+	'filter',
+	'slice'
+].forEach((key) => {
+	List.prototype[key] = function(...args) {
+		const newList = new List()
+			.sorter(this.sorter());
+		newList[ARRAY] = this[ARRAY][key](...args);
+		return newList;
+	};
 });

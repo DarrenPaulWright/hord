@@ -1,6 +1,6 @@
 {
 	"name": "hord",
-	"version": "0.1.3",
+	"version": "0.2.0",
 	"description": "A data storage and manipulation library for javascript",
 	"main": "src/index.js",
 	"scripts": {
@@ -31,7 +31,8 @@
 	"author": "Darren Paul Wright <Darren@DarrenPaulWright.com>",
 	"license": "MIT",
 	"dependencies": {
-		"type-enforcer": "^0.3.0"
+		"default-compare": "^1.0.0",
+		"type-enforcer": "^0.4.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.2.2",

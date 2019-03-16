@@ -20,15 +20,17 @@ A data storage and manipulation library for javascript
         * [.sort()](#List+sort)
         * [.add(item)](#List+add) ⇒ <code>this</code>
         * [.addUnique(item)](#List+addUnique) ⇒ <code>this</code>
+        * [.unique()](#List+unique) ⇒ [<code>List</code>](#List)
         * [.concat(values)](#List+concat) ⇒ <code>this</code>
         * [.discard(item)](#List+discard) ⇒ <code>this</code>
+        * [.discardAll()](#List+discardAll) ⇒ <code>this</code>
         * [.values([values])](#List+values) ⇒ <code>this</code> \| <code>Array</code>
         * [.indexOf(item)](#List+indexOf) ⇒ <code>Number</code>
         * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>Number</code>
         * [.includes(item)](#List+includes) ⇒ <code>Boolean</code>
         * [.find(item)](#List+find) ⇒ <code>\*</code>
         * [.findLast(item)](#List+findLast) ⇒ <code>\*</code>
-        * [.findAll(item)](#List+findAll) ⇒ <code>Array</code>
+        * [.findAll(item)](#List+findAll) ⇒ [<code>List</code>](#List)
         * [.findIndex(item)](#List+findIndex) ⇒ <code>Number</code>
         * [.findLastIndex(item)](#List+findLastIndex) ⇒ <code>Number</code>
         * [.first()](#List+first) ⇒ <code>\*</code>
@@ -39,29 +41,22 @@ A data storage and manipulation library for javascript
         * [.toString()](#List+toString) ⇒ <code>String</code>
         * [.keys()](#List+keys) ⇒ <code>Object</code>
         * [.every(callback, [thisArg])](#List+every) ⇒ <code>Boolean</code>
-        * [.filter(callback, [thisArg])](#List+filter) ⇒ <code>Array</code>
         * [.forEach(callback, [thisArg])](#List+forEach) ⇒ <code>undefined</code>
         * [.toLocaleString([locales], [options])](#List+toLocaleString) ⇒ <code>String</code>
         * [.join([separator])](#List+join) ⇒ <code>String</code>
         * [.map(callback, [thisArg])](#List+map) ⇒ <code>Array</code>
         * [.reduce(callback, [thisArg])](#List+reduce) ⇒ <code>\*</code>
         * [.reduceRight(callback, [thisArg])](#List+reduceRight) ⇒ <code>\*</code>
-        * [.slice([begin], [end])](#List+slice) ⇒ <code>Array</code>
         * [.some(callback, [thisArg])](#List+some) ⇒ <code>Boolean</code>
+        * [.filter(callback, [thisArg])](#List+filter) ⇒ [<code>List</code>](#List)
+        * [.slice([begin], [end])](#List+slice) ⇒ [<code>List</code>](#List)
     * _static_
         * [.sorter](#List.sorter)
 
 <a name="new_List_new"></a>
 
 ### new List([values])
-Always sorted array.
-
-List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
-
-## Usage
-``` javascript
-import { List } from 'hord';
-```
+Always sorted array.List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.## Usage``` javascriptimport { List } from 'hord';```
 
 
 | Param | Type |
@@ -102,6 +97,12 @@ Add an item to the list if it isn't already included. Uses binary search.
 | --- | --- | --- |
 | item | <code>\*</code> | Item is inserted into the list such that the items are still sorted. |
 
+<a name="List+unique"></a>
+
+### list.unique() ⇒ [<code>List</code>](#List)
+Get a new List of the unique (as determined by the sorter) values in this List.
+
+**Kind**: instance method of [<code>List</code>](#List)  
 <a name="List+concat"></a>
 
 ### list.concat(values) ⇒ <code>this</code>
@@ -124,6 +125,12 @@ Discard an item from the list. Uses binary search.
 | --- | --- | --- |
 | item | <code>\*</code> | Uses the sorter function to determine equality. |
 
+<a name="List+discardAll"></a>
+
+### list.discardAll() ⇒ <code>this</code>
+Discard all items from the list.
+
+**Kind**: instance method of [<code>List</code>](#List)  
 <a name="List+values"></a>
 
 ### list.values([values]) ⇒ <code>this</code> \| <code>Array</code>
@@ -196,11 +203,11 @@ Gets the last matching item from the list. Uses a binary search.
 
 <a name="List+findAll"></a>
 
-### list.findAll(item) ⇒ <code>Array</code>
+### list.findAll(item) ⇒ [<code>List</code>](#List)
 Gets all the matching items from the list. Uses a binary search.
 
 **Kind**: instance method of [<code>List</code>](#List)  
-**Returns**: <code>Array</code> - - An array of items or undefined  
+**Returns**: [<code>List</code>](#List) - - A list of items  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -245,17 +252,7 @@ Gets the last item in the list without removing it.
 <a name="List+sorter"></a>
 
 ### list.sorter(sorter) ⇒ <code>\*</code>
-The sorting function. This function is used by .sort() and the binary search to determine equality.
-
-See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
-A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)
-
-If you're setting this, you may want to call this before setting the values, like this:
-``` javascript
-import { List } from 'hord';
-
-const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);
-```
+The sorting function. This function is used by .sort() and the binary search to determine equality.See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)If you're setting this, you may want to call this before setting the values, like this:``` javascriptimport { List } from 'hord';const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);```
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
@@ -291,18 +288,6 @@ See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 
 ### list.every(callback, [thisArg]) ⇒ <code>Boolean</code>
 See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
-
-<a name="List+filter"></a>
-
-### list.filter(callback, [thisArg]) ⇒ <code>Array</code>
-See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
@@ -382,18 +367,6 @@ See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
 
-<a name="List+slice"></a>
-
-### list.slice([begin], [end]) ⇒ <code>Array</code>
-See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
-
-**Kind**: instance method of [<code>List</code>](#List)  
-
-| Param | Type | Default |
-| --- | --- | --- |
-| [begin] | <code>Number</code> | <code>0</code> | 
-| [end] | <code>Number</code> | <code>array.length</code> | 
-
 <a name="List+some"></a>
 
 ### list.some(callback, [thisArg]) ⇒ <code>Boolean</code>
@@ -405,6 +378,30 @@ See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 | --- | --- |
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
+
+<a name="List+filter"></a>
+
+### list.filter(callback, [thisArg]) ⇒ [<code>List</code>](#List)
+See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+**Kind**: instance method of [<code>List</code>](#List)  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
+
+<a name="List+slice"></a>
+
+### list.slice([begin], [end]) ⇒ [<code>List</code>](#List)
+See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
+**Kind**: instance method of [<code>List</code>](#List)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [begin] | <code>Number</code> | <code>0</code> | 
+| [end] | <code>Number</code> | <code>array.length</code> | 
 
 <a name="List.sorter"></a>
 

@@ -1,22 +1,19 @@
+import defaultCompare from 'default-compare';
 import { isArray, methodFunction } from 'type-enforcer';
 
-const defaultSorter = (a, b) => a === b ? 0 : a < b ? -1 : 1;
-const numericSortAsc = (a, b) => a - b;
-const numericSortDesc = (a, b) => b - a;
-
 const sorters = Object.freeze({
-	default: defaultSorter,
+	default: defaultCompare,
 	string: {
 		asc: (a, b) => a.localeCompare(b),
 		desc: (a, b) => b.localeCompare(a)
 	},
 	number: {
-		asc: numericSortAsc,
-		desc: numericSortDesc
+		asc: (a, b) => a - b,
+		desc: (a, b) => b - a
 	},
 	id: {
-		asc: (a, b) => a.id === b.id ? 0 : a.id < b.id ? -1 : 1,
-		desc: (a, b) => a.id === b.id ? 0 : a.id > b.id ? -1 : 1
+		asc: (a, b) => defaultCompare(a, b, 'id'),
+		desc: (a, b) => defaultCompare(b, a, 'id')
 	}
 });
 
@@ -73,8 +70,7 @@ export default class List {
 	 */
 	sort() {
 		if (this[ARRAY].length) {
-			const sorter = this.sorter();
-			this[ARRAY].sort(sorter === sorters.default ? undefined : sorter);
+			this[ARRAY].sort(this.sorter());
 		}
 		return this;
 	}
@@ -399,7 +395,7 @@ List.sorter = sorters;
  * @returns {*}
  */
 List.prototype.sorter = methodFunction({
-	init: defaultSorter,
+	init: sorters.default,
 	set: function() {
 		this.sort();
 	}

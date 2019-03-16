@@ -31,6 +31,7 @@
 	"author": "Darren Paul Wright <Darren@DarrenPaulWright.com>",
 	"license": "MIT",
 	"dependencies": {
+		"default-compare": "^1.0.0",
 		"type-enforcer": "^0.4.1"
 	},
 	"devDependencies": {

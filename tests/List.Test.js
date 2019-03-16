@@ -124,7 +124,6 @@ describe('List', () => {
 		it('should sort initial values', () => {
 			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).values(), [0,
 				1,
-				10,
 				2,
 				3,
 				4,
@@ -132,7 +131,8 @@ describe('List', () => {
 				6,
 				7,
 				8,
-				9]);
+				9,
+				10]);
 		});
 
 		it('should sort initial values with List.sorter.number.asc', () => {
@@ -821,7 +821,7 @@ describe('List', () => {
 	it('.toLocaleString should return a string of the array', () => {
 		assert.deepEqual(new List([1,
 			'a',
-			new Date('21 Dec 1997 14:12:00 UTC')]).toLocaleString('en', {timeZone: 'UTC'}), '1,12/21/1997, 2:12:00 PM,a');
+			new Date('21 Dec 1997 14:12:00 UTC')]).toLocaleString('en', {timeZone: 'UTC'}), '1,a,12/21/1997, 2:12:00 PM');
 	});
 
 	it('.join should return a string of the array', () => {

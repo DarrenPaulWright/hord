@@ -1,4 +1,4 @@
-import { enforceFunction, isArray, methodFunction } from 'type-enforcer';
+import { isArray, methodFunction } from 'type-enforcer';
 
 const defaultSorter = (a, b) => a === b ? 0 : a < b ? -1 : 1;
 const numericSortAsc = (a, b) => a - b;
@@ -25,8 +25,6 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 	let low = 0;
 	let mid;
 	let diff;
-
-	sorter = enforceFunction(sorter, defaultSorter);
 
 	while (low < high) {
 		mid = high + low >>> 1;
@@ -401,7 +399,7 @@ List.sorter = sorters;
  * @returns {*}
  */
 List.prototype.sorter = methodFunction({
-	init: sorters.default,
+	init: defaultSorter,
 	set: function() {
 		this.sort();
 	}
@@ -451,7 +449,7 @@ List.prototype.sorter = methodFunction({
 ].forEach((key) => {
 	List.prototype[key] = function() {
 		return this[ARRAY][key]();
-	}
+	};
 });
 
 /**
@@ -548,7 +546,7 @@ List.prototype.sorter = methodFunction({
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
 		return this[ARRAY][key](...args);
-	}
+	};
 });
 
 /**
@@ -596,5 +594,5 @@ List.prototype.sorter = methodFunction({
 		return new List()
 			.sorter(this.sorter())
 			.values(this[ARRAY][key](...args));
-	}
+	};
 });

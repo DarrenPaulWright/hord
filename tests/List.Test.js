@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { List } from '../src/index';
+import { List } from '../src';
 import { sortedIndexOf } from '../src/List';
 
 const defaultSorter = (a, b) => a.id === b.id ? 0 : a.id < b.id ? -1 : 1;
@@ -64,11 +64,11 @@ describe('sortedIndexOf', () => {
 				7,
 				8,
 				9,
-				10], 3, null, false, true), 5);
+				10], 3, List.sorter.default, false, true), 5);
 		});
 
 		it('should return 9 as the index of the last of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([3, 4, 5, 6, 7, 8, 9, 10, 10, 10], 10, null, false, true), 9);
+			assert.equal(sortedIndexOf([3, 4, 5, 6, 7, 8, 9, 10, 10, 10], 10, List.sorter.default, false, true), 9);
 		});
 	});
 
@@ -102,39 +102,19 @@ describe('sortedIndexOf', () => {
 		});
 
 		it('should return the last index for a value that is greater than all others in the array', () => {
-			assert.equal(sortedIndexOf([1, 2, 3, 4, 8, 9], 5, null, true), 3);
+			assert.equal(sortedIndexOf([1, 2, 3, 4, 8, 9], 5, List.sorter.default, true), 3);
 		});
 
 		it('should return the last index for a value that is greater than all others in the array', () => {
-			assert.equal(sortedIndexOf([1, 2, 3, 4, 9], 5, null, true), 3);
+			assert.equal(sortedIndexOf([1, 2, 3, 4, 9], 5, List.sorter.default, true), 3);
 		});
 
 		it('should return the index of the first of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([1, 2, 3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, null, true), 2);
+			assert.equal(sortedIndexOf([1, 2, 3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, List.sorter.default, true), 2);
 		});
 
 		it('should return 0 as the index of the first of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, null, true), 0);
-		});
-
-		it('should return the index of the last of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([1,
-				2,
-				3,
-				3,
-				3,
-				3,
-				4,
-				5,
-				6,
-				7,
-				8,
-				9,
-				10], 3, null, true, true), 5);
-		});
-
-		it('should return 9 as the index of the last of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([3, 4, 5, 6, 7, 8, 9, 10, 10, 10], 10, null, true, true), 9);
+			assert.equal(sortedIndexOf([3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, List.sorter.default, true), 0);
 		});
 	});
 });

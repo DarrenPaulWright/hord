@@ -1,6 +1,6 @@
 {
 	"name": "hord",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "A data storage and manipulation library for javascript",
 	"main": "src/index.js",
 	"scripts": {

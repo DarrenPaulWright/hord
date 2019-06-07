@@ -9,10 +9,47 @@
 		"patch": "npm version patch -m \"Increment patch version to %s\" && npm publish",
 		"minor": "npm version minor -m \"Increment minor version to %s\" && npm publish",
 		"major": "npm version major -m \"Increment major version to %s\" && npm publish",
-		"docs-readme": "jsdoc2md src/index.js > README.md --template docs.hbs --partial scope.hbs",
-		"docs-list": "jsdoc2md src/List.js > docs/List.md --template docs.hbs",
+		"docs-readme": "jsdoc2md src/index.js > README.md -t docs/docs.hbs --plugin dmd-readable -d 3",
+		"docs-list": "jsdoc2md src/List.js > docs/List.md -t docs/docs.hbs --plugin dmd-readable -d 3",
 		"docs": "npm run docs-readme && npm run docs-list"
 	},
+	"badges": [
+		{
+			"name": "npm",
+			"image": "https://img.shields.io/npm/v/hord.svg",
+			"url": "https://npmjs.com/package/hord"
+		},
+		{
+			"name": "build",
+			"image": "https://travis-ci.org/DarrenPaulWright/hord.svg?branch=master",
+			"url": "https://travis-ci.org/DarrenPaulWright/hord"
+		},
+		{
+			"name": "coverage",
+			"image": "https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch=master",
+			"url": "https://coveralls.io/github/DarrenPaulWright/hord?branch=master"
+		},
+		{
+			"name": "deps",
+			"image": "https://david-dm.org/darrenpaulwright/hord.svg",
+			"url": "https://david-dm.org/darrenpaulwright/hord"
+		},
+		{
+			"name": "size",
+			"image": "https://packagephobia.now.sh/badge?p=hord",
+			"url": "https://packagephobia.now.sh/result?p=hord"
+		},
+		{
+			"name": "vulnerabilities",
+			"image": "https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile=package.json",
+			"url": "https://snyk.io/test/github/DarrenPaulWright/hord?targetFile=package.json"
+		},
+		{
+			"name": "license",
+			"image": "https://img.shields.io/github/license/DarrenPaulWright/hord.svg",
+			"url": "https://npmjs.com/package/hord/LICENSE.md"
+		}
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/DarrenPaulWright/hord.git"
@@ -41,6 +78,7 @@
 		"babel-loader": "^8.0.6",
 		"babel-plugin-istanbul": "^5.1.4",
 		"chai": "^4.2.0",
+		"dmd-readable": "^0.3.1",
 		"eslint": "^5.16.0",
 		"eslint-loader": "^2.1.2",
 		"eslint-plugin-babel": "^5.3.0",

@@ -1,18 +1,23 @@
 /**
- * With npm
+ * @name Installation
+ * @summary
+ *
  * ```
  * npm install hord
  * ```
- *
- * ## Compatibility
- *
+ */
+
+/**
+ * @name Compatibility
+ * @summary
  * Requires:
- * - Babel >= 7.2
- *
- * ## Docs
+ * - Babel 7.2+
+ */
+
+/**
+ * @name Docs
+ * @summary
  *
  * - [List](docs/List.md)
- *
- * @name Installation
  */
 export { default as List } from './List';

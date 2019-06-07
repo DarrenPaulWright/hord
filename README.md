@@ -1,40 +1,45 @@
-# hord
-[![npm][npm]][npm-url]
+# Hord
+
+> A data storage and manipulation library for javascript
+>
+> [![npm][npm]][npm-url]
 [![build][build]][build-url]
-[![Coverage Status](https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch=master)](https://coveralls.io/github/DarrenPaulWright/hord?branch=master)
+[![coverage][coverage]][coverage-url]
 [![deps][deps]][deps-url]
 [![size][size]][size-url]
-[![Known Vulnerabilities](https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile=package.json)](https://snyk.io/test/github/DarrenPaulWright/hord?targetFile=package.json)
+[![vulnerabilities][vulnerabilities]][vulnerabilities-url]
+[![license][license]][license-url]
 
-A data storage and manipulation library for javascript
 
-<a name="Installation"></a>
+<br><a name="Installation"></a>
 
-## Installation
-With npm
+### Installation
 ```
 npm install hord
 ```
 
-## Compatibility
+<br><a name="Compatibility"></a>
 
+### Compatibility
 Requires:
-- Babel >= 7.2
+- Babel 7.2+
 
-## Docs
+<br><a name="Docs"></a>
 
+### Docs
 - [List](docs/List.md)
-
-
-## License
-
-[MIT](LICENSE.md)
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord
-[build]: https://travis-ci.org/DarrenPaulWright/hord.svg?branch=master
+[build]: https://travis-ci.org/DarrenPaulWright/hord.svg?branch&#x3D;master
 [build-url]: https://travis-ci.org/DarrenPaulWright/hord
+[coverage]: https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch&#x3D;master
+[coverage-url]: https://coveralls.io/github/DarrenPaulWright/hord?branch&#x3D;master
 [deps]: https://david-dm.org/darrenpaulwright/hord.svg
 [deps-url]: https://david-dm.org/darrenpaulwright/hord
-[size]: https://packagephobia.now.sh/badge?p=hord
-[size-url]: https://packagephobia.now.sh/result?p=hord
+[size]: https://packagephobia.now.sh/badge?p&#x3D;hord
+[size-url]: https://packagephobia.now.sh/result?p&#x3D;hord
+[vulnerabilities]: https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile&#x3D;package.json
+[vulnerabilities-url]: https://snyk.io/test/github/DarrenPaulWright/hord?targetFile&#x3D;package.json
+[license]: https://img.shields.io/github/license/DarrenPaulWright/hord.svg
+[license-url]: https://npmjs.com/package/hord/LICENSE.md

@@ -44,16 +44,17 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 const ARRAY = Symbol();
 
 /**
+ * @class List
+ * @summary
+ *
+ * ``` javascript
+ * import { List } from 'hord';
+ * ```
+ * @description
  * Always sorted array.
  *
  * List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
  *
- * ## Usage
- * ``` javascript
- * import { List } from 'hord';
- * ```
- *
- * @class List
  *
  * @arg {Array} [values]
  */
@@ -67,6 +68,7 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @chainable
 	 */
 	sort() {
 		if (this[ARRAY].length) {
@@ -80,10 +82,10 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @chainable
 	 *
 	 * @arg {*} item - Item is inserted into the list such that the items are still sorted.
 	 *
-	 * @returns {this}
 	 */
 	add(item) {
 		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this.sorter(), true) + 1, 0, item);
@@ -96,6 +98,7 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @chainable
 	 *
 	 * @arg {*} item - Item is inserted into the list such that the items are still sorted.
 	 *
@@ -145,6 +148,7 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @chainable
 	 *
 	 * @arg {*} values
 	 *
@@ -161,6 +165,7 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @chainable
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
@@ -177,6 +182,7 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @chainable
 	 *
 	 * @returns {this}
 	 */
@@ -191,6 +197,7 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @chainable
 	 *
 	 * @arg {Array} [values] - If provided, replaces any previous values with these, otherwise return the current values.
 	 *
@@ -213,7 +220,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {Number} - The index of the item or -1
+	 * @returns {Number} The index of the item or -1
 	 */
 	indexOf(item) {
 		return sortedIndexOf(this[ARRAY], item, this.sorter());
@@ -227,7 +234,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {Number} - The index of the item or -1
+	 * @returns {Number} The index of the item or -1
 	 */
 	lastIndexOf(item) {
 		return sortedIndexOf(this[ARRAY], item, this.sorter(), false, true);
@@ -255,7 +262,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {*} - The item or undefined
+	 * @returns {*} The item or undefined
 	 */
 	find(item) {
 		return this[ARRAY][this.indexOf(item)];
@@ -269,7 +276,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {*} - The item or undefined
+	 * @returns {*} The item or undefined
 	 */
 	findLast(item) {
 		return this[ARRAY][this.lastIndexOf(item)];
@@ -283,7 +290,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {List} - A list of items
+	 * @returns {List} A list of items
 	 */
 	findAll(item) {
 		return new List()
@@ -299,7 +306,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {Number} - The index of the item or -1
+	 * @returns {Number} The index of the item or -1
 	 */
 	findIndex(item) {
 		return this.indexOf(item);
@@ -313,7 +320,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {Number} - The index of the item or -1
+	 * @returns {Number} The index of the item or -1
 	 */
 	findLastIndex(item) {
 		return this.lastIndexOf(item);
@@ -348,6 +355,7 @@ export default class List {
 	 *
 	 * @memberOf List
 	 * @instance
+	 * @readonly
 	 *
 	 * @returns {Number}
 	 */

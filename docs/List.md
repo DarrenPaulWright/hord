@@ -24,11 +24,11 @@ import { List } from 'hord';
         * [.length](#List+length) ⇒ <code>Number</code>
         * [.sort()](#List+sort) ↩︎
         * [.add(item)](#List+add) ↩︎
-        * [.addUnique(item)](#List+addUnique) ⇒ <code>this</code>
+        * [.addUnique(item)](#List+addUnique) ↩︎
         * [.unique()](#List+unique) ⇒ [<code>List</code>](#List)
-        * [.concat(values)](#List+concat) ⇒ <code>this</code>
-        * [.discard(item)](#List+discard) ⇒ <code>this</code>
-        * [.discardAll()](#List+discardAll) ⇒ <code>this</code>
+        * [.concat(values)](#List+concat) ↩︎
+        * [.discard(item)](#List+discard) ↩︎
+        * [.discardAll()](#List+discardAll) ↩︎
         * [.values([values])](#List+values) ⇒ <code>this</code> \| <code>Array</code>
         * [.indexOf(item)](#List+indexOf) ⇒ <code>Number</code>
         * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>Number</code>
@@ -103,7 +103,7 @@ import { List } from 'hord';
 
 <br><a name="List+addUnique"></a>
 
-#### list.addUnique(item) ⇒ <code>this</code>
+#### list.addUnique(item) ↩︎
 `🔗 Chainable`
 
 > Add an item to the list if it isn't already included. Uses binary search.
@@ -122,7 +122,7 @@ import { List } from 'hord';
 
 <br><a name="List+concat"></a>
 
-#### list.concat(values) ⇒ <code>this</code>
+#### list.concat(values) ↩︎
 `🔗 Chainable`
 
 > Merges one or more arrays with the list.
@@ -135,7 +135,7 @@ import { List } from 'hord';
 
 <br><a name="List+discard"></a>
 
-#### list.discard(item) ⇒ <code>this</code>
+#### list.discard(item) ↩︎
 `🔗 Chainable`
 
 > Discard an item from the list. Uses binary search.
@@ -148,7 +148,7 @@ import { List } from 'hord';
 
 <br><a name="List+discardAll"></a>
 
-#### list.discardAll() ⇒ <code>this</code>
+#### list.discardAll() ↩︎
 `🔗 Chainable`
 
 > Discard all items from the list.

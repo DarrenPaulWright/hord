@@ -101,8 +101,6 @@ export default class List {
 	 * @chainable
 	 *
 	 * @arg {*} item - Item is inserted into the list such that the items are still sorted.
-	 *
-	 * @returns {this}
 	 */
 	addUnique(item) {
 		if (this[ARRAY].length === 0) {
@@ -151,8 +149,6 @@ export default class List {
 	 * @chainable
 	 *
 	 * @arg {*} values
-	 *
-	 * @returns {this}
 	 */
 	concat(...args) {
 		const self = this;
@@ -168,8 +164,6 @@ export default class List {
 	 * @chainable
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
-	 *
-	 * @returns {this}
 	 */
 	discard(item) {
 		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this.sorter(), true), 1);
@@ -183,8 +177,6 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 * @chainable
-	 *
-	 * @returns {this}
 	 */
 	discardAll() {
 		this[ARRAY].length = 0;

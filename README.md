@@ -17,12 +17,7 @@
 ```
 npm install hord
 ```
-
-<br><a name="Compatibility"></a>
-
-### Compatibility
-Requires:
-- Babel 7.2+
+_Requires Babel 7.2+_
 
 <br><a name="Docs"></a>
 

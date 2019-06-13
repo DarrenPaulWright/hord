@@ -5,13 +5,7 @@
  * ```
  * npm install hord
  * ```
- */
-
-/**
- * @name Compatibility
- * @summary
- * Requires:
- * - Babel 7.2+
+ * _Requires Babel 7.2+_
  */
 
 /**

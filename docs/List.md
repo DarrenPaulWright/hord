@@ -74,24 +74,21 @@ import { List } from 'hord';
 
 <br><a name="List+length"></a>
 
-#### list.length ⇒ <code>Number</code>
-`🔒 Read only`
+#### list.length ⇒ <code>Number</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
 > The number of items in the list
 
 
 <br><a name="List+sort"></a>
 
-#### list.sort() ↩︎
-`🔗 Chainable`
+#### list.sort() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Sort the items.
 
 
 <br><a name="List+add"></a>
 
-#### list.add(item) ↩︎
-`🔗 Chainable`
+#### list.add(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Add an item to the list. Uses binary search.
 
@@ -103,8 +100,7 @@ import { List } from 'hord';
 
 <br><a name="List+addUnique"></a>
 
-#### list.addUnique(item) ↩︎
-`🔗 Chainable`
+#### list.addUnique(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Add an item to the list if it isn't already included. Uses binary search.
 
@@ -122,8 +118,7 @@ import { List } from 'hord';
 
 <br><a name="List+concat"></a>
 
-#### list.concat(values) ↩︎
-`🔗 Chainable`
+#### list.concat(values) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Merges one or more arrays with the list.
 
@@ -135,8 +130,7 @@ import { List } from 'hord';
 
 <br><a name="List+discard"></a>
 
-#### list.discard(item) ↩︎
-`🔗 Chainable`
+#### list.discard(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Discard an item from the list. Uses binary search.
 
@@ -148,16 +142,14 @@ import { List } from 'hord';
 
 <br><a name="List+discardAll"></a>
 
-#### list.discardAll() ↩︎
-`🔗 Chainable`
+#### list.discardAll() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Discard all items from the list.
 
 
 <br><a name="List+values"></a>
 
-#### list.values([values]) ⇒ <code>this</code> \| <code>Array</code>
-`🔗 Chainable`
+#### list.values([values]) ⇒ <code>this</code> \| <code>Array</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > The current items in the list.
 
@@ -440,8 +432,7 @@ import { List } from 'hord';
 
 <br><a name="List.sorter"></a>
 
-#### List.sorter
-`🔒 Read only`
+#### List.sorter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
 > Some simple sorter functions.
 

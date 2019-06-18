@@ -1,20 +1,19 @@
-# hord
+# Hord
 
-A data storage and manipulation library for javascript
-
-[![npm][npm]][npm-url]
+> A data storage and manipulation library for javascript
+>
+> [![npm][npm]][npm-url]
 [![build][build]][build-url]
-[![Coverage Status](https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch=master)](https://coveralls.io/github/DarrenPaulWright/hord?branch=master)
+[![coverage][coverage]][coverage-url]
 [![deps][deps]][deps-url]
 [![size][size]][size-url]
-[![Known Vulnerabilities](https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile=package.json)](https://snyk.io/test/github/DarrenPaulWright/hord?targetFile=package.json)
+[![vulnerabilities][vulnerabilities]][vulnerabilities-url]
+[![license][license]][license-url]
 
----
 
-<a name="Collection"></a>
+<br><a name="Collection"></a>
 
-## Collection ⇐ <code>Array</code>
-**Kind**: global class  
+### Collection ⇐ <code>Array</code>
 **Extends**: <code>Array</code>  
 
 * [Collection](#Collection) ⇐ <code>Array</code>
@@ -51,292 +50,293 @@ A data storage and manipulation library for javascript
     * [.unique([countKey])](#Collection+unique) ⇒ [<code>Collection</code>](#Collection)
     * [.merge(collections, idKey, callback)](#Collection+merge) ⇒ [<code>Collection</code>](#Collection)
 
-<a name="new_Collection_new"></a>
 
-### new Collection()
-Indexed Collections for high performance searching.## Usage``` javascriptimport { Collection } from 'hord';```
+<br><a name="new_Collection_new"></a>
+
+#### new Collection()
+> Indexed Collections for high performance searching.> > ## Usage> ``` javascript> import { Collection } from 'hord';> ```
 
 
 | Type | Description |
 | --- | --- |
-| <code>Array</code> \| <code>Object</code> | Accepts an array of objects or multiple args of objects. |
+| <code>Array</code>, <code>Object</code> | Accepts an array of objects or multiple args of objects. |
 
-<a name="Collection+pop"></a>
 
-### collection.pop() ⇒ <code>\*</code>
-See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+<br><a name="Collection+pop"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
-<a name="Collection+shift"></a>
+#### collection.pop() ⇒ <code>\*</code>
+> See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
 
-### collection.shift() ⇒ <code>\*</code>
-See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
-<a name="Collection+toString"></a>
+<br><a name="Collection+shift"></a>
 
-### collection.toString() ⇒ <code>String</code>
-See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
+#### collection.shift() ⇒ <code>\*</code>
+> See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
-<a name="Collection+keys"></a>
 
-### collection.keys() ⇒ <code>Object</code>
-See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
+<br><a name="Collection+toString"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
-<a name="Collection+every"></a>
+#### collection.toString() ⇒ <code>String</code>
+> See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
 
-### collection.every(callback, [thisArg]) ⇒ <code>Boolean</code>
-See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+<br><a name="Collection+keys"></a>
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+#### collection.keys() ⇒ <code>Object</code>
+> See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
 
-<a name="Collection+forEach"></a>
 
-### collection.forEach(callback, [thisArg]) ⇒ <code>undefined</code>
-See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+<br><a name="Collection+every"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.every(callback, [thisArg]) ⇒ <code>Boolean</code>
+> See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+
 
 | Param | Type |
 | --- | --- |
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
 
-<a name="Collection+toLocaleString"></a>
 
-### collection.toLocaleString([locales], [options]) ⇒ <code>String</code>
-See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
+<br><a name="Collection+forEach"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.forEach(callback, [thisArg]) ⇒ <code>undefined</code>
+> See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
+
+
+<br><a name="Collection+toLocaleString"></a>
+
+#### collection.toLocaleString([locales], [options]) ⇒ <code>String</code>
+> See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
+
 
 | Param | Type |
 | --- | --- |
 | [locales] | <code>Array</code> | 
 | [options] | <code>Object</code> | 
 
-<a name="Collection+join"></a>
 
-### collection.join([separator]) ⇒ <code>String</code>
-See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+<br><a name="Collection+join"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.join([separator]) ⇒ <code>String</code>
+> See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [separator] | <code>String</code> | <code>&#x27;,&#x27;</code> | 
 
-<a name="Collection+reduce"></a>
 
-### collection.reduce(callback, [thisArg]) ⇒ <code>\*</code>
-See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+<br><a name="Collection+reduce"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.reduce(callback, [thisArg]) ⇒ <code>\*</code>
+> See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
-
-<a name="Collection+reduceRight"></a>
-
-### collection.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
-See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
-
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
 
 | Param | Type |
 | --- | --- |
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
 
-<a name="Collection+some"></a>
 
-### collection.some(callback, [thisArg]) ⇒ <code>Boolean</code>
-See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+<br><a name="Collection+reduceRight"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
+> See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
+
 
 | Param | Type |
 | --- | --- |
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
 
-<a name="Collection+first"></a>
 
-### collection.first() ⇒ <code>Object</code>
-Gets the first item in the collection without removing it.
+<br><a name="Collection+some"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
-<a name="Collection+last"></a>
+#### collection.some(callback, [thisArg]) ⇒ <code>Boolean</code>
+> See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
-### collection.last() ⇒ <code>Object</code>
-Gets the last item in the collection without removing it.
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
-<a name="Collection+indexOf"></a>
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
 
-### collection.indexOf(item) ⇒ <code>Number</code>
-Gets the index of the first matching item.
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+<br><a name="Collection+first"></a>
+
+#### collection.first() ⇒ <code>Object</code>
+> Gets the first item in the collection without removing it.
+
+
+<br><a name="Collection+last"></a>
+
+#### collection.last() ⇒ <code>Object</code>
+> Gets the last item in the collection without removing it.
+
+
+<br><a name="Collection+indexOf"></a>
+
+#### collection.indexOf(item) ⇒ <code>Number</code>
+> Gets the index of the first matching item.
+
 **Returns**: <code>Number</code> - The index of the item or -1  
 
 | Param | Type |
 | --- | --- |
 | item | <code>Object</code> | 
 
-<a name="Collection+lastIndexOf"></a>
 
-### collection.lastIndexOf(item) ⇒ <code>Number</code>
-Gets the index of the last matching item.
+<br><a name="Collection+lastIndexOf"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.lastIndexOf(item) ⇒ <code>Number</code>
+> Gets the index of the last matching item.
+
 **Returns**: <code>Number</code> - The index of the item or -1  
 
 | Param | Type |
 | --- | --- |
 | item | <code>Object</code> | 
 
-<a name="Collection+includes"></a>
 
-### collection.includes(item) ⇒ <code>Boolean</code>
-Determines if an item exists in the collection.
+<br><a name="Collection+includes"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.includes(item) ⇒ <code>Boolean</code>
+> Determines if an item exists in the collection.
+
 
 | Param | Type |
 | --- | --- |
 | item | <code>Object</code> | 
 
-<a name="Collection+forEachRight"></a>
 
-### collection.forEachRight(callback)
-Like .forEach(), but starts on the last (greatest index) item and progresses backwards
+<br><a name="Collection+forEachRight"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.forEachRight(callback)
+> Like .forEach(), but starts on the last (greatest index) item and progresses backwards
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-
-<a name="Collection+someRight"></a>
-
-### collection.someRight(callback) ⇒ <code>Boolean</code>
-Like .some(), but starts on the last (greatest index) item and progresses backwards
-
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
 
 | Param | Type |
 | --- | --- |
 | callback | <code>function</code> | 
 
-<a name="Collection+find"></a>
 
-### collection.find(matcher) ⇒ <code>Object</code>
-Gets the first (lowest index) matching item from the collection.
+<br><a name="Collection+someRight"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.someRight(callback) ⇒ <code>Boolean</code>
+> Like .some(), but starts on the last (greatest index) item and progresses backwards
+
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+
+
+<br><a name="Collection+find"></a>
+
+#### collection.find(matcher) ⇒ <code>Object</code>
+> Gets the first (lowest index) matching item from the collection.
+
 **Returns**: <code>Object</code> - - The item or undefined  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| matcher | <code>function</code> \| <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
 
-<a name="Collection+findLast"></a>
 
-### collection.findLast(matcher) ⇒ <code>Object</code>
-Gets the last (greatest index) matching item from the collection.
+<br><a name="Collection+findLast"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.findLast(matcher) ⇒ <code>Object</code>
+> Gets the last (greatest index) matching item from the collection.
+
 **Returns**: <code>Object</code> - - The item or undefined  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| matcher | <code>function</code> \| <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
 
-<a name="Collection+map"></a>
 
-### collection.map(callback) ⇒ [<code>Collection</code>](#Collection)
-Returns a new collection with the results of calling a provided function on every element.
+<br><a name="Collection+map"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.map(callback) ⇒ [<code>Collection</code>](#Collection)
+> Returns a new collection with the results of calling a provided function on every element.
+
 
 | Param | Type | Description |
 | --- | --- | --- |
 | callback | <code>function</code> | Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection. |
 
-<a name="Collection+filter"></a>
 
-### collection.filter(matcher) ⇒ [<code>Collection</code>](#Collection)
-Gets all the matching items from the collection.
+<br><a name="Collection+filter"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.filter(matcher) ⇒ [<code>Collection</code>](#Collection)
+> Gets all the matching items from the collection.
+
 
 | Param | Type | Description |
 | --- | --- | --- |
-| matcher | <code>function</code> \| <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
 
-<a name="Collection+findIndex"></a>
 
-### collection.findIndex(matcher) ⇒ <code>Number</code>
-Gets the index of the first (lowest index) matching item.
+<br><a name="Collection+findIndex"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.findIndex(matcher) ⇒ <code>Number</code>
+> Gets the index of the first (lowest index) matching item.
+
 **Returns**: <code>Number</code> - - The index of the item or -1  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| matcher | <code>function</code> \| <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
 
-<a name="Collection+findLastIndex"></a>
 
-### collection.findLastIndex(matcher) ⇒ <code>Number</code>
-Gets the index of the last (greatest index) matching item.
+<br><a name="Collection+findLastIndex"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.findLastIndex(matcher) ⇒ <code>Number</code>
+> Gets the index of the last (greatest index) matching item.
+
 **Returns**: <code>Number</code> - - The index of the item or -1  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| matcher | <code>function</code> \| <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
 
-<a name="Collection+slice"></a>
 
-### collection.slice(begin, [end]) ⇒ [<code>Collection</code>](#Collection)
-Returns a shallow copy of a portion of the collection into a new collection selected from begin to end (end not included).
+<br><a name="Collection+slice"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.slice(begin, [end]) ⇒ [<code>Collection</code>](#Collection)
+> Returns a shallow copy of a portion of the collection into a new collection selected from begin to end (end not included).
+
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | begin | <code>Object</code> |  | Index at which to begin extraction. |
 | [end] | <code>Object</code> | <code>collection.length</code> | Index before which to end extraction |
 
-<a name="Collection+sliceBy"></a>
 
-### collection.sliceBy(beginMatcher, [endMatcher]) ⇒ [<code>Collection</code>](#Collection)
-Like .slice(), but finds the begin and end indexes via matchers. (end is included)
+<br><a name="Collection+sliceBy"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.sliceBy(beginMatcher, [endMatcher]) ⇒ [<code>Collection</code>](#Collection)
+> Like .slice(), but finds the begin and end indexes via matchers. (end is included)
+
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | beginMatcher | <code>Object</code> |  | A function that returns true for a matched item, or an Object that represents the data you want to match. |
 | [endMatcher] | <code>Object</code> | <code>collection.length</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. (end is included) |
 
-<a name="Collection+flatten"></a>
 
-### collection.flatten([settings]) ⇒ [<code>Collection</code>](#Collection)
-Returns a new flattened collection
+<br><a name="Collection+flatten"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.flatten([settings]) ⇒ [<code>Collection</code>](#Collection)
+> Returns a new flattened collection
+
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -346,12 +346,12 @@ Returns a new flattened collection
 | [settings.onParent] | <code>function</code> |  | Called on every parent item. Provides two args: the parent item and that item's parent. Context is set to the Collection. If true is returned, then the children will not be flattened. |
 | [settings.onChild] | <code>function</code> |  | Called on every child item. Provides two args: the child item and that item's parent. Context is set to the Collection. If true is returned, then this item (and any children) will not be included in the output. |
 
-<a name="Collection+nest"></a>
 
-### collection.nest([settings]) ⇒ [<code>Collection</code>](#Collection)
-Returns a new nested collection
+<br><a name="Collection+nest"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.nest([settings]) ⇒ [<code>Collection</code>](#Collection)
+> Returns a new nested collection
+
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -361,12 +361,12 @@ Returns a new nested collection
 | [settings.childKey] | <code>String</code> | <code>&#x27;children&#x27;</code> | The key to save children under. |
 | [settings.deleteParentKey] | <code>String</code> | <code>false</code> | Should the parent key be deleted after nesting |
 
-<a name="Collection+eachChild"></a>
 
-### collection.eachChild(onChild, [settings])
-Calls a callback for each nested child
+<br><a name="Collection+eachChild"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.eachChild(onChild, [settings])
+> Calls a callback for each nested child
+
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -375,40 +375,42 @@ Calls a callback for each nested child
 | [settings.childKey] | <code>String</code> | <code>children</code> | The key that contains children items |
 | [settings.onParent] | <code>function</code> |  | Called for each item that contains children. If true is returned, then the children will not get processed. Provides the same args and context as the onChild callback. |
 
-<a name="Collection+unique"></a>
 
-### collection.unique([countKey]) ⇒ [<code>Collection</code>](#Collection)
-Returns a new collection of unique items
+<br><a name="Collection+unique"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.unique([countKey]) ⇒ [<code>Collection</code>](#Collection)
+> Returns a new collection of unique items
+
 
 | Param | Type | Description |
 | --- | --- | --- |
 | [countKey] | <code>String</code> | If provided records the number of duplicates, starting at 1 for unique items |
 
-<a name="Collection+merge"></a>
 
-### collection.merge(collections, idKey, callback) ⇒ [<code>Collection</code>](#Collection)
-Merges this collection with one or more other collections. Returns a new collection.
+<br><a name="Collection+merge"></a>
 
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
+#### collection.merge(collections, idKey, callback) ⇒ [<code>Collection</code>](#Collection)
+> Merges this collection with one or more other collections. Returns a new collection.
+
 
 | Param | Type | Description |
 | --- | --- | --- |
-| collections | <code>Colection</code> \| [<code>Array.&lt;Collection&gt;</code>](#Collection) | Either a collection or array of collections to merge with this collection. |
+| collections | <code>Colection</code>, [<code>Array.&lt;Collection&gt;</code>](#Collection) | Either a collection or array of collections to merge with this collection. |
 | idKey | <code>String</code> | The key to match items from the different collections. |
 | callback | <code>function</code> | Called for each unique idKey value. Provides the same number of args as the total number of collections being merged, in the order provided. The returned value is included in the ouptput collection. |
 
 
-## License
-
-[MIT](LICENSE.md)
-
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord
-[build]: https://travis-ci.org/DarrenPaulWright/hord.svg?branch=master
+[build]: https://travis-ci.org/DarrenPaulWright/hord.svg?branch&#x3D;master
 [build-url]: https://travis-ci.org/DarrenPaulWright/hord
+[coverage]: https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch&#x3D;master
+[coverage-url]: https://coveralls.io/github/DarrenPaulWright/hord?branch&#x3D;master
 [deps]: https://david-dm.org/darrenpaulwright/hord.svg
 [deps-url]: https://david-dm.org/darrenpaulwright/hord
-[size]: https://packagephobia.now.sh/badge?p=hord
-[size-url]: https://packagephobia.now.sh/result?p=hord
+[size]: https://packagephobia.now.sh/badge?p&#x3D;hord
+[size-url]: https://packagephobia.now.sh/result?p&#x3D;hord
+[vulnerabilities]: https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile&#x3D;package.json
+[vulnerabilities-url]: https://snyk.io/test/github/DarrenPaulWright/hord?targetFile&#x3D;package.json
+[license]: https://img.shields.io/github/license/DarrenPaulWright/hord.svg
+[license-url]: https://npmjs.com/package/hord/LICENSE.md

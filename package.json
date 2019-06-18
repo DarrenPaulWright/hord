@@ -1,21 +1,58 @@
 {
 	"name": "hord",
-	"version": "0.1.2",
+	"version": "0.2.4",
 	"description": "A data storage and manipulation library for javascript",
 	"main": "src/index.js",
 	"scripts": {
 		"test": "karma start --single-run",
 		"test-watch": "karma start",
-		"patch": "npm version patch -m \"Increment patch version to %s\"",
-		"minor": "npm version minor -m \"Increment minor version to %s\"",
-		"major": "npm version major -m \"Increment major version to %s\"",
-		"docs-readme": "jsdoc2md src/index.js > README.md --template docs.hbs --partial scope.hbs",
-		"docs-list": "jsdoc2md src/List.js > docs/List.md --template docs.hbs",
-		"docs-schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md --template docs.hbs",
-		"docs-model": "jsdoc2md src/Model.js > docs/Model.md --template docs.hbs",
-		"docs-collection": "jsdoc2md src/Collection.js > docs/Collection.md --template docs.hbs",
+		"patch": "npm version patch -m \"Increment patch version to %s\" && npm publish",
+		"minor": "npm version minor -m \"Increment minor version to %s\" && npm publish",
+		"major": "npm version major -m \"Increment major version to %s\" && npm publish",
+		"docs-readme": "jsdoc2md src/index.js > README.md -t docs/docs.hbs --plugin dmd-readable -d 3",
+		"docs-list": "jsdoc2md src/List.js > docs/List.md -t docs/docs.hbs --plugin dmd-readable -d 3",
+		"docs-schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md -t docs/docs.hbs --plugin dmd-readable -d 3",
+		"docs-model": "jsdoc2md src/Model.js > docs/Model.md -t docs/docs.hbs --plugin dmd-readable -d 3",
+		"docs-collection": "jsdoc2md src/Collection.js > docs/Collection.md -t docs/docs.hbs --plugin dmd-readable -d 3",
 		"docs": "npm run docs-readme && npm run docs-list && npm run docs-schema && npm run docs-model && npm run docs-collection"
 	},
+	"badges": [
+		{
+			"name": "npm",
+			"image": "https://img.shields.io/npm/v/hord.svg",
+			"url": "https://npmjs.com/package/hord"
+		},
+		{
+			"name": "build",
+			"image": "https://travis-ci.org/DarrenPaulWright/hord.svg?branch=master",
+			"url": "https://travis-ci.org/DarrenPaulWright/hord"
+		},
+		{
+			"name": "coverage",
+			"image": "https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch=master",
+			"url": "https://coveralls.io/github/DarrenPaulWright/hord?branch=master"
+		},
+		{
+			"name": "deps",
+			"image": "https://david-dm.org/darrenpaulwright/hord.svg",
+			"url": "https://david-dm.org/darrenpaulwright/hord"
+		},
+		{
+			"name": "size",
+			"image": "https://packagephobia.now.sh/badge?p=hord",
+			"url": "https://packagephobia.now.sh/result?p=hord"
+		},
+		{
+			"name": "vulnerabilities",
+			"image": "https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile=package.json",
+			"url": "https://snyk.io/test/github/DarrenPaulWright/hord?targetFile=package.json"
+		},
+		{
+			"name": "license",
+			"image": "https://img.shields.io/github/license/DarrenPaulWright/hord.svg",
+			"url": "https://npmjs.com/package/hord/LICENSE.md"
+		}
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/DarrenPaulWright/hord.git"
@@ -34,32 +71,34 @@
 	"author": "Darren Paul Wright <Darren@DarrenPaulWright.com>",
 	"license": "MIT",
 	"dependencies": {
-		"object-agent": "^0.2.6",
-		"on-change": "^1.0.0",
-		"type-enforcer": "^0.3.3"
+		"default-compare": "^1.0.0",
+		"object-agent": "^0.5.3",
+		"on-change": "^1.5.0",
+		"type-enforcer": "^0.4.4"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.2.2",
-		"@babel/preset-env": "^7.3.1",
-		"babel-eslint": "^10.0.1",
-		"babel-loader": "^8.0.5",
-		"babel-plugin-istanbul": "^5.1.0",
+		"@babel/core": "^7.4.5",
+		"@babel/preset-env": "^7.4.5",
+		"babel-eslint": "^10.0.2",
+		"babel-loader": "^8.0.6",
+		"babel-plugin-istanbul": "^5.1.4",
 		"chai": "^4.2.0",
-		"eslint": "^5.12.1",
-		"eslint-loader": "^2.1.1",
+		"dmd-readable": "^0.4.0",
+		"eslint": "^5.16.0",
+		"eslint-loader": "^2.1.2",
 		"eslint-plugin-babel": "^5.3.0",
-		"jsdoc-to-markdown": "^4.0.1",
-		"karma": "^3.1.4",
-		"karma-brief-reporter": "0.0.7",
+		"jsdoc-to-markdown": "^5.0.0",
+		"karma": "^4.1.0",
+		"karma-brief-reporter": "0.2.0",
 		"karma-chrome-launcher": "^2.2.0",
 		"karma-coverage": "^1.1.2",
 		"karma-coveralls": "^2.1.0",
 		"karma-firefox-launcher": "^1.1.0",
 		"karma-mocha": "^1.3.0",
-		"karma-webpack": "^3.0.5",
-		"mocha": "^5.2.0",
+		"karma-webpack": "^4.0.2",
+		"mocha": "^6.1.4",
 		"test-runner-config": "^0.5.0",
-		"wallaby-webpack": "^3.9.13",
-		"webpack": "^4.29.0"
+		"wallaby-webpack": "^3.9.15",
+		"webpack": "^4.34.0"
 	}
 }

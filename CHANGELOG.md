@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Schema](docs/Schema.md)
 
+## [0.2.0]
+### Changed
+- [List](docs/List.md) methods findAll, filter, and slice now return new Lists with the same sorter as the calling list 
+- [List](docs/List.md) uses a better default sorter with [default-compare](https://www.npmjs.com/package/default-compare)
+
+### Added
+- Method discardAll to [List](docs/List.md)
+- Method unique to [List](docs/List.md)
+
+## [0.1.3] - 2019-02-26
+### Added
+- Added the method addUnique to [List](docs/List.md)
+
 ## [0.1.2] - 2019-02-25
 ### Changed
 - Fixed a bug in [List](docs/List.md) when finding items at the beginning of the array
@@ -20,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
-[Unreleased]: https://github.com/DarrenPaulWright/hord/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/DarrenPaulWright/hord/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/DarrenPaulWright/hord/compare/v0.1.3...v0.2.0
+[0.1.3]: https://github.com/DarrenPaulWright/hord/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/DarrenPaulWright/hord/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/DarrenPaulWright/hord/compare/v0.1.0...v0.1.1

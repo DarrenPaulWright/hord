@@ -19,7 +19,8 @@ const validFunctions = [function() {
 }, () => {
 }];
 const validIntegers = [1];
-const validNumbers = [3.14159];
+const validFloats = [3.14159];
+const validNumbers = [Infinity];
 const validObjects = [{
 	test1: 1
 }];
@@ -33,6 +34,7 @@ const testValues = [].concat(
 	validElements,
 	validFunctions,
 	validIntegers,
+	validFloats,
 	validNumbers,
 	validObjects,
 	validRegExps,
@@ -49,8 +51,8 @@ const schemaTestTypes = [{
 	coerceTrue: [],
 	coerceFalse: []
 }, {
-	value: 'any',
-	nativeName: 'Anything',
+	value: '*',
+	nativeName: '*',
 	check: isAnything,
 	enforce: enforceAnything,
 	true: testValues,
@@ -90,7 +92,7 @@ const schemaTestTypes = [{
 }, {
 	value: Function,
 	name: 'function',
-	nativeName: 'Function',
+	nativeName: 'function',
 	check: is.function,
 	enforce: enforce.function,
 	true: validFunctions,
@@ -103,11 +105,22 @@ const schemaTestTypes = [{
 	nativeName: 'Integer',
 	check: is.integer,
 	enforce: enforce.integer,
-	skip: ['number'],
+	skip: ['number', 'float'],
 	true: validIntegers,
 	false: difference(testValues, validIntegers),
 	coerceTrue: ['10'],
 	coerceFalse: ['$1.00']
+}, {
+	value: 'float',
+	name: 'float',
+	nativeName: 'Float',
+	check: is.float,
+	enforce: enforce.float,
+	skip: ['number'],
+	true: validFloats,
+	false: difference(testValues, validIntegers, validFloats),
+	coerceTrue: ['10.3'],
+	coerceFalse: ['$1.04']
 }, {
 	value: Number,
 	name: 'number',
@@ -115,7 +128,7 @@ const schemaTestTypes = [{
 	check: is.number,
 	enforce: enforce.number,
 	true: validNumbers,
-	false: difference(testValues, validNumbers, validIntegers),
+	false: difference(testValues, validNumbers, validIntegers, validFloats),
 	coerceTrue: ['10'],
 	coerceFalse: ['$1.00']
 }, {

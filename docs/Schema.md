@@ -17,8 +17,8 @@
 
 * [Schema](#Schema)
     * [new Schema(schema)](#new_Schema_new)
-    * [.validate(item)](#Schema+validate) ⇒ <code>Array.&lt;Object&gt;</code>
-    * [.enforce(item)](#Schema+enforce) ⇒ <code>Object</code>
+    * [.validate(item, [path])](#Schema+validate) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
+    * [.enforce(item, [path], [replace])](#Schema+enforce) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
     * [.eachRule(callback)](#Schema+eachRule)
 
 
@@ -30,33 +30,34 @@
 
 | Param | Type |
 | --- | --- |
-| schema | <code>Object</code> | 
+| schema | [<code>SchemaType</code>](#SchemaType) | 
 
 **Example**  
 ``` javascriptimport { Schema } from 'type-enforcer';const person = new Schema({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});person.validate({ first: 'John', last: 'Doe', age: 21});// => []```
 
 <br><a name="Schema+validate"></a>
 
-#### schema.validate(item) ⇒ <code>Array.&lt;Object&gt;</code>
+#### schema.validate(item, [path]) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
 > Validate an item against the schema
 
-**Returns**: <code>Array.&lt;Object&gt;</code> - An array of error objects. Each object contains: "error" - A message about the type of error, "path" - The path within the given item to the value causing the error, "value" - The value at this path, "item" -  The original item being validated  
 
-| Param | Type |
-| --- | --- |
-| item | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| item | <code>Object</code> |  |  |
+| [path] | <code>Array</code> | <code>[]</code> | If provided then only the value at that path will be validated |
 
 
 <br><a name="Schema+enforce"></a>
 
-#### schema.enforce(item) ⇒ <code>Object</code>
+#### schema.enforce(item, [path], [replace]) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
 > Enforce an items structure against the schema. This function mutates the original item.
 
-**Returns**: <code>Object</code> - The enforced item  
 
-| Param | Type |
-| --- | --- |
-| item | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| item | <code>Object</code> |  |  |
+| [path] | <code>Array</code> | <code>[]</code> |  |
+| [replace] | <code>\*</code> |  | If the current value at path is invalid, replace it with this. |
 
 
 <br><a name="Schema+eachRule"></a>
@@ -69,6 +70,45 @@
 | --- | --- | --- |
 | callback | <code>function</code> | Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level. |
 
+
+<br><a name="SchemaError"></a>
+
+### SchemaError : <code>Object</code>
+> Schema validation errors
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| error | <code>String</code> | A message about the type of error |
+| path | <code>String</code> | The path within the given item to the value causing the error |
+| value | <code>\*</code> | The value at this path |
+| item | <code>\*</code> | The original item being validated |
+
+
+<br><a name="SchemaType"></a>
+
+### SchemaType : <code>\*</code> \| <code>Object</code>
+> Schema type definitions.
+
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| type | <code>\*</code>, <code>Array</code> |  | Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), and custom constructors (classes or constructor functions). |
+| [isRequired] | <code>Boolean</code> | <code>false</code> | Empty arrays or objects that aren't required will be removed by schema.enforce(). |
+| [default] | <code>Boolean</code> |  | If isRequired is true, then schema.enforce() will set this value if the key is undefined. |
+| [coerce] | <code>Boolean</code> | <code>false</code> | If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce(). |
+| [min] | <code>Number</code> |  | For Number, 'integer', and 'float' |
+| [max] | <code>Number</code> |  | For Number, 'integer', and 'float' |
+| [minLength] | <code>Number</code> |  | For Arrays and Strings |
+| [maxLength] | <code>Number</code> |  | For Arrays and Strings |
+| [clamp] | <code>Boolean</code> | <code>false</code> | Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted. |
+| [enum] | <code>Enum</code> |  | If type is Enum, then this is required |
+| [content] | <code>Object</code>, <code>Array</code> |  | For arrays and objects to specify further content |
+| [enforce] | <code>function</code> |  | This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info) |
+| [check] | <code>function</code> |  | This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info) |
+
+**Example**  
+``` javascriptimport { Schema } from 'type-enforcer';// Can be a native type or stringconst person = new Schema({ first: String, last: String, age: 'integer'});// Or with options:const person = new Schema({ first: {     type: String,     isRequired: true }, last: {     type: String,     isRequired: true }, age: {     type: 'integer'     min: 0,     coerce: true }});```
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord

@@ -1,8 +1,8 @@
 import { set, unset } from 'object-agent';
 import { enforce } from 'type-enforcer';
 
-export default enforceRule = (rule, item, path, value) => {
-	const defaultValue = 'default' in rule ? rule.default : rule.isRequired ? null : undefined;
+export default (rule, item, path, value, replace) => {
+	const defaultValue = ('default' in rule) ? rule.default : rule.isRequired ? replace || null : undefined;
 	let newValue = null;
 
 	rule.types.some((type) => {
@@ -16,7 +16,7 @@ export default enforceRule = (rule, item, path, value) => {
 			newValue = type.enforce(value, defaultValue, type.coerce);
 		}
 		if (type.numericRange) {
-			newValue = type.enforce(value, defaultValue, type.coerce, type.min, type.max);
+			newValue = type.numericRange(type, value, defaultValue);
 		}
 
 		return newValue !== null && newValue !== undefined;

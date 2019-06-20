@@ -22,15 +22,14 @@ const processArray = (item, rule, path, value, onError, isEnforce) => {
 
 const processObject = (item, rule, path, value, onError, isEnforce) => {
 	let isChanged = false;
+	const keysNotInSchema = Object.keys(value).filter((key) => !rule.keys.includes(key));
 
-	Object.keys(value).filter((key) => !rule.keys.includes(key)).forEach((key) => {
+	keysNotInSchema.forEach((key) => {
 		if (isEnforce) {
 			unset(item, path.concat(key));
 			isChanged = true;
 		}
-		else {
-			onError(ERRORS.KEY_NOT_FOUND, path.concat(key), value[key]);
-		}
+		onError(ERRORS.KEY_NOT_FOUND, path.concat(key), value[key]);
 	});
 
 	rule.content.forEach((rule) => {
@@ -40,24 +39,23 @@ const processObject = (item, rule, path, value, onError, isEnforce) => {
 	return isChanged;
 };
 
-export default processValue = (item, rule, path, onError, isEnforce) => {
+export default processValue = (item, rule, path, onError, isEnforce, replace) => {
 	const value = get(item, path);
 	let isChanged = false;
 	const subErrors = [];
 
 	if (isEnforce) {
-		isChanged = enforceRule(rule, item, path, value) || isChanged;
+		isChanged = enforceRule(rule, item, path, value, replace) || isChanged;
 	}
-	else {
-		if (value === undefined) {
-			if (rule.isRequired && rule.default === undefined) {
-				onError(ERRORS.REQUIRED, path, value);
-			}
-			return false;
+
+	if (value === undefined) {
+		if (rule.isRequired && rule.default === undefined) {
+			onError(ERRORS.REQUIRED, path, value);
 		}
-		else if (!rule.types.some((type) => !subErrors[subErrors.push(checkRule(type, value)) - 1])) {
-			onError(subErrors.join(OR_SEPARATOR), path, value);
-		}
+		return false;
+	}
+	else if (!rule.types.some((type) => !subErrors[subErrors.push(checkRule(type, value)) - 1])) {
+		onError(subErrors.join(OR_SEPARATOR), path, value);
 	}
 
 	if (rule.content && value) {
@@ -72,18 +70,38 @@ export default processValue = (item, rule, path, onError, isEnforce) => {
 	if (isEnforce) {
 		const type = rule.types[0];
 
-		if (type.type === Array || type.type === Object) {
-			if ('arrayLength' in type) {
-				if ('minLength' in type && type.minLength > value.length) {
-					value.length = 0;
-					isChanged = true;
+		if ('length' in type) {
+			if ('minLength' in type && type.minLength > value.length) {
+				if (type.clamp === true) {
+					if (type.type === Array) {
+						value.length = type.minLength;
+					}
+					else {
+						set(item, path, value.padEnd(type.minLength));
+					}
 				}
-				if ('maxLength' in type && type.maxLength < value.length) {
-					set(item, path, value.slice(0, type.maxLength));
-					isChanged = true;
+				else {
+					unset(item, path);
 				}
+				isChanged = true;
 			}
+			if ('maxLength' in type && type.maxLength < value.length) {
+				if (type.clamp === true) {
+					if (type.type === Array) {
+						value.length = type.maxLength;
+					}
+					else {
+						set(item, path, value.slice(0, type.maxLength));
+					}
+				}
+				else {
+					unset(item, path);
+				}
+				isChanged = true;
+			}
+		}
 
+		if (type.type === Array || type.type === Object) {
 			if (!rule.isRequired && isEmpty(value)) {
 				unset(item, path);
 				isChanged = true;

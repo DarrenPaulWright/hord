@@ -1,5 +1,6 @@
 import { traverse } from 'object-agent';
 import { is } from 'type-enforcer';
+import Model from '../Model';
 import checkSchemaType, { isType } from './checkSchemaType';
 
 export default function(item, callback) {
@@ -16,6 +17,11 @@ export default function(item, callback) {
 
 			if (!isSchemaType) {
 				value = isAnObject ? Object : is.array(value) ? Array : value;
+			}
+
+			if (is.instanceOf(value, Model)) {
+				subTraverse(basePath.concat(path), value.schema);
+				return true;
 			}
 
 			if (!basePath.length || path.length) {

@@ -1,7 +1,8 @@
 import { is } from 'type-enforcer';
+import Model from '../Model';
 import { TYPE_RULES } from './schemaTypeRules';
 
-export const isType = (type) => TYPE_RULES.has(type) || is.function(type) || type === null;
+export const isType = (type) => TYPE_RULES.has(type) || (is.function(type) && !is.instanceOf(type, Model)) || type === null;
 
 export const isAllType = (value) => value.length !== 0 && value.every(isType);
 

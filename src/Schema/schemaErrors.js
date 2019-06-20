@@ -6,5 +6,5 @@ export default new Enum({
 	CHECK: 'Value should be a ',
 	REQUIRED: 'A value is required',
 	NUMERIC_RANGE: 'Value is outside range',
-	ARRAY_LENGTH: 'Array length is outside range'
+	VALUE_LENGTH: 'Length is outside range'
 });

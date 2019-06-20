@@ -11,6 +11,117 @@
 [![license][license]][license-url]
 
 
+<br><a name="Model"></a>
+
+### Model
+
+* [Model](#Model)
+    * [new Model(schema)](#new_Model_new)
+    * _instance_
+        * [.schema](#Model+schema) ⇒ <code>Schema</code>
+        * [.apply(object)](#Model+apply) ⇒ <code>Object</code>
+        * [.errorLevel(errorLevel)](#Model+errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
+        * [.onChange(callback)](#Model+onChange) ⇒ <code>function</code>
+        * [.onError(callback)](#Model+onError) ⇒ <code>function</code>
+    * _static_
+        * [.defaultErrorLevel(errorLevel)](#Model.defaultErrorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
+
+
+<br><a name="new_Model_new"></a>
+
+#### new Model(schema)
+> Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.
+
+
+| Param | Type |
+| --- | --- |
+| schema | <code>Schema</code> | 
+
+**Example**  
+``` javascriptimport { Model } from 'type-enforcer';const Person = new Model({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});const johnDoe = Person.apply({ first: 'John', last: 'Doe', age: 21});johnDoe.hobbies = ['programming', 10];console.log(johnDoe);// => { first: 'John', last: 'Doe', age: 21, hobbies: ['programming'] }```
+
+<br><a name="Model+schema"></a>
+
+#### model.schema ⇒ <code>Schema</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
+
+> Get the schema for this model
+
+
+<br><a name="Model+apply"></a>
+
+#### model.apply(object) ⇒ <code>Object</code>
+> Apply this model to an object
+
+
+| Param | Type |
+| --- | --- |
+| object | <code>Object</code> | 
+
+
+<br><a name="Model+errorLevel"></a>
+
+#### model.errorLevel(errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+> How to handle errors on this model. Overrides Model.defaultErrorLevel()
+
+**Default**: <code>MODEL_ERROR_LEVEL.SILENT</code>  
+
+| Param | Type |
+| --- | --- |
+| errorLevel | [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL) | 
+
+
+<br><a name="Model+onChange"></a>
+
+#### model.onChange(callback) ⇒ <code>function</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+> Called when a change is observed on an object applied to this model
+
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+
+
+<br><a name="Model+onError"></a>
+
+#### model.onError(callback) ⇒ <code>function</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+> Called when an error is returned from Schema validation
+
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+
+
+<br><a name="Model.defaultErrorLevel"></a>
+
+#### Model.defaultErrorLevel(errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
+> How to handle errors on all models
+
+**Default**: <code>MODEL_ERROR_LEVEL.WARN</code>  
+
+| Param | Type |
+| --- | --- |
+| errorLevel | [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL) | 
+
+
+<br><a name="MODEL_ERROR_LEVEL"></a>
+
+### MODEL\_ERROR\_LEVEL : <code>Enum</code>
+> How to handle Schema validation errors in models.
+
+**Properties**
+
+| Name | Description |
+| --- | --- |
+| SILENT | Errors are silenced |
+| WARN | Console.warn |
+| ERROR | Console.error |
+| THROW | Throw an exception |
+
+
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord
 [build]: https://travis-ci.org/DarrenPaulWright/hord.svg?branch&#x3D;master

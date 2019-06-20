@@ -53,7 +53,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.equal(errors.length, 1);
+					assert.deepEqual(errors, [{
+						error: 'A value is required',
+						path: 'testKey',
+						value: undefined,
+						item: item
+					}]);
 				});
 
 				it(`should NOT return an error for a value of undefined when the type is ${data.nativeName} and isRequired=true and a default value is given`, () => {
@@ -104,10 +109,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.equal(errors.length, 1);
-					assert.equal(errors[0].error, 'Key found that isn\'t in the schema');
-					assert.equal(errors[0].path, 'testKey2');
-					assert.equal(errors[0].value, datum);
+					assert.deepEqual(errors, [{
+						error: 'Key found that isn\'t in the schema',
+						path: 'testKey2',
+						value: datum,
+						item: item
+					}]);
 				});
 
 				it(`should NOT return an error for a ${data.nativeName} in an array`, () => {
@@ -155,10 +162,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.equal(errors.length, 1);
-					assert.isTrue(errors[0].error.indexOf('Value should be a') !== -1);
-					assert.equal(errors[0].path, 'testKey');
-					assert.equal(errors[0].value, datum);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey',
+						value: datum,
+						item: item
+					}]);
 				});
 
 				it(`should return an error for a value that doesn\'t match a ${data.nativeName} in a nested object`, () => {
@@ -176,10 +185,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.equal(errors.length, 1);
-					assert.isTrue(errors[0].error.indexOf('Value should be a') !== -1);
-					assert.equal(errors[0].path, 'testKey.testKey2');
-					assert.equal(errors[0].value, datum);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey.testKey2',
+						value: datum,
+						item: item
+					}]);
 				});
 
 				it(`should return an error for a key that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
@@ -197,7 +208,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.equal(errors.length, 1);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey.0.testKey2',
+						value: datum,
+						item: item
+					}]);
 				});
 			});
 
@@ -235,10 +251,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.equal(errors.length, 1);
-					assert.isTrue(errors[0].error.indexOf('Value should be a') !== -1);
-					assert.equal(errors[0].path, 'testKey');
-					assert.equal(errors[0].value, datum);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey',
+						value: datum,
+						item: item
+					}]);
 				});
 			});
 		});
@@ -315,7 +333,12 @@ describe('Schema', () => {
 
 			const errors = schema.validate(item);
 
-			assert.equal(errors.length, 1);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey',
+				value: 'inValid',
+				item: item
+			}]);
 		});
 
 		it('should NOT return an error for a key that matches empty nested arrays', () => {
@@ -350,7 +373,17 @@ describe('Schema', () => {
 
 			const errors = schema.validate(item);
 
-			assert.equal(errors.length, 2);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey.0',
+				value: 'test1',
+				item: item
+			}, {
+				error: 'Value should be a Array',
+				path: 'testKey.1',
+				value: 'test2',
+				item: item
+			}]);
 		});
 
 		it('should NOT return errors for multiple items in an array', () => {
@@ -382,7 +415,12 @@ describe('Schema', () => {
 
 			const errors = schema.validate(item);
 
-			assert.equal(errors.length, 1);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a String',
+				path: 'testKey.1',
+				value: 3,
+				item: item
+			}]);
 		});
 
 		it('should NOT return an error for a good value when multiple types are given', () => {
@@ -414,7 +452,12 @@ describe('Schema', () => {
 
 			const errors = schema.validate(item);
 
-			assert.equal(errors.length, 1);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a String OR Value should be a Number',
+				path: 'testKey.3',
+				value: true,
+				item: item
+			}]);
 		});
 
 		it('should NOT return an error for a key that matches a nested array', () => {
@@ -490,7 +533,12 @@ describe('Schema', () => {
 
 			const errors = schema.validate(item);
 
-			assert.equal(errors.length, 1);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Object',
+				path: 'testKey',
+				value: [],
+				item: item
+			}]);
 		});
 
 		it('should NOT return an error for an empty array that can have strings', () => {
@@ -525,7 +573,12 @@ describe('Schema', () => {
 
 			const errors = schema.validate(item);
 
-			assert.equal(errors.length, 1);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey.testKey2',
+				value: 'inValid',
+				item: item
+			}]);
 		});
 
 		it('should NOT return an error for a key that matches a String in a nested array', () => {
@@ -561,7 +614,41 @@ describe('Schema', () => {
 
 			const errors = schema.validate(item);
 
-			assert.equal(errors.length, 1);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey.testKey2',
+				value: 'inValid',
+				item: item
+			}]);
+		});
+
+		it('should validate a specific path', () => {
+			const item = {
+				testKey: {
+					testKey2: 'valid',
+					testKey3: 10
+				}
+			};
+
+			const schema = new Schema({
+				testKey: {
+					testKey2: String,
+					testKey3: String
+				}
+			});
+
+			let errors = schema.validate(item, ['testKey', 'testKey2']);
+
+			assert.deepEqual(errors, []);
+
+			errors = schema.validate(item, ['testKey', 'testKey3']);
+
+			assert.deepEqual(errors, [{
+				error: 'Value should be a String',
+				path: 'testKey.testKey3',
+				value: 10,
+				item: item
+			}]);
 		});
 
 		describe('array length', () => {
@@ -596,8 +683,12 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Array length is outside range');
+				assert.deepEqual(errors, [{
+					error: 'Length is outside range',
+					path: 'testKey',
+					value: ['test', 'test'],
+					item: item
+				}]);
 			});
 
 			it('should NOT return an error for an array length less than maxLength', () => {
@@ -631,8 +722,12 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Array length is outside range');
+				assert.deepEqual(errors, [{
+					error: 'Length is outside range',
+					path: 'testKey',
+					value: ['test', 'test'],
+					item: item
+				}]);
 			});
 		});
 
@@ -651,7 +746,7 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 0);
+				assert.deepEqual(errors, []);
 			});
 
 			it('should NOT return an error for an integer less than max', () => {
@@ -685,8 +780,30 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Value is outside range');
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
+			});
+
+			it('should NOT return an error for an integer less than min if clamp===true', () => {
+				const item = {
+					testKey: 12
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: 'integer',
+						min: 20,
+						clamp: true
+					}
+				});
+
+				const errors = schema.validate(item);
+
+				assert.deepEqual(errors, []);
 			});
 
 			it('should return an error for an integer greater than max', () => {
@@ -703,8 +820,30 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Value is outside range');
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
+			});
+
+			it('should NOT return an error for an integer greater than max if clamp===true', () => {
+				const item = {
+					testKey: 12
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: 'integer',
+						max: 10,
+						clamp: true
+					}
+				});
+
+				const errors = schema.validate(item);
+
+				assert.deepEqual(errors, []);
 			});
 
 			it('should NOT return an error for a number greater than min', () => {
@@ -755,8 +894,30 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Value is outside range');
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
+			});
+
+			it('should NOT return an error for a number less than min if clamp===true', () => {
+				const item = {
+					testKey: 12
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: Number,
+						min: 20,
+						clamp: true
+					}
+				});
+
+				const errors = schema.validate(item);
+
+				assert.deepEqual(errors, []);
 			});
 
 			it('should return an error for a number greater than max', () => {
@@ -773,8 +934,49 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Value is outside range');
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
+			});
+
+			it('should NOT return an error for a number greater than max if clamp===true', () => {
+				const item = {
+					testKey: 12
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: Number,
+						max: 10,
+						clamp: true
+					}
+				});
+
+				const errors = schema.validate(item);
+
+				assert.deepEqual(errors, []);
+			});
+
+			it('should  NOT return an error for a string that can be coerced into a number within a range', () => {
+				const item = {
+					testKey: '8'
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: Number,
+						min: 0,
+						max: 10,
+						coerce: true
+					}
+				});
+
+				const errors = schema.validate(item);
+
+				assert.deepEqual(errors, []);
 			});
 
 			it('should return an error for a non-number when a range is given', () => {
@@ -791,8 +993,12 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Value should be a Number');
+				assert.deepEqual(errors, [{
+					error: 'Value should be a Number',
+					path: 'testKey',
+					value: 'test',
+					item: item
+				}]);
 			});
 		});
 
@@ -843,8 +1049,12 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Value should be a Enum');
+				assert.deepEqual(errors, [{
+					error: 'Value should be a Enum',
+					path: 'testKey',
+					value: 'something',
+					item: item
+				}]);
 			});
 
 			it('should return an error for a value that is not in an enum or a number', () => {
@@ -861,8 +1071,12 @@ describe('Schema', () => {
 
 				const errors = schema.validate(item);
 
-				assert.equal(errors.length, 1);
-				assert.equal(errors[0].error, 'Value should be a Enum OR Value should be a Number');
+				assert.deepEqual(errors, [{
+					error: 'Value should be a Enum OR Value should be a Number',
+					path: 'testKey',
+					value: 'something',
+					item: item
+				}]);
 			});
 
 			it('should NOT return an error for a value that is in an enum or a number', () => {
@@ -899,7 +1113,10 @@ describe('Schema', () => {
 						testKey: data.value
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.equal(errors.length, 0);
 				});
 
 				it(`should NOT modify a value that matches a ${data.nativeName} and isRequired=true`, () => {
@@ -915,10 +1132,13 @@ describe('Schema', () => {
 						}
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.equal(errors.length, 0);
 				});
 
-				if (data.value !== 'any') {
+				if (data.value !== '*') {
 					it(`should modify a value of undefined when the type is ${data.nativeName} and isRequired=true`, () => {
 						const item = {
 							testKey: undefined
@@ -934,7 +1154,15 @@ describe('Schema', () => {
 							}
 						});
 
-						assert.deepEqual(schema.enforce(item), output);
+						const errors = schema.enforce(item);
+
+						assert.deepEqual(item, output);
+						assert.deepEqual(errors, [{
+							error: 'A value is required',
+							path: 'testKey',
+							value: undefined,
+							item: item
+						}]);
 					});
 
 					it(`should NOT modify a value of undefined when the type is ${data.nativeName} and isRequired=true and a default value is given`, () => {
@@ -953,7 +1181,10 @@ describe('Schema', () => {
 							}
 						});
 
-						assert.deepEqual(schema.enforce(item), output);
+						const errors = schema.enforce(item);
+
+						assert.deepEqual(item, output);
+						assert.equal(errors.length, 0);
 					});
 				}
 
@@ -975,7 +1206,10 @@ describe('Schema', () => {
 						}
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.equal(errors.length, 0);
 				});
 
 				it(`should unset a key with a ${data.nativeName} not in the schema`, () => {
@@ -991,7 +1225,15 @@ describe('Schema', () => {
 						testKey: String
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.deepEqual(errors, [{
+						error: 'Key found that isn\'t in the schema',
+						path: 'testKey2',
+						value: undefined,
+						item: item
+					}]);
 				});
 
 				it(`should NOT remove a ${data.nativeName} in an array`, () => {
@@ -1006,7 +1248,10 @@ describe('Schema', () => {
 						testKey: []
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.equal(errors.length, 0);
 				});
 
 				it(`should NOT modify a value that matches a ${data.nativeName} in an object in an array`, () => {
@@ -1027,7 +1272,10 @@ describe('Schema', () => {
 						}]
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.equal(errors.length, 0);
 				});
 			});
 
@@ -1036,13 +1284,21 @@ describe('Schema', () => {
 					const item = {
 						testKey: datum
 					};
-					const output = undefined;
+					const output = {};
 
 					const schema = new Schema({
 						testKey: data.value
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey',
+						value: datum,
+						item: item
+					}]);
 				});
 
 				it(`should modify a value that doesn\'t match a ${data.nativeName} in a nested object`, () => {
@@ -1051,7 +1307,7 @@ describe('Schema', () => {
 							testKey2: datum
 						}
 					};
-					const output = undefined;
+					const output = {};
 
 					const schema = new Schema({
 						testKey: {
@@ -1059,7 +1315,15 @@ describe('Schema', () => {
 						}
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey.testKey2',
+						value: datum,
+						item: item
+					}]);
 				});
 
 				it(`should modify a key that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
@@ -1068,7 +1332,7 @@ describe('Schema', () => {
 							testKey2: datum
 						}]
 					};
-					const output = undefined;
+					const output = {};
 
 					const schema = new Schema({
 						testKey: [{
@@ -1076,7 +1340,15 @@ describe('Schema', () => {
 						}]
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey.0.testKey2',
+						value: datum,
+						item: item
+					}]);
 				});
 			});
 
@@ -1096,7 +1368,10 @@ describe('Schema', () => {
 						}
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.equal(errors.length, 0);
 				});
 			});
 
@@ -1105,7 +1380,7 @@ describe('Schema', () => {
 					const item = {
 						testKey: datum
 					};
-					const output = undefined;
+					const output = {};
 
 					const schema = new Schema({
 						testKey: {
@@ -1114,7 +1389,15 @@ describe('Schema', () => {
 						}
 					});
 
-					assert.deepEqual(schema.enforce(item), output);
+					const errors = schema.enforce(item);
+
+					assert.deepEqual(item, output);
+					assert.deepEqual(errors, [{
+						error: 'Value should be a ' + data.nativeName,
+						path: 'testKey',
+						value: datum,
+						item: item
+					}]);
 				});
 			});
 		});
@@ -1133,7 +1416,10 @@ describe('Schema', () => {
 				testKey2: String
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should NOT modify a key that matches null', () => {
@@ -1148,7 +1434,10 @@ describe('Schema', () => {
 				testKey: null
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should NOT modify a key that matches String or null', () => {
@@ -1163,20 +1452,31 @@ describe('Schema', () => {
 				testKey: [String, null]
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should modify a key that doesn\'t match an array', () => {
 			const item = {
 				testKey: 'inValid'
 			};
-			const output = undefined;
+			const output = {};
 
 			const schema = new Schema({
 				testKey: []
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey',
+				value: 'inValid',
+				item: item
+			}]);
 		});
 
 		it('should NOT modify a key that matches empty nested arrays', () => {
@@ -1199,14 +1499,17 @@ describe('Schema', () => {
 				]
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should modify a key that doesn\'t match empty nested arrays', () => {
 			const item = {
 				testKey: ['test1', 'test2']
 			};
-			const output = undefined;
+			const output = {};
 
 			const schema = new Schema({
 				testKey: [
@@ -1214,7 +1517,20 @@ describe('Schema', () => {
 				]
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey.0',
+				value: 'test1',
+				item: item
+			}, {
+				error: 'Value should be a Array',
+				path: 'testKey.1',
+				value: 'test2',
+				item: item
+			}]);
 		});
 
 		it('should NOT return errors for multiple items in an array', () => {
@@ -1231,7 +1547,10 @@ describe('Schema', () => {
 				]
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should modify a bad type amongst multiple items in an array', () => {
@@ -1248,7 +1567,15 @@ describe('Schema', () => {
 				]
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a String',
+				path: 'testKey.1',
+				value: 3,
+				item: item
+			}]);
 		});
 
 		it('should NOT modify a good value when multiple types are given', () => {
@@ -1265,7 +1592,10 @@ describe('Schema', () => {
 				]
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should modify a bad value when multiple types are given', () => {
@@ -1282,7 +1612,15 @@ describe('Schema', () => {
 				]
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a String OR Value should be a Number',
+				path: 'testKey.3',
+				value: true,
+				item: item
+			}]);
 		});
 
 		it('should NOT modify a key that matches a nested array', () => {
@@ -1303,7 +1641,10 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should NOT modify objects in an empty array', () => {
@@ -1328,7 +1669,10 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should remove an empty array', () => {
@@ -1337,7 +1681,7 @@ describe('Schema', () => {
 					testKey2: []
 				}
 			};
-			const output = undefined;
+			const output = {};
 
 			const schema = new Schema({
 				testKey: {
@@ -1347,14 +1691,17 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should modify an empty array that should be an object', () => {
 			const item = {
 				testKey: []
 			};
-			const output = undefined;
+			const output = {};
 
 			const schema = new Schema({
 				testKey: {
@@ -1364,7 +1711,15 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Object',
+				path: 'testKey',
+				value: [],
+				item: item
+			}]);
 		});
 
 		it('should NOT modify an empty array that can have strings if isRequired=true', () => {
@@ -1383,7 +1738,77 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
+		});
+
+		it('should modify an empty object if isRequired=false', () => {
+			const item = {
+				testKey: {}
+			};
+			const output = {};
+
+			const schema = new Schema({
+				testKey: {
+					type: Object,
+					content: String
+				}
+			});
+
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
+		});
+
+		it('should NOT modify an empty object if isRequired=true', () => {
+			const item = {
+				testKey: {}
+			};
+			const output = {
+				testKey: {}
+			};
+
+			const schema = new Schema({
+				testKey: {
+					type: Object,
+					isRequired: true,
+					content: String
+				}
+			});
+
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
+		});
+
+		it('should set a value to a previous value if isRequired=true', () => {
+			const item = {
+				testKey: 10
+			};
+			const output = {
+				testKey: 'previous'
+			};
+
+			const schema = new Schema({
+				testKey: {
+					type: String,
+					isRequired: true
+				}
+			});
+
+			const errors = schema.enforce(item, ['testKey'], 'previous');
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a String',
+				path: 'testKey',
+				value: 10,
+				item: item
+			}]);
 		});
 
 		it('should modify a key that doesn\'t match a nested array', () => {
@@ -1392,7 +1817,7 @@ describe('Schema', () => {
 					testKey2: 'inValid'
 				}
 			};
-			const output = undefined;
+			const output = {};
 
 			const schema = new Schema({
 				testKey: {
@@ -1400,7 +1825,15 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey.testKey2',
+				value: 'inValid',
+				item: item
+			}]);
 		});
 
 		it('should NOT modify a key that matches a String in a nested array', () => {
@@ -1421,7 +1854,10 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.equal(errors.length, 0);
 		});
 
 		it('should modify a key that doesn\'t match a String in a nested array', () => {
@@ -1430,7 +1866,7 @@ describe('Schema', () => {
 					testKey2: 'inValid'
 				}
 			};
-			const output = undefined;
+			const output = {};
 
 			const schema = new Schema({
 				testKey: {
@@ -1438,7 +1874,44 @@ describe('Schema', () => {
 				}
 			});
 
-			assert.deepEqual(schema.enforce(item), output);
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, [{
+				error: 'Value should be a Array',
+				path: 'testKey.testKey2',
+				value: 'inValid',
+				item: item
+			}]);
+		});
+
+		it('should enforce a specific path', () => {
+			const item = {
+				testKey: {
+					testKey2: 'valid',
+					testKey3: 10
+				}
+			};
+
+			const schema = new Schema({
+				testKey: {
+					testKey2: String,
+					testKey3: String
+				}
+			});
+
+			let errors = schema.enforce(item, ['testKey', 'testKey2']);
+
+			assert.deepEqual(errors, []);
+
+			errors = schema.enforce(item, ['testKey', 'testKey3']);
+
+			assert.deepEqual(errors, [{
+				error: 'Value should be a String',
+				path: 'testKey.testKey3',
+				value: 10,
+				item: item
+			}]);
 		});
 
 		describe('array length', () => {
@@ -1457,16 +1930,17 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 
-			it('should modify an array length less than minLength', () => {
+			it('should delete an array if length is less than minLength', () => {
 				const item = {
 					testKey: ['test', 'test']
 				};
-				const output = {
-					testKey: []
-				};
+				const output = {};
 
 				const schema = new Schema({
 					testKey: {
@@ -1476,7 +1950,38 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Length is outside range',
+					path: 'testKey',
+					value: ['test', 'test'],
+					item: item
+				}]);
+			});
+
+			it('should modify an array length less than minLength if clamp: true', () => {
+				const item = {
+					testKey: ['test', 'test']
+				};
+				const output = {
+					testKey: ['test', 'test', undefined]
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: Array,
+						minLength: 3,
+						isRequired: true,
+						clamp: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
 			});
 
 			it('should NOT modify an array length less than maxLength', () => {
@@ -1494,16 +1999,17 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 
-			it('should modify an array length greater than maxLength', () => {
+			it('should delete an array if length greater than maxLength', () => {
 				const item = {
 					testKey: ['test', 'test']
 				};
-				const output = {
-					testKey: ['test']
-				};
+				const output = {};
 
 				const schema = new Schema({
 					testKey: {
@@ -1512,7 +2018,175 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Length is outside range',
+					path: 'testKey',
+					value: ['test', 'test'],
+					item: item
+				}]);
+			});
+
+			it('should modify an array length greater than maxLength if clamp: true', () => {
+				const item = {
+					testKey: ['test', 'test', 'test']
+				};
+				const output = {
+					testKey: ['test', 'test']
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: Array,
+						maxLength: 2,
+						clamp: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
+			});
+		});
+
+		describe('string length', () => {
+			it('should NOT modify a string length greater than minLength', () => {
+				const item = {
+					testKey: 'test'
+				};
+				const output = {
+					testKey: 'test'
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: String,
+						minLength: 2
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
+			});
+
+			it('should delete a string if length is less than minLength', () => {
+				const item = {
+					testKey: 'test'
+				};
+				const output = {};
+
+				const schema = new Schema({
+					testKey: {
+						type: String,
+						minLength: 5,
+						isRequired: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Length is outside range',
+					path: 'testKey',
+					value: 'test',
+					item: item
+				}]);
+			});
+
+			it('should modify a string length less than minLength if clamp: true', () => {
+				const item = {
+					testKey: 'test'
+				};
+				const output = {
+					testKey: 'test'
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: String,
+						minLength: 3,
+						isRequired: true,
+						clamp: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
+			});
+
+			it('should NOT modify a string length less than maxLength', () => {
+				const item = {
+					testKey: 'test'
+				};
+				const output = {
+					testKey: 'test'
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: String,
+						maxLength: 6
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
+			});
+
+			it('should delete a string if length greater than maxLength', () => {
+				const item = {
+					testKey: 'test'
+				};
+				const output = {};
+
+				const schema = new Schema({
+					testKey: {
+						type: String,
+						maxLength: 1
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Length is outside range',
+					path: 'testKey',
+					value: 'test',
+					item: item
+				}]);
+			});
+
+			it('should modify a string length greater than maxLength if clamp: true', () => {
+				const item = {
+					testKey: 'test'
+				};
+				const output = {
+					testKey: 'te'
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: String,
+						maxLength: 2,
+						clamp: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
 			});
 		});
 
@@ -1532,7 +2206,10 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 
 			it('should NOT modify an integer less than max', () => {
@@ -1550,10 +2227,13 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 
-			it('should modify an integer less than min', () => {
+			it('should modify an integer less than min if clamp:true', () => {
 				const item = {
 					testKey: 12
 				};
@@ -1564,14 +2244,42 @@ describe('Schema', () => {
 				const schema = new Schema({
 					testKey: {
 						type: 'integer',
+						min: 20,
+						clamp: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
+			});
+
+			it('should remove an integer less than min', () => {
+				const item = {
+					testKey: 12
+				};
+				const output = {};
+
+				const schema = new Schema({
+					testKey: {
+						type: 'integer',
 						min: 20
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
 			});
 
-			it('should modify an integer greater than max', () => {
+			it('should modify an integer greater than max if clamp:true', () => {
 				const item = {
 					testKey: 12
 				};
@@ -1582,11 +2290,39 @@ describe('Schema', () => {
 				const schema = new Schema({
 					testKey: {
 						type: 'integer',
+						max: 10,
+						clamp: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
+			});
+
+			it('should remove an integer greater than max', () => {
+				const item = {
+					testKey: 12
+				};
+				const output = {};
+
+				const schema = new Schema({
+					testKey: {
+						type: 'integer',
 						max: 10
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
 			});
 
 			it('should NOT modify a number greater than min', () => {
@@ -1604,7 +2340,10 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 
 			it('should NOT modify a number less than max', () => {
@@ -1622,10 +2361,13 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 
-			it('should modify a number less than min', () => {
+			it('should modify a number less than min if clamp:true', () => {
 				const item = {
 					testKey: 12
 				};
@@ -1636,14 +2378,42 @@ describe('Schema', () => {
 				const schema = new Schema({
 					testKey: {
 						type: Number,
+						min: 20,
+						clamp: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
+			});
+
+			it('should remove a number less than min', () => {
+				const item = {
+					testKey: 12
+				};
+				const output = {};
+
+				const schema = new Schema({
+					testKey: {
+						type: Number,
 						min: 20
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
 			});
 
-			it('should modify a number greater than max', () => {
+			it('should modify a number greater than max if clamp:true', () => {
 				const item = {
 					testKey: 12
 				};
@@ -1654,18 +2424,22 @@ describe('Schema', () => {
 				const schema = new Schema({
 					testKey: {
 						type: Number,
-						max: 10
+						max: 10,
+						clamp: true
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
 			});
 
-			it('should modify a non-number when a range is given', () => {
+			it('should remove a number greater than max', () => {
 				const item = {
-					testKey: 'test'
+					testKey: 12
 				};
-				const output = undefined;
+				const output = {};
 
 				const schema = new Schema({
 					testKey: {
@@ -1674,7 +2448,62 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Value is outside range',
+					path: 'testKey',
+					value: 12,
+					item: item
+				}]);
+			});
+
+			it('should coerce a number within a range', () => {
+				const item = {
+					testKey: '8'
+				};
+				const output = {
+					testKey: 8
+				};
+
+				const schema = new Schema({
+					testKey: {
+						type: Number,
+						min: 0,
+						max: 10,
+						coerce: true
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, []);
+			});
+
+			it('should modify a non-number when a range is given', () => {
+				const item = {
+					testKey: 'test'
+				};
+				const output = {};
+
+				const schema = new Schema({
+					testKey: {
+						type: Number,
+						max: 10
+					}
+				});
+
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Value should be a Number',
+					path: 'testKey',
+					value: 'test',
+					item: item
+				}]);
 			});
 		});
 
@@ -1699,14 +2528,17 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 
 			it('should modify a value that is not in an enum', () => {
 				const item = {
 					testKey: 'something'
 				};
-				const output = undefined;
+				const output = {};
 
 				const schema = new Schema({
 					testKey: {
@@ -1715,14 +2547,22 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Value should be a Enum',
+					path: 'testKey',
+					value: 'something',
+					item: item
+				}]);
 			});
 
 			it('should modify a value that is not in an enum or a number', () => {
 				const item = {
 					testKey: 'something'
 				};
-				const output = undefined;
+				const output = {};
 
 				const schema = new Schema({
 					testKey: {
@@ -1731,7 +2571,15 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.deepEqual(errors, [{
+					error: 'Value should be a Enum OR Value should be a Number',
+					path: 'testKey',
+					value: 'something',
+					item: item
+				}]);
 			});
 
 			it('should NOT modify a value that is in an enum or a number', () => {
@@ -1749,7 +2597,10 @@ describe('Schema', () => {
 					}
 				});
 
-				assert.deepEqual(schema.enforce(item), output);
+				const errors = schema.enforce(item);
+
+				assert.deepEqual(item, output);
+				assert.equal(errors.length, 0);
 			});
 		});
 	});

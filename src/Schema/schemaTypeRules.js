@@ -6,8 +6,18 @@ export const enforceAnything = (value) => value;
 export const isSame = (a, b) => a === b;
 export const enforceSame = (a) => a;
 
-export const checkNumericRange = (rule, value) => rule.enforce(value, false, rule.coerce, rule.min, rule.max) === value;
-export const checkArrayLength = (rule, value) => (!rule.minLength || rule.minLength <= value.length) && (!rule.maxLength || rule.maxLength >= value.length);
+export const checkNumericRange = (rule, value, defaultValue) => {
+	let newValue = rule.enforce(value, defaultValue, rule.coerce, rule.min, rule.max);
+
+	if (rule.clamp !== true && newValue !== rule.enforce(value, defaultValue, rule.coerce)) {
+		newValue = undefined;
+	}
+
+	return newValue;
+};
+export const checkLength = (rule, value) => {
+	return (!rule.minLength || rule.minLength <= value.length) && (!rule.maxLength || rule.maxLength >= value.length);
+};
 
 export const instanceRule = {
 	check: is.instanceOf,
@@ -20,8 +30,8 @@ export const sameRule = {
 };
 
 export const TYPE_RULES = new Map();
-TYPE_RULES.set('any', {
-	name: 'Anything',
+TYPE_RULES.set('*', {
+	name: '*',
 	check: isAnything,
 	enforce: enforceAnything
 });
@@ -51,9 +61,14 @@ TYPE_RULES.set(Enum, {
 	enforce: enforce.enum
 });
 TYPE_RULES.set(Function, {
-	name: 'Function',
+	name: 'function',
 	check: is.function,
 	enforce: enforce.function
+});
+TYPE_RULES.set('float', {
+	name: 'Float',
+	check: is.float,
+	enforce: enforce.float
 });
 TYPE_RULES.set('integer', {
 	name: 'Integer',

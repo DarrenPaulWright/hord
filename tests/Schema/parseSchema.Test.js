@@ -543,7 +543,7 @@ describe('parseSchema', () => {
 			});
 
 			describe('overrides', () => {
-				it('should return a map for enforce as an object with enforce and type "any"', () => {
+				it('should return a map for enforce as an object with enforce and type "*"', () => {
 					const schema = {
 						level1: {
 							enforce: testEnforce
@@ -560,10 +560,10 @@ describe('parseSchema', () => {
 						content: [{
 							key: 'level1',
 							types: [{
-								name: 'Anything',
+								name: '*',
 								check: isAnything,
 								enforce: testEnforce,
-								type: 'any'
+								type: '*'
 							}]
 						}]
 					};
@@ -1176,7 +1176,7 @@ describe('parseSchema', () => {
 			});
 
 			describe('overrides', () => {
-				it('should return a map for enforce in an array as an object with enforce and type "any"', () => {
+				it('should return a map for enforce in an array as an object with enforce and type "*"', () => {
 					const schema = {
 						level1: [{
 							level2: {
@@ -1212,9 +1212,9 @@ describe('parseSchema', () => {
 								content: [{
 									key: 'level2',
 									types: [{
-										name: 'Anything',
+										name: '*',
 										check: isAnything,
-										type: 'any',
+										type: '*',
 										enforce: testEnforce
 									}]
 								}]
@@ -1267,9 +1267,9 @@ describe('parseSchema', () => {
 						content: [{
 							key: 'level2',
 							types: [{
-								name: 'Anything',
+								name: '*',
 								check: isAnything,
-								type: 'any',
+								type: '*',
 								enforce: testEnforce
 							}]
 						}]
@@ -1984,7 +1984,7 @@ describe('parseSchema', () => {
 			});
 
 			describe('overrides', () => {
-				it('should return a map for enforce in an array as an object with enforce and type "any"', () => {
+				it('should return a map for enforce in an array as an object with enforce and type "*"', () => {
 					const schema = {
 						level1: {
 							type: Array,
@@ -2023,9 +2023,9 @@ describe('parseSchema', () => {
 								content: [{
 									key: 'level2',
 									types: [{
-										name: 'Anything',
+										name: '*',
 										check: isAnything,
-										type: 'any',
+										type: '*',
 										enforce: testEnforce
 									}]
 								}]

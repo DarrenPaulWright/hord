@@ -108,7 +108,7 @@ export default class Collection extends Array {
 		if (self[MODEL]) {
 			self[MODEL].apply(self.last());
 		}
-		
+
 		self[IS_BUSY] = false;
 
 		return output;
@@ -390,7 +390,6 @@ export default class Collection extends Array {
 		const saveDepth = enforceBoolean(settings.saveDepth, false);
 		const onParent = enforceFunction(settings.onParent, () => false);
 		const onChild = enforceFunction(settings.onChild, () => false);
-		let ignoreChildren;
 
 		const flatten = (input, depth, parent) => {
 			if (isArray(input)) {

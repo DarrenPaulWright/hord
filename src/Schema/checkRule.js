@@ -1,6 +1,6 @@
 import ERRORS from './schemaErrors';
 
-export default checkRule = (rule, value) => {
+export default (rule, value) => {
 	if (!rule.check(value, rule.enum || rule.coerce || rule.type)) {
 		return rule.message || ERRORS.CHECK + rule.name;
 	}

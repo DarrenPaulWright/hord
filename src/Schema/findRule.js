@@ -7,4 +7,4 @@ export default function(path, schemaValues) {
 		}
 		return result.content.find((item) => item.key === key || isInteger(key, true));
 	}, schemaValues);
-};
+}

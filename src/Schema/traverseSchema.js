@@ -37,4 +37,4 @@ export default function(item, callback) {
 	};
 
 	subTraverse([], item);
-};
+}

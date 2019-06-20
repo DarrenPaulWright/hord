@@ -39,7 +39,7 @@ const processObject = (item, rule, path, value, onError, isEnforce) => {
 	return isChanged;
 };
 
-export default processValue = (item, rule, path, onError, isEnforce, replace) => {
+export default function processValue(item, rule, path, onError, isEnforce, replace) {
 	const value = get(item, path);
 	let isChanged = false;
 	const subErrors = [];
@@ -110,4 +110,4 @@ export default processValue = (item, rule, path, onError, isEnforce, replace) =>
 	}
 
 	return isChanged;
-};
+}

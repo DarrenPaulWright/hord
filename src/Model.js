@@ -135,7 +135,7 @@ export default class Model {
 	get schema() {
 		return this[SCHEMA];
 	}
-};
+}
 
 /**
  * How to handle errors on all models

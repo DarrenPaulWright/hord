@@ -14,4 +14,4 @@ export default function(value) {
 		return is.function(value.enforce);
 	}
 	return is.array(value) ? isAllType(value) : isType(value);
-};
+}

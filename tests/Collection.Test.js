@@ -1215,7 +1215,7 @@ describe('Collection', () => {
 				prop: 'test 3'
 			});
 
-			testCollection.eachChild((item) => {
+			testCollection.eachChild(() => {
 				total++;
 			}, {
 				childKey: 'children2'
@@ -1242,7 +1242,7 @@ describe('Collection', () => {
 				prop: 'test 3'
 			});
 
-			testCollection.eachChild((item) => {
+			testCollection.eachChild(() => {
 				total++;
 			}, {
 				childKey: 'children2'
@@ -1298,7 +1298,7 @@ describe('Collection', () => {
 				prop: 'test 3'
 			});
 
-			testCollection.eachChild(function(item, depth) {
+			testCollection.eachChild(function() {
 				childContext = this;
 			}, {
 				onParent: function(item, depth) {

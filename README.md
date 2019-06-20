@@ -14,15 +14,12 @@
 <br><a name="Installation"></a>
 
 ### Installation
-```
-npm install hord
-```
-_Requires Babel 7.2+_
+```npm install hord```_Requires Babel 7.2+_
 
 <br><a name="Docs"></a>
 
 ### Docs
-- [List](docs/List.md)
+- [List](docs/List.md)- [Schema](docs/Schema.md)- [Model](docs/Model.md)- [Collection](docs/Collection.md)
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord

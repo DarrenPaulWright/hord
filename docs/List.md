@@ -14,9 +14,7 @@
 <br><a name="List"></a>
 
 ### List
-``` javascript
-import { List } from 'hord';
-```
+``` javascriptimport { List } from 'hord';```
 
 * [List](#List)
     * [new List([values])](#new_List_new)
@@ -62,9 +60,7 @@ import { List } from 'hord';
 <br><a name="new_List_new"></a>
 
 #### new List([values])
-> Always sorted array.
-> 
-> List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
+> Always sorted array.> > List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
 
 
 | Param | Type |
@@ -269,17 +265,7 @@ import { List } from 'hord';
 <br><a name="List+sorter"></a>
 
 #### list.sorter(sorter) ⇒ <code>\*</code>
-> The sorting function. This function is used by .sort() and the binary search to determine equality.
-> 
-> See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
-> A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)
-> 
-> If you're setting this, you may want to call this before setting the values, like this:
-> ``` javascript
-> import { List } from 'hord';
-> 
-> const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);
-> ```
+> The sorting function. This function is used by .sort() and the binary search to determine equality.> > See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);> ```
 
 
 | Param | Type |

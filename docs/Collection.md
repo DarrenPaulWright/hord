@@ -14,12 +14,11 @@
 <br><a name="Collection"></a>
 
 ### Collection ⇐ <code>Array</code>
+``` javascriptimport { Collection } from 'hord';```
 **Extends**: <code>Array</code>  
 
 * [Collection](#Collection) ⇐ <code>Array</code>
     * [new Collection()](#new_Collection_new)
-    * [.pop()](#Collection+pop) ⇒ <code>\*</code>
-    * [.shift()](#Collection+shift) ⇒ <code>\*</code>
     * [.toString()](#Collection+toString) ⇒ <code>String</code>
     * [.keys()](#Collection+keys) ⇒ <code>Object</code>
     * [.every(callback, [thisArg])](#Collection+every) ⇒ <code>Boolean</code>
@@ -31,6 +30,10 @@
     * [.some(callback, [thisArg])](#Collection+some) ⇒ <code>Boolean</code>
     * [.first()](#Collection+first) ⇒ <code>Object</code>
     * [.last()](#Collection+last) ⇒ <code>Object</code>
+    * [.push(item)](#Collection+push) ⇒ <code>Number</code>
+    * [.pop()](#Collection+pop) ⇒ <code>\*</code>
+    * [.unshift(item)](#Collection+unshift) ⇒ <code>Number</code>
+    * [.shift()](#Collection+shift) ⇒ <code>\*</code>
     * [.indexOf(item)](#Collection+indexOf) ⇒ <code>Number</code>
     * [.lastIndexOf(item)](#Collection+lastIndexOf) ⇒ <code>Number</code>
     * [.includes(item)](#Collection+includes) ⇒ <code>Boolean</code>
@@ -38,7 +41,7 @@
     * [.someRight(callback)](#Collection+someRight) ⇒ <code>Boolean</code>
     * [.find(matcher)](#Collection+find) ⇒ <code>Object</code>
     * [.findLast(matcher)](#Collection+findLast) ⇒ <code>Object</code>
-    * [.map(callback)](#Collection+map) ⇒ [<code>Collection</code>](#Collection)
+    * [.map(callback, thisArg)](#Collection+map) ⇒ [<code>Collection</code>](#Collection)
     * [.filter(matcher)](#Collection+filter) ⇒ [<code>Collection</code>](#Collection)
     * [.findIndex(matcher)](#Collection+findIndex) ⇒ <code>Number</code>
     * [.findLastIndex(matcher)](#Collection+findLastIndex) ⇒ <code>Number</code>
@@ -49,29 +52,18 @@
     * [.eachChild(onChild, [settings])](#Collection+eachChild)
     * [.unique([countKey])](#Collection+unique) ⇒ [<code>Collection</code>](#Collection)
     * [.merge(collections, idKey, callback)](#Collection+merge) ⇒ [<code>Collection</code>](#Collection)
+    * [.model()](#Collection+model) ⇒ <code>Model</code>
 
 
 <br><a name="new_Collection_new"></a>
 
 #### new Collection()
-> Indexed Collections for high performance searching.> > ## Usage> ``` javascript> import { Collection } from 'hord';> ```
+> An array of objects with optional model enforcement.
 
 
 | Type | Description |
 | --- | --- |
 | <code>Array</code>, <code>Object</code> | Accepts an array of objects or multiple args of objects. |
-
-
-<br><a name="Collection+pop"></a>
-
-#### collection.pop() ⇒ <code>\*</code>
-> See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
-
-
-<br><a name="Collection+shift"></a>
-
-#### collection.shift() ⇒ <code>\*</code>
-> See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
 
 
 <br><a name="Collection+toString"></a>
@@ -181,6 +173,42 @@
 > Gets the last item in the collection without removing it.
 
 
+<br><a name="Collection+push"></a>
+
+#### collection.push(item) ⇒ <code>Number</code>
+> Add an item to the end of the collection.> See [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+
+**Returns**: <code>Number</code> - The new length of the collection  
+
+| Param | Type |
+| --- | --- |
+| item | <code>\*</code> | 
+
+
+<br><a name="Collection+pop"></a>
+
+#### collection.pop() ⇒ <code>\*</code>
+> Remove the last item from the collection and return it.> See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+
+
+<br><a name="Collection+unshift"></a>
+
+#### collection.unshift(item) ⇒ <code>Number</code>
+> Add an item to the beginning of the collection.> See [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)
+
+**Returns**: <code>Number</code> - The new length of the collection  
+
+| Param | Type |
+| --- | --- |
+| item | <code>\*</code> | 
+
+
+<br><a name="Collection+shift"></a>
+
+#### collection.shift() ⇒ <code>\*</code>
+> Remove the first item from the collection and return it.> See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
+
+
 <br><a name="Collection+indexOf"></a>
 
 #### collection.indexOf(item) ⇒ <code>Number</code>
@@ -264,13 +292,14 @@
 
 <br><a name="Collection+map"></a>
 
-#### collection.map(callback) ⇒ [<code>Collection</code>](#Collection)
+#### collection.map(callback, thisArg) ⇒ [<code>Collection</code>](#Collection)
 > Returns a new collection with the results of calling a provided function on every element.
 
 
 | Param | Type | Description |
 | --- | --- | --- |
 | callback | <code>function</code> | Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection. |
+| thisArg | <code>\*</code> | Applied to the context of the callback |
 
 
 <br><a name="Collection+filter"></a>
@@ -356,8 +385,8 @@
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [settings] | <code>Object</code> |  |  |
-| [settings.idKey] | <code>String</code> | <code>&#x27;ID&#x27;</code> | The ID property of items |
-| [settings.parentKey] | <code>String</code> | <code>&#x27;parent&#x27;</code> | The key that holds the ID of the parent item |
+| [settings.idKey] | <code>String</code> | <code>&#x27;id&#x27;</code> | The id property of items |
+| [settings.parentKey] | <code>String</code> | <code>&#x27;parent&#x27;</code> | The key that holds the id of the parent item |
 | [settings.childKey] | <code>String</code> | <code>&#x27;children&#x27;</code> | The key to save children under. |
 | [settings.deleteParentKey] | <code>String</code> | <code>false</code> | Should the parent key be deleted after nesting |
 
@@ -398,6 +427,18 @@
 | collections | <code>Colection</code>, [<code>Array.&lt;Collection&gt;</code>](#Collection) | Either a collection or array of collections to merge with this collection. |
 | idKey | <code>String</code> | The key to match items from the different collections. |
 | callback | <code>function</code> | Called for each unique idKey value. Provides the same number of args as the total number of collections being merged, in the order provided. The returned value is included in the ouptput collection. |
+
+
+<br><a name="Collection+model"></a>
+
+#### collection.model() ⇒ <code>Model</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+> A model that gets enforced on every item in the collection.
+
+
+| Type | Description |
+| --- | --- |
+| <code>Model</code>, <code>Object</code> | Can be an instance of class:Model or an object with a schema structure. |
 
 
 [npm]: https://img.shields.io/npm/v/hord.svg

@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { Collection } from '../src';
+import { Collection, Model } from '../src';
 
 describe('Collection', () => {
 	describe('.value', () => {
@@ -11,25 +11,25 @@ describe('Collection', () => {
 	describe('.first', () => {
 		it('should return the first item in the collection', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
 			assert.deepEqual(testCollection.first(), {
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			});
@@ -40,25 +40,25 @@ describe('Collection', () => {
 	describe('.last', () => {
 		it('should return the first item in the collection', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
 			assert.deepEqual(testCollection.last(), {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
@@ -69,13 +69,13 @@ describe('Collection', () => {
 	describe('.indexOf', () => {
 		it('should return the index of the item', () => {
 			const object1 = {
-				ID: 1
+				id: 1
 			};
 			const object2 = {
-				ID: 2
+				id: 2
 			};
 			const object3 = {
-				ID: 3
+				id: 3
 			};
 			const testCollection = new Collection(object1, object2, object2, object3);
 
@@ -84,13 +84,13 @@ describe('Collection', () => {
 
 		it('should return -1 for an item that isnt in the collection', () => {
 			const object1 = {
-				ID: 1
+				id: 1
 			};
 			const object2 = {
-				ID: 2
+				id: 2
 			};
 			const object3 = {
-				ID: 3
+				id: 3
 			};
 			const testCollection = new Collection(object1, object2, object2, object3);
 
@@ -101,13 +101,13 @@ describe('Collection', () => {
 	describe('.lastIndexOf', () => {
 		it('should return the last index of the item', () => {
 			const object1 = {
-				ID: 1
+				id: 1
 			};
 			const object2 = {
-				ID: 2
+				id: 2
 			};
 			const object3 = {
-				ID: 3
+				id: 3
 			};
 			const testCollection = new Collection(object1, object2, object2, object3);
 
@@ -116,13 +116,13 @@ describe('Collection', () => {
 
 		it('should return -1 for an item that isnt in the collection', () => {
 			const object1 = {
-				ID: 1
+				id: 1
 			};
 			const object2 = {
-				ID: 2
+				id: 2
 			};
 			const object3 = {
-				ID: 3
+				id: 3
 			};
 			const testCollection = new Collection(object1, object2, object2, object3);
 
@@ -133,13 +133,13 @@ describe('Collection', () => {
 	describe('.includes', () => {
 		it('should return the last index of the item', () => {
 			const object1 = {
-				ID: 1
+				id: 1
 			};
 			const object2 = {
-				ID: 2
+				id: 2
 			};
 			const object3 = {
-				ID: 3
+				id: 3
 			};
 			const testCollection = new Collection(object1, object2, object2, object3);
 
@@ -148,13 +148,13 @@ describe('Collection', () => {
 
 		it('should return -1 for an item that isnt in the collection', () => {
 			const object1 = {
-				ID: 1
+				id: 1
 			};
 			const object2 = {
-				ID: 2
+				id: 2
 			};
 			const object3 = {
-				ID: 3
+				id: 3
 			};
 			const testCollection = new Collection(object1, object2, object2, object3);
 
@@ -167,19 +167,19 @@ describe('Collection', () => {
 			let total = 0;
 			let testVar = 3;
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
@@ -201,19 +201,19 @@ describe('Collection', () => {
 			let total = 0;
 			let testVar = 3;
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
@@ -236,290 +236,290 @@ describe('Collection', () => {
 	describe('.find', () => {
 		it('should find an item via a callback', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 			const testOutput = {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			};
 
-			assert.deepEqual(testCollection.find((item) => item.ID === 3 && item.two === 12), testOutput);
+			assert.deepEqual(testCollection.find((item) => item.id === 3 && item.two === 12), testOutput);
 		});
 
 		it('should find an item that matches an object', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 			const testOutput = {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			};
 
-			assert.deepEqual(testCollection.find({ID: 3, two: 12}), testOutput);
+			assert.deepEqual(testCollection.find({id: 3, two: 12}), testOutput);
 		});
 	});
 
 	describe('.findLast', () => {
 		it('should find an item via a callback', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 5'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.findLast((item) => item.ID === 3 && item.two === 12), testCollection[3]);
+			assert.deepEqual(testCollection.findLast((item) => item.id === 3 && item.two === 12), testCollection[3]);
 		});
 
 		it('should find an item that matches an object', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 5'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.findLast({ID: 3, two: 12}), testCollection[3]);
+			assert.deepEqual(testCollection.findLast({id: 3, two: 12}), testCollection[3]);
 		});
 	});
 
 	describe('.filter', () => {
 		it('should find an item via a callback', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 5'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.filter((item) => item.ID === 3 && item.two === 12), testCollection.slice(2, 4));
+			assert.deepEqual(testCollection.filter((item) => item.id === 3 && item.two === 12), testCollection.slice(2, 4));
 		});
 
 		it('should find an item that matches an object', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 5'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.filter({ID: 3, two: 12}), testCollection.slice(2, 4));
+			assert.deepEqual(testCollection.filter({id: 3, two: 12}), testCollection.slice(2, 4));
 		});
 
 		it('should find an item that matches an object', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 5'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.filter({ID: 3, two: 13}), []);
+			assert.deepEqual(testCollection.filter({id: 3, two: 13}), []);
 		});
 	});
 
 	describe('.findIndex', () => {
 		it('should find an item via a callback', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.findIndex((item) => item.ID === 3 && item.two === 12), 2);
+			assert.deepEqual(testCollection.findIndex((item) => item.id === 3 && item.two === 12), 2);
 		});
 
 		it('should find an item that matches an object', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.findIndex({ID: 3, two: 12}), 2);
+			assert.deepEqual(testCollection.findIndex({id: 3, two: 12}), 2);
 		});
 	});
 
 	describe('.findLastIndex', () => {
 		it('should find an item via a callback', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 5'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.findLastIndex((item) => item.ID === 3 && item.two === 12), 3);
+			assert.deepEqual(testCollection.findLastIndex((item) => item.id === 3 && item.two === 12), 3);
 		});
 
 		it('should find an item that matches an object', () => {
 			const testCollection = new Collection({
-				ID: 2,
+				id: 2,
 				two: 10,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 11,
 				value: 'test 3'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				two: 12,
 				value: 'test 5'
 			}, {
-				ID: 1,
+				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.findLastIndex({ID: 3, two: 12}), 3);
+			assert.deepEqual(testCollection.findLastIndex({id: 3, two: 12}), 3);
 		});
 	});
 
@@ -1038,51 +1038,51 @@ describe('Collection', () => {
 
 		it('should return properly nested data', () => {
 			const testCollection = new Collection({
-				ID: 1,
+				id: 1,
 				prop: 'test 1'
 			}, {
-				ID: 2,
+				id: 2,
 				prop: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				prop: 'test 3',
 				parent: 2
 			}, {
-				ID: 4,
+				id: 4,
 				prop: 'test 4',
 				another: 'something',
 				parent: 2
 			}, {
-				ID: 5,
+				id: 5,
 				prop: 'test 5',
 				parent: 4
 			}, {
-				ID: 6,
+				id: 6,
 				prop: 'test 6',
 				parent: 2
 			});
 			const output = [{
-				ID: 1,
+				id: 1,
 				prop: 'test 1'
 			}, {
-				ID: 2,
+				id: 2,
 				prop: 'test 2',
 				children: [{
-					ID: 3,
+					id: 3,
 					prop: 'test 3',
 					parent: 2
 				}, {
-					ID: 4,
+					id: 4,
 					prop: 'test 4',
 					another: 'something',
 					children: [{
-						ID: 5,
+						id: 5,
 						prop: 'test 5',
 						parent: 4
 					}],
 					parent: 2
 				}, {
-					ID: 6,
+					id: 6,
 					prop: 'test 6',
 					parent: 2
 				}]
@@ -1093,48 +1093,48 @@ describe('Collection', () => {
 
 		it('should remove the parent property from items if deleteParentKey = true', () => {
 			const testCollection = new Collection({
-				ID: 1,
+				id: 1,
 				prop: 'test 1'
 			}, {
-				ID: 2,
+				id: 2,
 				prop: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				prop: 'test 3',
 				parent: 2
 			}, {
-				ID: 4,
+				id: 4,
 				prop: 'test 4',
 				another: 'something',
 				parent: 2
 			}, {
-				ID: 5,
+				id: 5,
 				prop: 'test 5',
 				parent: 4
 			}, {
-				ID: 6,
+				id: 6,
 				prop: 'test 6',
 				parent: 2
 			});
 			const output = [{
-				ID: 1,
+				id: 1,
 				prop: 'test 1'
 			}, {
-				ID: 2,
+				id: 2,
 				prop: 'test 2',
 				children: [{
-					ID: 3,
+					id: 3,
 					prop: 'test 3'
 				}, {
-					ID: 4,
+					id: 4,
 					prop: 'test 4',
 					another: 'something',
 					children: [{
-						ID: 5,
+						id: 5,
 						prop: 'test 5'
 					}]
 				}, {
-					ID: 6,
+					id: 6,
 					prop: 'test 6'
 				}]
 			}];
@@ -1410,23 +1410,23 @@ describe('Collection', () => {
 	describe('.merge', () => {
 		it('should return a new collection with zipped data from two arrays', () => {
 			const testCollection1 = new Collection({
-				ID: 2,
+				id: 2,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 3'
 			}, {
-				ID: 1,
+				id: 1,
 				value: 'test 1'
 			});
 			const testCollection2 = new Collection([{
-				ID: 1,
+				id: 1,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 6'
 			}, {
-				ID: 2,
+				id: 2,
 				value: 'test 5'
 			}]);
 			const testOutput = [{
@@ -1440,7 +1440,7 @@ describe('Collection', () => {
 				y: 'test 4'
 			}];
 
-			const output = testCollection1.merge(testCollection2, 'ID', (x, y) => ({
+			const output = testCollection1.merge(testCollection2, 'id', (x, y) => ({
 				x: x.value,
 				y: y.value
 			}));
@@ -1451,33 +1451,33 @@ describe('Collection', () => {
 
 		it('should return a new collection with zipped data from three arrays', () => {
 			const testCollection1 = new Collection({
-				ID: 2,
+				id: 2,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 3'
 			}, {
-				ID: 1,
+				id: 1,
 				value: 'test 1'
 			});
 			const testCollection2 = new Collection({
-				ID: 1,
+				id: 1,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 6'
 			}, {
-				ID: 2,
+				id: 2,
 				value: 'test 5'
 			});
 			const testCollection3 = new Collection({
-				ID: 3,
+				id: 3,
 				value: 'test 9'
 			}, {
-				ID: 2,
+				id: 2,
 				value: 'test 8'
 			}, {
-				ID: 1,
+				id: 1,
 				value: 'test 7'
 			});
 			const testOutput = [{
@@ -1495,7 +1495,7 @@ describe('Collection', () => {
 			}];
 
 			const output = testCollection1.merge([testCollection2,
-				testCollection3], 'ID', (x, y, z) => ({
+				testCollection3], 'id', (x, y, z) => ({
 				x: x.value,
 				y: y.value,
 				z: z.value
@@ -1506,39 +1506,39 @@ describe('Collection', () => {
 
 		it('should return a new collection with zipped data from three arrays with multiples of some IDs', () => {
 			const testCollection1 = new Collection({
-				ID: 2,
+				id: 2,
 				value: 'test 2'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 3'
 			}, {
-				ID: 1,
+				id: 1,
 				value: 'test 1'
 			});
 			const testCollection2 = new Collection({
-				ID: 1,
+				id: 1,
 				value: 'test 4'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 6'
 			}, {
-				ID: 2,
+				id: 2,
 				value: 'test 5'
 			}, {
-				ID: 2,
+				id: 2,
 				value: 'test 11'
 			});
 			const testCollection3 = new Collection({
-				ID: 1,
+				id: 1,
 				value: 'test 7'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 9'
 			}, {
-				ID: 3,
+				id: 3,
 				value: 'test 10'
 			}, {
-				ID: 2,
+				id: 2,
 				value: 'test 8'
 			});
 			const testOutput = [{
@@ -1564,13 +1564,90 @@ describe('Collection', () => {
 			}];
 
 			const output = testCollection1.merge([testCollection2,
-				testCollection3], 'ID', (x, y, z) => ({
+				testCollection3], 'id', (x, y, z) => ({
 				x: x.value,
 				y: y.value,
 				z: z.value
 			}));
 
 			assert.deepEqual(output, testOutput);
+		});
+	});
+
+	describe('.model', () => {
+		const Person = new Model({
+			id: Number,
+			first: {
+				type: String,
+				index: true
+			},
+			last: {
+				type: String,
+				index: true
+			},
+			age: Number
+		});
+
+		it('should enforce the model on an item that is pushed', () => {
+			const testCollection1 = new Collection().model(Person);
+
+			testCollection1.push({
+				first: 'John',
+				last: 'Doe',
+				age: '21'
+			});
+
+			testCollection1.push({
+				first: 'Jane',
+				last: 'Doe',
+				hobbies: ['programming']
+			});
+
+			assert.deepEqual(testCollection1[0], {
+				first: 'John',
+				last: 'Doe'
+			});
+			assert.deepEqual(testCollection1[1], {
+				first: 'Jane',
+				last: 'Doe'
+			});
+		});
+
+		it('should accept an object', () => {
+			const testCollection1 = new Collection()
+				.model({
+					id: Number,
+					first: {
+						type: String,
+						index: true
+					},
+					last: {
+						type: String,
+						index: true
+					},
+					age: Number
+				});
+
+			testCollection1.push({
+				first: 'John',
+				last: 'Doe',
+				age: '21'
+			});
+
+			testCollection1.push({
+				first: 'Jane',
+				last: 'Doe',
+				hobbies: ['programming']
+			});
+
+			assert.deepEqual(testCollection1[0], {
+				first: 'John',
+				last: 'Doe'
+			});
+			assert.deepEqual(testCollection1[1], {
+				first: 'Jane',
+				last: 'Doe'
+			});
 		});
 	});
 });

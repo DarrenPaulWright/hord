@@ -1,5 +1,15 @@
 import { clone, deepEqual } from 'object-agent';
-import { enforceBoolean, enforceFunction, enforceString, isArray, isInstanceOf, isObject } from 'type-enforcer';
+import onChange from 'on-change';
+import {
+	enforceBoolean,
+	enforceFunction,
+	enforceString,
+	isArray,
+	isInstanceOf,
+	isObject,
+	methodInstance
+} from 'type-enforcer';
+import Model from './Model';
 
 const buildFinder = (matcher) => {
 	if (isObject(matcher)) {
@@ -9,22 +19,47 @@ const buildFinder = (matcher) => {
 	return matcher;
 };
 
+const IS_BUSY = Symbol();
+const MODEL = Symbol();
+
+const applyModel = Symbol();
+
 /**
- * Indexed Collections for high performance searching.
- *
- * ## Usage
- * ``` javascript
- * import { Collection } from 'hord';
- * ```
+ * An array of objects with optional model enforcement.
  *
  * @class Collection
  * @extends Array
+ * @summary
+ *
+ * ``` javascript
+ * import { Collection } from 'hord';
+ * ```
  *
  * @arg {Array|Object} - Accepts an array of objects or multiple args of objects.
  */
 export default class Collection extends Array {
 	constructor(...args) {
 		super(...(args.length === 1 && isArray(args[0]) ? args[0] : args));
+
+		const self = this;
+
+		return onChange(this, () => {
+			if (!self[IS_BUSY] && self[MODEL]) {
+				self[applyModel]();
+			}
+		}, {
+			isShallow: true
+		});
+	}
+
+	[applyModel]() {
+		const self = this;
+
+		self[IS_BUSY] = true;
+
+		self.forEach((item, index) => self[index] = self[MODEL].apply(item));
+
+		self[IS_BUSY] = false;
 	}
 
 	/**
@@ -50,6 +85,84 @@ export default class Collection extends Array {
 	last() {
 		return this[this.length - 1];
 	}
+
+	/**
+	 * Add an item to the end of the collection.
+	 * See [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+	 *
+	 * @method push
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @arg {*} item
+	 *
+	 * @returns {Number} The new length of the collection
+	 */
+	push(item) {
+		const self = this;
+
+		self[IS_BUSY] = true;
+
+		const output = super.push(item);
+
+		if (self[MODEL]) {
+			self[MODEL].apply(self.last());
+		}
+		
+		self[IS_BUSY] = false;
+
+		return output;
+	}
+
+	/**
+	 * Remove the last item from the collection and return it.
+	 * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+	 *
+	 * @method pop
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @returns {*}
+	 */
+
+	/**
+	 * Add an item to the beginning of the collection.
+	 * See [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)
+	 *
+	 * @method unshift
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @arg {*} item
+	 *
+	 * @returns {Number} The new length of the collection
+	 */
+	unshift(item) {
+		const self = this;
+
+		self[IS_BUSY] = true;
+
+		const output = super.unshift(item);
+
+		if (self[MODEL]) {
+			self[MODEL].apply(self.first());
+		}
+
+		self[IS_BUSY] = false;
+
+		return output;
+	}
+
+	/**
+	 * Remove the first item from the collection and return it.
+	 * See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
+	 *
+	 * @method shift
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @returns {*}
+	 */
 
 	/**
 	 * Gets the index of the first matching item.
@@ -160,11 +273,12 @@ export default class Collection extends Array {
 	 * @instance
 	 *
 	 * @arg {Function} callback - Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection.
+	 * @arg {*} thisArg - Applied to the context of the callback
 	 *
 	 * @returns {Collection}
 	 */
-	map(callback) {
-		return new Collection(super.map(callback, this));
+	map(callback, thisArg) {
+		return new Collection(super.map(callback, thisArg || this)).model(this.model());
 	}
 
 	/**
@@ -178,7 +292,7 @@ export default class Collection extends Array {
 	 * @returns {Collection}
 	 */
 	filter(matcher) {
-		return new Collection(super.filter(buildFinder(matcher)));
+		return new Collection(super.filter(buildFinder(matcher))).model(this.model());
 	}
 
 	/**
@@ -231,7 +345,7 @@ export default class Collection extends Array {
 	 * @returns {Collection}
 	 */
 	slice(...args) {
-		return new Collection(super.slice(...args));
+		return new Collection(super.slice(...args)).model(this.model());
 	}
 
 	/**
@@ -313,8 +427,8 @@ export default class Collection extends Array {
 	 * @instance
 	 *
 	 * @arg {Object}   [settings]
-	 * @arg {String}   [settings.idKey='ID'] - The ID property of items
-	 * @arg {String}   [settings.parentKey='parent'] - The key that holds the ID of the parent item
+	 * @arg {String}   [settings.idKey='id'] - The id property of items
+	 * @arg {String}   [settings.parentKey='parent'] - The key that holds the id of the parent item
 	 * @arg {String}   [settings.childKey='children'] - The key to save children under.
 	 * @arg {String}   [settings.deleteParentKey=false] - Should the parent key be deleted after nesting
 	 *
@@ -322,7 +436,7 @@ export default class Collection extends Array {
 	 */
 	nest(settings = {}) {
 		const self = this;
-		const idKey = enforceString(settings.idKey, 'ID');
+		const idKey = enforceString(settings.idKey, 'id');
 		const parentKey = enforceString(settings.parentKey, 'parent');
 		const childKey = enforceString(settings.childKey, 'children');
 		const deleteParentKey = enforceBoolean(settings.deleteParentKey, false);
@@ -453,25 +567,35 @@ export default class Collection extends Array {
 	}
 }
 
-/**
- * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
- *
- * @method pop
- * @memberOf Collection
- * @instance
- *
- * @returns {*}
- */
+Object.assign(Collection.prototype, {
+	/**
+	 * A model that gets enforced on every item in the collection.
+	 *
+	 * @memberOf Collection
+	 * @method model
+	 * @instance
+	 * @chainable
+	 *
+	 * @arg {Model|Object} - Can be an instance of class:Model or an object with a schema structure.
+	 *
+	 * @returns {Model}
+	 */
+	model: methodInstance({
+		instance: Model,
+		set: function(model) {
+			const self = this;
 
-/**
- * See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
- *
- * @method shift
- * @memberOf Collection
- * @instance
- *
- * @returns {*}
- */
+			if (isObject(model)) {
+				self.model(new Model(model));
+			}
+			else {
+				self[MODEL] = model;
+				self[applyModel]();
+			}
+		},
+		other: Object
+	})
+});
 
 /**
  * See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)

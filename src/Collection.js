@@ -1,4 +1,4 @@
-import { clone, deepEqual } from 'object-agent';
+import { clone, get, isEqual, traverse } from 'object-agent';
 import onChange from 'on-change';
 import {
 	enforceBoolean,
@@ -13,12 +13,29 @@ import Model from './Model';
 import findLastIndex from './utility/findLastIndex';
 import someRight from './utility/someRight';
 
-const buildFinder = (matcher) => {
-	if (isObject(matcher)) {
-		const rules = Object.entries(matcher).map(([key, value]) => (item) => deepEqual(item[key], value));
+/**
+ * Can be either of the following:
+ * - A function that accepts one item from the collection and returns true to indicate a match.
+ * - An object that is deeply compared to items in the collection for equivalent property values. Only properties on the predicate are compared.
+ *
+ * @typedef predicate
+ * @type {function|Object}
+ */
+
+const buildFinder = (predicate) => {
+	if (isObject(predicate)) {
+		const rules = [];
+
+		traverse(predicate, (path, value) => {
+			if (path.length && !isArray(value) && !isObject(value)) {
+				rules.push((item) => isEqual(get(item, path), value));
+			}
+		});
+
 		return (item) => rules.every((rule) => rule(item));
 	}
-	return matcher;
+
+	return predicate;
 };
 
 const IS_BUSY = Symbol();
@@ -242,12 +259,12 @@ export default class Collection extends Array {
 	 * @memberOf Collection
 	 * @instance
 	 *
-	 * @arg {Function|Object} matcher - A function that returns true for a matched item, or an Object that represents the data you want to match.
+	 * @arg {predicate} predicate
 	 *
-	 * @returns {Object} - The item or undefined
+	 * @returns {Object} The item or undefined
 	 */
-	find(matcher) {
-		return this[this.findIndex(matcher)];
+	find(predicate) {
+		return this[this.findIndex(predicate)];
 	}
 
 	/**
@@ -256,12 +273,12 @@ export default class Collection extends Array {
 	 * @memberOf Collection
 	 * @instance
 	 *
-	 * @arg {Function|Object} matcher - A function that returns true for a matched item, or an Object that represents the data you want to match.
+	 * @arg {predicate} predicate
 	 *
-	 * @returns {Object} - The item or undefined
+	 * @returns {Object} The item or undefined
 	 */
-	findLast(matcher) {
-		return this[this.findLastIndex(matcher)];
+	findLast(predicate) {
+		return this[this.findLastIndex(predicate)];
 	}
 
 	/**
@@ -285,12 +302,12 @@ export default class Collection extends Array {
 	 * @memberOf Collection
 	 * @instance
 	 *
-	 * @arg {Function|Object} matcher - A function that returns true for a matched item, or an Object that represents the data you want to match.
+	 * @arg {predicate} predicate
 	 *
 	 * @returns {Collection}
 	 */
-	filter(matcher) {
-		return new Collection(super.filter(buildFinder(matcher))).model(this.model());
+	filter(predicate) {
+		return new Collection(super.filter(buildFinder(predicate))).model(this.model());
 	}
 
 	/**
@@ -299,12 +316,12 @@ export default class Collection extends Array {
 	 * @memberOf Collection
 	 * @instance
 	 *
-	 * @arg {Function|Object} matcher - A function that returns true for a matched item, or an Object that represents the data you want to match.
+	 * @arg {predicate} predicate
 	 *
-	 * @returns {Number} - The index of the item or -1
+	 * @returns {Number} The index of the item or -1
 	 */
-	findIndex(matcher) {
-		return super.findIndex(buildFinder(matcher));
+	findIndex(predicate) {
+		return super.findIndex(buildFinder(predicate));
 	}
 
 	/**
@@ -313,12 +330,12 @@ export default class Collection extends Array {
 	 * @memberOf Collection
 	 * @instance
 	 *
-	 * @arg {Function|Object} matcher - A function that returns true for a matched item, or an Object that represents the data you want to match.
+	 * @arg {predicate} predicate
 	 *
-	 * @returns {Number} - The index of the item or -1
+	 * @returns {Number} The index of the item or -1
 	 */
-	findLastIndex(matcher) {
-		return findLastIndex(this, buildFinder(matcher));
+	findLastIndex(predicate) {
+		return findLastIndex(this, buildFinder(predicate));
 	}
 
 	/**
@@ -337,19 +354,19 @@ export default class Collection extends Array {
 	}
 
 	/**
-	 * Like .slice(), but finds the begin and end indexes via matchers. (end is included)
+	 * Like .slice(), but finds the begin and end indexes via predicates. (end is included)
 	 *
 	 * @memberOf Collection
 	 * @instance
 	 *
-	 * @arg {Object} beginMatcher - A function that returns true for a matched item, or an Object that represents the data you want to match.
-	 * @arg {Object} [endMatcher=collection.length] - A function that returns true for a matched item, or an Object that represents the data you want to match. (end is included)
+	 * @arg {predicate} beginPredicate
+	 * @arg {predicate} [endPredicate=collection.length]
 	 *
 	 * @returns {Collection}
 	 */
-	sliceBy(beginMatcher, endMatcher) {
-		let begin = Math.max(beginMatcher ? this.findIndex(beginMatcher) : 0, 0);
-		let end = endMatcher ? this.findLastIndex(endMatcher) : this.length;
+	sliceBy(beginPredicate, endPredicate) {
+		let begin = beginPredicate ? Math.max(this.findIndex(beginPredicate), 0) : 0;
+		let end = endPredicate ? this.findLastIndex(endPredicate) : this.length;
 
 		if (end < begin) {
 			[begin, end] = [end, begin];

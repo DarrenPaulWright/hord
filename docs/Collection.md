@@ -39,12 +39,12 @@
     * [.includes(item)](#Collection+includes) ⇒ <code>Boolean</code>
     * [.forEachRight(callback)](#Collection+forEachRight)
     * [.someRight(callback)](#Collection+someRight) ⇒ <code>Boolean</code>
-    * [.find(matcher)](#Collection+find) ⇒ <code>Object</code>
-    * [.findLast(matcher)](#Collection+findLast) ⇒ <code>Object</code>
+    * [.find(predicate)](#Collection+find) ⇒ <code>Object</code>
+    * [.findLast(predicate)](#Collection+findLast) ⇒ <code>Object</code>
     * [.map(callback, thisArg)](#Collection+map) ⇒ [<code>Collection</code>](#Collection)
-    * [.filter(matcher)](#Collection+filter) ⇒ [<code>Collection</code>](#Collection)
-    * [.findIndex(matcher)](#Collection+findIndex) ⇒ <code>Number</code>
-    * [.findLastIndex(matcher)](#Collection+findLastIndex) ⇒ <code>Number</code>
+    * [.filter(predicate)](#Collection+filter) ⇒ [<code>Collection</code>](#Collection)
+    * [.findIndex(predicate)](#Collection+findIndex) ⇒ <code>Number</code>
+    * [.findLastIndex(predicate)](#Collection+findLastIndex) ⇒ <code>Number</code>
     * [.slice(begin, [end])](#Collection+slice) ⇒ [<code>Collection</code>](#Collection)
     * [.sliceBy(beginMatcher, [endMatcher])](#Collection+sliceBy) ⇒ [<code>Collection</code>](#Collection)
     * [.flatten([settings])](#Collection+flatten) ⇒ [<code>Collection</code>](#Collection)
@@ -268,26 +268,26 @@
 
 <br><a name="Collection+find"></a>
 
-#### collection.find(matcher) ⇒ <code>Object</code>
+#### collection.find(predicate) ⇒ <code>Object</code>
 > Gets the first (lowest index) matching item from the collection.
 
-**Returns**: <code>Object</code> - - The item or undefined  
+**Returns**: <code>Object</code> - The item or undefined  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| Param | Type |
+| --- | --- |
+| predicate | [<code>predicate</code>](#predicate) | 
 
 
 <br><a name="Collection+findLast"></a>
 
-#### collection.findLast(matcher) ⇒ <code>Object</code>
+#### collection.findLast(predicate) ⇒ <code>Object</code>
 > Gets the last (greatest index) matching item from the collection.
 
-**Returns**: <code>Object</code> - - The item or undefined  
+**Returns**: <code>Object</code> - The item or undefined  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| Param | Type |
+| --- | --- |
+| predicate | [<code>predicate</code>](#predicate) | 
 
 
 <br><a name="Collection+map"></a>
@@ -304,37 +304,37 @@
 
 <br><a name="Collection+filter"></a>
 
-#### collection.filter(matcher) ⇒ [<code>Collection</code>](#Collection)
+#### collection.filter(predicate) ⇒ [<code>Collection</code>](#Collection)
 > Gets all the matching items from the collection.
 
 
-| Param | Type | Description |
-| --- | --- | --- |
-| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| Param | Type |
+| --- | --- |
+| predicate | [<code>predicate</code>](#predicate) | 
 
 
 <br><a name="Collection+findIndex"></a>
 
-#### collection.findIndex(matcher) ⇒ <code>Number</code>
+#### collection.findIndex(predicate) ⇒ <code>Number</code>
 > Gets the index of the first (lowest index) matching item.
 
-**Returns**: <code>Number</code> - - The index of the item or -1  
+**Returns**: <code>Number</code> - The index of the item or -1  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| Param | Type |
+| --- | --- |
+| predicate | [<code>predicate</code>](#predicate) | 
 
 
 <br><a name="Collection+findLastIndex"></a>
 
-#### collection.findLastIndex(matcher) ⇒ <code>Number</code>
+#### collection.findLastIndex(predicate) ⇒ <code>Number</code>
 > Gets the index of the last (greatest index) matching item.
 
-**Returns**: <code>Number</code> - - The index of the item or -1  
+**Returns**: <code>Number</code> - The index of the item or -1  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| matcher | <code>function</code>, <code>Object</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. |
+| Param | Type |
+| --- | --- |
+| predicate | [<code>predicate</code>](#predicate) | 
 
 
 <br><a name="Collection+slice"></a>
@@ -355,10 +355,10 @@
 > Like .slice(), but finds the begin and end indexes via matchers. (end is included)
 
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| beginMatcher | <code>Object</code> |  | A function that returns true for a matched item, or an Object that represents the data you want to match. |
-| [endMatcher] | <code>Object</code> | <code>collection.length</code> | A function that returns true for a matched item, or an Object that represents the data you want to match. (end is included) |
+| Param | Type | Default |
+| --- | --- | --- |
+| beginPredicate | [<code>predicate</code>](#predicate) |  | 
+| [endPredicate] | [<code>predicate</code>](#predicate) | <code>collection.length</code> | 
 
 
 <br><a name="Collection+flatten"></a>
@@ -439,6 +439,12 @@
 | Type | Description |
 | --- | --- |
 | <code>Model</code>, <code>Object</code> | Can be an instance of class:Model or an object with a schema structure. |
+
+
+<br><a name="predicate"></a>
+
+### predicate : <code>function</code> \| <code>Object</code>
+> Can be either of the following:> - A function that accepts one item from the collection and returns true to indicate a match.> - An object that is deeply compared to items in the collection for equivalent property values. Only properties on the predicate are compared.
 
 
 [npm]: https://img.shields.io/npm/v/hord.svg

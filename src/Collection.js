@@ -10,6 +10,7 @@ import {
 	methodInstance
 } from 'type-enforcer';
 import Model from './Model';
+import findLastIndex from './utility/findLastIndex';
 import someRight from './utility/someRight';
 
 const buildFinder = (matcher) => {
@@ -317,17 +318,7 @@ export default class Collection extends Array {
 	 * @returns {Number} - The index of the item or -1
 	 */
 	findLastIndex(matcher) {
-		const finder = buildFinder(matcher);
-		let output;
-
-		this.someRight((item, index) => {
-			if (finder(item)) {
-				output = index;
-				return true;
-			}
-		});
-
-		return output;
+		return findLastIndex(this, buildFinder(matcher));
 	}
 
 	/**

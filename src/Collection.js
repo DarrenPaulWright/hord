@@ -132,7 +132,7 @@ export default class Collection extends Array {
 		const output = super.push(item);
 
 		if (settings[MODEL]) {
-			settings[MODEL].apply(self.last());
+			self[self.length - 1] = settings[MODEL].apply(self[self.length - 1]);
 		}
 
 		settings[IS_BUSY] = false;
@@ -172,7 +172,7 @@ export default class Collection extends Array {
 		const output = super.unshift(item);
 
 		if (settings[MODEL]) {
-			settings[MODEL].apply(self.first());
+			self[0] = settings[MODEL].apply(self[0]);
 		}
 
 		settings[IS_BUSY] = false;

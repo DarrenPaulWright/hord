@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Compares against the matcher object more consistently
 - Collection
   - Predicate can now be deeply nested.
+  - Fixed model application in push and unshift
 
 ## [0.3.1] - 2019-06-20
 - Fixed Tests

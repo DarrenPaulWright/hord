@@ -10,6 +10,7 @@ import {
 	methodInstance
 } from 'type-enforcer';
 import Model from './Model';
+import someRight from './utility/someRight';
 
 const buildFinder = (matcher) => {
 	if (isObject(matcher)) {
@@ -231,11 +232,7 @@ export default class Collection extends Array {
 	 * @returns {Boolean}
 	 */
 	someRight(callback) {
-		for (let index = this.length - 1; index !== -1; index--) {
-			if (callback(this[index], index)) {
-				return true;
-			}
-		}
+		someRight(this, callback);
 	}
 
 	/**

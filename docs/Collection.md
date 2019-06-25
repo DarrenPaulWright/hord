@@ -29,6 +29,8 @@
     * [.reduce(callback, [thisArg])](#Collection+reduce) ⇒ <code>\*</code>
     * [.reduceRight(callback, [thisArg])](#Collection+reduceRight) ⇒ <code>\*</code>
     * [.some(callback, [thisArg])](#Collection+some) ⇒ <code>Boolean</code>
+    * [.entries()](#Collection+entries) ⇒ <code>Iterator</code>
+    * [.join([separator])](#Collection+join) ⇒ <code>String</code>
     * [.first()](#Collection+first) ⇒ <code>Object</code>
     * [.last()](#Collection+last) ⇒ <code>Object</code>
     * [.push(item)](#Collection+push) ⇒ <code>Number</code>
@@ -55,7 +57,7 @@
     * [.merge(collections, idKey, callback)](#Collection+merge) ⇒ [<code>Collection</code>](#Collection)
     * [.concat(value)](#Collection+concat) ⇒ [<code>Collection</code>](#Collection)
     * [.copyWithin(target, [start], [end])](#Collection+copyWithin) ↩︎
-    * [.fill(value, [start], [end])](#Collection+fill) ⇒ <code>Iterator</code>
+    * [.fill(value, [start], [end])](#Collection+fill) ↩︎
     * [.flat([depth])](#Collection+flat) ⇒ [<code>Collection</code>](#Collection)
     * [.flatMap(callback)](#Collection+flatMap) ⇒ [<code>Collection</code>](#Collection)
     * [.reverse()](#Collection+reverse) ⇒ [<code>Collection</code>](#Collection)
@@ -67,7 +69,7 @@
 <br><a name="new_Collection_new"></a>
 
 #### new Collection()
-> An array of objects with optional model enforcement.
+> An array of objects with optional model enforcement.> > The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement.
 
 
 | Type | Description |
@@ -85,20 +87,17 @@
 <br><a name="Collection+toString"></a>
 
 #### collection.toString() ⇒ <code>String</code>
-> See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
-
+**See**: [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)  
 
 <br><a name="Collection+keys"></a>
 
 #### collection.keys() ⇒ <code>Object</code>
-> See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
-
+**See**: [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)  
 
 <br><a name="Collection+every"></a>
 
 #### collection.every(callback, [thisArg]) ⇒ <code>Boolean</code>
-> See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
-
+**See**: [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)  
 
 | Param | Type |
 | --- | --- |
@@ -109,8 +108,7 @@
 <br><a name="Collection+forEach"></a>
 
 #### collection.forEach(callback, [thisArg]) ⇒ <code>undefined</code>
-> See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
-
+**See**: [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)  
 
 | Param | Type |
 | --- | --- |
@@ -121,8 +119,7 @@
 <br><a name="Collection+toLocaleString"></a>
 
 #### collection.toLocaleString([locales], [options]) ⇒ <code>String</code>
-> See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
-
+**See**: [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)  
 
 | Param | Type |
 | --- | --- |
@@ -133,8 +130,7 @@
 <br><a name="Collection+join"></a>
 
 #### collection.join([separator]) ⇒ <code>String</code>
-> See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
-
+**See**: [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -144,8 +140,7 @@
 <br><a name="Collection+reduce"></a>
 
 #### collection.reduce(callback, [thisArg]) ⇒ <code>\*</code>
-> See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
-
+**See**: [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)  
 
 | Param | Type |
 | --- | --- |
@@ -156,8 +151,7 @@
 <br><a name="Collection+reduceRight"></a>
 
 #### collection.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
-> See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
-
+**See**: [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)  
 
 | Param | Type |
 | --- | --- |
@@ -168,13 +162,27 @@
 <br><a name="Collection+some"></a>
 
 #### collection.some(callback, [thisArg]) ⇒ <code>Boolean</code>
-> See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
-
+**See**: [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)  
 
 | Param | Type |
 | --- | --- |
 | callback | <code>function</code> | 
 | [thisArg] | <code>Object</code> | 
+
+
+<br><a name="Collection+entries"></a>
+
+#### collection.entries() ⇒ <code>Iterator</code>
+**See**: [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)  
+
+<br><a name="Collection+join"></a>
+
+#### collection.join([separator]) ⇒ <code>String</code>
+**See**: [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)  
+
+| Param | Type |
+| --- | --- |
+| [separator] | <code>String</code> | 
 
 
 <br><a name="Collection+first"></a>
@@ -192,9 +200,10 @@
 <br><a name="Collection+push"></a>
 
 #### collection.push(item) ⇒ <code>Number</code>
-> Add an item to the end of the collection.> See [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+> Add an item to the end of the collection.
 
 **Returns**: <code>Number</code> - The new length of the collection  
+**See**: [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)  
 
 | Param | Type |
 | --- | --- |
@@ -204,15 +213,17 @@
 <br><a name="Collection+pop"></a>
 
 #### collection.pop() ⇒ <code>\*</code>
-> Remove the last item from the collection and return it.> See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+> Remove the last item from the collection and return it.
 
+**See**: [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)  
 
 <br><a name="Collection+unshift"></a>
 
 #### collection.unshift(item) ⇒ <code>Number</code>
-> Add an item to the beginning of the collection.> See [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)
+> Add an item to the beginning of the collection.
 
 **Returns**: <code>Number</code> - The new length of the collection  
+**See**: [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)  
 
 | Param | Type |
 | --- | --- |
@@ -222,8 +233,9 @@
 <br><a name="Collection+shift"></a>
 
 #### collection.shift() ⇒ <code>\*</code>
-> Remove the first item from the collection and return it.> See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
+> Remove the first item from the collection and return it.
 
+**See**: [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)  
 
 <br><a name="Collection+indexOf"></a>
 
@@ -263,7 +275,7 @@
 <br><a name="Collection+forEachRight"></a>
 
 #### collection.forEachRight(callback)
-> Like .forEach(), but starts on the last (greatest index) item and progresses backwards
+> Like .forEach(), but starts on the last (greatest index) item> and progresses backwards
 
 
 | Param | Type |
@@ -309,8 +321,9 @@
 <br><a name="Collection+map"></a>
 
 #### collection.map(callback, thisArg) ⇒ [<code>Collection</code>](#Collection)
-> Returns a new collection with the results of calling a provided function on every element.
+> Returns a new collection with the results of calling a provided> function on every element.
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -323,6 +336,7 @@
 #### collection.filter(predicate) ⇒ [<code>Collection</code>](#Collection)
 > Gets all the matching items from the collection.
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
 | Param | Type |
 | --- | --- |
@@ -358,6 +372,7 @@
 #### collection.slice(begin, [end]) ⇒ [<code>Collection</code>](#Collection)
 > Returns a shallow copy of a portion of the collection into a new collection selected from begin to end (end not included).
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -370,6 +385,7 @@
 #### collection.sliceBy(beginPredicate, [endPredicate]) ⇒ [<code>Collection</code>](#Collection)
 > Like .slice(), but finds the begin and end indexes via predicates. (end is included)
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -382,6 +398,7 @@
 #### collection.flatten([settings]) ⇒ [<code>Collection</code>](#Collection)
 > Returns a new flattened collection
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -397,6 +414,7 @@
 #### collection.nest([settings]) ⇒ [<code>Collection</code>](#Collection)
 > Returns a new nested collection
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -426,6 +444,7 @@
 #### collection.unique([countKey]) ⇒ [<code>Collection</code>](#Collection)
 > Returns a new collection of unique items
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -437,6 +456,7 @@
 #### collection.merge(collections, idKey, callback) ⇒ [<code>Collection</code>](#Collection)
 > Merges this collection with one or more other collections. Returns a new collection.
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -450,6 +470,7 @@
 #### collection.concat(value) ⇒ [<code>Collection</code>](#Collection)
 > Returns a shallow clone of this collection with the contents of one or more arrays or collections appended.
 
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 **See**: [Array.prototype.concat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)  
 
 | Param | Type | Description |
@@ -474,7 +495,8 @@
 
 <br><a name="Collection+fill"></a>
 
-#### collection.fill(value, [start], [end]) ⇒ <code>Iterator</code>
+#### collection.fill(value, [start], [end]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
 > Fills all or a portion of the collection with a static value.
 
 **See**: [Array.prototype.fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)  

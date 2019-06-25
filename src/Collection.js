@@ -47,6 +47,8 @@ const applyModel = Symbol();
 /**
  * An array of objects with optional model enforcement.
  *
+ * The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement.
+ *
  * @class Collection
  * @extends Array
  * @summary
@@ -113,7 +115,7 @@ export default class Collection extends Array {
 
 	/**
 	 * Add an item to the end of the collection.
-	 * See [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+	 * @see [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
 	 *
 	 * @method push
 	 * @memberOf Collection
@@ -142,7 +144,7 @@ export default class Collection extends Array {
 
 	/**
 	 * Remove the last item from the collection and return it.
-	 * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+	 * @see [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
 	 *
 	 * @method pop
 	 * @memberOf Collection
@@ -153,7 +155,7 @@ export default class Collection extends Array {
 
 	/**
 	 * Add an item to the beginning of the collection.
-	 * See [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)
+	 * @see [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)
 	 *
 	 * @method unshift
 	 * @memberOf Collection
@@ -182,7 +184,7 @@ export default class Collection extends Array {
 
 	/**
 	 * Remove the first item from the collection and return it.
-	 * See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
+	 * @see [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
 	 *
 	 * @method shift
 	 * @memberOf Collection
@@ -234,7 +236,8 @@ export default class Collection extends Array {
 	}
 
 	/**
-	 * Like .forEach(), but starts on the last (greatest index) item and progresses backwards
+	 * Like .forEach(), but starts on the last (greatest index) item
+	 * and progresses backwards
 	 *
 	 * @memberOf Collection
 	 * @instance
@@ -290,7 +293,8 @@ export default class Collection extends Array {
 	}
 
 	/**
-	 * Returns a new collection with the results of calling a provided function on every element.
+	 * Returns a new collection with the results of calling a provided
+	 * function on every element.
 	 *
 	 * @memberOf Collection
 	 * @instance
@@ -298,7 +302,7 @@ export default class Collection extends Array {
 	 * @arg {Function} callback - Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection.
 	 * @arg {*} thisArg - Applied to the context of the callback
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection without a model.
 	 */
 	map(callback, thisArg) {
 		return new Collection(super.map(callback, thisArg || this));
@@ -312,7 +316,7 @@ export default class Collection extends Array {
 	 *
 	 * @arg {predicate} predicate
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	filter(predicate) {
 		const self = this;
@@ -358,7 +362,7 @@ export default class Collection extends Array {
 	 * @arg {Object} begin - Index at which to begin extraction.
 	 * @arg {Object} [end=collection.length] - Index before which to end extraction
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	slice(...args) {
 		return new Collection(super.slice(...args)).model(this[SETTINGS][MODEL]);
@@ -373,7 +377,7 @@ export default class Collection extends Array {
 	 * @arg {predicate} beginPredicate
 	 * @arg {predicate} [endPredicate=collection.length]
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	sliceBy(beginPredicate, endPredicate) {
 		let begin = beginPredicate ? Math.max(this.findIndex(beginPredicate), 0) : 0;
@@ -398,7 +402,7 @@ export default class Collection extends Array {
 	 * @arg {Function} [settings.onParent] - Called on every parent item. Provides two args: the parent item and that item's parent. Context is set to the Collection. If true is returned, then the children will not be flattened.
 	 * @arg {Function} [settings.onChild] - Called on every child item. Provides two args: the child item and that item's parent. Context is set to the Collection. If true is returned, then this item (and any children) will not be included in the output.
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	flatten(settings = {}) {
 		const self = this;
@@ -447,7 +451,7 @@ export default class Collection extends Array {
 	 * @arg {String}   [settings.childKey='children'] - The key to save children under.
 	 * @arg {String}   [settings.deleteParentKey=false] - Should the parent key be deleted after nesting
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection without a model.
 	 */
 	nest(settings = {}) {
 		const self = this;
@@ -462,13 +466,13 @@ export default class Collection extends Array {
 				if (idKey in item) {
 					const children = nest(item[idKey]);
 
-						if (children.length) {
-							item[childKey] = children;
-						}
+					if (children.length) {
+						item[childKey] = children;
+					}
 
-						if (deleteParentKey) {
-							delete item[parentKey];
-						}
+					if (deleteParentKey) {
+						delete item[parentKey];
+					}
 				}
 				return item;
 			});
@@ -516,7 +520,7 @@ export default class Collection extends Array {
 	 *
 	 * @arg {String} [countKey] - If provided records the number of duplicates, starting at 1 for unique items
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	unique(countKey) {
 		const output = new Collection().model(this[SETTINGS][MODEL]);
@@ -547,7 +551,7 @@ export default class Collection extends Array {
 	 * @arg {String} idKey - The key to match items from the different collections.
 	 * @arg {Function} callback - Called for each unique idKey value. Provides the same number of args as the total number of collections being merged, in the order provided. The returned value is included in the ouptput collection.
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	merge(collections, idKey, callback) {
 		let output = new Collection().model(this[SETTINGS][MODEL]);
@@ -591,7 +595,7 @@ export default class Collection extends Array {
 	 *
 	 * @arg {Array|Collection} value - One or more arrays
 	 *
-	 * @returns {Collection}
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	concat(...args) {
 		return new Collection(super.concat(...args)).model(this[SETTINGS][MODEL]);
@@ -625,12 +629,11 @@ export default class Collection extends Array {
 	 * @method fill
 	 * @memberOf Collection
 	 * @instance
+	 * @chainable
 	 *
 	 * @arg {*} value
 	 * @arg {Number} [start]
 	 * @arg {Number} [end]
-	 *
-	 * @returns {Iterator}
 	 */
 	fill(...args) {
 		super.fill(...args);
@@ -777,7 +780,7 @@ Object.assign(Collection.prototype, {
 });
 
 /**
- * See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
+ * @see [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
  *
  * @method toString
  * @memberOf Collection
@@ -787,7 +790,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
+ * @see [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
  *
  * @method keys
  * @memberOf Collection
@@ -797,7 +800,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+ * @see [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
  *
  * @method every
  * @memberOf Collection
@@ -810,7 +813,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+ * @see [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
  *
  * @method forEach
  * @memberOf Collection
@@ -823,7 +826,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
+ * @see [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
  *
  * @method toLocaleString
  * @memberOf Collection
@@ -836,7 +839,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+ * @see [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
  *
  * @method join
  * @memberOf Collection
@@ -848,7 +851,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+ * @see [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
  *
  * @method reduce
  * @memberOf Collection
@@ -861,7 +864,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
+ * @see [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
  *
  * @method reduceRight
  * @memberOf Collection
@@ -874,7 +877,7 @@ Object.assign(Collection.prototype, {
  */
 
 /**
- * See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+ * @see [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
  *
  * @method some
  * @memberOf Collection
@@ -886,3 +889,33 @@ Object.assign(Collection.prototype, {
  * @returns {Boolean}
  */
 
+/**
+ * @see [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
+ *
+ * @method entries
+ * @memberOf Collection
+ * @instance
+ *
+ * @returns {Iterator}
+ */
+
+/**
+ * @see [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+ *
+ * @method join
+ * @memberOf Collection
+ * @instance
+ *
+ * @arg {String} [separator]
+ *
+ * @returns {String}
+ */
+
+/**
+ * @see [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values)
+ *
+ * @memberOf Collection
+ * @instance
+ *
+ * @returns {Iterator}
+ */

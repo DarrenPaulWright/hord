@@ -6,8 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 ### Changed
-- Exporting MODEL_ERROR_LEVEL.
-- Model can now accept multiple callbacks for onChange and onError.
+- Model:
+  - Exporting MODEL_ERROR_LEVEL.
+  - Now accepts multiple callbacks for onChange and onError.
+- List:
+  - .values() now returns a shallow clone of values.
+  - Binary search:
+    - No longer compares a non-existent value at index array.length
+    - Compares against the matcher object more consistently
 
 ## [0.3.1] - 2019-06-20
 - Fixed Tests

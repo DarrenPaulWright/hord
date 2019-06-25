@@ -27,7 +27,7 @@
         * [.concat(values)](#List+concat) ↩︎
         * [.discard(item)](#List+discard) ↩︎
         * [.discardAll()](#List+discardAll) ↩︎
-        * [.values([values])](#List+values) ⇒ <code>this</code> \| <code>Array</code>
+        * [.values([values])](#List+values) ⇒ <code>Array</code>
         * [.indexOf(item)](#List+indexOf) ⇒ <code>Number</code>
         * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>Number</code>
         * [.includes(item)](#List+includes) ⇒ <code>Boolean</code>
@@ -145,14 +145,15 @@
 
 <br><a name="List+values"></a>
 
-#### list.values([values]) ⇒ <code>this</code> \| <code>Array</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+#### list.values([values]) ⇒ <code>Array</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > The current items in the list.
 
+**Returns**: <code>Array</code> - A shallow clone of the values  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [values] | <code>Array</code> | If provided, replaces any previous values with these, otherwise return the current values. |
+| [values] | <code>Array</code> | Replaces any previous values and immediately sorts them. |
 
 
 <br><a name="List+indexOf"></a>

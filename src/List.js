@@ -1,5 +1,5 @@
 import defaultCompare from 'default-compare';
-import { isArray, methodFunction } from 'type-enforcer';
+import { castArray, methodFunction } from 'type-enforcer';
 
 const sorters = Object.freeze({
 	default: defaultCompare,
@@ -18,6 +18,7 @@ const sorters = Object.freeze({
 });
 
 export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = false) => {
+	const max = array.length - 1;
 	let high = array.length;
 	let low = 0;
 	let mid;
@@ -27,10 +28,10 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 		mid = high + low >>> 1;
 		diff = sorter(array[mid], item);
 
-		if (diff < 0 || (isLast && !diff && !sorter(array[mid + 1], array[mid]))) {
+		if (diff < 0 || (isLast && !diff && mid < max && !sorter(array[mid + 1], item))) {
 			low = mid + 1;
 		}
-		else if (diff > 0 || (!isLast && mid !== 0 && !sorter(array[mid - 1], array[mid]))) {
+		else if (diff > 0 || (!isLast && mid !== 0 && !sorter(array[mid - 1], item))) {
 			high = mid;
 		}
 		else {
@@ -191,17 +192,17 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {Array} [values] - If provided, replaces any previous values with these, otherwise return the current values.
+	 * @arg {Array} [values] - Replaces any previous values and immediately sorts them.
 	 *
-	 * @returns {this|Array}
+	 * @returns {Array} A shallow clone of the values
 	 */
 	values(values) {
-		if (isArray(values)) {
-			this[ARRAY] = values;
+		if (values !== undefined) {
+			this[ARRAY] = castArray(values);
 			return this.sort();
 		}
 
-		return this[ARRAY];
+		return this[ARRAY].slice();
 	}
 
 	/**

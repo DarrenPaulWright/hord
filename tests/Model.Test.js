@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { deepEqual, diffUpdate, intersection, set } from 'object-agent';
 import { isObject } from 'type-enforcer';
-import { Model, Schema } from '../src';
+import { Model, MODEL_ERROR_LEVEL, Schema } from '../src';
 
 describe('Model', () => {
 	it('should return the schema', () => {
@@ -434,6 +434,177 @@ describe('Model', () => {
 
 			assert.deepEqual(output, {
 				first: 'John'
+			});
+		});
+	});
+
+	describe('.onChange', () => {
+		it('should call the onChange callback when directly setting a value', () => {
+			const Person = new Model({
+				first: String,
+				last: String,
+				age: {
+					type: Number,
+					min: 0,
+					max: 120,
+					clamp: true
+				}
+			});
+			let context;
+			let returnedPath;
+			let returnedValue;
+			let returnedPrevious;
+			let callCount = 0;
+
+			Person.onChange(function(path, value, previous) {
+				context = this;
+				returnedPath = path;
+				returnedValue = value;
+				returnedPrevious = previous;
+				callCount++;
+			});
+
+			const person = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21
+			});
+
+			person.age = 1200;
+
+			assert.equal(context, person);
+			assert.equal(returnedPath, 'age');
+			assert.equal(returnedValue, 1200);
+			assert.equal(returnedPrevious, 21);
+			assert.equal(callCount, 1);
+		});
+
+		it('should only call the onChange callback once if aplly is called multiple times', () => {
+			const Person = new Model({
+				first: String,
+				last: String,
+				age: {
+					type: Number,
+					min: 0,
+					max: 120,
+					clamp: true
+				}
+			});
+			let context;
+			let returnedPath;
+			let returnedValue;
+			let returnedPrevious;
+			let callCount = 0;
+
+			Person.onChange(function(path, value, previous) {
+				context = this;
+				returnedPath = path;
+				returnedValue = value;
+				returnedPrevious = previous;
+				callCount++;
+			});
+
+			let person = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21
+			});
+			person = Person.apply(person);
+			person = Person.apply(person);
+
+			person.age = 1200;
+
+			assert.equal(context, person);
+			assert.equal(returnedPath, 'age');
+			assert.equal(returnedValue, 1200);
+			assert.equal(returnedPrevious, 21);
+			assert.equal(callCount, 1);
+		});
+	});
+
+	describe('.onError', () => {
+		Model.defaultErrorLevel(MODEL_ERROR_LEVEL.UNSET);
+
+		it('should call the onError callback when setting a value that breaks the schemas rules', () => {
+			const Person = new Model({
+				first: String,
+				last: String,
+				age: {
+					type: Number,
+					min: 0,
+					max: 120
+				}
+			});
+			let context;
+			let returnedErrors;
+			let callCount = 0;
+
+			Person
+				.onError(function(errors) {
+					context = this;
+					returnedErrors = errors;
+					callCount++;
+				});
+
+			const person = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21
+			});
+
+			person.age = 1200;
+
+			assert.equal(context, person);
+			assert.equal(returnedErrors.length, 1);
+			assert.equal(callCount, 1);
+		});
+	});
+
+	describe('.errorLevel', () => {
+		it('should not throw an error by default', () => {
+			const Person = new Model({
+				first: String,
+				last: String,
+				age: {
+					type: Number,
+					min: 0,
+					max: 120
+				}
+			});
+
+			const person = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21
+			});
+
+			assert.doesNotThrow(() => {
+				person.age = 1200;
+			});
+		});
+
+		it('should throw an error if set that way', () => {
+			const Person = new Model({
+				first: String,
+				last: String,
+				age: {
+					type: Number,
+					min: 0,
+					max: 120
+				}
+			});
+
+			Person
+				.errorLevel(MODEL_ERROR_LEVEL.THROW);
+
+			const person = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21
+			});
+
+			assert.throws(() => {
+				person.age = 1200;
 			});
 		});
 	});

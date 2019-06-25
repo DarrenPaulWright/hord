@@ -21,8 +21,8 @@
         * [.schema](#Model+schema) ⇒ <code>Schema</code>
         * [.apply(object)](#Model+apply) ⇒ <code>Object</code>
         * [.errorLevel(errorLevel)](#Model+errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
-        * [.onChange(callback)](#Model+onChange) ⇒ <code>function</code>
-        * [.onError(callback)](#Model+onError) ⇒ <code>function</code>
+        * [.onChange(callback)](#Model+onChange) ⇒ <code>Queue</code>
+        * [.onError(callback)](#Model+onError) ⇒ <code>Queue</code>
     * _static_
         * [.defaultErrorLevel(errorLevel)](#Model.defaultErrorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
 
@@ -30,7 +30,7 @@
 <br><a name="new_Model_new"></a>
 
 #### new Model(schema)
-> Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.
+> Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.> > The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
 
 
 | Param | Type |
@@ -64,7 +64,7 @@
 
 > How to handle errors on this model. Overrides Model.defaultErrorLevel()
 
-**Default**: <code>MODEL_ERROR_LEVEL.SILENT</code>  
+**Default**: <code>MODEL_ERROR_LEVEL.UNSET</code>  
 
 | Param | Type |
 | --- | --- |
@@ -73,26 +73,28 @@
 
 <br><a name="Model+onChange"></a>
 
-#### model.onChange(callback) ⇒ <code>function</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+#### model.onChange(callback) ⇒ <code>Queue</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Called when a change is observed on an object applied to this model
 
+**See**: [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)  
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| callback | <code>function</code> | Provides three args: path, value, and previous value. Context is the model that changed. |
 
 
 <br><a name="Model+onError"></a>
 
-#### model.onError(callback) ⇒ <code>function</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+#### model.onError(callback) ⇒ <code>Queue</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Called when an error is returned from Schema validation
 
+**See**: [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)  
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| callback | <code>function</code> | Provides one arg: an array of errors. Context is the model that changed. |
 
 
 <br><a name="Model.defaultErrorLevel"></a>
@@ -116,7 +118,7 @@
 
 | Name | Description |
 | --- | --- |
-| SILENT | Errors are silenced |
+| UNSET | Errors are ignored. |
 | WARN | Console.warn |
 | ERROR | Console.error |
 | THROW | Throw an exception |

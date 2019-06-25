@@ -1,5 +1,5 @@
 import onChange from 'on-change';
-import { Enum, isInstanceOf, methodEnum, methodFunction } from 'type-enforcer';
+import { Enum, isInstanceOf, methodEnum, methodQueue } from 'type-enforcer';
 import Schema from './Schema/Schema';
 
 export const SCHEMA = Symbol();
@@ -11,13 +11,13 @@ export const APPLIED = Symbol();
  * @typedef MODEL_ERROR_LEVEL
  * @type {Enum}
  *
- * @property {} SILENT - Errors are silenced
+ * @property {} UNSET - Errors are ignored.
  * @property {} WARN - Console.warn
  * @property {} ERROR - Console.error
  * @property {} THROW - Throw an exception
  */
-const MODEL_ERROR_LEVEL = new Enum({
-	SILENT: null,
+export const MODEL_ERROR_LEVEL = new Enum({
+	UNSET: null,
 	WARN: 'warn',
 	ERROR: 'error',
 	THROW: 'throw'
@@ -25,6 +25,8 @@ const MODEL_ERROR_LEVEL = new Enum({
 
 /**
  * Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.
+ *
+ * The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
  *
  * @example
  * ``` javascript
@@ -86,14 +88,10 @@ export default class Model {
 
 				const errors = self[SCHEMA].enforce(this, path.split('.'), previous);
 
-				if (self.onChange()) {
-					self.onChange().call(this, path, value, previous);
-				}
+				self.onChange().trigger(null, [path, value, previous], this);
 
 				if (errors.length) {
-					if (self.onError()) {
-						self.onError().call(self, errors);
-					}
+					self.onError().trigger(null, [errors], this);
 
 					const errorLevel = self.errorLevel() || Model.defaultErrorLevel();
 
@@ -162,40 +160,44 @@ Object.assign(Model.prototype, {
 	 * @method errorLevel
 	 * @instance
 	 * @chainable
-	 * @default MODEL_ERROR_LEVEL.SILENT
+	 * @default MODEL_ERROR_LEVEL.UNSET
 	 *
 	 * @arg {MODEL_ERROR_LEVEL} errorLevel
 	 *
 	 * @returns {MODEL_ERROR_LEVEL}
 	 */
 	errorLevel: methodEnum({
-		init: MODEL_ERROR_LEVEL.SILENT,
+		init: MODEL_ERROR_LEVEL.UNSET,
 		enum: MODEL_ERROR_LEVEL
 	}),
 	/**
 	 * Called when a change is observed on an object applied to this model
+	 *
+	 * @see [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)
 	 *
 	 * @memberOf Model
 	 * @method onChange
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {function} callback
+	 * @arg {function} callback - Provides three args: path, value, and previous value. Context is the model that changed.
 	 *
-	 * @returns {function}
+	 * @returns {Queue}
 	 */
-	onChange: methodFunction(),
+	onChange: methodQueue(),
 	/**
 	 * Called when an error is returned from Schema validation
+	 *
+	 * @see [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)
 	 *
 	 * @memberOf Model
 	 * @method onError
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {function} callback
+	 * @arg {function} callback - Provides one arg: an array of errors. Context is the model that changed.
 	 *
-	 * @returns {function}
+	 * @returns {Queue}
 	 */
-	onError: methodFunction()
+	onError: methodQueue()
 });

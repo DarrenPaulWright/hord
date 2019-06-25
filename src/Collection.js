@@ -38,6 +38,7 @@ const buildFinder = (predicate) => {
 	return predicate;
 };
 
+export const SETTINGS = Symbol();
 const IS_BUSY = Symbol();
 const MODEL = Symbol();
 
@@ -62,8 +63,12 @@ export default class Collection extends Array {
 
 		const self = this;
 
-		return onChange(this, () => {
-			if (!self[IS_BUSY] && self[MODEL]) {
+		self[SETTINGS] = {};
+
+		return onChange(self, () => {
+			const settings = self[SETTINGS];
+
+			if (!settings[IS_BUSY] && settings[MODEL]) {
 				self[applyModel]();
 			}
 		}, {
@@ -73,12 +78,13 @@ export default class Collection extends Array {
 
 	[applyModel]() {
 		const self = this;
+		const settings = self[SETTINGS];
 
-		self[IS_BUSY] = true;
+		settings[IS_BUSY] = true;
 
-		self.forEach((item, index) => self[index] = self[MODEL].apply(item));
+		self.forEach((item, index) => self[index] = settings[MODEL].apply(item));
 
-		self[IS_BUSY] = false;
+		settings[IS_BUSY] = false;
 	}
 
 	/**
@@ -119,16 +125,17 @@ export default class Collection extends Array {
 	 */
 	push(item) {
 		const self = this;
+		const settings = self[SETTINGS];
 
-		self[IS_BUSY] = true;
+		settings[IS_BUSY] = true;
 
 		const output = super.push(item);
 
-		if (self[MODEL]) {
-			self[MODEL].apply(self.last());
+		if (settings[MODEL]) {
+			settings[MODEL].apply(self.last());
 		}
 
-		self[IS_BUSY] = false;
+		settings[IS_BUSY] = false;
 
 		return output;
 	}
@@ -158,16 +165,17 @@ export default class Collection extends Array {
 	 */
 	unshift(item) {
 		const self = this;
+		const settings = self[SETTINGS];
 
-		self[IS_BUSY] = true;
+		settings[IS_BUSY] = true;
 
 		const output = super.unshift(item);
 
-		if (self[MODEL]) {
-			self[MODEL].apply(self.first());
+		if (settings[MODEL]) {
+			settings[MODEL].apply(self.first());
 		}
 
-		self[IS_BUSY] = false;
+		settings[IS_BUSY] = false;
 
 		return output;
 	}
@@ -307,7 +315,10 @@ export default class Collection extends Array {
 	 * @returns {Collection}
 	 */
 	filter(predicate) {
-		return new Collection(super.filter(buildFinder(predicate))).model(this.model());
+		const self = this;
+		const settings = self[SETTINGS];
+
+		return new Collection(super.filter(buildFinder(predicate))).model(settings[MODEL]);
 	}
 
 	/**
@@ -350,7 +361,7 @@ export default class Collection extends Array {
 	 * @returns {Collection}
 	 */
 	slice(...args) {
-		return new Collection(super.slice(...args)).model(this.model());
+		return new Collection(super.slice(...args)).model(this[SETTINGS][MODEL]);
 	}
 
 	/**
@@ -588,12 +599,14 @@ Object.assign(Collection.prototype, {
 		instance: Model,
 		set: function(model) {
 			const self = this;
+			const settings = self[SETTINGS];
 
 			if (isObject(model)) {
 				self.model(new Model(model));
 			}
 			else {
-				self[MODEL] = model;
+				settings[MODEL] = model;
+
 				self[applyModel]();
 			}
 		},

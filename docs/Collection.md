@@ -19,6 +19,7 @@
 
 * [Collection](#Collection) ⇐ <code>Array</code>
     * [new Collection()](#new_Collection_new)
+    * [.length](#Collection+length) ⇒ <code>Number</code>
     * [.toString()](#Collection+toString) ⇒ <code>String</code>
     * [.keys()](#Collection+keys) ⇒ <code>Object</code>
     * [.every(callback, [thisArg])](#Collection+every) ⇒ <code>Boolean</code>
@@ -46,12 +47,20 @@
     * [.findIndex(predicate)](#Collection+findIndex) ⇒ <code>Number</code>
     * [.findLastIndex(predicate)](#Collection+findLastIndex) ⇒ <code>Number</code>
     * [.slice(begin, [end])](#Collection+slice) ⇒ [<code>Collection</code>](#Collection)
-    * [.sliceBy(beginMatcher, [endMatcher])](#Collection+sliceBy) ⇒ [<code>Collection</code>](#Collection)
+    * [.sliceBy(beginPredicate, [endPredicate])](#Collection+sliceBy) ⇒ [<code>Collection</code>](#Collection)
     * [.flatten([settings])](#Collection+flatten) ⇒ [<code>Collection</code>](#Collection)
     * [.nest([settings])](#Collection+nest) ⇒ [<code>Collection</code>](#Collection)
     * [.eachChild(onChild, [settings])](#Collection+eachChild)
     * [.unique([countKey])](#Collection+unique) ⇒ [<code>Collection</code>](#Collection)
     * [.merge(collections, idKey, callback)](#Collection+merge) ⇒ [<code>Collection</code>](#Collection)
+    * [.concat(value)](#Collection+concat) ⇒ [<code>Collection</code>](#Collection)
+    * [.copyWithin(target, [start], [end])](#Collection+copyWithin) ↩︎
+    * [.fill(value, [start], [end])](#Collection+fill) ⇒ <code>Iterator</code>
+    * [.flat([depth])](#Collection+flat) ⇒ [<code>Collection</code>](#Collection)
+    * [.flatMap(callback)](#Collection+flatMap) ⇒ [<code>Collection</code>](#Collection)
+    * [.reverse()](#Collection+reverse) ⇒ [<code>Collection</code>](#Collection)
+    * [.sort([compareFunction])](#Collection+sort) ↩︎
+    * [.splice(start, [deleteCount])](#Collection+splice) ⇒ [<code>Collection</code>](#Collection)
     * [.model()](#Collection+model) ⇒ <code>Model</code>
 
 
@@ -65,6 +74,13 @@
 | --- | --- |
 | <code>Array</code>, <code>Object</code> | Accepts an array of objects or multiple args of objects. |
 
+
+<br><a name="Collection+length"></a>
+
+#### collection.length ⇒ <code>Number</code>
+> Set or return the number of elements in the collection.
+
+**See**: [Array.length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length)  
 
 <br><a name="Collection+toString"></a>
 
@@ -351,8 +367,8 @@
 
 <br><a name="Collection+sliceBy"></a>
 
-#### collection.sliceBy(beginMatcher, [endMatcher]) ⇒ [<code>Collection</code>](#Collection)
-> Like .slice(), but finds the begin and end indexes via matchers. (end is included)
+#### collection.sliceBy(beginPredicate, [endPredicate]) ⇒ [<code>Collection</code>](#Collection)
+> Like .slice(), but finds the begin and end indexes via predicates. (end is included)
 
 
 | Param | Type | Default |
@@ -427,6 +443,103 @@
 | collections | <code>Colection</code>, [<code>Array.&lt;Collection&gt;</code>](#Collection) | Either a collection or array of collections to merge with this collection. |
 | idKey | <code>String</code> | The key to match items from the different collections. |
 | callback | <code>function</code> | Called for each unique idKey value. Provides the same number of args as the total number of collections being merged, in the order provided. The returned value is included in the ouptput collection. |
+
+
+<br><a name="Collection+concat"></a>
+
+#### collection.concat(value) ⇒ [<code>Collection</code>](#Collection)
+> Returns a shallow clone of this collection with the contents of one or more arrays or collections appended.
+
+**See**: [Array.prototype.concat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>Array</code>, [<code>Collection</code>](#Collection) | One or more arrays |
+
+
+<br><a name="Collection+copyWithin"></a>
+
+#### collection.copyWithin(target, [start], [end]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+> Shallow copies a portion of the collection to another location within the collection.
+
+**See**: [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)  
+
+| Param | Type |
+| --- | --- |
+| target | <code>Number</code> | 
+| [start] | <code>Number</code> | 
+| [end] | <code>Number</code> | 
+
+
+<br><a name="Collection+fill"></a>
+
+#### collection.fill(value, [start], [end]) ⇒ <code>Iterator</code>
+> Fills all or a portion of the collection with a static value.
+
+**See**: [Array.prototype.fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)  
+
+| Param | Type |
+| --- | --- |
+| value | <code>\*</code> | 
+| [start] | <code>Number</code> | 
+| [end] | <code>Number</code> | 
+
+
+<br><a name="Collection+flat"></a>
+
+#### collection.flat([depth]) ⇒ [<code>Collection</code>](#Collection)
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
+**See**: [Array.prototype.flat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [depth] | <code>Number</code> | <code>1</code> | 
+
+
+<br><a name="Collection+flatMap"></a>
+
+#### collection.flatMap(callback) ⇒ [<code>Collection</code>](#Collection)
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
+**See**: [Array.prototype.flatMap()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>function</code> | 
+
+
+<br><a name="Collection+reverse"></a>
+
+#### collection.reverse() ⇒ [<code>Collection</code>](#Collection)
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
+**See**: [Array.prototype.reverse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)  
+
+<br><a name="Collection+sort"></a>
+
+#### collection.sort([compareFunction]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+> Sort the contents of the collection in place.> > _* Forces a rebuild of all indexes_
+
+**See**: [Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)  
+
+| Param | Type |
+| --- | --- |
+| [compareFunction] | <code>function</code> | 
+
+
+<br><a name="Collection+splice"></a>
+
+#### collection.splice(start, [deleteCount]) ⇒ [<code>Collection</code>](#Collection)
+> Changes the contents of an collection in place by removing or replacing existing elements and/or adding new elements> > _* Updates all indexes_
+
+**Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection. Contains the elements removed from the calling collection.  
+**See**: [Array.prototype.splice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)  
+
+| Param | Type |
+| --- | --- |
+| start | <code>Number</code> | 
+| [deleteCount] | <code>Number</code> | 
+| [item1, item2, ...] | <code>\*</code> | 
 
 
 <br><a name="Collection+model"></a>

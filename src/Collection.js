@@ -301,7 +301,7 @@ export default class Collection extends Array {
 	 * @returns {Collection}
 	 */
 	map(callback, thisArg) {
-		return new Collection(super.map(callback, thisArg || this)).model(this.model());
+		return new Collection(super.map(callback, thisArg || this));
 	}
 
 	/**
@@ -409,7 +409,7 @@ export default class Collection extends Array {
 
 		const flatten = (input, depth, parent) => {
 			if (isArray(input)) {
-				return input.reduce((result, item) => result.concat(flatten(item, depth, parent)), input instanceof Collection ? new Collection() : []);
+				return input.reduce((result, item) => result.concat(flatten(item, depth, parent)), input instanceof Collection ? new Collection().model(self[SETTINGS][MODEL]) : []);
 			}
 
 			const child = clone(input, [childKey]);
@@ -462,13 +462,13 @@ export default class Collection extends Array {
 				if (idKey in item) {
 					const children = nest(item[idKey]);
 
-					if (children.length) {
-						item[childKey] = children;
-					}
+						if (children.length) {
+							item[childKey] = children;
+						}
 
-					if (deleteParentKey) {
-						delete item[parentKey];
-					}
+						if (deleteParentKey) {
+							delete item[parentKey];
+						}
 				}
 				return item;
 			});
@@ -519,7 +519,7 @@ export default class Collection extends Array {
 	 * @returns {Collection}
 	 */
 	unique(countKey) {
-		const output = new Collection();
+		const output = new Collection().model(this[SETTINGS][MODEL]);
 
 		this.forEach((item) => {
 			const index = output.findIndex(item);
@@ -550,7 +550,7 @@ export default class Collection extends Array {
 	 * @returns {Collection}
 	 */
 	merge(collections, idKey, callback) {
-		let output = new Collection();
+		let output = new Collection().model(this[SETTINGS][MODEL]);
 		let matches = [];
 		let maxLength;
 		let idSet = new Set();
@@ -579,6 +579,168 @@ export default class Collection extends Array {
 		matches.length = 0;
 
 		return output;
+	}
+
+	/**
+	 * Returns a shallow clone of this collection with the contents of one or more arrays or collections appended.
+	 *
+	 * @see [Array.prototype.concat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)
+	 *
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @arg {Array|Collection} value - One or more arrays
+	 *
+	 * @returns {Collection}
+	 */
+	concat(...args) {
+		return new Collection(super.concat(...args)).model(this[SETTINGS][MODEL]);
+	}
+
+	/**
+	 * Shallow copies a portion of the collection to another location within the collection.
+	 *
+	 * @see [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)
+	 *
+	 * @method copyWithin
+	 * @memberOf Collection
+	 * @instance
+	 * @chainable
+	 *
+	 * @arg {Number} target
+	 * @arg {Number} [start]
+	 * @arg {Number} [end]
+	 */
+	copyWithin(...args) {
+		super.copyWithin(...args);
+
+		return this;
+	}
+
+	/**
+	 * Fills all or a portion of the collection with a static value.
+	 *
+	 * @see [Array.prototype.fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)
+	 *
+	 * @method fill
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @arg {*} value
+	 * @arg {Number} [start]
+	 * @arg {Number} [end]
+	 *
+	 * @returns {Iterator}
+	 */
+	fill(...args) {
+		super.fill(...args);
+
+		return this;
+	}
+
+	/**
+	 * @see [Array.prototype.flat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+	 *
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @arg {Number} [depth=1]
+	 *
+	 * @returns {Collection} A new Collection without a model.
+	 */
+	flat(...args) {
+		return new Collection(super.flat(...args));
+	}
+
+	/**
+	 * @see [Array.prototype.flatMap()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
+	 *
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @arg {function} callback
+	 *
+	 * @returns {Collection} A new Collection without a model.
+	 */
+	flatMap(...args) {
+		return new Collection(super.flatMap(...args));
+	}
+
+	/**
+	 * @see [Array.prototype.reverse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)
+	 *
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @returns {Collection} A new Collection with the same model as the calling collection.
+	 */
+	reverse() {
+		return new Collection(super.reverse()).model(this[SETTINGS][MODEL]);
+	}
+
+	/**
+	 * Sort the contents of the collection in place.
+	 *
+	 * _* Forces a rebuild of all indexes_
+	 *
+	 * @see [Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+	 *
+	 * @memberOf Collection
+	 * @instance
+	 * @chainable
+	 *
+	 * @arg {function} [compareFunction]
+	 */
+	sort(compareFunction) {
+		super.sort(compareFunction);
+
+		return this;
+	}
+
+	/**
+	 * Changes the contents of an collection in place by removing or replacing existing elements and/or adding new elements
+	 *
+	 * _* Updates all indexes_
+	 *
+	 * @see [Array.prototype.splice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
+	 *
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @arg {Number} start
+	 * @arg {Number} [deleteCount]
+	 * @arg {*} [item1, item2, ...]
+	 *
+	 * @returns {Collection} A new Collection with the same model as the calling collection. Contains the elements removed from the calling collection.
+	 */
+	splice(start, deleteCount, ...args) {
+		const self = this;
+		const settings = self[SETTINGS];
+		const argLength = args.length;
+
+		settings[IS_BUSY] = true;
+
+		if (argLength && settings[MODEL]) {
+			args = args.map((item) => settings[MODEL].apply(item));
+		}
+
+		const result = super.splice(start, deleteCount, ...args);
+
+		return new Collection(result).model(this[SETTINGS][MODEL]);
+	}
+
+	/**
+	 * Set or return the number of elements in the collection.
+	 *
+	 * @see [Array.length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length)
+	 *
+	 * @memberOf Collection
+	 * @instance
+	 *
+	 * @returns {Number}
+	 */
+	get length() {
+		return super.length;
 	}
 }
 

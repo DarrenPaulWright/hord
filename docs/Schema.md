@@ -20,6 +20,7 @@
     * [.validate(item, [path])](#Schema+validate) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
     * [.enforce(item, [path], [replace])](#Schema+enforce) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
     * [.eachRule(callback)](#Schema+eachRule)
+    * [.extend(schema)](#Schema+extend) ⇒ [<code>Schema</code>](#Schema)
 
 
 <br><a name="new_Schema_new"></a>
@@ -30,7 +31,7 @@
 
 | Param | Type |
 | --- | --- |
-| schema | [<code>SchemaType</code>](#SchemaType) | 
+| schema | [<code>SchemaDefinition</code>](#SchemaDefinition) | 
 
 **Example**  
 ``` javascriptimport { Schema } from 'type-enforcer';const person = new Schema({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});person.validate({ first: 'John', last: 'Doe', age: 21});// => []```
@@ -71,6 +72,17 @@
 | callback | <code>function</code> | Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level. |
 
 
+<br><a name="Schema+extend"></a>
+
+#### schema.extend(schema) ⇒ [<code>Schema</code>](#Schema)
+> Returns a new Schema with the rules from the provided schema [superimposed](https://github.com/DarrenPaulWright/object-agent/blob/master/docs/superimpose.md) on the rules from this schema. If no args are provided, then the returned Schema is effectively a clone of this one.
+
+
+| Param | Type |
+| --- | --- |
+| schema | [<code>SchemaDefinition</code>](#SchemaDefinition), [<code>Schema</code>](#Schema) | 
+
+
 <br><a name="SchemaError"></a>
 
 ### SchemaError : <code>Object</code>
@@ -85,9 +97,9 @@
 | item | <code>\*</code> | The original item being validated |
 
 
-<br><a name="SchemaType"></a>
+<br><a name="SchemaDefinition"></a>
 
-### SchemaType : <code>\*</code> \| <code>Object</code>
+### SchemaDefinition : <code>\*</code> \| <code>Object</code>
 > Schema type definitions.
 
 

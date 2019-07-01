@@ -122,6 +122,21 @@ export default class Model {
 	}
 
 	/**
+	 * Returns a new Model with a new [extended](docs/Schema.md#Schema+extend) Schema. Retains the errorLevel from the calling Model.
+	 *
+	 * @memberOf Model
+	 * @instance
+	 *
+	 * @arg {Model|Schema|SchemaDefinition} model
+	 *
+	 * @returns {Model}
+	 */
+	extend(model) {
+		return new Model(this[SCHEMA].extend(model ? (model.schema || model) : model))
+			.errorLevel(this.errorLevel());
+	}
+
+	/**
 	 * Get the schema for this model
 	 *
 	 * @memberOf Model

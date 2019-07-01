@@ -20,6 +20,7 @@
     * _instance_
         * [.schema](#Model+schema) ⇒ <code>Schema</code>
         * [.apply(object)](#Model+apply) ⇒ <code>Object</code>
+        * [.extend(model)](#Model+extend) ⇒ [<code>Model</code>](#Model)
         * [.errorLevel(errorLevel)](#Model+errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
         * [.onChange(callback)](#Model+onChange) ⇒ <code>Queue</code>
         * [.onError(callback)](#Model+onError) ⇒ <code>Queue</code>
@@ -56,6 +57,17 @@
 | Param | Type |
 | --- | --- |
 | object | <code>Object</code> | 
+
+
+<br><a name="Model+extend"></a>
+
+#### model.extend(model) ⇒ [<code>Model</code>](#Model)
+> Returns a new Model with a new [extended](docs/Schema.md#Schema+extend) Schema. Retains the errorLevel from the calling Model.
+
+
+| Param | Type |
+| --- | --- |
+| model | [<code>Model</code>](#Model), <code>Schema</code>, <code>SchemaDefinition</code> | 
 
 
 <br><a name="Model+errorLevel"></a>

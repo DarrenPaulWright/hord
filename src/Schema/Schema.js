@@ -1,3 +1,4 @@
+import { clone, superimpose } from 'object-agent';
 import findRule from './findRule';
 import parseSchema from './parseSchema';
 import processValue from './processValue';
@@ -45,7 +46,7 @@ import processValue from './processValue';
  * });
  * ```
  *
- * @typedef {*|Object} SchemaType - Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.
+ * @typedef {*|Object} SchemaDefinition - Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.
  *
  * @arg {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), and custom constructors (classes or constructor functions).
  * @arg {Boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
@@ -80,6 +81,7 @@ const process = (item, rules, path, isEnforce, replace) => {
 	return errors;
 };
 
+const DEFINITION = Symbol();
 const RULES = Symbol();
 
 /**
@@ -109,11 +111,12 @@ const RULES = Symbol();
  *
  * @class Schema
  *
- * @arg {SchemaType} schema
+ * @arg {SchemaDefinition} schema
  */
 export default class Schema {
 	constructor(schema) {
-		this[RULES] = parseSchema(schema);
+		this[DEFINITION] = clone(schema);
+		this[RULES] = parseSchema(this[DEFINITION]);
 	}
 
 	/**
@@ -166,5 +169,19 @@ export default class Schema {
 		};
 
 		processRule([], this[RULES]);
+	}
+
+	/**
+	 * Returns a new Schema with the rules from the provided schema [superimposed](https://github.com/DarrenPaulWright/object-agent/blob/master/docs/superimpose.md) on the rules from this schema. If no args are provided, then the returned Schema is effectively a clone of this one.
+	 *
+	 * @memberOf Schema
+	 * @instance
+	 *
+	 * @arg {SchemaDefinition|Schema}
+	 *
+	 * @returns {Schema}
+	 */
+	extend(schema) {
+		return new Schema(superimpose(this[DEFINITION], schema instanceof Schema ? schema[DEFINITION] : schema));
 	}
 }

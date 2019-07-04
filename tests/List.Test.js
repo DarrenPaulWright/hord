@@ -121,6 +121,10 @@ describe('sortedIndexOf', () => {
 
 describe('List', () => {
 	describe('.sorter', () => {
+		it('should have an initial sorter', () => {
+			assert.equal(new List().sorter(), List.sorter.default);
+		});
+
 		it('should sort initial values', () => {
 			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).values(), [0,
 				1,
@@ -169,6 +173,16 @@ describe('List', () => {
 
 		it('should sort initial values with List.sorter.string.desc', () => {
 			assert.deepEqual(new List(['b', 'a', 'c']).sorter(List.sorter.string.desc).values(), ['c', 'b', 'a']);
+		});
+
+		it('should sort initial values with List.sorter.id.asc', () => {
+			assert.deepEqual(new List([{id: 'c'}, {id: 'b'}, {id: 'a'}]).sorter(List.sorter.id.asc)
+				.values(), [{id: 'a'}, {id: 'b'}, {id: 'c'}]);
+		});
+
+		it('should sort initial values with List.sorter.id.desc', () => {
+			assert.deepEqual(new List([{id: 'b'}, {id: 'a'}, {id: 'c'}]).sorter(List.sorter.id.desc)
+				.values(), [{id: 'c'}, {id: 'b'}, {id: 'a'}]);
 		});
 
 		it('should sort initial values with a big array', () => {
@@ -596,7 +610,70 @@ describe('List', () => {
 	});
 
 	describe('.findAll', () => {
+		it('should return an empty list if no items are found', () => {
+			const list = new List([{
+				value: 2,
+				other: 'meh'
+			}, {
+				value: 3,
+				other: 'blah'
+			}, {
+				value: 5,
+				other: 'ok'
+			}, {
+				value: 5,
+				other: 'blegh'
+			}, {
+				value: 5,
+				other: 'eh'
+			}, {
+				value: 6,
+				other: 'aaarrr'
+			}])
+				.sorter((a, b) => a.value - b.value);
+			const output = [];
+			const result = list.findAll({
+				value: 4
+			});
+
+			assert.isTrue(result instanceof List);
+			assert.deepEqual(result.values(), output);
+		});
+
 		it('should find an item in the array', () => {
+			const list = new List([{
+				value: 2,
+				other: 'meh'
+			}, {
+				value: 3,
+				other: 'blah'
+			}, {
+				value: 5,
+				other: 'ok'
+			}, {
+				value: 5,
+				other: 'blegh'
+			}, {
+				value: 5,
+				other: 'eh'
+			}, {
+				value: 6,
+				other: 'aaarrr'
+			}])
+				.sorter((a, b) => a.value - b.value);
+			const output = [{
+				value: 3,
+				other: 'blah'
+			}];
+			const result = list.findAll({
+				value: 3
+			});
+
+			assert.isTrue(result instanceof List);
+			assert.deepEqual(result.values(), output);
+		});
+
+		it('should find mulitple items in the array', () => {
 			const list = new List([{
 				value: 2,
 				other: 'meh'

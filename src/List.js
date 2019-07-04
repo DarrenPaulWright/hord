@@ -1,5 +1,5 @@
 import defaultCompare from 'default-compare';
-import { castArray, methodFunction } from 'type-enforcer';
+import { castArray } from 'type-enforcer';
 
 const sorters = Object.freeze({
 	default: defaultCompare,
@@ -42,6 +42,9 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 	return isInsert ? (diff > 0 ? --mid : mid) : -1;
 };
 
+const spawn = Symbol();
+
+const SORTER = Symbol();
 const ARRAY = Symbol();
 
 /**
@@ -60,8 +63,52 @@ const ARRAY = Symbol();
  * @arg {Array} [values]
  */
 export default class List {
-	constructor(values) {
-		this.values(values || []);
+	constructor(values = []) {
+		this[SORTER] = sorters.default;
+		this.values(values);
+	}
+
+	[spawn](values) {
+		const newList = new List();
+
+		newList[SORTER] = this[SORTER];
+
+		if (values) {
+			newList[ARRAY] = values;
+		}
+
+		return newList;
+	}
+
+	/**
+	 * The sorting function. This function is used by .sort() and the binary search to determine equality.
+	 *
+	 * See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
+	 * A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)
+	 *
+	 * If you're setting this, you may want to call this before setting the values, like this:
+	 * ``` javascript
+	 * import { List } from 'hord';
+	 *
+	 * const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);
+	 * ```
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @arg {Function} sorter
+	 *
+	 * @returns {*}
+	 */
+	sorter(sorter) {
+		if (arguments.length) {
+			this[SORTER] = sorter;
+			this.sort();
+
+			return this;
+		}
+
+		return this[SORTER];
 	}
 
 	/**
@@ -73,7 +120,7 @@ export default class List {
 	 */
 	sort() {
 		if (this[ARRAY].length) {
-			this[ARRAY].sort(this.sorter());
+			this[ARRAY].sort(this[SORTER]);
 		}
 		return this;
 	}
@@ -89,7 +136,7 @@ export default class List {
 	 *
 	 */
 	add(item) {
-		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this.sorter(), true) + 1, 0, item);
+		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this[SORTER], true) + 1, 0, item);
 
 		return this;
 	}
@@ -108,11 +155,11 @@ export default class List {
 			this[ARRAY][0] = item;
 		}
 		else {
-			const sorter = this.sorter();
+			const sorter = this[SORTER];
 			let index = sortedIndexOf(this[ARRAY], item, sorter, true);
 
 			if (index === -1 || sorter(this[ARRAY][index], item) !== 0) {
-				this[ARRAY].splice((index || -1) + 1, 0, item);
+				this[ARRAY].splice(index + 1, 0, item);
 			}
 		}
 
@@ -128,7 +175,7 @@ export default class List {
 	 * @returns {List}
 	 */
 	unique() {
-		const sorter = this.sorter();
+		const sorter = this[SORTER];
 		const output = [];
 		let previous;
 
@@ -139,7 +186,7 @@ export default class List {
 			}
 		});
 
-		return new List().sorter(sorter).values(output);
+		return this[spawn](output);
 	}
 
 	/**
@@ -167,7 +214,7 @@ export default class List {
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 */
 	discard(item) {
-		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this.sorter(), true), 1);
+		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this[SORTER], true), 1);
 
 		return this;
 	}
@@ -216,7 +263,7 @@ export default class List {
 	 * @returns {Number} The index of the item or -1
 	 */
 	indexOf(item) {
-		return sortedIndexOf(this[ARRAY], item, this.sorter());
+		return sortedIndexOf(this[ARRAY], item, this[SORTER]);
 	}
 
 	/**
@@ -230,7 +277,7 @@ export default class List {
 	 * @returns {Number} The index of the item or -1
 	 */
 	lastIndexOf(item) {
-		return sortedIndexOf(this[ARRAY], item, this.sorter(), false, true);
+		return sortedIndexOf(this[ARRAY], item, this[SORTER], false, true);
 	}
 
 	/**
@@ -286,9 +333,20 @@ export default class List {
 	 * @returns {List} A list of items
 	 */
 	findAll(item) {
-		return new List()
-			.sorter(this.sorter())
-			.values(this[ARRAY].slice(this.indexOf(item), this.lastIndexOf(item) + 1));
+		const self = this;
+		const start = self.indexOf(item);
+
+		if (start === -1) {
+			return self[spawn]();
+		}
+
+		const end = self.lastIndexOf(item);
+
+		if (start === end) {
+			return self[spawn]([self[ARRAY][start]]);
+		}
+
+		return this[spawn](self[ARRAY].slice(start, end + 1));
 	}
 
 	/**
@@ -373,34 +431,6 @@ export default class List {
  * @property {Function} number.desc - Inverse of number.asc
  */
 List.sorter = sorters;
-
-/**
- * The sorting function. This function is used by .sort() and the binary search to determine equality.
- *
- * See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
- * A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)
- *
- * If you're setting this, you may want to call this before setting the values, like this:
- * ``` javascript
- * import { List } from 'hord';
- *
- * const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);
- * ```
- *
- * @method sorter
- * @memberOf List
- * @instance
- *
- * @arg {Function} sorter
- *
- * @returns {*}
- */
-List.prototype.sorter = methodFunction({
-	init: sorters.default,
-	set: function() {
-		this.sort();
-	}
-});
 
 /**
  * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
@@ -588,9 +618,6 @@ List.prototype.sorter = methodFunction({
 	'slice'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
-		const newList = new List()
-			.sorter(this.sorter());
-		newList[ARRAY] = this[ARRAY][key](...args);
-		return newList;
+		return this[spawn](this[ARRAY][key](...args));
 	};
 });

@@ -1,4 +1,4 @@
-import { forOwn, isEmpty, traverse } from 'object-agent';
+import { forOwn, initialInPath, isEmpty, lastInPath, traverse } from 'object-agent';
 import { castArray, Enum, is, isObject } from 'type-enforcer';
 import findRule from './findRule';
 import ERRORS from './schemaErrors';
@@ -38,13 +38,13 @@ export default function(schema) {
 	let schemaValues;
 
 	traverseSchema(schema, (path, value, isAnObject, isSchemaType) => {
-		const last = path[path.length - 1];
+		const last = lastInPath(path);
 		const output = {
 			types: []
 		};
 
-		if (path.length) {
-			output.key = last;
+		if (path !== '') {
+			output.key = is.number(last, true) ? last - 0 : last;
 		}
 
 		const types = castArray((isAnObject && 'type' in value) ? value.type : value);
@@ -72,11 +72,11 @@ export default function(schema) {
 			}
 		}
 
-		if (!path.length) {
+		if (path === '') {
 			schemaValues = output;
 		}
 		else {
-			const parent = findRule(path.slice(0, -1), schemaValues);
+			const parent = findRule(initialInPath(path), schemaValues);
 			if (!parent.content) {
 				parent.content = [];
 			}

@@ -49,9 +49,7 @@ export default class Indexer {
 		const nonIndexedSearches = {};
 
 		traverse(matcher, (path, value) => {
-			if (path.length && !isObject(value) && !isArray(value)) {
-				path = path.join('.');
-
+			if (path !== '' && !isObject(value) && !isArray(value)) {
 				if (!self.hasIndex(path)) {
 					set(nonIndexedSearches, path, value);
 				}

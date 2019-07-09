@@ -86,7 +86,7 @@ export default class Model {
 			if (!isEnforcing) {
 				isEnforcing = true;
 
-				const errors = self[SCHEMA].enforce(this, path.split('.'), previous);
+				const errors = self[SCHEMA].enforce(this, path, previous);
 
 				self.onChange().trigger(null, [path, value, previous], this);
 

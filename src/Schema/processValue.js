@@ -1,4 +1,4 @@
-import { get, isEmpty, set, unset } from 'object-agent';
+import { appendToPath, get, isEmpty, set, unset } from 'object-agent';
 import checkRule from './checkRule';
 import enforceRule from './enforceRule';
 import ERRORS from './schemaErrors';
@@ -10,7 +10,7 @@ const processArray = (item, rule, path, value, onError, isEnforce) => {
 
 	for (let index = 0, length = value.length; index < length; index++) {
 		rule.content.forEach((rule) => {
-			isChanged = processValue(item, rule, path.concat(index), onError, isEnforce) || isChanged;
+			isChanged = processValue(item, rule, appendToPath(path, index), onError, isEnforce) || isChanged;
 		});
 	}
 	if (isEnforce && isChanged) {
@@ -26,14 +26,14 @@ const processObject = (item, rule, path, value, onError, isEnforce) => {
 
 	keysNotInSchema.forEach((key) => {
 		if (isEnforce) {
-			unset(item, path.concat(key));
+			unset(item, appendToPath(path, key));
 			isChanged = true;
 		}
-		onError(ERRORS.KEY_NOT_FOUND, path.concat(key), value[key]);
+		onError(ERRORS.KEY_NOT_FOUND, appendToPath(path, key), value[key]);
 	});
 
 	rule.content.forEach((rule) => {
-		isChanged = processValue(item, rule, path.concat(rule.key), onError, isEnforce) || isChanged;
+		isChanged = processValue(item, rule, appendToPath(path, rule.key), onError, isEnforce) || isChanged;
 	});
 
 	return isChanged;

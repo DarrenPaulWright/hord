@@ -1,4 +1,4 @@
-import { traverse } from 'object-agent';
+import { appendToPath, lastInPath, traverse } from 'object-agent';
 import { is } from 'type-enforcer';
 import Model from '../Model';
 import checkSchemaType, { isType } from './checkSchemaType';
@@ -6,9 +6,9 @@ import checkSchemaType, { isType } from './checkSchemaType';
 export default function(item, callback) {
 	const subTraverse = (basePath, item) => {
 		traverse(item, (path, value) => {
-			const last = path[path.length - 1];
+			const last = lastInPath(path);
 
-			if (is.number(last) && last > 0) {
+			if (is.number(last, true) && last > 0) {
 				return true;
 			}
 
@@ -20,21 +20,21 @@ export default function(item, callback) {
 			}
 
 			if (is.instanceOf(value, Model)) {
-				subTraverse(basePath.concat(path), value.schema);
+				subTraverse(appendToPath(basePath, path), value.schema);
 				return true;
 			}
 
-			if (!basePath.length || path.length) {
-				callback(basePath.concat(path), value, isAnObject, isSchemaType);
+			if (basePath === '' || path !== '') {
+				callback(appendToPath(basePath, path), value, isAnObject, isSchemaType);
 			}
 
 			if (isSchemaType && isAnObject && ('content' in value)) {
-				subTraverse(basePath.concat(path), isType(value.content) ? [[value.content]] : [value.content]);
+				subTraverse(appendToPath(basePath, path), isType(value.content) ? [[value.content]] : [value.content]);
 			}
 
 			return isSchemaType;
 		}, true);
 	};
 
-	subTraverse([], item);
+	subTraverse('', item);
 }

@@ -1,4 +1,4 @@
-import { clone, superimpose } from 'object-agent';
+import { appendToPath, clone, superimpose } from 'object-agent';
 import findRule from './findRule';
 import parseSchema from './parseSchema';
 import processValue from './processValue';
@@ -69,7 +69,7 @@ const process = (item, rules, path, isEnforce, replace) => {
 	const buildError = (message, path, value) => {
 		errors.push({
 			error: message,
-			path: path.join('.'),
+			path: path,
 			value: value,
 			item: item
 		});
@@ -130,7 +130,7 @@ export default class Schema {
 	 *
 	 * @returns {SchemaError[]}
 	 */
-	validate(item, path = []) {
+	validate(item, path = '') {
 		return process(item, findRule(path, this[RULES]), path, false);
 	}
 
@@ -146,7 +146,7 @@ export default class Schema {
 	 *
 	 * @returns {SchemaError[]}
 	 */
-	enforce(item, path = [], replace) {
+	enforce(item, path = '', replace) {
 		return process(item, findRule(path, this[RULES]), path, true, replace);
 	}
 
@@ -164,11 +164,11 @@ export default class Schema {
 				return true;
 			}
 			if (rule.content) {
-				rule.content.some((item) => processRule(path.concat(item.key || 0), item));
+				rule.content.some((item) => processRule(appendToPath(path, item.key || '0'), item));
 			}
 		};
 
-		processRule([], this[RULES]);
+		processRule('', this[RULES]);
 	}
 
 	/**

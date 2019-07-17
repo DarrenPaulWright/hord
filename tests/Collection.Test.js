@@ -1,8 +1,8 @@
 import { assert } from 'chai';
-import defaultCompare from 'default-compare';
 import { clone } from 'object-agent';
 import { Collection, Model } from '../src';
 import { INDEXER_BUILDS, SETTINGS } from '../src/Collection';
+import compare from '../src/utility/compare';
 
 describe('Collection', () => {
 	const noIndexModel = new Model({
@@ -2065,7 +2065,7 @@ describe('Collection', () => {
 		describe('.sort', () => {
 			it('should sort the items in the collection', () => {
 				reset();
-				const result = queryCollection.sort((a, b) => defaultCompare(a, b, 'first'));
+				const result = queryCollection.sort(compare('first'));
 
 				bumpBuilds();
 

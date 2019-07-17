@@ -1,54 +1,44 @@
 import { assert } from 'chai';
+import { fill } from 'object-agent';
 import { List } from '../src';
 import { sortedIndexOf } from '../src/List';
 
-const defaultSorter = (a, b) => a.id === b.id ? 0 : a.id < b.id ? -1 : 1;
-const buildArray = (length) => {
-	const array = [];
-	for (let i = 0; i < length; i++) {
-		array.push(i);
-	}
-	return array;
-};
-
-const bigArray = buildArray(1000000);
-
 describe('sortedIndexOf', () => {
-	const bigArrayID = bigArray.map((id) => {
-		return {id: id};
+	const bigArrayID = fill(1000000, (index) => {
+		return {id: index};
 	});
 
 	it('should return the right index for the first item of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 0}, defaultSorter), 0);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 0}, List.sorter.id.asc), 0);
 	});
 
 	it('should return the right index for the last item of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, defaultSorter), 999999);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, List.sorter.id.asc), 999999);
 	});
 
 	it('should return the right index near the beginning of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 9}, defaultSorter), 9);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 9}, List.sorter.id.asc), 9);
 	});
 
 	it('should return the right index near the end of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, defaultSorter), 987300);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, List.sorter.id.asc), 987300);
 	});
 
 	it('should return the right index just before the middle of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, defaultSorter), 499500);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, List.sorter.id.asc), 499500);
 	});
 
 	it('should return the right index just after the middle of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, defaultSorter), 500009);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, List.sorter.id.asc), 500009);
 	});
 
 	it('should return -1 for a value that isn\'t in the array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, defaultSorter), -1);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.sorter.id.asc), -1);
 	});
 
 	describe('isLast = true', () => {
 		it('should return -1 for a value that isn\'t in the array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, defaultSorter, false, true), -1);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.sorter.id.asc, false, true), -1);
 		});
 
 		it('should return the index of the last of multiple items in the array', () => {
@@ -74,31 +64,31 @@ describe('sortedIndexOf', () => {
 
 	describe('isInsert = true', () => {
 		it('should return the right index for the first item of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 0}, defaultSorter, true), 0);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 0}, List.sorter.id.asc, true), 0);
 		});
 
 		it('should return the right index for the last item of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, defaultSorter, true), 999999);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, List.sorter.id.asc, true), 999999);
 		});
 
 		it('should return the right index near the beginning of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 9}, defaultSorter, true), 9);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 9}, List.sorter.id.asc, true), 9);
 		});
 
 		it('should return the right index near the end of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, defaultSorter, true), 987300);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, List.sorter.id.asc, true), 987300);
 		});
 
 		it('should return the right index just before the middle of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, defaultSorter, true), 499500);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, List.sorter.id.asc, true), 499500);
 		});
 
 		it('should return the right index just after the middle of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, defaultSorter, true), 500009);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, List.sorter.id.asc, true), 500009);
 		});
 
 		it('should return the last index for a value that is greater than all others in the big array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, defaultSorter, true), 999999);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.sorter.id.asc, true), 999999);
 		});
 
 		it('should return the last index for a value that is greater than all others in the array', () => {
@@ -184,11 +174,6 @@ describe('List', () => {
 			assert.deepEqual(new List([{id: 'b'}, {id: 'a'}, {id: 'c'}]).sorter(List.sorter.id.desc)
 				.values(), [{id: 'c'}, {id: 'b'}, {id: 'a'}]);
 		});
-
-		it('should sort initial values with a big array', () => {
-			assert.deepEqual(new List(bigArray).values(), bigArray);
-		});
-
 	});
 
 	describe('.add', () => {
@@ -206,17 +191,6 @@ describe('List', () => {
 
 		it('should add an item to the end of the array', () => {
 			assert.deepEqual(new List([3, 4, 5]).add(10).values(), [3, 4, 5, 10]);
-		});
-
-		const biggishArray = buildArray(100000);
-		const biggishArrayOutput = buildArray(100000);
-		biggishArrayOutput.unshift(-1);
-		it('should add the content of an array to a big array', () => {
-			const list = new List();
-			list.sorter(List.sorter.number.asc)
-				.values(biggishArray)
-				.add(-1);
-			assert.deepEqual(list.values(), biggishArrayOutput);
 		});
 	});
 
@@ -386,17 +360,6 @@ describe('List', () => {
 
 			assert.deepEqual(list.addUnique(newValue).values(), output);
 		});
-
-		const biggishArray = buildArray(100000);
-		const biggishArrayOutput = buildArray(100000);
-		biggishArrayOutput.unshift(-1);
-		it('should add the content of an array to a big array', () => {
-			const list = new List();
-			list.sorter(List.sorter.number.asc)
-				.values(biggishArray)
-				.addUnique(-1);
-			assert.deepEqual(list.values(), biggishArrayOutput);
-		});
 	});
 
 	describe('.unique', () => {
@@ -471,10 +434,6 @@ describe('List', () => {
 
 		it('should remove all the items from a list', () => {
 			assert.deepEqual(new List([2, 3, 4, 5]).discardAll().values(), []);
-		});
-
-		it('should remove all the items from a big list', () => {
-			assert.deepEqual(new List(bigArray).discardAll().values(), []);
 		});
 	});
 
@@ -804,19 +763,6 @@ describe('List', () => {
 				10,
 				11,
 				12]);
-		});
-
-		const biggishArray = buildArray(100000);
-		const biggishArrayOutput = buildArray(100000);
-		biggishArrayOutput.unshift(-1);
-		biggishArrayOutput.unshift(-2);
-		biggishArrayOutput.unshift(-3);
-		it('should add the content of an array to a big array', () => {
-			const list = new List();
-			list.sorter(List.sorter.number.asc)
-				.values(biggishArray)
-				.concat([-2, -1, -3]);
-			assert.deepEqual(list.values(), biggishArrayOutput);
 		});
 	});
 

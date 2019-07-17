@@ -1,8 +1,8 @@
-import defaultCompare from 'default-compare';
 import { castArray } from 'type-enforcer';
+import compare from './utility/compare';
 
 const sorters = Object.freeze({
-	default: defaultCompare,
+	default: compare(),
 	string: {
 		asc: (a, b) => a.localeCompare(b),
 		desc: (a, b) => b.localeCompare(a)
@@ -12,8 +12,8 @@ const sorters = Object.freeze({
 		desc: (a, b) => b - a
 	},
 	id: {
-		asc: (a, b) => defaultCompare(a, b, 'id'),
-		desc: (a, b) => defaultCompare(b, a, 'id')
+		asc: compare('id'),
+		desc: (a, b) => compare('id')(b, a)
 	}
 });
 

@@ -18,7 +18,7 @@ module.exports = function(wallaby) {
 	const webpackPostprocessor = wallabyWebpack();
 
 	return {
-		name: 'hord',
+		name: 'Hord',
 		files: files.files,
 		tests: files.tests,
 		testFramework: 'mocha',

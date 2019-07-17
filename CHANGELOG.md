@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## unreleased
 ### Changed
 - [Schema](docs/Schema.md)
-  - Improved support for nested schemas
+  - Improved support for nested Schemas
   - Added support for '*' key
+- [Model](docs/Model.md)
+  - Improved support for nested Schemas/Models
 
 ## [0.4.1] - 2019-07-01
 ### Added

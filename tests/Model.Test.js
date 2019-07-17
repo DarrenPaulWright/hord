@@ -373,10 +373,14 @@ describe('Model', () => {
 			assert.isTrue(deepEqual(person, person2));
 		});
 
-		it('should return false for two models with the different nested models', () => {
-			const Hobby = new Model({
+		it('should return false for two models with the different nested schemas', () => {
+			const Hobby = new Schema({
 				name: String,
-				strength: Number
+				strength: {
+					type: Number,
+					min: 0.5,
+					clamp: true
+				}
 			});
 			const Person = new Model({
 				first: String,
@@ -392,20 +396,62 @@ describe('Model', () => {
 				first: 'John',
 				last: 'Doe',
 				age: 21,
-				hobbies: [Hobby.apply({
+				hobbies: [{
 					name: 'programming',
 					strength: 1
-				})]
+				}]
 			});
 
 			const person2 = Person.apply({
 				first: 'John',
 				last: 'Doe',
 				age: 21,
-				hobbies: [Hobby.apply({
+				hobbies: [{
 					name: 'programming',
 					strength: 0.1
-				})]
+				}]
+			});
+
+			assert.isFalse(deepEqual(person, person2));
+		});
+
+		it('should return false for two models with the different nested models', () => {
+			const Hobby = new Model({
+				name: String,
+				strength: {
+					type: Number,
+					min: 0.5,
+					clamp: true
+				}
+			});
+			const Person = new Model({
+				first: String,
+				last: String,
+				age: Number,
+				hobbies: {
+					type: Array,
+					content: Hobby
+				}
+			});
+
+			const person = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21,
+				hobbies: [{
+					name: 'programming',
+					strength: 1
+				}]
+			});
+
+			const person2 = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21,
+				hobbies: [{
+					name: 'programming',
+					strength: 0.1
+				}]
 			});
 
 			assert.isFalse(deepEqual(person, person2));
@@ -479,7 +525,7 @@ describe('Model', () => {
 			assert.equal(callCount, 1);
 		});
 
-		it('should only call the onChange callback once if aplly is called multiple times', () => {
+		it('should only call the onChange callback once if apply is called multiple times', () => {
 			const Person = new Model({
 				first: String,
 				last: String,
@@ -504,11 +550,18 @@ describe('Model', () => {
 				callCount++;
 			});
 
-			let person = Person.apply({
+			const original = {
 				first: 'John',
 				last: 'Doe',
 				age: 21
-			});
+			};
+
+			let person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
 			person = Person.apply(person);
 			person = Person.apply(person);
 

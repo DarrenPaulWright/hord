@@ -72,8 +72,8 @@
 	"license": "MIT",
 	"dependencies": {
 		"object-agent": "^1.0.1",
-		"on-change": "^1.5.0",
-		"type-enforcer": "^0.4.4"
+		"on-change": "^1.6.2",
+		"type-enforcer": "^0.5.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.4.5",

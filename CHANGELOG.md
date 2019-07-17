@@ -5,12 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## unreleased
+### Added
+- [List](docs/List.md)
+    - Added .someRight method
+    - Added .intersection method
+    
 ### Changed
 - [Schema](docs/Schema.md)
   - Improved support for nested Schemas
   - Added support for '*' key
 - [Model](docs/Model.md)
   - Improved support for nested Schemas/Models
+- [List](docs/List.md)
+    - .concat now returns a new List instead of mutating the calling list.
 
 ## [0.4.1] - 2019-07-01
 ### Added

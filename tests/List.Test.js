@@ -804,6 +804,24 @@ describe('List', () => {
 		});
 	});
 
+	describe('.intersection', () => {
+		it('should get the intersection from an array', () => {
+			const list = new List([1, 2, 3, 4, 5]);
+			const result = list.intersection([5, 6, 7, 8, 9, 4]);
+
+			assert.isTrue(result instanceof List);
+			assert.deepEqual(result.values(), [4, 5]);
+		});
+
+		it('should get the intersection from a list', () => {
+			const list = new List([1, 2, 3, 4, 5]);
+			const result = list.intersection(new List([5, 6, 7, 8, 9, 4]));
+
+			assert.isTrue(result instanceof List);
+			assert.deepEqual(result.values(), [4, 5]);
+		});
+	});
+
 	it('.toString should return a string of the array', () => {
 		assert.deepEqual(new List([1, 2, 3]).toString(), '1,2,3');
 	});

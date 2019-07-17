@@ -1,5 +1,6 @@
-import { castArray } from 'type-enforcer';
+import { castArray, privateProp } from 'type-enforcer';
 import compare from './utility/compare';
+import someRight from './utility/someRight';
 
 const sorters = Object.freeze({
 	default: compare(),
@@ -18,25 +19,27 @@ const sorters = Object.freeze({
 });
 
 export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = false) => {
-	const max = array.length - 1;
-	let high = array.length;
 	let low = 0;
 	let mid;
+	let high = array.length;
+	const max = high - 1;
 	let diff;
 
 	while (low < high) {
 		mid = high + low >>> 1;
 		diff = sorter(array[mid], item);
 
-		if (diff < 0 || (isLast && !diff && mid < max && !sorter(array[mid + 1], item))) {
+		if (diff < 0 || (isLast && diff === 0 && mid < max && sorter(array[mid + 1], item) === 0)) {
 			low = mid + 1;
+			continue;
 		}
-		else if (diff > 0 || (!isLast && mid !== 0 && !sorter(array[mid - 1], item))) {
+
+		if (diff > 0 || (!isLast && mid !== 0 && sorter(array[mid - 1], item) === 0)) {
 			high = mid;
+			continue;
 		}
-		else {
-			return mid;
-		}
+
+		return mid;
 	}
 
 	return isInsert ? (diff > 0 ? --mid : mid) : -1;
@@ -64,7 +67,7 @@ const ARRAY = Symbol();
  */
 export default class List {
 	constructor(values = []) {
-		this[SORTER] = sorters.default;
+		privateProp(this, SORTER, sorters.default);
 		this.values(values);
 	}
 
@@ -102,7 +105,12 @@ export default class List {
 	 */
 	sorter(sorter) {
 		if (arguments.length) {
-			this[SORTER] = sorter;
+			if (!this[SORTER]) {
+				privateProp(this, SORTER, sorter);
+			}
+			else {
+				this[SORTER] = sorter;
+			}
 			this.sort();
 
 			return this;
@@ -190,7 +198,7 @@ export default class List {
 	}
 
 	/**
-	 * Merges one or more arrays with the list.
+	 * Returns a shallow clone of this list with the contents of one or more arrays or lists appended.
 	 *
 	 * @memberOf List
 	 * @instance
@@ -199,9 +207,9 @@ export default class List {
 	 * @arg {*} values
 	 */
 	concat(...args) {
-		const self = this;
-		[].concat(...args).forEach((item) => self.add(item));
-		return self;
+		return new List()
+			.sorter(this[SORTER])
+			.values(this[ARRAY].concat(...args.map((item) => item[ARRAY] || item)));
 	}
 
 	/**
@@ -245,7 +253,13 @@ export default class List {
 	 */
 	values(values) {
 		if (values !== undefined) {
-			this[ARRAY] = castArray(values);
+			if (!this[ARRAY]) {
+				privateProp(this, ARRAY, castArray(values));
+			}
+			else {
+				this[ARRAY] = castArray(values);
+			}
+
 			return this.sort();
 		}
 
@@ -330,7 +344,7 @@ export default class List {
 	 *
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 *
-	 * @returns {List} A list of items
+	 * @returns {List}
 	 */
 	findAll(item) {
 		const self = this;
@@ -399,6 +413,38 @@ export default class List {
 	 */
 	last() {
 		return this[ARRAY][this[ARRAY].length - 1];
+	}
+
+	/**
+	 * Like .some(), but starts on the last (greatest index) item and progresses backwards
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @arg {function} callback
+	 * @arg {Object} [thisArg]
+	 *
+	 * @returns {List}
+	 */
+	someRight(callback, thisArg) {
+		callback = callback.bind(thisArg || this);
+		return someRight(this[ARRAY], callback);
+	}
+
+	/**
+	 * Gets the items that exist both in this list and in another list or array. Equality of items is determined by the sorter.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @arg {List|Array} array
+	 *
+	 * @returns {List}
+	 */
+	intersection(array) {
+		array = array.filter((item) => this.includes(item));
+
+		return array instanceof List ? array : new List(array);
 	}
 
 	/**

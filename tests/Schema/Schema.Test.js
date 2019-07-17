@@ -2,6 +2,7 @@ import { assert } from 'chai';
 import { clone, deepEqual } from 'object-agent';
 import { Enum } from 'type-enforcer';
 import { Schema } from '../../src/index';
+import Model from '../../src/Model';
 import { schemaTestTypes } from '../testValues';
 
 describe('Schema', () => {
@@ -620,6 +621,27 @@ describe('Schema', () => {
 				value: 'inValid',
 				item: item
 			}]);
+		});
+
+		it('should NOT return an error for a key when then schema has \'*\'', () => {
+			const item = {
+				testKey: {
+					testKey2: 'inValid'
+				},
+				unspecified: 'test',
+				another: 3
+			};
+
+			const schema = new Schema({
+				testKey: {
+					testKey2: String
+				},
+				'*': '*'
+			});
+
+			const errors = schema.validate(item);
+
+			assert.deepEqual(errors, []);
 		});
 
 		it('should validate a specific path', () => {
@@ -1885,6 +1907,35 @@ describe('Schema', () => {
 			}]);
 		});
 
+		it('should NOT return an error for a key when then schema has \'*\'', () => {
+			const item = {
+				testKey: {
+					testKey2: 'inValid'
+				},
+				unspecified: 'test',
+				another: 3
+			};
+			const output = {
+				testKey: {
+					testKey2: 'inValid'
+				},
+				unspecified: 'test',
+				another: 3
+			};
+
+			const schema = new Schema({
+				testKey: {
+					testKey2: String
+				},
+				'*': '*'
+			});
+
+			const errors = schema.enforce(item);
+
+			assert.deepEqual(item, output);
+			assert.deepEqual(errors, []);
+		});
+
 		it('should enforce a specific path', () => {
 			const item = {
 				testKey: {
@@ -2610,9 +2661,16 @@ describe('Schema', () => {
 			let total = 0;
 			let testVar = 0;
 
+			const subSchema = new Schema({
+				testKey3: [{
+					level2: Number
+				}],
+				testKey4: String
+			});
+
 			const schema = new Schema({
 				testKey: [{
-					level2: Number
+					level2: subSchema
 				}],
 				testKey2: String
 			});
@@ -2631,13 +2689,78 @@ describe('Schema', () => {
 				if (deepEqual(path, 'testKey.0.level2') && rule) {
 					testVar++;
 				}
+				if (deepEqual(path, 'testKey.0.level2.testKey3') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2.testKey3.0') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2.testKey3.0.level2') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2.testKey4') && rule) {
+					testVar++;
+				}
 				if (deepEqual(path, 'testKey2') && rule) {
 					testVar++;
 				}
 			});
 
-			assert.equal(total, 5);
-			assert.equal(testVar, 5);
+			assert.equal(total, 9);
+			assert.equal(testVar, 9);
+		});
+
+		it('should call the callback for every rule with nested models', () => {
+			let total = 0;
+			let testVar = 0;
+
+			const subModel = new Model({
+				testKey3: [{
+					level2: Number
+				}],
+				testKey4: String
+			});
+
+			const schema = new Schema({
+				testKey: [{
+					level2: subModel
+				}],
+				testKey2: String
+			});
+
+			schema.eachRule((path, rule) => {
+				total++;
+				if (deepEqual(path, '') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2.testKey3') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2.testKey3.0') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2.testKey3.0.level2') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey.0.level2.testKey4') && rule) {
+					testVar++;
+				}
+				if (deepEqual(path, 'testKey2') && rule) {
+					testVar++;
+				}
+			});
+
+			assert.equal(total, 9);
+			assert.equal(testVar, 9);
 		});
 
 		it('should stop calling the callback after true is returned', () => {

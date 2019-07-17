@@ -1,9 +1,11 @@
 import { assert } from 'chai';
 import { deepEqual } from 'object-agent';
 import { isObject } from 'type-enforcer';
-import traverseSchema from '../../src/Schema/traverseSchema';
-import { multiTest } from '../TestUtil';
-import { schemaTestTypes } from '../testValues';
+import Model from '../../../src/Model';
+import traverseSchema from '../../../src/Schema/parse/traverseSchema';
+import Schema from '../../../src/Schema/Schema';
+import { multiTest } from '../../TestUtil';
+import { schemaTestTypes } from '../../testValues';
 
 describe('traverseSchema', () => {
 	it('should call the callback twice for a nested empty array', () => {
@@ -472,6 +474,66 @@ describe('traverseSchema', () => {
 				testVar++;
 			}
 			else if (deepEqual(path, 'test.0.level2') && value === String) {
+				testVar++;
+			}
+		});
+
+		assert.equal(total, 4);
+		assert.equal(testVar, 3);
+	});
+
+	it('should handle a nested Schema', () => {
+		let total = 0;
+		let testVar = 0;
+		const subSchema = new Schema({
+			first: String,
+			last: String
+		});
+		const testSchema = {
+			test: [{
+				level2: subSchema
+			}]
+		};
+
+		traverseSchema(testSchema, (path, value) => {
+			total++;
+			if (deepEqual(path, 'test') && value === Array) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0') && value === Object) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0.level2') && value === subSchema) {
+				testVar++;
+			}
+		});
+
+		assert.equal(total, 4);
+		assert.equal(testVar, 3);
+	});
+
+	it('should handle a nested Model', () => {
+		let total = 0;
+		let testVar = 0;
+		const subModel = new Model({
+			first: String,
+			last: String
+		});
+		const testSchema = {
+			test: [{
+				level2: subModel
+			}]
+		};
+
+		traverseSchema(testSchema, (path, value) => {
+			total++;
+			if (deepEqual(path, 'test') && value === Array) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0') && value === Object) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0.level2') && value === subModel) {
 				testVar++;
 			}
 		});

@@ -1,11 +1,16 @@
 import { walkPath } from 'object-agent';
 import { isInteger } from 'type-enforcer';
 
-export default function(path, schemaValues) {
+export default (path, schemaValues) => {
 	walkPath(path, (key) => {
-		if (schemaValues.content) {
-			schemaValues = schemaValues.content
-				.find((item) => item.key === key || isInteger(key, true));
+		if (schemaValues && schemaValues.content) {
+			if (isInteger(key, true)) {
+				schemaValues = schemaValues.content[0];
+			}
+			else {
+				schemaValues = schemaValues.content
+					.find((item) => item.key === key);
+			}
 		}
 	});
 

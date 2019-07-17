@@ -1,7 +1,7 @@
 import { assert } from 'chai';
-import checkSchemaType from '../../src/Schema/checkSchemaType';
-import { multiTest } from '../TestUtil';
-import { schemaTestTypes } from '../testValues';
+import checkSchemaType from '../../../src/Schema/parse/checkSchemaType';
+import { multiTest } from '../../TestUtil';
+import { schemaTestTypes } from '../../testValues';
 
 describe('checkSchemaType', () => {
 	const falseValues = [undefined, 'test', true, false, [], {}, 3, /g/];

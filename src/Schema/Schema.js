@@ -1,6 +1,6 @@
 import { appendToPath, clone, superimpose } from 'object-agent';
 import findRule from './findRule';
-import parseSchema from './parseSchema';
+import parseSchema from './parse/parseSchema';
 import processValue from './processValue';
 
 /**
@@ -15,7 +15,9 @@ import processValue from './processValue';
  */
 
 /**
- * Schema type definitions.
+ * Schema type definitions. Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.
+ *
+ * '*' can be used as a key to indicate that any keys are allowed in an object.
  *
  * @example
  * ``` javascript
@@ -46,7 +48,7 @@ import processValue from './processValue';
  * });
  * ```
  *
- * @typedef {*|Object} SchemaDefinition - Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.
+ * @typedef {*|Object} SchemaDefinition
  *
  * @arg {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), and custom constructors (classes or constructor functions).
  * @arg {Boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
@@ -78,11 +80,14 @@ const process = (item, rules, path, isEnforce, replace) => {
 	if (rules) {
 		processValue(item, rules, path, buildError, isEnforce, replace);
 	}
+
 	return errors;
 };
 
 const DEFINITION = Symbol();
 const RULES = Symbol();
+
+const eachRule = Symbol();
 
 /**
  * Schema enforcement.
@@ -117,6 +122,30 @@ export default class Schema {
 	constructor(schema) {
 		this[DEFINITION] = clone(schema);
 		this[RULES] = parseSchema(this[DEFINITION]);
+	}
+
+	[eachRule](callback, basePath = '') {
+		const processRule = (path, rule) => {
+			const firstType = rule.types[0];
+
+			if (rule.types.length === 1 && firstType.schema) {
+				firstType.schema[eachRule](callback, path);
+			}
+			else if (rule.types.length === 1 && firstType.model) {
+				firstType.model.schema[eachRule](callback, path);
+			}
+			else {
+				if (callback(path, rule)) {
+					return true;
+				}
+
+				if (rule.content) {
+					rule.content.some((item) => processRule(appendToPath(path, item.key || '0'), item));
+				}
+			}
+		};
+
+		processRule(basePath, this[RULES]);
 	}
 
 	/**
@@ -159,16 +188,7 @@ export default class Schema {
 	 * @arg {Function} callback - Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level.
 	 */
 	eachRule(callback) {
-		const processRule = (path, rule) => {
-			if (callback(path, rule)) {
-				return true;
-			}
-			if (rule.content) {
-				rule.content.some((item) => processRule(appendToPath(path, item.key || '0'), item));
-			}
-		};
-
-		processRule('', this[RULES]);
+		this[eachRule](callback);
 	}
 
 	/**

@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## unreleased
 ### Added
 - [List](docs/List.md)
-    - Added .someRight method
-    - Added .intersection method
+  - Added .someRight method
+  - Added .intersection method
+- [Collection](docs/Collection.md)
+  - Added support for query operators
+  - Improved performance when deriving new collections with indexes
     
 ### Changed
 - [Schema](docs/Schema.md)

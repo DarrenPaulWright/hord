@@ -48,7 +48,7 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 const spawn = Symbol();
 
 const SORTER = Symbol();
-const ARRAY = Symbol();
+export const ARRAY = Symbol();
 
 /**
  * @class List

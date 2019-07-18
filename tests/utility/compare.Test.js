@@ -29,14 +29,22 @@ describe('compare', () => {
 
 	describe('array.sort', () => {
 		it('should sort an array of simple values', () => {
-			const values = [
-				4, 9, 3, 8, NaN, 2, 7, 1, 6, 5, undefined, null
-			];
-			const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, NaN, null, undefined];
+			const values = [4, 9, 3, 8, NaN, 2, 7, 1, 6, 5, undefined, null];
 
 			values.sort(compare());
 
-			assert.deepEqual(values, expected);
+			assert.equal(values[0], 1);
+			assert.equal(values[1], 2);
+			assert.equal(values[2], 3);
+			assert.equal(values[3], 4);
+			assert.equal(values[4], 5);
+			assert.equal(values[5], 6);
+			assert.equal(values[6], 7);
+			assert.equal(values[7], 8);
+			assert.equal(values[8], 9);
+			assert.isTrue(Object.is(values[9], NaN));
+			assert.equal(values[10], null);
+			assert.equal(values[11], undefined);
 		});
 
 		it('should sort an array of objects with a key', () => {

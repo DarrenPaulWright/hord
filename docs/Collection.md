@@ -54,7 +54,7 @@
         * [.forEach(callback, [thisArg])](#Collection+forEach) ↩︎
         * [.forEachRight(callback, [thisArg])](#Collection+forEachRight) ↩︎
         * [.some(callback, [thisArg])](#Collection+some) ⇒ <code>Boolean</code>
-        * [.someRight(callback)](#Collection+someRight) ⇒ <code>Boolean</code>
+        * [.someRight(callback, [thisArg])](#Collection+someRight) ⇒ <code>Boolean</code>
         * [.every(callback, [thisArg])](#Collection+every) ⇒ <code>Boolean</code>
         * [.reduce(callback, [thisArg])](#Collection+reduce) ⇒ <code>\*</code>
         * [.reduceRight(callback, [thisArg])](#Collection+reduceRight) ⇒ <code>\*</code>
@@ -63,13 +63,13 @@
         * [.flat([depth])](#Collection+flat) ⇒ [<code>Collection</code>](#Collection)
         * [.flatMap(callback, thisArg)](#Collection+flatMap) ⇒ [<code>Collection</code>](#Collection)
     * _Mutable_
+        * [.model()](#Collection+model) ⇒ <code>Model</code>
+        * [.remove()](#Collection+remove)
         * [.copyWithin(target, [start], [end])](#Collection+copyWithin) ↩︎
         * [.fill(value, [start], [end])](#Collection+fill) ↩︎
         * [.reverse()](#Collection+reverse) ↩︎
         * [.sort([compareFunction])](#Collection+sort) ↩︎
         * [.splice(start, [deleteCount])](#Collection+splice) ⇒ [<code>Collection</code>](#Collection)
-        * [.remove()](#Collection+remove)
-        * [.model()](#Collection+model) ⇒ <code>Model</code>
 
 
 <br><a name="new_Collection_new"></a>
@@ -314,7 +314,7 @@ _`⚡ Utilizes indexes`_
 
 #### collection.unique([countKey]) ⇒ [<code>Collection</code>](#Collection)
 _`⚡ Utilizes indexes`_
-> Returns a new collection of unique items
+> Returns a new collection of deeply unique items
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
@@ -431,13 +431,14 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+someRight"></a>
 
-#### collection.someRight(callback) ⇒ <code>Boolean</code>
+#### collection.someRight(callback, [thisArg]) ⇒ <code>Boolean</code>
 > Like .some(), but starts on the last (greatest index) item and progresses backwards
 
 
 | Param | Type |
 | --- | --- |
 | callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
 
 
 <br><a name="Collection+every"></a>
@@ -527,6 +528,27 @@ _`⚡ Utilizes indexes`_
 | thisArg | <code>\*</code> | 
 
 
+<br><a name="Collection+model"></a>
+
+#### collection.model() ⇒ <code>Model</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+_`✎ Builds indexes`_
+> A model that gets enforced on every item in the collection.> To create indexes, add 'index: true' to the schema type definition> like in the example below.
+
+
+| Type | Description |
+| --- | --- |
+| <code>Model</code>, <code>Object</code> | Can be an instance of class:Model or an object with a schema structure. |
+
+**Example**  
+``` javascriptimport { Collection, Model } from 'hord';const Person = new Model({    id: {        type: Number,        index: true    },    first: {        type: String,        index: true    },    last: {        type: String,        index: true    },    age: Number});const people = new Collection().model(Person);// ORconst people = new Collection().model({    id: {        type: Number,        index: true    },    first: {        type: String,        index: true    },    last: {        type: String,        index: true    },    age: Number});```
+
+<br><a name="Collection+remove"></a>
+
+#### collection.remove()
+> Removes all model onChange events and indexes and empties the collection.
+
+
 <br><a name="Collection+copyWithin"></a>
 
 #### collection.copyWithin(target, [start], [end]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
@@ -598,31 +620,11 @@ _`✎ Updates indexes`_
 | [item1, item2, ...] | <code>\*</code> | 
 
 
-<br><a name="Collection+remove"></a>
-
-#### collection.remove()
-> Removes all model onChange events and indexes and empties the collection.
-
-
-<br><a name="Collection+model"></a>
-
-#### collection.model() ⇒ <code>Model</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
-
-_`✎ Builds indexes`_
-> A model that gets enforced on every item in the collection.> To create indexes, add 'index: true' to the schema type definition> like in the example below.
-
-
-| Type | Description |
-| --- | --- |
-| <code>Model</code>, <code>Object</code> | Can be an instance of class:Model or an object with a schema structure. |
-
-**Example**  
-``` javascriptimport { Collection, Model } from 'hord';const Person = new Model({    id: {        type: Number,        index: true    },    first: {        type: String,        index: true    },    last: {        type: String,        index: true    },    age: Number});const people = new Collection().model(Person);// ORconst people = new Collection().model({    id: {        type: Number,        index: true    },    first: {        type: String,        index: true    },    last: {        type: String,        index: true    },    age: Number});```
-
 <br><a name="predicate"></a>
 
 ### predicate : <code>function</code> \| <code>Object</code>
-> Can be either of the following:> - A function that accepts one item from the collection and returns true to indicate a match.> - An object that is deeply compared to items in the collection for equivalent property values. Only properties on the predicate are compared.> > If you haven't set up any indexes, or you're searching on properties that aren't indexed, then providing a function will most likely have better performance. If you're searching on even one property that's indexed, then using an object will perform better, as the indexer can narrow the search before iterating over the results for a final match.
+Can be either of the following:- A function that accepts one item from the collection and returns true to indicate a match.- A query object that is deeply compared to items in the collection. Available operators are outlined below.#### Query Operators##### $eq (EQual)The same as not providing any operator. Uses SameValue equality.``` javascript{age: 23}// OR{age: {$eq: 23}}```<br>##### $ne (Not Equal)Like $eq, $ne uses SameValue equality, but matches values that don't equal.``` javascript{age: {$ne: 23}}```<br>##### $in (IN)Matches any item in an array.``` javascript{age: {$in: [20, 30, 40]}}```<br>##### $nin (Not IN)Matches any item not in an array.``` javascript{age: {$nin: [20, 30, 40]}}```<br>##### $gt (Greater Than)Matches values greater than the provided value``` javascript{age: {$gt: 21}}```<br>##### $gte (Greater Than or Equal)Matches values greater than the provided value``` javascript{age: {$gte: 21}}```<br>##### $lt (Less Than)Matches values greater than the provided value``` javascript{age: {$lt: 21}}```<br>##### $lte (Less Than or Equal)Matches values greater than the provided value``` javascript{age: {$lte: 21}}```
+> If you haven't set up any indexes, or you're searching on properties that aren't indexed, then providing a function will most likely have better performance. If you're searching on even one property that's indexed, then using an object will perform better, as the indexer can narrow the search before iterating over the results for a final match.
 
 
 [npm]: https://img.shields.io/npm/v/hord.svg

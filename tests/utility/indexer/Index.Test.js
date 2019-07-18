@@ -79,7 +79,9 @@ describe('Index', () => {
 				.add('b', 5)
 				.add('b', 4);
 
-			assert.deepEqual(index.query('b'), [0, 1, 4, 5]);
+			const result = index.query('b', '$eq');
+
+			assert.deepEqual(result.values(), [0, 1, 4, 5]);
 		});
 
 		it('should return an empty array if there\'s no match', () => {
@@ -92,7 +94,9 @@ describe('Index', () => {
 				.add('b', 5)
 				.add('b', 4);
 
-			assert.deepEqual(index.query('d'), []);
+			const result = index.query('d');
+
+			assert.deepEqual(result.values(), []);
 		});
 	});
 
@@ -130,6 +134,32 @@ describe('Index', () => {
 			index.rebuild((callback) => newValues.map(callback), (item) => item.test);
 
 			assert.deepEqual(index.list.values(), expected);
+		});
+	});
+
+	describe('.spawn', () => {
+		it('should return a new Index with matching items', () => {
+			const index = new Index();
+			index.add('b', 1)
+				.add('a', 3)
+				.add('c', 2)
+				.add('b', 0)
+				.add('b', 5)
+				.add('b', 4);
+
+			const result = index.spawn([1, 3, 5]);
+
+			assert.equal(index.list.sorter(), result.list.sorter());
+			assert.deepEqual(result.list.values(), [{
+				v: 'a',
+				i: 1
+			}, {
+				v: 'b',
+				i: 0
+			}, {
+				v: 'b',
+				i: 2
+			}]);
 		});
 	});
 

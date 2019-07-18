@@ -20,6 +20,7 @@
     * [new List([values])](#new_List_new)
     * _instance_
         * [.length](#List+length) ⇒ <code>Number</code>
+        * [.sorter(sorter)](#List+sorter) ⇒ <code>\*</code>
         * [.sort()](#List+sort) ↩︎
         * [.add(item)](#List+add) ↩︎
         * [.addUnique(item)](#List+addUnique) ↩︎
@@ -38,7 +39,8 @@
         * [.findLastIndex(item)](#List+findLastIndex) ⇒ <code>Number</code>
         * [.first()](#List+first) ⇒ <code>\*</code>
         * [.last()](#List+last) ⇒ <code>\*</code>
-        * [.sorter(sorter)](#List+sorter) ⇒ <code>\*</code>
+        * [.someRight(callback, [thisArg])](#List+someRight) ⇒ [<code>List</code>](#List)
+        * [.intersection(array)](#List+intersection) ⇒ [<code>List</code>](#List)
         * [.pop()](#List+pop) ⇒ <code>\*</code>
         * [.shift()](#List+shift) ⇒ <code>\*</code>
         * [.toString()](#List+toString) ⇒ <code>String</code>
@@ -73,6 +75,17 @@
 #### list.length ⇒ <code>Number</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
 > The number of items in the list
+
+
+<br><a name="List+sorter"></a>
+
+#### list.sorter(sorter) ⇒ <code>\*</code>
+> The sorting function. This function is used by .sort() and the binary search to determine equality.> > See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);> ```
+
+
+| Param | Type |
+| --- | --- |
+| sorter | <code>function</code> | 
 
 
 <br><a name="List+sort"></a>
@@ -116,7 +129,7 @@
 
 #### list.concat(values) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
-> Merges one or more arrays with the list.
+> Returns a shallow clone of this list with the contents of one or more arrays or lists appended.
 
 
 | Param | Type |
@@ -220,7 +233,6 @@
 #### list.findAll(item) ⇒ [<code>List</code>](#List)
 > Gets all the matching items from the list. Uses a binary search.
 
-**Returns**: [<code>List</code>](#List) - A list of items  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -263,15 +275,27 @@
 > Gets the last item in the list without removing it.
 
 
-<br><a name="List+sorter"></a>
+<br><a name="List+someRight"></a>
 
-#### list.sorter(sorter) ⇒ <code>\*</code>
-> The sorting function. This function is used by .sort() and the binary search to determine equality.> > See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);> ```
+#### list.someRight(callback, [thisArg]) ⇒ [<code>List</code>](#List)
+> Like .some(), but starts on the last (greatest index) item and progresses backwards
 
 
 | Param | Type |
 | --- | --- |
-| sorter | <code>function</code> | 
+| callback | <code>function</code> | 
+| [thisArg] | <code>Object</code> | 
+
+
+<br><a name="List+intersection"></a>
+
+#### list.intersection(array) ⇒ [<code>List</code>](#List)
+> Gets the items that exist both in this list and in another list or array. Equality of items is determined by the sorter.
+
+
+| Param | Type |
+| --- | --- |
+| array | [<code>List</code>](#List), <code>Array</code> | 
 
 
 <br><a name="List+pop"></a>

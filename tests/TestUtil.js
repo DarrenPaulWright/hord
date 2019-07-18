@@ -79,16 +79,16 @@ export const multiTest = (settings) => {
 	};
 
 	const testSingleArrayValue = (value) => {
-		if ('output' in settings) {
-			if ('inputKey' in settings) {
+		if (settings.output) {
+			if (settings.inputKey) {
 				testSingleValue(value[settings.inputKey], settings.output, value);
 			}
 			else {
 				testSingleValue(value, settings.output, value);
 			}
 		}
-		else if ('outputKey' in settings) {
-			if ('inputKey' in settings) {
+		else if (settings.outputKey) {
+			if (settings.inputKey) {
 				testSingleValue(value[settings.inputKey], value[settings.outputKey], value);
 			}
 			else {
@@ -96,7 +96,7 @@ export const multiTest = (settings) => {
 			}
 		}
 		else {
-			if ('inputKey' in settings) {
+			if (settings.inputKey) {
 				testSingleValue(value[settings.inputKey], undefined, value);
 			}
 			else {
@@ -106,8 +106,8 @@ export const multiTest = (settings) => {
 	};
 
 	const testDoubleArrayValue = (value1, value2) => {
-		if ('output' in settings) {
-			if ('inputKey' in settings) {
+		if (settings.output) {
+			if (settings.inputKey) {
 				testDoubleValue(value1[settings.inputKey], value2[settings.inputKey], settings.output, value1, value2);
 			}
 			else {
@@ -115,7 +115,7 @@ export const multiTest = (settings) => {
 			}
 		}
 		else {
-			if ('inputKey' in settings) {
+			if (settings.inputKey) {
 				testDoubleValue(value1[settings.inputKey], value2[settings.inputKey], undefined, value1, value2);
 			}
 			else {

@@ -1,9 +1,11 @@
 import { assert } from 'chai';
 import { deepEqual } from 'object-agent';
 import { isObject } from 'type-enforcer';
-import traverseSchema from '../../src/Schema/traverseSchema';
-import { multiTest } from '../TestUtil';
-import { schemaTestTypes } from '../testValues';
+import Model from '../../../src/Model';
+import traverseSchema from '../../../src/Schema/parse/traverseSchema';
+import Schema from '../../../src/Schema/Schema';
+import { multiTest } from '../../TestUtil';
+import { schemaTestTypes } from '../../testValues';
 
 describe('traverseSchema', () => {
 	it('should call the callback twice for a nested empty array', () => {
@@ -17,13 +19,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['test'])) {
+			if (deepEqual(path, 'test')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['test', 0])) {
+			if (deepEqual(path, 'test.0')) {
 				testVar++;
 			}
 		});
@@ -41,7 +43,7 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path, value) => {
 			total++;
-			if (deepEqual(path, ['test']) && value[0] === String) {
+			if (deepEqual(path, 'test') && value[0] === String) {
 				testVar++;
 			}
 		});
@@ -61,7 +63,7 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path, value) => {
 			total++;
-			if (deepEqual(path, ['test']) && isObject(value)) {
+			if (deepEqual(path, 'test') && isObject(value)) {
 				testVar++;
 			}
 		});
@@ -79,7 +81,7 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path, value) => {
 			total++;
-			if (deepEqual(path, ['test']) && value === Object) {
+			if (deepEqual(path, 'test') && value === Object) {
 				testVar++;
 			}
 		});
@@ -98,7 +100,7 @@ describe('traverseSchema', () => {
 		};
 
 		traverseSchema(testSchema, (path, value) => {
-			if (deepEqual(path, ['test']) && value === testTypeObject) {
+			if (deepEqual(path, 'test') && value === testTypeObject) {
 				testVar++;
 			}
 		});
@@ -119,7 +121,7 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path, value) => {
 			total++;
-			if (deepEqual(path, ['test']) && value === testTypeObject) {
+			if (deepEqual(path, 'test') && value === testTypeObject) {
 				testVar++;
 			}
 		});
@@ -139,7 +141,7 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
 		});
@@ -162,16 +164,16 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0, 'level2'])) {
+			else if (deepEqual(path, 'level1.0.level2')) {
 				testVar++;
 			}
 		});
@@ -192,13 +194,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
 		});
@@ -219,13 +221,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
 		});
@@ -248,13 +250,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
 		});
@@ -277,13 +279,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
 		});
@@ -304,13 +306,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
 		});
@@ -333,13 +335,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
 		});
@@ -361,16 +363,16 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, [])) {
+			if (deepEqual(path, '')) {
 				testVar++;
 			}
-			if (deepEqual(path, ['level1'])) {
+			if (deepEqual(path, 'level1')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0])) {
+			else if (deepEqual(path, 'level1.0')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['level1', 0, 'level2'])) {
+			else if (deepEqual(path, 'level1.0.level2')) {
 				testVar++;
 			}
 		});
@@ -393,7 +395,7 @@ describe('traverseSchema', () => {
 			};
 
 			traverseSchema(testSchema, (path, value) => {
-				if (deepEqual(path, ['test']) && value.type === type) {
+				if (deepEqual(path, 'test') && value.type === type) {
 					testVar++;
 				}
 			});
@@ -416,10 +418,10 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path, value) => {
 			total++;
-			if (deepEqual(path, ['test']) && value === Array) {
+			if (deepEqual(path, 'test') && value === Array) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['test', 0]) && value === Array) {
+			else if (deepEqual(path, 'test.0') && value === Array) {
 				testVar++;
 			}
 		});
@@ -439,13 +441,13 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path) => {
 			total++;
-			if (deepEqual(path, ['test'])) {
+			if (deepEqual(path, 'test')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['test', 0])) {
+			else if (deepEqual(path, 'test.0')) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['test', 0, 0])) {
+			else if (deepEqual(path, 'test.0.0')) {
 				testVar++;
 			}
 		});
@@ -465,13 +467,73 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path, value) => {
 			total++;
-			if (deepEqual(path, ['test']) && value === Array) {
+			if (deepEqual(path, 'test') && value === Array) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['test', 0]) && value === Object) {
+			else if (deepEqual(path, 'test.0') && value === Object) {
 				testVar++;
 			}
-			else if (deepEqual(path, ['test', 0, 'level2']) && value === String) {
+			else if (deepEqual(path, 'test.0.level2') && value === String) {
+				testVar++;
+			}
+		});
+
+		assert.equal(total, 4);
+		assert.equal(testVar, 3);
+	});
+
+	it('should handle a nested Schema', () => {
+		let total = 0;
+		let testVar = 0;
+		const subSchema = new Schema({
+			first: String,
+			last: String
+		});
+		const testSchema = {
+			test: [{
+				level2: subSchema
+			}]
+		};
+
+		traverseSchema(testSchema, (path, value) => {
+			total++;
+			if (deepEqual(path, 'test') && value === Array) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0') && value === Object) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0.level2') && value === subSchema) {
+				testVar++;
+			}
+		});
+
+		assert.equal(total, 4);
+		assert.equal(testVar, 3);
+	});
+
+	it('should handle a nested Model', () => {
+		let total = 0;
+		let testVar = 0;
+		const subModel = new Model({
+			first: String,
+			last: String
+		});
+		const testSchema = {
+			test: [{
+				level2: subModel
+			}]
+		};
+
+		traverseSchema(testSchema, (path, value) => {
+			total++;
+			if (deepEqual(path, 'test') && value === Array) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0') && value === Object) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0.level2') && value === subModel) {
 				testVar++;
 			}
 		});

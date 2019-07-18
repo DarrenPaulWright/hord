@@ -1,5 +1,5 @@
 import { enforce, is } from 'type-enforcer';
-import { enforceAnything, isAnything } from '../src/Schema/schemaTypeRules';
+import { enforceAnything, isAnything } from '../src/Schema/parse/schemaTypeRules';
 
 const difference = (array1, ...args) => {
 	let diffArrays = [].concat(...args);

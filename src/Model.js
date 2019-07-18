@@ -1,5 +1,5 @@
 import onChange from 'on-change';
-import { Enum, isInstanceOf, methodEnum, methodQueue } from 'type-enforcer';
+import { Enum, isInstanceOf, methodEnum, methodQueue, privateProp } from 'type-enforcer';
 import Schema from './Schema/Schema';
 
 export const SCHEMA = Symbol();
@@ -60,8 +60,8 @@ export const MODEL_ERROR_LEVEL = new Enum({
  */
 export default class Model {
 	constructor(schema) {
-		this[SCHEMA] = isInstanceOf(schema, Schema) ? schema : new Schema(schema);
-		this[APPLIED] = new WeakSet();
+		privateProp(this, SCHEMA, isInstanceOf(schema, Schema) ? schema : new Schema(schema));
+		privateProp(this, APPLIED, new WeakMap());
 	}
 
 	/**
@@ -78,25 +78,35 @@ export default class Model {
 		const self = this;
 		let isEnforcing = false;
 
-		if (this[APPLIED].has(object)) {
+		if (object === undefined || object === null) {
 			return object;
 		}
 
-		object = onChange(object, function(path, value, previous) {
+		const applied = self[APPLIED].get(object);
+		if (applied) {
+			return applied;
+		}
+		if (self[APPLIED].has(onChange.target(object))) {
+			return object;
+		}
+
+		self[SCHEMA].enforce(object);
+
+		const proxy = onChange(object, function(path, value, previous) {
 			if (!isEnforcing) {
 				isEnforcing = true;
 
-				const errors = self[SCHEMA].enforce(this, path.split('.'), previous);
+				const errors = self[SCHEMA].enforce(this, path, previous);
 
-				self.onChange().trigger(null, [path, value, previous], this);
+				if (self.onChange()) {
+					self.onChange().trigger(null, [path, value, previous], this);
+				}
 
 				if (errors.length) {
 					self.onError().trigger(null, [errors], this);
 
-					const errorLevel = self.errorLevel() || Model.defaultErrorLevel();
-
 					errors.forEach((error) => {
-						switch (errorLevel) {
+						switch (self.errorLevel() || Model.defaultErrorLevel()) {
 							case MODEL_ERROR_LEVEL.WARN:
 								console.warn(error.error, error);
 								break;
@@ -113,12 +123,9 @@ export default class Model {
 			}
 		});
 
-		this[APPLIED].add(object);
-		isEnforcing = true;
-		this[SCHEMA].enforce(object);
-		isEnforcing = false;
+		self[APPLIED].set(object, proxy);
 
-		return object;
+		return proxy;
 	}
 
 	/**

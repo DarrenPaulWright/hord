@@ -1,41 +1,53 @@
-import { forOwn, get, set, traverse } from 'object-agent';
+import { forOwn, get, mapOwn, set, traverse } from 'object-agent';
 import { isArray, isObject } from 'type-enforcer';
+import List from '../../List';
+import operators from '../operators';
 import Index from './Index';
-
-const intersection = (array1, array2) => {
-	const result = [];
-
-	array1.forEach((item) => {
-		if (array2.includes(item)) {
-			result.push(item);
-		}
-	});
-
-	return result;
-};
 
 export default class Indexer {
 	constructor() {
 		this.indexes = {};
+		this.builds = 0;
+		this.isHandled = false;
+		this.skip = false;
+	}
+
+	spawn(indexes) {
+		const spawn = new Indexer();
+
+		spawn.indexes = mapOwn(this.indexes, (index) => {
+			return index.spawn(indexes);
+		});
+
+		return spawn;
+	}
+
+	rebuild(map) {
+		forOwn(this.indexes, (index, path) => {
+			index.rebuild(map, (item) => get(item, path));
+		});
+		this.builds++;
 	}
 
 	addIndex(path) {
 		this.indexes[path] = new Index();
+
+		return this;
 	}
 
 	hasIndex(path) {
 		return this.indexes[path] !== undefined;
 	}
 
-	add(item, index) {
-		forOwn(this.indexes, (list, path) => {
-			list.add(get(item, path), index);
+	add(item, offset) {
+		forOwn(this.indexes, (index, path) => {
+			index.add(get(item, path), offset);
 		});
 	}
 
-	discard(item, index) {
-		forOwn(this.indexes, (list, path) => {
-			list.discard(get(item, path), index);
+	discard(item, offset) {
+		forOwn(this.indexes, (index, path) => {
+			index.discard(get(item, path), offset);
 		});
 
 		return this;
@@ -47,24 +59,42 @@ export default class Indexer {
 		let matches;
 		let usedIndexes = false;
 		const nonIndexedSearches = {};
+		let didSubQuery = false;
+
+		const subQuery = (path, value, operator) => {
+			didSubQuery = true;
+
+			if (!self.hasIndex(path)) {
+				set(nonIndexedSearches, path, value);
+			}
+			else {
+				usedIndexes = true;
+				match = self.indexes[path].query(value[operator], operator);
+				matches = matches ? matches.intersection(match) : match;
+			}
+		};
 
 		traverse(matcher, (path, value) => {
-			if (path.length && !isObject(value) && !isArray(value)) {
-				path = path.join('.');
+			if (path !== '') {
+				didSubQuery = false;
 
-				if (!self.hasIndex(path)) {
-					set(nonIndexedSearches, path, value);
+				if (isObject(value)) {
+					operators.each((operator) => {
+						if (value[operator] !== undefined) {
+							subQuery(path, value, operator);
+						}
+					});
 				}
-				else {
-					usedIndexes = true;
-					match = self.indexes[path].query(value);
-					matches = matches ? intersection(matches, match) : match;
+				else if (!isArray(value)) {
+					subQuery(path, {$eq: value}, operators.EQUAL);
 				}
+
+				return didSubQuery;
 			}
-		});
+		}, true);
 
 		if (!matches) {
-			matches = [];
+			matches = new List();
 		}
 
 		return {matches, nonIndexedSearches, usedIndexes};
@@ -78,26 +108,20 @@ export default class Indexer {
 		}
 	}
 
-	rebuild(map) {
-		forOwn(this.indexes, (list, path) => {
-			list.rebuild(map, (item) => get(item, path));
-		});
-	}
-
 	increment(amount, start = 0) {
-		forOwn(this.indexes, (list) => {
-			list.increment(amount, start);
+		forOwn(this.indexes, (index) => {
+			index.increment(amount, start);
 		});
 	}
 
 	length(value) {
-		forOwn(this.indexes, (list) => {
-			list.length(value);
+		forOwn(this.indexes, (index) => {
+			index.length(value);
 		});
 	}
 
 	clear() {
-		forOwn(this.indexes, (list) => list.clear());
+		forOwn(this.indexes, (index) => index.clear());
 		this.indexes = {};
 	}
 }

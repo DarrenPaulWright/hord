@@ -100,7 +100,7 @@
 <br><a name="SchemaDefinition"></a>
 
 ### SchemaDefinition : <code>\*</code> \| <code>Object</code>
-> Schema type definitions.
+> Schema type definitions. Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.> > '*' can be used as a key to indicate that any keys are allowed in an object.
 
 
 | Param | Type | Default | Description |

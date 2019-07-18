@@ -5,10 +5,10 @@ export default (rule, value) => {
 		return rule.message || ERRORS.CHECK + rule.name;
 	}
 	if (rule.clamp !== true) {
-		if ('numericRange' in rule && !rule.numericRange(rule, value, false)) {
+		if (rule.numericRange && !rule.numericRange(rule, value, false)) {
 			return ERRORS.NUMERIC_RANGE;
 		}
-		if ('length' in rule && !rule.length(rule, value)) {
+		if (rule.length && !rule.length(rule, value)) {
 			return ERRORS.VALUE_LENGTH;
 		}
 	}

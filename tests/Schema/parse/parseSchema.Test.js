@@ -9,10 +9,10 @@ import {
 	isObject,
 	isString
 } from 'type-enforcer';
-import parseSchema from '../../src/Schema/parseSchema';
-import { checkNumericRange, enforceSame, isAnything, isSame } from '../../src/Schema/schemaTypeRules';
-import { multiTest } from '../TestUtil';
-import { schemaTestTypes } from '../testValues';
+import parseSchema from '../../../src/Schema/parse/parseSchema';
+import { checkNumericRange, enforceSame, isAnything, isSame } from '../../../src/Schema/parse/schemaTypeRules';
+import { multiTest } from '../../TestUtil';
+import { schemaTestTypes } from '../../testValues';
 
 const testEnforce = () => {
 };

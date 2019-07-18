@@ -1,16 +1,25 @@
-import { get, isEmpty, set, unset } from 'object-agent';
+import { appendToPath, get, isEmpty, set, unset } from 'object-agent';
 import checkRule from './checkRule';
 import enforceRule from './enforceRule';
 import ERRORS from './schemaErrors';
 
 const OR_SEPARATOR = ' OR ';
 
+const getKeysNotInSchema = (value, rule) => {
+	if (!rule.keys || rule.keys.includes('*')) {
+		return false;
+	}
+
+	return Object.keys(value)
+		.filter((key) => !rule.keys.includes(key));
+};
+
 const processArray = (item, rule, path, value, onError, isEnforce) => {
 	let isChanged = false;
 
 	for (let index = 0, length = value.length; index < length; index++) {
 		rule.content.forEach((rule) => {
-			isChanged = processValue(item, rule, path.concat(index), onError, isEnforce) || isChanged;
+			isChanged = processValue(item, rule, appendToPath(path, index), onError, isEnforce) || isChanged;
 		});
 	}
 	if (isEnforce && isChanged) {
@@ -22,18 +31,20 @@ const processArray = (item, rule, path, value, onError, isEnforce) => {
 
 const processObject = (item, rule, path, value, onError, isEnforce) => {
 	let isChanged = false;
-	const keysNotInSchema = Object.keys(value).filter((key) => !rule.keys.includes(key));
+	const keysNotInSchema = getKeysNotInSchema(value, rule);
 
-	keysNotInSchema.forEach((key) => {
-		if (isEnforce) {
-			unset(item, path.concat(key));
-			isChanged = true;
-		}
-		onError(ERRORS.KEY_NOT_FOUND, path.concat(key), value[key]);
-	});
+	if (keysNotInSchema) {
+		keysNotInSchema.forEach((key) => {
+			if (isEnforce) {
+				unset(item, appendToPath(path, key));
+				isChanged = true;
+			}
+			onError(ERRORS.KEY_NOT_FOUND, appendToPath(path, key), value[key]);
+		});
+	}
 
 	rule.content.forEach((rule) => {
-		isChanged = processValue(item, rule, path.concat(rule.key), onError, isEnforce) || isChanged;
+		isChanged = processValue(item, rule, appendToPath(path, rule.key), onError, isEnforce) || isChanged;
 	});
 
 	return isChanged;
@@ -43,6 +54,16 @@ export default function processValue(item, rule, path, onError, isEnforce, repla
 	const value = get(item, path);
 	let isChanged = false;
 	const subErrors = [];
+
+	if (rule.types.length === 1 && rule.types[0].schema) {
+		if (isEnforce) {
+			rule.types[0].enforce(value);
+		}
+		else {
+			rule.types[0].check(value);
+		}
+		return false;
+	}
 
 	if (isEnforce) {
 		isChanged = enforceRule(rule, item, path, value, replace) || isChanged;
@@ -70,8 +91,8 @@ export default function processValue(item, rule, path, onError, isEnforce, repla
 	if (isEnforce) {
 		const type = rule.types[0];
 
-		if ('length' in type) {
-			if ('minLength' in type && type.minLength > value.length) {
+		if (type.length !== undefined) {
+			if (type.minLength !== undefined && type.minLength > value.length) {
 				if (type.clamp === true) {
 					if (type.type === Array) {
 						value.length = type.minLength;
@@ -85,7 +106,7 @@ export default function processValue(item, rule, path, onError, isEnforce, repla
 				}
 				isChanged = true;
 			}
-			if ('maxLength' in type && type.maxLength < value.length) {
+			if (type.maxLength !== undefined && type.maxLength < value.length) {
 				if (type.clamp === true) {
 					if (type.type === Array) {
 						value.length = type.maxLength;

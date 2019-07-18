@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.5.0] - 2019-07-18
+### Added
+- [List](docs/List.md)
+  - Added .someRight method
+  - Added .intersection method
+- [Collection](docs/Collection.md)
+  - Added support for query operators
+  - Improved performance when deriving new collections with indexes
+    
+### Changed
+- [Schema](docs/Schema.md)
+  - Improved support for nested Schemas
+  - Added support for '*' key
+- [Model](docs/Model.md)
+  - Improved support for nested Schemas/Models
+- [List](docs/List.md)
+    - .concat now returns a new List instead of mutating the calling list.
+
 ## [0.4.1] - 2019-07-01
 ### Added
 - Method 'extend' in [Schema](docs/Schema.md)
@@ -74,6 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
+[0.5.0]: https://github.com/DarrenPaulWright/hord/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/DarrenPaulWright/hord/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/DarrenPaulWright/hord/compare/v0.3.2...v0.4.0
 [0.3.2]: https://github.com/DarrenPaulWright/hord/compare/v0.3.1...v0.3.2

@@ -2,7 +2,7 @@ import { set, unset } from 'object-agent';
 import { enforce } from 'type-enforcer';
 
 export default (rule, item, path, value, replace) => {
-	const defaultValue = ('default' in rule) ? rule.default : rule.isRequired ? replace || null : undefined;
+	const defaultValue = (rule.default !== undefined) ? rule.default : rule.isRequired ? replace || null : undefined;
 	let newValue = null;
 
 	rule.types.some((type) => {

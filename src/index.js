@@ -21,3 +21,4 @@ export { default as List } from './List';
 export { default as Schema } from './Schema/Schema';
 export { default as Model, MODEL_ERROR_LEVEL } from './Model';
 export { default as Collection } from './Collection';
+export { default as GraphDB } from './GraphDB';

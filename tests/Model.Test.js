@@ -186,7 +186,7 @@ describe('Model', () => {
 				age: 21
 			});
 
-			set(person, ['hobbies', '0'], {
+			set(person, 'hobbies.0', {
 				name: 'programming',
 				strength: 2
 			});
@@ -373,10 +373,14 @@ describe('Model', () => {
 			assert.isTrue(deepEqual(person, person2));
 		});
 
-		it('should return false for two models with the different nested models', () => {
-			const Hobby = new Model({
+		it('should return false for two models with the different nested schemas', () => {
+			const Hobby = new Schema({
 				name: String,
-				strength: Number
+				strength: {
+					type: Number,
+					min: 0.5,
+					clamp: true
+				}
 			});
 			const Person = new Model({
 				first: String,
@@ -392,20 +396,62 @@ describe('Model', () => {
 				first: 'John',
 				last: 'Doe',
 				age: 21,
-				hobbies: [Hobby.apply({
+				hobbies: [{
 					name: 'programming',
 					strength: 1
-				})]
+				}]
 			});
 
 			const person2 = Person.apply({
 				first: 'John',
 				last: 'Doe',
 				age: 21,
-				hobbies: [Hobby.apply({
+				hobbies: [{
 					name: 'programming',
 					strength: 0.1
-				})]
+				}]
+			});
+
+			assert.isFalse(deepEqual(person, person2));
+		});
+
+		it('should return false for two models with the different nested models', () => {
+			const Hobby = new Model({
+				name: String,
+				strength: {
+					type: Number,
+					min: 0.5,
+					clamp: true
+				}
+			});
+			const Person = new Model({
+				first: String,
+				last: String,
+				age: Number,
+				hobbies: {
+					type: Array,
+					content: Hobby
+				}
+			});
+
+			const person = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21,
+				hobbies: [{
+					name: 'programming',
+					strength: 1
+				}]
+			});
+
+			const person2 = Person.apply({
+				first: 'John',
+				last: 'Doe',
+				age: 21,
+				hobbies: [{
+					name: 'programming',
+					strength: 0.1
+				}]
 			});
 
 			assert.isFalse(deepEqual(person, person2));
@@ -479,7 +525,7 @@ describe('Model', () => {
 			assert.equal(callCount, 1);
 		});
 
-		it('should only call the onChange callback once if aplly is called multiple times', () => {
+		it('should only call the onChange callback once if apply is called multiple times', () => {
 			const Person = new Model({
 				first: String,
 				last: String,
@@ -504,11 +550,18 @@ describe('Model', () => {
 				callCount++;
 			});
 
-			let person = Person.apply({
+			const original = {
 				first: 'John',
 				last: 'Doe',
 				age: 21
-			});
+			};
+
+			let person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
+			person = Person.apply(original);
 			person = Person.apply(person);
 			person = Person.apply(person);
 
@@ -626,44 +679,44 @@ describe('Model', () => {
 
 			model.schema.eachRule((path, rule) => {
 				total++;
-				if (deepEqual(path, []) && rule.types[0].type === Object) {
+				if (deepEqual(path, '') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey']) && rule.types[0].type === Array) {
+				if (deepEqual(path, 'testKey') && rule.types[0].type === Array) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0]) && rule.types[0].type === Object) {
+				if (deepEqual(path, 'testKey.0') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0, 'level2']) && rule.types[0].type === Number) {
+				if (deepEqual(path, 'testKey.0.level2') && rule.types[0].type === Number) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey2']) && rule.types[0].type === String) {
+				if (deepEqual(path, 'testKey2') && rule.types[0].type === String) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey3']) && rule.types[0].type === Date) {
+				if (deepEqual(path, 'testKey3') && rule.types[0].type === Date) {
 					testVar++;
 				}
 			});
 
 			result.schema.eachRule((path, rule) => {
 				total++;
-				if (deepEqual(path, []) && rule.types[0].type === Object) {
+				if (deepEqual(path, '') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey']) && rule.types[0].type === Array) {
+				if (deepEqual(path, 'testKey') && rule.types[0].type === Array) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0]) && rule.types[0].type === Object) {
+				if (deepEqual(path, 'testKey.0') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0, 'level2']) && rule.types[0].type === Number) {
+				if (deepEqual(path, 'testKey.0.level2') && rule.types[0].type === Number) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey2']) && rule.types[0].type === String) {
+				if (deepEqual(path, 'testKey2') && rule.types[0].type === String) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey3']) && rule.types[0].type === Date) {
+				if (deepEqual(path, 'testKey3') && rule.types[0].type === Date) {
 					testVar++;
 				}
 			});
@@ -694,44 +747,44 @@ describe('Model', () => {
 
 			model.schema.eachRule((path, rule) => {
 				total++;
-				if (deepEqual(path, []) && rule.types[0].type === Object) {
+				if (deepEqual(path, '') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey']) && rule.types[0].type === Array) {
+				if (deepEqual(path, 'testKey') && rule.types[0].type === Array) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0]) && rule.types[0].type === Object) {
+				if (deepEqual(path, 'testKey.0') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0, 'level2']) && rule.types[0].type === Number) {
+				if (deepEqual(path, 'testKey.0.level2') && rule.types[0].type === Number) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey2']) && rule.types[0].type === String) {
+				if (deepEqual(path, 'testKey2') && rule.types[0].type === String) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey3']) && rule.types[0].type === Date) {
+				if (deepEqual(path, 'testKey3') && rule.types[0].type === Date) {
 					testVar++;
 				}
 			});
 
 			result.schema.eachRule((path, rule) => {
 				total++;
-				if (deepEqual(path, []) && rule.types[0].type === Object) {
+				if (deepEqual(path, '') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey']) && rule.types[0].type === Array) {
+				if (deepEqual(path, 'testKey') && rule.types[0].type === Array) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0]) && rule.types[0].type === Object) {
+				if (deepEqual(path, 'testKey.0') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0, 'level2']) && rule.types[0].type === 'integer') {
+				if (deepEqual(path, 'testKey.0.level2') && rule.types[0].type === 'integer') {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey2']) && rule.types[0].type === Number) {
+				if (deepEqual(path, 'testKey2') && rule.types[0].type === Number) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey3']) && rule.types[0].type === Date) {
+				if (deepEqual(path, 'testKey3') && rule.types[0].type === Date) {
 					testVar++;
 				}
 			});
@@ -762,63 +815,63 @@ describe('Model', () => {
 
 			model.schema.eachRule((path, rule) => {
 				total++;
-				if (deepEqual(path, []) && rule.types[0].type === Object) {
+				if (deepEqual(path, '') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey']) && rule.types[0].type === Array) {
+				if (deepEqual(path, 'testKey') && rule.types[0].type === Array) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0]) && rule.types[0].type === Object) {
+				if (deepEqual(path, 'testKey.0') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0, 'level2']) && rule.types[0].type === Number) {
+				if (deepEqual(path, 'testKey.0.level2') && rule.types[0].type === Number) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey2']) && rule.types[0].type === String) {
+				if (deepEqual(path, 'testKey2') && rule.types[0].type === String) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey3']) && rule.types[0].type === Date) {
+				if (deepEqual(path, 'testKey3') && rule.types[0].type === Date) {
 					testVar++;
 				}
 			});
 
 			model2.schema.eachRule((path, rule) => {
 				total++;
-				if (deepEqual(path, []) && rule.types[0].type === Object) {
+				if (deepEqual(path, '') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey']) && rule.types[0].type === Array) {
+				if (deepEqual(path, 'testKey') && rule.types[0].type === Array) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0]) && rule.types[0].type === Object) {
+				if (deepEqual(path, 'testKey.0') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0, 'level2']) && rule.types[0].type === 'integer') {
+				if (deepEqual(path, 'testKey.0.level2') && rule.types[0].type === 'integer') {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey2']) && rule.types[0].type === Number) {
+				if (deepEqual(path, 'testKey2') && rule.types[0].type === Number) {
 					testVar++;
 				}
 			});
 
 			result.schema.eachRule((path, rule) => {
 				total++;
-				if (deepEqual(path, []) && rule.types[0].type === Object) {
+				if (deepEqual(path, '') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey']) && rule.types[0].type === Array) {
+				if (deepEqual(path, 'testKey') && rule.types[0].type === Array) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0]) && rule.types[0].type === Object) {
+				if (deepEqual(path, 'testKey.0') && rule.types[0].type === Object) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey', 0, 'level2']) && rule.types[0].type === 'integer') {
+				if (deepEqual(path, 'testKey.0.level2') && rule.types[0].type === 'integer') {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey2']) && rule.types[0].type === Number) {
+				if (deepEqual(path, 'testKey2') && rule.types[0].type === Number) {
 					testVar++;
 				}
-				if (deepEqual(path, ['testKey3']) && rule.types[0].type === Date) {
+				if (deepEqual(path, 'testKey3') && rule.types[0].type === Date) {
 					testVar++;
 				}
 			});

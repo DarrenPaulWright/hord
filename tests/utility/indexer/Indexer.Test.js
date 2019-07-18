@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import Index from '../../../src/utility/indexer/Index';
 import Indexer from '../../../src/utility/indexer/Indexer';
 
-describe('Index', () => {
+describe('Indexer', () => {
 	describe('.addIndex', () => {
 		it('should add an index for a path', () => {
 			const indexer = new Indexer();
@@ -117,8 +117,8 @@ describe('Index', () => {
 				path3: 'd'
 			});
 
-			assert.deepEqual(result.matches, []);
-			assert.deepEqual(result.nonIndexedSearches, {path3: 'd'});
+			assert.deepEqual(result.matches.values(), []);
+			assert.deepEqual(result.nonIndexedSearches, {path3: {$eq: 'd'}});
 			assert.isFalse(result.usedIndexes);
 		});
 
@@ -127,7 +127,7 @@ describe('Index', () => {
 				path1: 'd'
 			});
 
-			assert.deepEqual(result.matches, []);
+			assert.deepEqual(result.matches.values(), []);
 			assert.deepEqual(result.nonIndexedSearches, {});
 			assert.isTrue(result.usedIndexes);
 		});
@@ -137,7 +137,7 @@ describe('Index', () => {
 				path1: 'b'
 			});
 
-			assert.deepEqual(result.matches, [0, 1, 2, 4]);
+			assert.deepEqual(result.matches.values(), [0, 1, 2, 4]);
 			assert.deepEqual(result.nonIndexedSearches, {});
 			assert.isTrue(result.usedIndexes);
 		});
@@ -153,8 +153,8 @@ describe('Index', () => {
 				}
 			});
 
-			assert.deepEqual(result.matches, [1, 4]);
-			assert.deepEqual(result.nonIndexedSearches, {path3: {x: 'x'}});
+			assert.deepEqual(result.matches.values(), [1, 4]);
+			assert.deepEqual(result.nonIndexedSearches, {path3: {x: {$eq: 'x'}}});
 			assert.isTrue(result.usedIndexes);
 		});
 	});

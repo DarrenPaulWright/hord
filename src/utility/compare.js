@@ -1,4 +1,5 @@
-import { isArray, isNumber, isObject } from 'type-enforcer';
+import { get } from 'object-agent';
+import { isArray, isNumber } from 'type-enforcer';
 
 const kindOf = (value) => {
 	if (value === void 0) {
@@ -20,19 +21,12 @@ const compare = (a, b) => {
 	const kindA = kindOf(a);
 	const kindB = kindOf(b);
 
-	if (kindA > 0 || kindB > 0) {
-		return (kindA < kindB) ? -1 : (kindA > kindB ? 1 : 0);
-	}
-
-	if (kindA !== kindB) {
-		return (kindA < kindB) ? -1 : (kindA > kindB ? 1 : 0);
+	if (kindA !== kindB || kindA > 0) {
+		a = kindA;
+		b = kindB;
 	}
 
 	return (a < b) ? -1 : (a > b ? 1 : 0);
-};
-
-const compareKey = (a, b, key) => {
-	return compare(isObject(a) ? a[key] : a, isObject(b) ? b[key] : b);
 };
 
 export default (keys) => {
@@ -41,13 +35,13 @@ export default (keys) => {
 			return (a, b) => {
 				let output;
 
-				keys.some((key) => output = compareKey(a, b, key));
+				keys.some((key) => output = compare(get(a, key), get(b, key)));
 
 				return output;
 			};
 		}
 
-		return (a, b) => compareKey(a, b, keys);
+		return (a, b) => compare(get(a, keys), get(b, keys));
 	}
 
 	return compare;

@@ -3,7 +3,7 @@ import displayValue from 'display-value';
 import compare from '../../src/utility/compare';
 
 describe('compare', () => {
-	const values = [NaN, null, 'string', undefined];
+	const values = [1, 2, 'string', 'string2', NaN, null, undefined];
 
 	values.forEach((value1, index1) => {
 		values.forEach((value2, index2) => {

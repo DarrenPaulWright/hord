@@ -1,25 +1,32 @@
-import { isArray, isObject } from 'type-enforcer';
+import { isArray, isNumber, isObject } from 'type-enforcer';
 
-const baseValue = (value) => {
+const kindOf = (value) => {
+	if (value === void 0) {
+		return 3;
+	}
 	if (value === null) {
-		return 'null';
+		return 2;
 	}
 	if (value !== value) {
-		return 'NaN';
+		return 1;
 	}
-	return value;
+	if (isNumber(value)) {
+		return -1;
+	}
+	return 0;
 };
 
 const compare = (a, b) => {
-	if (a === undefined) {
-		return b === undefined ? 0 : 1;
-	}
-	if (b === undefined) {
-		return -1;
+	const kindA = kindOf(a);
+	const kindB = kindOf(b);
+
+	if (kindA > 0 || kindB > 0) {
+		return (kindA < kindB) ? -1 : (kindA > kindB ? 1 : 0);
 	}
 
-	a = baseValue(a);
-	b = baseValue(b);
+	if (kindA !== kindB) {
+		return (kindA < kindB) ? -1 : (kindA > kindB ? 1 : 0);
+	}
 
 	return (a < b) ? -1 : (a > b ? 1 : 0);
 };

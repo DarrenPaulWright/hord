@@ -39,7 +39,7 @@
 | schema | <code>Schema</code> | 
 
 **Example**  
-``` javascriptimport { Model } from 'type-enforcer';const Person = new Model({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});const johnDoe = Person.apply({ first: 'John', last: 'Doe', age: 21});johnDoe.hobbies = ['programming', 10];console.log(johnDoe);// => { first: 'John', last: 'Doe', age: 21, hobbies: ['programming'] }```
+``` javascriptimport { Model } from 'hord';const Person = new Model({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});const johnDoe = Person.apply({ first: 'John', last: 'Doe', age: 21});johnDoe.hobbies = ['programming', 10];console.log(johnDoe);// => { first: 'John', last: 'Doe', age: 21, hobbies: ['programming'] }```
 
 <br><a name="Model+schema"></a>
 

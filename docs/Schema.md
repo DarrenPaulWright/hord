@@ -34,7 +34,7 @@
 | schema | [<code>SchemaDefinition</code>](#SchemaDefinition) | 
 
 **Example**  
-``` javascriptimport { Schema } from 'type-enforcer';const person = new Schema({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});person.validate({ first: 'John', last: 'Doe', age: 21});// => []```
+``` javascriptimport { Schema } from 'hord';const person = new Schema({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});person.validate({ first: 'John', last: 'Doe', age: 21});// => []```
 
 <br><a name="Schema+validate"></a>
 
@@ -120,7 +120,7 @@
 | [check] | <code>function</code> |  | This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info) |
 
 **Example**  
-``` javascriptimport { Schema } from 'type-enforcer';// Can be a native type or stringconst person = new Schema({ first: String, last: String, age: 'integer'});// Or with options:const person = new Schema({ first: {     type: String,     isRequired: true }, last: {     type: String,     isRequired: true }, age: {     type: 'integer'     min: 0,     coerce: true }});```
+``` javascriptimport { Schema } from 'hord';// Can be a native type or stringconst person = new Schema({ first: String, last: String, age: 'integer'});// Or with options:const person = new Schema({ first: {     type: String,     isRequired: true }, last: {     type: String,     isRequired: true }, age: {     type: 'integer'     min: 0,     coerce: true }});```
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord

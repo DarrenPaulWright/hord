@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import displayValue from 'display-value';
-import compare from '../../src/utility/compare';
+import { compare } from '../../src';
 
 describe('compare', () => {
 	const values = [1, 2, 'string', 'string2', NaN, null, undefined];

@@ -30,7 +30,7 @@ export const MODEL_ERROR_LEVEL = new Enum({
  *
  * @example
  * ``` javascript
- * import { Model } from 'type-enforcer';
+ * import { Model } from 'hord';
  *
  * const Person = new Model({
  *  first: String,

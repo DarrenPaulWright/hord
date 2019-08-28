@@ -11,15 +11,19 @@
 [![license][license]][license-url]
 
 
-<br><a name="Installation"></a>
+<br><a name="compare"></a>
 
-### Installation
-```npm install hord```_Requires Babel 7.2+_
+### compare([paths]) ⇒ <code>function</code>
+> Returns a function that compares two values. If paths are provided, compares the values at that path on objects.> > Notes:> - Handles undefined, null, and NaN.> - Distinguishes numbers from strings.
 
-<br><a name="Docs"></a>
+**Returns**: <code>function</code> - Accepts two arguments to be compared. Returns -1, 0, or 1.  
 
-### Docs
-- [List](docs/List.md)- [Schema](docs/Schema.md)- [Model](docs/Model.md)- [Collection](docs/Collection.md)- [compare](docs/compare.md)
+| Param | Type | Description |
+| --- | --- | --- |
+| [paths] | <code>Array</code>, <code>String</code> | The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on. |
+
+**Example**  
+``` javascriptimport { compare } from 'hord';compare('id')({id: 1}, {id: 2});// => -1```
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord

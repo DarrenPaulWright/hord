@@ -14,7 +14,8 @@
 		"docs-schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md -t docs/docs.hbs --plugin dmd-readable -d 3",
 		"docs-model": "jsdoc2md src/Model.js > docs/Model.md -t docs/docs.hbs --plugin dmd-readable -d 3",
 		"docs-collection": "jsdoc2md src/Collection.js > docs/Collection.md -t docs/docs.hbs --plugin dmd-readable -d 3",
-		"docs": "npm run docs-readme && npm run docs-list && npm run docs-schema && npm run docs-model && npm run docs-collection"
+		"docs-compare": "jsdoc2md src/utility/compare.js > docs/compare.md -t docs/docs.hbs --plugin dmd-readable -d 3",
+		"docs": "npm run docs-readme && npm run docs-list && npm run docs-schema && npm run docs-model && npm run docs-collection && npm run docs-compare"
 	},
 	"badges": [
 		{

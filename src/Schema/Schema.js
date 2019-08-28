@@ -21,7 +21,7 @@ import processValue from './processValue';
  *
  * @example
  * ``` javascript
- * import { Schema } from 'type-enforcer';
+ * import { Schema } from 'hord';
  *
  * // Can be a native type or string
  * const person = new Schema({
@@ -94,7 +94,7 @@ const eachRule = Symbol();
  *
  * @example
  * ``` javascript
- * import { Schema } from 'type-enforcer';
+ * import { Schema } from 'hord';
  *
  * const person = new Schema({
  *  first: String,

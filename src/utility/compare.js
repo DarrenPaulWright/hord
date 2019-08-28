@@ -29,19 +29,40 @@ const compare = (a, b) => {
 	return (a < b) ? -1 : (a > b ? 1 : 0);
 };
 
-export default (keys) => {
-	if (keys) {
-		if (isArray(keys)) {
+/**
+ * Returns a function that compares two values. If paths are provided, compares the values at that path on objects.
+ *
+ * Notes:
+ * - Handles undefined, null, and NaN.
+ * - Distinguishes numbers from strings.
+ *
+ * @example
+ * ``` javascript
+ * import { compare } from 'hord';
+ *
+ * compare('id')({id: 1}, {id: 2});
+ * // => -1
+ * ```
+ *
+ * @function compare
+ *
+ * @arg {Array|String} [paths] - The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on.
+ *
+ * @returns {function} Accepts two arguments to be compared. Returns -1, 0, or 1.
+ */
+export default (paths) => {
+	if (paths) {
+		if (isArray(paths)) {
 			return (a, b) => {
 				let output;
 
-				keys.some((key) => output = compare(get(a, key), get(b, key)));
+				paths.some((path) => output = compare(get(a, path), get(b, path)));
 
 				return output;
 			};
 		}
 
-		return (a, b) => compare(get(a, keys), get(b, keys));
+		return (a, b) => compare(get(a, paths), get(b, paths));
 	}
 
 	return compare;

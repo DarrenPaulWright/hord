@@ -4,6 +4,8 @@ import Schema from './Schema/Schema';
 
 const _ = new PrivateVars();
 
+export const processErrors = Symbol();
+
 /**
  * How to handle Schema validation errors in models.
  *
@@ -65,6 +67,27 @@ export default class Model {
 		});
 	}
 
+	[processErrors](errors) {
+		const self = this;
+
+		if (errors.length) {
+			self.onError().trigger(null, [errors], errors[0].item);
+
+			errors.forEach((error) => {
+				switch (self.errorLevel() || Model.defaultErrorLevel()) {
+					case MODEL_ERROR_LEVEL.WARN:
+						console.warn(error.error, error);
+						break;
+					case MODEL_ERROR_LEVEL.ERROR:
+						console.error(error.error, error);
+						break;
+					case MODEL_ERROR_LEVEL.THROW:
+						throw error;
+				}
+			});
+		}
+	}
+
 	/**
 	 * Apply this model to an object
 	 *
@@ -92,33 +115,16 @@ export default class Model {
 			return object;
 		}
 
-		self.schema.enforce(object);
+		self[processErrors](self.schema.enforce(object));
 
 		const proxy = onChange(object, function(path, value, previous) {
 			if (!isEnforcing) {
 				isEnforcing = true;
 
-				const errors = self.schema.enforce(this, path, previous);
+				self[processErrors](self.schema.enforce(this, path, previous));
 
 				if (self.onChange()) {
 					self.onChange().trigger(null, [path, value, previous], this);
-				}
-
-				if (errors.length) {
-					self.onError().trigger(null, [errors], this);
-
-					errors.forEach((error) => {
-						switch (self.errorLevel() || Model.defaultErrorLevel()) {
-							case MODEL_ERROR_LEVEL.WARN:
-								console.warn(error.error, error);
-								break;
-							case MODEL_ERROR_LEVEL.ERROR:
-								console.error(error.error, error);
-								break;
-							case MODEL_ERROR_LEVEL.THROW:
-								throw error;
-						}
-					});
 				}
 
 				isEnforcing = false;

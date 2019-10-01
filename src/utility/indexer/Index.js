@@ -1,4 +1,4 @@
-import List, { ARRAY } from '../../List';
+import List, { _ as _list } from '../../List';
 import compare from '../compare';
 import operators from '../operators';
 
@@ -56,7 +56,7 @@ export default class Index {
 			}
 
 			return result;
-		}, spawn.list[ARRAY]);
+		}, _list(spawn.list).array);
 
 		return spawn;
 	}

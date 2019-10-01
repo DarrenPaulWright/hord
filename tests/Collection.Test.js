@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { Collection, Model } from '../src';
-import { INDEXER, MODEL } from '../src/Collection';
+import { _ } from '../src/Collection';
 import compare from '../src/utility/compare';
 
 describe('Collection', () => {
@@ -1572,7 +1572,7 @@ describe('Collection', () => {
 		it('should accept a model', () => {
 			const testCollection1 = new Collection().model(singleIndexModel);
 
-			assert.equal(testCollection1[INDEXER].builds, 1);
+			assert.equal(_(testCollection1).indexer.builds, 1);
 		});
 
 		it('should enforce the model', () => {
@@ -1598,7 +1598,7 @@ describe('Collection', () => {
 				first: 'Jane',
 				last: 'Doe'
 			});
-			assert.equal(testCollection1[INDEXER].builds, 1);
+			assert.equal(_(testCollection1).indexer.builds, 1);
 		});
 
 		it('should accept an object', () => {
@@ -1636,19 +1636,19 @@ describe('Collection', () => {
 				first: 'Jane',
 				last: 'Doe'
 			});
-			assert.equal(testCollection1[INDEXER].builds, 1);
+			assert.equal(_(testCollection1).indexer.builds, 1);
 		});
 
 		it('should build indexes', () => {
 			const testCollection1 = new Collection().model(fullIndexModel);
 
-			assert.equal(testCollection1[INDEXER].builds, 1);
-			assert.isTrue(testCollection1[INDEXER].hasIndex('id'));
-			assert.isTrue(testCollection1[INDEXER].hasIndex('first'));
-			assert.isTrue(testCollection1[INDEXER].hasIndex('last'));
-			assert.isTrue(testCollection1[INDEXER].hasIndex('age'));
-			assert.isTrue(testCollection1[INDEXER].hasIndex('hobbies.0.name'));
-			assert.isTrue(testCollection1[INDEXER].hasIndex('hobbies.0.start'));
+			assert.equal(_(testCollection1).indexer.builds, 1);
+			assert.isTrue(_(testCollection1).indexer.hasIndex('id'));
+			assert.isTrue(_(testCollection1).indexer.hasIndex('first'));
+			assert.isTrue(_(testCollection1).indexer.hasIndex('last'));
+			assert.isTrue(_(testCollection1).indexer.hasIndex('age'));
+			assert.isTrue(_(testCollection1).indexer.hasIndex('hobbies.0.name'));
+			assert.isTrue(_(testCollection1).indexer.hasIndex('hobbies.0.start'));
 		});
 	});
 
@@ -1732,7 +1732,7 @@ describe('Collection', () => {
 
 		if (builds !== undefined) {
 			it(`should have built the indexes ${builds} time(s)`, () => {
-				assert.equal(queryCollection[INDEXER].builds, builds);
+				assert.equal(_(queryCollection).indexer.builds, builds);
 
 			});
 		}
@@ -2112,7 +2112,7 @@ describe('Collection', () => {
 
 				assert.equal(queryCollection.findIndex({first: 'Sarah'}), 5);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 
 				const result = queryCollection.pop();
@@ -2120,7 +2120,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex({first: 'Sarah'}), -1);
 				assert.deepEqual(result, extraPerson);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2131,7 +2131,7 @@ describe('Collection', () => {
 
 				assert.equal(queryCollection.findIndex({first: 'Sarah'}), 0);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 
 				const result = queryCollection.shift();
@@ -2139,7 +2139,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex({first: 'Sarah'}), -1);
 				assert.deepEqual(result, extraPerson);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2154,7 +2154,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex({first: 'Steve'}), 1);
 				assert.equal(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
@@ -2168,7 +2168,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.filter({first: 'Steve'}).length, 1);
 				assert.equal(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2185,7 +2185,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.filter({first: 'Matt'}).length, 2);
 				assert.equal(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2204,7 +2204,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex(person1), 4);
 				assert.equal(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2223,7 +2223,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex(person5), 4);
 				assert.equal(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2241,7 +2241,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex(person5), 5);
 				assert.equal(result.length, 0);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 				assert.isTrue(result instanceof Collection);
 			});
@@ -2257,7 +2257,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex(person5), 3);
 				assert.equal(result.length, 1);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 				assert.isTrue(result instanceof Collection);
 			});
@@ -2274,7 +2274,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex(person5), 4);
 				assert.equal(result.length, 1);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 				assert.isTrue(result instanceof Collection);
 			});
@@ -2285,7 +2285,7 @@ describe('Collection', () => {
 				reset();
 				assert.equal(queryCollection.length, 5);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
@@ -2304,7 +2304,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection[5], undefined);
 				assert.equal(queryCollection[6], undefined);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
@@ -2318,7 +2318,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex(person4), 3);
 				assert.equal(queryCollection.findIndex(person5), -1);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
@@ -2333,7 +2333,7 @@ describe('Collection', () => {
 				assert.equal(queryCollection.findIndex(person4), 3);
 				assert.equal(queryCollection.findIndex(person5), -1);
 				if (builds !== undefined) {
-					assert.equal(queryCollection[INDEXER].builds, builds);
+					assert.equal(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2369,7 +2369,7 @@ describe('Collection', () => {
 			it('should set the model to null and set it\'s own length to 0', () => {
 				queryCollection.remove();
 
-				assert.deepEqual(queryCollection[MODEL], undefined);
+				assert.deepEqual(_(queryCollection).model, undefined);
 				assert.equal(queryCollection.length, 0);
 			});
 		});

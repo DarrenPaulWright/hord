@@ -8,7 +8,7 @@ import {
 	isInstanceOf,
 	isNumber,
 	isObject,
-	privateProp,
+	PrivateVars,
 	sameValueZero
 } from 'type-enforcer';
 import List from './List';
@@ -148,9 +148,7 @@ const buildFinder = (predicate) => {
 	return predicate;
 };
 
-export const INDEXER = Symbol();
-export const MODEL = Symbol();
-const MODEL_CHANGE_ID = Symbol();
+export const _ = new PrivateVars();
 
 const applyModelAll = Symbol();
 const registerModelOnChange = Symbol();
@@ -177,18 +175,18 @@ export default class Collection extends Array {
 
 		const self = this;
 
-		return onChange(self, (path, value, previous) => {
-			if (self[INDEXER] && self[INDEXER].isHandled === false && self[MODEL]) {
+		const output = onChange(self, (path, value, previous) => {
+			if (_(output).indexer && _(output).indexer.isHandled === false && _(output).model) {
 				if (isNumber(path, true)) {
 					path = Number(path);
-					self[path] = self[MODEL].apply(self[path]);
-					self[INDEXER]
+					self[path] = _(output).model.apply(self[path]);
+					_(output).indexer
 						.discard(previous, path)
 						.add(value, path);
 				}
 				else if (path === 'length') {
 					if (value < previous) {
-						self[INDEXER].length(value);
+						_(output).indexer.length(value);
 					}
 				}
 			}
@@ -196,21 +194,25 @@ export default class Collection extends Array {
 			isShallow: true,
 			ignoreSymbols: true
 		});
+
+		_.set(output);
+
+		return output;
 	}
 
 	[applyModelAll]() {
 		const self = this;
 
-		if (self[MODEL]) {
-			if (self[INDEXER]) {
-				self[INDEXER].isHandled = true;
+		if (_(self).model) {
+			if (_(self).indexer) {
+				_(self).indexer.isHandled = true;
 			}
 
-			self.forEach((item, index) => self[index] = self[MODEL].apply(item));
+			self.forEach((item, index) => self[index] = _(self).model.apply(item));
 
-			if (self[INDEXER]) {
-				self[INDEXER].rebuild((callback) => super.filter(Boolean).map(callback));
-				self[INDEXER].isHandled = false;
+			if (_(self).indexer) {
+				_(self).indexer.rebuild((callback) => super.filter(Boolean).map(callback));
+				_(self).indexer.isHandled = false;
 			}
 		}
 	}
@@ -218,15 +220,15 @@ export default class Collection extends Array {
 	[registerModelOnChange]() {
 		const self = this;
 
-		self[MODEL_CHANGE_ID] = self[MODEL].onChange()
+		_(self).modelChangeId = _(self).model.onChange()
 			.add(function(path, value, previous) {
-				if (self[INDEXER] && self[INDEXER].hasIndex(path)) {
-					self[INDEXER].skip = true;
+				if (_(self).indexer && _(self).indexer.hasIndex(path)) {
+					_(self).indexer.skip = true;
 					const index = self.indexOf(this);
-					self[INDEXER].skip = false;
+					_(self).indexer.skip = false;
 
 					if (index !== -1) {
-						self[INDEXER].update(path, index, value, previous);
+						_(self).indexer.update(path, index, value, previous);
 					}
 				}
 			});
@@ -246,16 +248,16 @@ export default class Collection extends Array {
 			}
 		}
 
-		if (self[INDEXER] && values.length > 1) {
+		if (_(self).indexer && values.length > 1) {
 			if (!indexes) {
 				indexes = new List(values.map((item) => self.indexOf(item)));
 			}
 
-			values[INDEXER] = self[INDEXER].spawn(indexes);
+			_(values).indexer = _(self).indexer.spawn(indexes);
 		}
 
-		if (self[MODEL]) {
-			values[MODEL] = self[MODEL];
+		if (_(self).model) {
+			_(values).model = _(self).model;
 			values[registerModelOnChange]();
 		}
 
@@ -325,16 +327,16 @@ export default class Collection extends Array {
 		const self = this;
 
 		const addModel = (model) => {
-			self[MODEL] = model;
+			_(self).model = model;
 
-			self[MODEL].schema.eachRule((path, rule) => {
+			_(self).model.schema.eachRule((path, rule) => {
 				const type = rule.types[0];
 
 				if (type.name !== 'Array' && type.name !== 'Object' && type.index === true) {
-					if (!self[INDEXER]) {
-						privateProp(self, INDEXER, new Indexer());
+					if (!_(self).indexer) {
+						_(self).indexer = new Indexer();
 					}
-					self[INDEXER].addIndex(path);
+					_(self).indexer.addIndex(path);
 				}
 			});
 
@@ -342,19 +344,19 @@ export default class Collection extends Array {
 		};
 
 		const removeModel = () => {
-			self[MODEL].onChange().discard(self[MODEL_CHANGE_ID]);
-			self[MODEL_CHANGE_ID] = null;
-			self[MODEL] = undefined;
+			_(self).model.onChange().discard(_(self).modelChangeId);
+			_(self).modelChangeId = null;
+			_(self).model = undefined;
 
-			if (self[INDEXER]) {
-				self[INDEXER].clear();
-				self[INDEXER] = null;
+			if (_(self).indexer) {
+				_(self).indexer.clear();
+				_(self).indexer = null;
 			}
 		};
 
 		if (arguments.length) {
-			if (model !== self[MODEL]) {
-				if (self[MODEL]) {
+			if (model !== _(self).model) {
+				if (_(self).model) {
 					removeModel();
 				}
 
@@ -366,7 +368,7 @@ export default class Collection extends Array {
 			return self;
 		}
 
-		return self[MODEL];
+		return _(self).model;
 	}
 
 	/**
@@ -418,19 +420,19 @@ export default class Collection extends Array {
 	push(item) {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		const output = super.push(item);
 
-		if (self[MODEL]) {
+		if (_(self).model) {
 			const index = self.length - 1;
 
-			self[index] = self[MODEL].apply(self[index]);
+			self[index] = _(self).model.apply(self[index]);
 
-			if (self[INDEXER]) {
-				self[INDEXER].add(self[index], index);
+			if (_(self).indexer) {
+				_(self).indexer.add(self[index], index);
 			}
 		}
 
@@ -455,14 +457,14 @@ export default class Collection extends Array {
 	pop() {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		const output = super.pop();
 
-		if (self[INDEXER]) {
-			self[INDEXER].discard(output, self.length);
+		if (_(self).indexer) {
+			_(self).indexer.discard(output, self.length);
 		}
 
 		return output;
@@ -488,18 +490,18 @@ export default class Collection extends Array {
 	unshift(item) {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		const output = super.unshift(item);
 
-		if (self[MODEL]) {
-			self[0] = self[MODEL].apply(self[0]);
+		if (_(self).model) {
+			self[0] = _(self).model.apply(self[0]);
 
-			if (self[INDEXER]) {
-				self[INDEXER].increment(1);
-				self[INDEXER].add(self[0], 0);
+			if (_(self).indexer) {
+				_(self).indexer.increment(1);
+				_(self).indexer.add(self[0], 0);
 			}
 		}
 
@@ -524,14 +526,14 @@ export default class Collection extends Array {
 	shift() {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		const output = super.shift();
 
-		if (self[INDEXER]) {
-			self[INDEXER]
+		if (_(self).indexer) {
+			_(self).indexer
 				.discard(output, 0)
 				.increment(-1);
 		}
@@ -760,8 +762,8 @@ export default class Collection extends Array {
 	indexOf(item) {
 		const self = this;
 
-		if (self[INDEXER] && !self[INDEXER].skip) {
-			const result = self[INDEXER].query(item);
+		if (_(self).indexer && !_(self).indexer.skip) {
+			const result = _(self).indexer.query(item);
 
 			if (result.usedIndexes) {
 				let output = -1;
@@ -797,8 +799,8 @@ export default class Collection extends Array {
 	lastIndexOf(item) {
 		const self = this;
 
-		if (self[INDEXER]) {
-			const result = self[INDEXER].query(item);
+		if (_(self).indexer) {
+			const result = _(self).indexer.query(item);
 
 			if (result.usedIndexes) {
 				let output = -1;
@@ -852,8 +854,8 @@ export default class Collection extends Array {
 	findIndex(predicate) {
 		const self = this;
 
-		if (self[INDEXER] && isObject(predicate)) {
-			const result = self[INDEXER].query(predicate);
+		if (_(self).indexer && isObject(predicate)) {
+			const result = _(self).indexer.query(predicate);
 
 			if (result.usedIndexes) {
 				if (result.matches.length && !isEmpty(result.nonIndexedSearches)) {
@@ -893,8 +895,8 @@ export default class Collection extends Array {
 	findLastIndex(predicate) {
 		const self = this;
 
-		if (self[INDEXER] && isObject(predicate)) {
-			const result = self[INDEXER].query(predicate);
+		if (_(self).indexer && isObject(predicate)) {
+			const result = _(self).indexer.query(predicate);
 
 			if (result.usedIndexes) {
 				if (result.matches.length && !isEmpty(result.nonIndexedSearches)) {
@@ -970,8 +972,8 @@ export default class Collection extends Array {
 	filter(predicate) {
 		const self = this;
 
-		if (self[INDEXER] && isObject(predicate)) {
-			const result = self[INDEXER].query(predicate);
+		if (_(self).indexer && isObject(predicate)) {
+			const result = _(self).indexer.query(predicate);
 
 			if (result.usedIndexes) {
 				if (result.matches.length !== 0 && !isEmpty(result.nonIndexedSearches)) {
@@ -1359,8 +1361,8 @@ export default class Collection extends Array {
 	copyWithin(...args) {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		super.copyWithin(...args);
@@ -1390,8 +1392,8 @@ export default class Collection extends Array {
 	fill(...args) {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		super.fill(...args);
@@ -1416,8 +1418,8 @@ export default class Collection extends Array {
 	reverse() {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		super.reverse();
@@ -1444,8 +1446,8 @@ export default class Collection extends Array {
 	sort(compareFunction) {
 		const self = this;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
 		super.sort(compareFunction);
@@ -1476,30 +1478,30 @@ export default class Collection extends Array {
 		const self = this;
 		const argLength = args.length;
 
-		if (self[INDEXER]) {
-			self[INDEXER].isHandled = true;
+		if (_(self).indexer) {
+			_(self).indexer.isHandled = true;
 		}
 
-		if (argLength && self[MODEL]) {
-			args = args.map((item) => self[MODEL].apply(item));
+		if (argLength && _(self).model) {
+			args = args.map((item) => _(self).model.apply(item));
 		}
 
 		const result = super.splice(start, deleteCount, ...args);
 
-		if (self[INDEXER]) {
+		if (_(self).indexer) {
 			result.forEach((item, index) => {
-				self[INDEXER].discard(item, start + index);
+				_(self).indexer.discard(item, start + index);
 			});
 
 			if (argLength - deleteCount) {
-				self[INDEXER].increment(argLength - deleteCount, start + deleteCount);
+				_(self).indexer.increment(argLength - deleteCount, start + deleteCount);
 			}
 
 			args.forEach((item, index) => {
-				self[INDEXER].add(item, start + index);
+				_(self).indexer.add(item, start + index);
 			});
 
-			self[INDEXER].isHandled = false;
+			_(self).indexer.isHandled = false;
 		}
 
 		return self[spawn](result);

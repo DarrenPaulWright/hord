@@ -1,4 +1,4 @@
-import { castArray, privateProp, Queue } from 'type-enforcer';
+import { castArray, PrivateVars, Queue } from 'type-enforcer';
 import Collection from './Collection';
 import List from './List';
 import Model, { MODEL_ERROR_LEVEL } from './Model';
@@ -68,11 +68,7 @@ const buildModel = (model, schema) => {
 const mapNewLink = Symbol();
 const addToNodeCrawler = Symbol();
 
-const READY = Symbol();
-const WHEN_READY = Symbol();
-const NODES = Symbol();
-const LINKS = Symbol();
-const NODE_CRAWLER = Symbol();
+const _ = new PrivateVars();
 
 /**
  * A Graph Database designed for front end data visualization
@@ -94,36 +90,32 @@ export default class GraphDB {
 	constructor(settings = {}) {
 		const self = this;
 
-		privateProp(self, READY, false);
-		privateProp(self, WHEN_READY, new Queue());
-
-		privateProp(self, NODES, new Collection()
-			.model(buildModel(settings.nodeModel || null, baseNodeSchema)));
-		privateProp(self, LINKS, new Collection()
-			.model(buildModel(settings.linkModel || null, baseLinkSchema)));
-
-		privateProp(self, NODE_CRAWLER, new List().sorter(List.sorter.id.asc));
+		const _self = _.set(self, {
+			ready: false,
+			whenReady: new Queue(),
+			nodes: new Collection().model(buildModel(settings.nodeModel || null, baseNodeSchema)),
+			links: new Collection().model(buildModel(settings.linkModel || null, baseLinkSchema)),
+			nodeCrawler: new List().sorter(List.sorter.id.asc)
+		});
 
 		self
 			.nodes(settings.nodes || [])
 			.then(() => self.links(settings.links || []))
 			.then(() => {
-				self[READY] = true;
-				if (self[WHEN_READY].length) {
-					self[WHEN_READY].trigger();
-					self[WHEN_READY].discardAll();
-				}
+				_self.ready = true;
+				_self.whenReady.trigger().discardAll();
 			});
 	}
 
 	[mapNewLink](link) {
 		const self = this;
+		const _self = _(self);
 
 		if (link.source !== undefined && link.source.id === undefined) {
-			link.source = self[NODES].find({id: link.source});
+			link.source = _self.nodes.find({id: link.source});
 		}
 		if (link.target !== undefined && link.target.id === undefined) {
-			link.target = self[NODES].find({id: link.target});
+			link.target = _self.nodes.find({id: link.target});
 		}
 
 		if (link.source && link.target) {
@@ -136,9 +128,10 @@ export default class GraphDB {
 
 	[addToNodeCrawler](link) {
 		const self = this;
+		const _self = _(self);
 
 		const getCrawlNode = (node) => {
-			let item = self[NODE_CRAWLER].find(node);
+			let item = _self.nodeCrawler.find(node);
 
 			if (!item) {
 				item = {
@@ -148,7 +141,7 @@ export default class GraphDB {
 					out: [],
 					both: []
 				};
-				self[NODE_CRAWLER].add(item);
+				_self.nodeCrawler.add(item);
 			}
 
 			return item;
@@ -172,13 +165,14 @@ export default class GraphDB {
 
 	whenReady() {
 		const self = this;
+		const _self = _(self);
 
 		return new Promise((resolve) => {
-			if (self[READY]) {
+			if (_self.ready) {
 				resolve(self);
 			}
 			else {
-				self[WHEN_READY].add(() => {
+				_self.whenReady.add(() => {
 					resolve(self);
 				});
 			}
@@ -197,15 +191,16 @@ export default class GraphDB {
 	 */
 	nodes(nodes) {
 		const self = this;
+		const _self = _(self);
 
 		return new Promise((resolve) => {
 			if (nodes) {
-				self[NODES].splice(0, self[NODES].length, ...nodes);
+				_self.nodes.splice(0, _self.nodes.length, ...nodes);
 
 				resolve();
 			}
 			else {
-				resolve(self[NODES]);
+				resolve(_self.nodes);
 			}
 		});
 	}
@@ -222,10 +217,11 @@ export default class GraphDB {
 	 */
 	addNodes(nodes) {
 		const self = this;
+		const _self = _(self);
 
 		return new Promise((resolve) => {
 			castArray(nodes).forEach((node) => {
-				self[NODES].push(node);
+				_self.nodes.push(node);
 			});
 
 			resolve();
@@ -244,18 +240,19 @@ export default class GraphDB {
 	 */
 	links(links) {
 		const self = this;
+		const _self = _(self);
 
 		return new Promise((resolve) => {
 			if (links) {
-				self[NODE_CRAWLER].discardAll();
+				_self.nodeCrawler.discardAll();
 
 				links = links.map(self[mapNewLink], self).filter(Boolean);
-				self[LINKS].splice(0, self[LINKS].length, ...links);
+				_self.links.splice(0, _self.links.length, ...links);
 
 				resolve();
 			}
 			else {
-				resolve(self[LINKS]);
+				resolve(_self.links);
 			}
 		});
 	}
@@ -272,10 +269,11 @@ export default class GraphDB {
 	 */
 	addLinks(links) {
 		const self = this;
+		const _self = _(self);
 
 		return new Promise((resolve) => {
 			castArray(links).forEach((link) => {
-				self[LINKS].push(self[mapNewLink](link));
+				_self.links.push(self[mapNewLink](link));
 			});
 
 			resolve();
@@ -284,24 +282,26 @@ export default class GraphDB {
 
 	get query() {
 		const self = this;
+		const _self = _(self);
 
 		return {
 			get nodes() {
 				return nodeQuery(new Promise((resolve) => {
-					resolve(self[NODES]);
-				}), self[NODES], self[LINKS]);
+					resolve(_self.nodes);
+				}), _self.nodes, _self.links);
 			},
 			get links() {
 				return linkQuery(new Promise((resolve) => {
-					resolve(self[LINKS]);
-				}), self[NODES], self[LINKS]);
+					resolve(_self.links);
+				}), _self.nodes, _self.links);
 			}
 		};
 	}
 
 	shortestPaths(source, target) {
 		const self = this;
-		let shortest = self[NODE_CRAWLER].length;
+		const _self = _(self);
+		let shortest = _self.nodeCrawler.length;
 
 		const processNode = (node, distance) => {
 			let paths = [];
@@ -340,10 +340,10 @@ export default class GraphDB {
 			return paths.filter((path) => path.length <= localShortest);
 		};
 
-		self[NODE_CRAWLER].forEach((item) => item.distance = shortest);
+		_self.nodeCrawler.forEach((item) => item.distance = shortest);
 
 		return new Promise((resolve) => {
-			let paths = processNode(self[NODE_CRAWLER].find({id: source.id}), 1);
+			let paths = processNode(_self.nodeCrawler.find({id: source.id}), 1);
 
 			paths = paths.map((path) => {
 				return path.map((link) => link.node);

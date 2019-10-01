@@ -1,4 +1,4 @@
-import { castArray, privateProp } from 'type-enforcer';
+import { castArray, PrivateVars } from 'type-enforcer';
 import compare from './utility/compare';
 import someRight from './utility/someRight';
 
@@ -45,10 +45,9 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 	return isInsert ? (diff > 0 ? --mid : mid) : -1;
 };
 
-const spawn = Symbol();
+export const _ = new PrivateVars();
 
-const SORTER = Symbol();
-export const ARRAY = Symbol();
+const spawn = Symbol();
 
 /**
  * @class List
@@ -67,17 +66,19 @@ export const ARRAY = Symbol();
  */
 export default class List {
 	constructor(values = []) {
-		privateProp(this, SORTER, sorters.default);
+		_.set(this, {
+			sorter: sorters.default
+		});
 		this.values(values);
 	}
 
 	[spawn](values) {
 		const newList = new List();
 
-		newList[SORTER] = this[SORTER];
+		_(newList).sorter = _(this).sorter;
 
 		if (values) {
-			newList[ARRAY] = values;
+			_(newList).array = values;
 		}
 
 		return newList;
@@ -105,18 +106,13 @@ export default class List {
 	 */
 	sorter(sorter) {
 		if (arguments.length) {
-			if (!this[SORTER]) {
-				privateProp(this, SORTER, sorter);
-			}
-			else {
-				this[SORTER] = sorter;
-			}
+			_(this).sorter = sorter;
 			this.sort();
 
 			return this;
 		}
 
-		return this[SORTER];
+		return _(this).sorter;
 	}
 
 	/**
@@ -127,8 +123,10 @@ export default class List {
 	 * @chainable
 	 */
 	sort() {
-		if (this[ARRAY].length) {
-			this[ARRAY].sort(this[SORTER]);
+		const _self = _(this);
+
+		if (_self.array.length) {
+			_self.array.sort(_self.sorter);
 		}
 		return this;
 	}
@@ -144,7 +142,9 @@ export default class List {
 	 *
 	 */
 	add(item) {
-		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this[SORTER], true) + 1, 0, item);
+		const _self = _(this);
+
+		_self.array.splice(sortedIndexOf(_self.array, item, _self.sorter, true) + 1, 0, item);
 
 		return this;
 	}
@@ -159,15 +159,17 @@ export default class List {
 	 * @arg {*} item - Item is inserted into the list such that the items are still sorted.
 	 */
 	addUnique(item) {
-		if (this[ARRAY].length === 0) {
-			this[ARRAY][0] = item;
+		const _self = _(this);
+
+		if (_self.array.length === 0) {
+			_self.array[0] = item;
 		}
 		else {
-			const sorter = this[SORTER];
-			let index = sortedIndexOf(this[ARRAY], item, sorter, true);
+			const sorter = _self.sorter;
+			let index = sortedIndexOf(_self.array, item, sorter, true);
 
-			if (index === -1 || sorter(this[ARRAY][index], item) !== 0) {
-				this[ARRAY].splice(index + 1, 0, item);
+			if (index === -1 || sorter(_self.array[index], item) !== 0) {
+				_self.array.splice(index + 1, 0, item);
 			}
 		}
 
@@ -183,7 +185,7 @@ export default class List {
 	 * @returns {List}
 	 */
 	unique() {
-		const sorter = this[SORTER];
+		const sorter = _(this).sorter;
 		const output = [];
 		let previous;
 
@@ -207,9 +209,9 @@ export default class List {
 	 * @arg {*} values
 	 */
 	concat(...args) {
-		return new List()
-			.sorter(this[SORTER])
-			.values(this[ARRAY].concat(...args.map((item) => item[ARRAY] || item)));
+		return this[spawn](_(this).array.concat(...args.map((item) => {
+			return _(item) ? _(item).array : item
+		}))).sort();
 	}
 
 	/**
@@ -222,7 +224,7 @@ export default class List {
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 */
 	discard(item) {
-		this[ARRAY].splice(sortedIndexOf(this[ARRAY], item, this[SORTER], true), 1);
+		_(this).array.splice(sortedIndexOf(_(this).array, item, _(this).sorter, true), 1);
 
 		return this;
 	}
@@ -235,7 +237,7 @@ export default class List {
 	 * @chainable
 	 */
 	discardAll() {
-		this[ARRAY].length = 0;
+		_(this).array.length = 0;
 
 		return this;
 	}
@@ -253,17 +255,12 @@ export default class List {
 	 */
 	values(values) {
 		if (values !== undefined) {
-			if (!this[ARRAY]) {
-				privateProp(this, ARRAY, castArray(values));
-			}
-			else {
-				this[ARRAY] = castArray(values);
-			}
+			_(this).array = castArray(values);
 
 			return this.sort();
 		}
 
-		return this[ARRAY].slice();
+		return _(this).array.slice();
 	}
 
 	/**
@@ -277,7 +274,7 @@ export default class List {
 	 * @returns {Number} The index of the item or -1
 	 */
 	indexOf(item) {
-		return sortedIndexOf(this[ARRAY], item, this[SORTER]);
+		return sortedIndexOf(_(this).array, item, _(this).sorter);
 	}
 
 	/**
@@ -291,7 +288,7 @@ export default class List {
 	 * @returns {Number} The index of the item or -1
 	 */
 	lastIndexOf(item) {
-		return sortedIndexOf(this[ARRAY], item, this[SORTER], false, true);
+		return sortedIndexOf(_(this).array, item, _(this).sorter, false, true);
 	}
 
 	/**
@@ -319,7 +316,7 @@ export default class List {
 	 * @returns {*} The item or undefined
 	 */
 	find(item) {
-		return this[ARRAY][this.indexOf(item)];
+		return _(this).array[this.indexOf(item)];
 	}
 
 	/**
@@ -333,7 +330,7 @@ export default class List {
 	 * @returns {*} The item or undefined
 	 */
 	findLast(item) {
-		return this[ARRAY][this.lastIndexOf(item)];
+		return _(this).array[this.lastIndexOf(item)];
 	}
 
 	/**
@@ -357,10 +354,10 @@ export default class List {
 		const end = self.lastIndexOf(item);
 
 		if (start === end) {
-			return self[spawn]([self[ARRAY][start]]);
+			return self[spawn]([_(self).array[start]]);
 		}
 
-		return this[spawn](self[ARRAY].slice(start, end + 1));
+		return this[spawn](_(self).array.slice(start, end + 1));
 	}
 
 	/**
@@ -400,7 +397,7 @@ export default class List {
 	 * @returns {*}
 	 */
 	first() {
-		return this[ARRAY][0];
+		return _(this).array[0];
 	}
 
 	/**
@@ -412,7 +409,7 @@ export default class List {
 	 * @returns {*}
 	 */
 	last() {
-		return this[ARRAY][this[ARRAY].length - 1];
+		return _(this).array[_(this).array.length - 1];
 	}
 
 	/**
@@ -428,7 +425,7 @@ export default class List {
 	 */
 	someRight(callback, thisArg) {
 		callback = callback.bind(thisArg || this);
-		return someRight(this[ARRAY], callback);
+		return someRight(_(this).array, callback);
 	}
 
 	/**
@@ -457,7 +454,7 @@ export default class List {
 	 * @returns {Number}
 	 */
 	get length() {
-		return this[ARRAY].length;
+		return _(this).array.length;
 	}
 }
 
@@ -521,7 +518,7 @@ List.sorter = sorters;
 	'keys'
 ].forEach((key) => {
 	List.prototype[key] = function() {
-		return this[ARRAY][key]();
+		return _(this).array[key]();
 	};
 });
 
@@ -631,7 +628,7 @@ List.sorter = sorters;
 	'some'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
-		return this[ARRAY][key](...args);
+		return _(this).array[key](...args);
 	};
 });
 
@@ -664,6 +661,6 @@ List.sorter = sorters;
 	'slice'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
-		return this[spawn](this[ARRAY][key](...args));
+		return this[spawn](_(this).array[key](...args));
 	};
 });

@@ -1,4 +1,5 @@
 import { appendToPath, clone, superimpose } from 'object-agent';
+import { PrivateVars } from 'type-enforcer';
 import findRule from './findRule';
 import parseSchema from './parse/parseSchema';
 import processValue from './processValue';
@@ -84,8 +85,7 @@ const process = (item, rules, path, isEnforce, replace) => {
 	return errors;
 };
 
-const DEFINITION = Symbol();
-const RULES = Symbol();
+const _ = new PrivateVars();
 
 const eachRule = Symbol();
 
@@ -120,8 +120,10 @@ const eachRule = Symbol();
  */
 export default class Schema {
 	constructor(schema) {
-		this[DEFINITION] = clone(schema);
-		this[RULES] = parseSchema(this[DEFINITION]);
+		_.set(this, {
+			definition: clone(schema)
+		});
+		_(this).rules = parseSchema(_(this).definition);
 	}
 
 	[eachRule](callback, basePath = '') {
@@ -145,7 +147,7 @@ export default class Schema {
 			}
 		};
 
-		processRule(basePath, this[RULES]);
+		processRule(basePath, _(this).rules);
 	}
 
 	/**
@@ -160,7 +162,7 @@ export default class Schema {
 	 * @returns {SchemaError[]}
 	 */
 	validate(item, path = '') {
-		return process(item, findRule(path, this[RULES]), path, false);
+		return process(item, findRule(path, _(this).rules), path, false);
 	}
 
 	/**
@@ -176,7 +178,7 @@ export default class Schema {
 	 * @returns {SchemaError[]}
 	 */
 	enforce(item, path = '', replace) {
-		return process(item, findRule(path, this[RULES]), path, true, replace);
+		return process(item, findRule(path, _(this).rules), path, true, replace);
 	}
 
 	/**
@@ -202,6 +204,6 @@ export default class Schema {
 	 * @returns {Schema}
 	 */
 	extend(schema) {
-		return new Schema(superimpose(this[DEFINITION], schema instanceof Schema ? schema[DEFINITION] : schema));
+		return new Schema(superimpose(_(this).definition, schema instanceof Schema ? _(schema).definition : schema));
 	}
 }

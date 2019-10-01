@@ -1,9 +1,8 @@
 import onChange from 'on-change';
-import { Enum, isInstanceOf, methodEnum, methodQueue, privateProp } from 'type-enforcer';
+import { Enum, isInstanceOf, methodEnum, methodQueue, PrivateVars } from 'type-enforcer';
 import Schema from './Schema/Schema';
 
-export const SCHEMA = Symbol();
-export const APPLIED = Symbol();
+const _ = new PrivateVars();
 
 /**
  * How to handle Schema validation errors in models.
@@ -60,8 +59,10 @@ export const MODEL_ERROR_LEVEL = new Enum({
  */
 export default class Model {
 	constructor(schema) {
-		privateProp(this, SCHEMA, isInstanceOf(schema, Schema) ? schema : new Schema(schema));
-		privateProp(this, APPLIED, new WeakMap());
+		_.set(this, {
+			schema: isInstanceOf(schema, Schema) ? schema : new Schema(schema),
+			applied: new WeakMap()
+		});
 	}
 
 	/**
@@ -76,27 +77,28 @@ export default class Model {
 	 */
 	apply(object) {
 		const self = this;
+		const _self = _(self);
 		let isEnforcing = false;
 
 		if (object === undefined || object === null) {
 			return object;
 		}
 
-		const applied = self[APPLIED].get(object);
+		const applied = _self.applied.get(object);
 		if (applied) {
 			return applied;
 		}
-		if (self[APPLIED].has(onChange.target(object))) {
+		if (_self.applied.has(onChange.target(object))) {
 			return object;
 		}
 
-		self[SCHEMA].enforce(object);
+		self.schema.enforce(object);
 
 		const proxy = onChange(object, function(path, value, previous) {
 			if (!isEnforcing) {
 				isEnforcing = true;
 
-				const errors = self[SCHEMA].enforce(this, path, previous);
+				const errors = self.schema.enforce(this, path, previous);
 
 				if (self.onChange()) {
 					self.onChange().trigger(null, [path, value, previous], this);
@@ -123,7 +125,7 @@ export default class Model {
 			}
 		});
 
-		self[APPLIED].set(object, proxy);
+		_self.applied.set(object, proxy);
 
 		return proxy;
 	}
@@ -139,7 +141,7 @@ export default class Model {
 	 * @returns {Model}
 	 */
 	extend(model) {
-		return new Model(this[SCHEMA].extend(model ? (model.schema || model) : model))
+		return new Model(this.schema.extend(model ? (model.schema || model) : model))
 			.errorLevel(this.errorLevel());
 	}
 
@@ -153,7 +155,7 @@ export default class Model {
 	 * @returns {Schema}
 	 */
 	get schema() {
-		return this[SCHEMA];
+		return _(this).schema;
 	}
 }
 

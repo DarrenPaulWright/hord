@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.5.3] - 2019-10-01
+### Fixed
+- Model should process errors when apply is called
+
+### Security
+- Updated dependencies
+
 ## [0.5.2] - 2019-08-28
 ### Security
 - Updated dependencies
@@ -106,6 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
+[0.5.3]: https://github.com/DarrenPaulWright/hord/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/DarrenPaulWright/hord/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/DarrenPaulWright/hord/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/DarrenPaulWright/hord/compare/v0.4.1...v0.5.0

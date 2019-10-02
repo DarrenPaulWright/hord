@@ -10,7 +10,9 @@ const linkQuery = function(promise, mainNodes, mainLinks) {
 	};
 
 	return {
-		filter: (matcher) => linkQuery(promise.then(filter(matcher)), mainNodes, mainLinks),
+		filter(matcher) {
+			return linkQuery(promise.then(filter(matcher)), mainNodes, mainLinks);
+		},
 		get in() {
 			return this.inNode.outLink;
 		},
@@ -29,7 +31,9 @@ const linkQuery = function(promise, mainNodes, mainLinks) {
 		get bothNode() {
 			return nextNodes(bothNode);
 		},
-		then: (callback) => promise.then(callback)
+		then(callback) {
+			return promise.then(callback);
+		}
 	};
 };
 

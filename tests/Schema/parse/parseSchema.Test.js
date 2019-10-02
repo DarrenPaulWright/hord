@@ -271,8 +271,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for ${input.level1.name || input.level1}`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for ${input.level1.name || input.level1}`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -458,8 +462,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for ${input.level1.type.name || input.level1.type} as an object with type`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for ${input.level1.type.name || input.level1.type} as an object with type`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -535,8 +543,12 @@ describe('parseSchema', () => {
 						};
 					}
 				}),
-				message: (input) => `should return a map for ${input.level1.type.name || input.level1.type} as an object with type and other keys`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for ${input.level1.type.name || input.level1.type} as an object with type and other keys`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -894,8 +906,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for a ${input.level1[0].level2.name || input.level1[0].level2} in an array`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for a ${input.level1[0].level2.name || input.level1[0].level2} in an array`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -1110,8 +1126,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for a ${input.level1[0].level2.type.name || input.level1[0].level2.type} in an array as an object with type`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for a ${input.level1[0].level2.type.name || input.level1[0].level2.type} in an array as an object with type`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -1168,8 +1188,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for a ${input.level1[0].level2.type.name || input.level1[0].level2.type} in an array as an object with type and other keys`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for a ${input.level1[0].level2.type.name || input.level1[0].level2.type} in an array as an object with type and other keys`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -1650,8 +1674,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for a ${input.level1.content.level2.name || input.level1.content.level2} in an array`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for a ${input.level1.content.level2.name || input.level1.content.level2} in an array`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -1915,8 +1943,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for a ${input.level1.content.level2.type.name || input.level1.content.level2.type} in an array as an object with type`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for a ${input.level1.content.level2.type.name || input.level1.content.level2.type} in an array as an object with type`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'
@@ -1976,8 +2008,12 @@ describe('parseSchema', () => {
 						}
 					};
 				}),
-				message: (input) => `should return a map for a ${input.level1.content.level2.type.name || input.level1.content.level2.type} in an array as an object with type and other keys`,
-				test: (value) => parseSchema(value),
+				message(input) {
+					return `should return a map for a ${input.level1.content.level2.type.name || input.level1.content.level2.type} in an array as an object with type and other keys`;
+				},
+				test(value) {
+					return parseSchema(value);
+				},
 				inputKey: 'input',
 				outputKey: 'output',
 				assertion: 'deepEqual'

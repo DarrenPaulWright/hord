@@ -11,7 +11,9 @@ const nodeQuery = function(promise, mainNodes, mainLinks) {
 	};
 
 	return {
-		filter: (matcher) => nodeQuery(promise.then(filter(matcher)), mainNodes, mainLinks),
+		filter(matcher) {
+			return nodeQuery(promise.then(filter(matcher)), mainNodes, mainLinks);
+		},
 		get in() {
 			return this.inLink.outNode;
 		},
@@ -30,45 +32,49 @@ const nodeQuery = function(promise, mainNodes, mainLinks) {
 		get bothLink() {
 			return nextLinks(promise, bothLink);
 		},
-		extent: (depth = 1) => new Promise((resolve) => {
-			promise = promise.then((nodes) => {
-				return {
-					nodes: nodes,
-					links: []
-				};
-			});
+		extent(depth = 1) {
+			return new Promise((resolve) => {
+				promise = promise.then((nodes) => {
+					return {
+						nodes,
+						links: []
+					};
+				});
 
-			repeat(depth, () => {
-				promise = promise.then((graph) => new Promise((resolve) => {
+				repeat(depth, () => {
+					promise = promise.then((graph) => new Promise((resolve) => {
 
-					nodeQuery(new Promise((resolve) => {
-						resolve(graph.nodes);
-					}), mainNodes, mainLinks)
-						.bothLink
-						.then((links) => {
-							graph.links = links.concat(graph.links);
+						nodeQuery(new Promise((resolve) => {
+							resolve(graph.nodes);
+						}), mainNodes, mainLinks)
+							.bothLink
+							.then((links) => {
+								graph.links = links.concat(graph.links);
 
-							return linkQuery(new Promise((resolve) => {
-								resolve(graph.links);
-							}), mainNodes, mainLinks)
-								.bothNode;
-						})
-						.then((nodes) => {
-							graph.nodes = graph.nodes.concat(nodes);
-							resolve(graph);
-						});
+								return linkQuery(new Promise((resolve) => {
+									resolve(graph.links);
+								}), mainNodes, mainLinks)
+									.bothNode;
+							})
+							.then((nodes) => {
+								graph.nodes = graph.nodes.concat(nodes);
+								resolve(graph);
+							});
 
-				}));
-			});
+					}));
+				});
 
-			promise.then((graph) => {
-				resolve({
-					nodes: graph.nodes.unique(),
-					links: graph.links.unique()
+				promise.then((graph) => {
+					resolve({
+						nodes: graph.nodes.unique(),
+						links: graph.links.unique()
+					});
 				});
 			});
-		}),
-		then: (callback) => promise.then(callback)
+		},
+		then(callback) {
+			return promise.then(callback);
+		}
 	};
 };
 

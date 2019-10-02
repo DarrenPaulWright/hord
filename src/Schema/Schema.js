@@ -72,9 +72,9 @@ const process = (item, rules, path, isEnforce, replace) => {
 	const buildError = (message, path, value) => {
 		errors.push({
 			error: message,
-			path: path,
-			value: value,
-			item: item
+			path,
+			value,
+			item
 		});
 	};
 

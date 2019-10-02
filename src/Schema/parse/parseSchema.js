@@ -15,8 +15,12 @@ const buildRule = (type, value, isAnObject) => {
 	if (isInstanceOf(value, Schema)) {
 		return {
 			name: 'Schema',
-			check: (item) => value.validate(item),
-			enforce: (item) => value.enforce(item),
+			check(item) {
+				return value.validate(item);
+			},
+			enforce(item) {
+				return value.enforce(item);
+			},
 			type: Schema,
 			schema: value
 		};
@@ -24,8 +28,12 @@ const buildRule = (type, value, isAnObject) => {
 	if (isInstanceOf(value, Model)) {
 		return {
 			name: 'Model',
-			check: (item) => value.schema.validate(item),
-			enforce: (item) => value.apply(item),
+			check(item) {
+				return value.schema.validate(item);
+			},
+			enforce(item) {
+				return value.apply(item);
+			},
 			type: Model,
 			model: value
 		};
@@ -34,14 +42,14 @@ const buildRule = (type, value, isAnObject) => {
 	const isConstructor = isFunction(type);
 
 	const rule = {
-		...TYPE_RULES.get(type) || (isConstructor ? {
+		...(TYPE_RULES.get(type) || (isConstructor ? {
 			...instanceRule,
 			name: type.name
 		} : {
 			...sameRule,
 			name: type + ''
-		}),
-		type: type
+		})),
+		type
 	};
 
 	if (isAnObject) {

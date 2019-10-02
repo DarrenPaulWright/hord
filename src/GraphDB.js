@@ -136,7 +136,7 @@ export default class GraphDB {
 			if (!item) {
 				item = {
 					id: node.id,
-					node: node,
+					node,
 					in: [],
 					out: [],
 					both: []

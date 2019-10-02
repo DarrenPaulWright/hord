@@ -5,16 +5,26 @@ import someRight from './utility/someRight';
 const sorters = Object.freeze({
 	default: compare(),
 	string: {
-		asc: (a, b) => a.localeCompare(b),
-		desc: (a, b) => b.localeCompare(a)
+		asc(a, b) {
+			return a.localeCompare(b);
+		},
+		desc(a, b) {
+			return b.localeCompare(a);
+		}
 	},
 	number: {
-		asc: (a, b) => a - b,
-		desc: (a, b) => b - a
+		asc(a, b) {
+			return a - b;
+		},
+		desc(a, b) {
+			return b - a;
+		}
 	},
 	id: {
 		asc: compare('id'),
-		desc: (a, b) => compare('id')(b, a)
+		desc(a, b) {
+			return compare('id')(b, a);
+		}
 	}
 });
 

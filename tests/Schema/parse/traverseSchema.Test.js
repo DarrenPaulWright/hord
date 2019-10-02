@@ -112,7 +112,7 @@ describe('traverseSchema', () => {
 		let total = 0;
 		let testVar = 0;
 		const testTypeObject = {
-			enforce: () => {
+			enforce() {
 			}
 		};
 		const testSchema = {
@@ -385,12 +385,14 @@ describe('traverseSchema', () => {
 		values: schemaTestTypes.filter((item) => {
 			return item.name !== 'array';
 		}),
-		message: (input) => `should call the callback with ${input.name || input}`,
-		test: (type) => {
+		message(input) {
+			return `should call the callback with ${input.name || input}`;
+		},
+		test(type) {
 			let testVar = 0;
 			const testSchema = {
 				test: {
-					type: type
+					type
 				}
 			};
 

@@ -58,7 +58,7 @@ describe('Schema', () => {
 						error: 'A value is required',
 						path: 'testKey',
 						value: undefined,
-						item: item
+						item
 					}]);
 				});
 
@@ -114,7 +114,7 @@ describe('Schema', () => {
 						error: 'Key found that isn\'t in the schema',
 						path: 'testKey2',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 
@@ -167,7 +167,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 
@@ -190,7 +190,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey.testKey2',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 
@@ -213,7 +213,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey.0.testKey2',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 			});
@@ -256,7 +256,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 			});
@@ -338,7 +338,7 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey',
 				value: 'inValid',
-				item: item
+				item
 			}]);
 		});
 
@@ -378,12 +378,12 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey.0',
 				value: 'test1',
-				item: item
+				item
 			}, {
 				error: 'Value should be a Array',
 				path: 'testKey.1',
 				value: 'test2',
-				item: item
+				item
 			}]);
 		});
 
@@ -420,7 +420,7 @@ describe('Schema', () => {
 				error: 'Value should be a String',
 				path: 'testKey.1',
 				value: 3,
-				item: item
+				item
 			}]);
 		});
 
@@ -457,7 +457,7 @@ describe('Schema', () => {
 				error: 'Value should be a String OR Value should be a Number',
 				path: 'testKey.3',
 				value: true,
-				item: item
+				item
 			}]);
 		});
 
@@ -538,7 +538,7 @@ describe('Schema', () => {
 				error: 'Value should be a Object',
 				path: 'testKey',
 				value: [],
-				item: item
+				item
 			}]);
 		});
 
@@ -578,7 +578,7 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey.testKey2',
 				value: 'inValid',
-				item: item
+				item
 			}]);
 		});
 
@@ -619,7 +619,7 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey.testKey2',
 				value: 'inValid',
-				item: item
+				item
 			}]);
 		});
 
@@ -669,7 +669,7 @@ describe('Schema', () => {
 				error: 'Value should be a String',
 				path: 'testKey.testKey3',
 				value: 10,
-				item: item
+				item
 			}]);
 		});
 
@@ -709,7 +709,7 @@ describe('Schema', () => {
 					error: 'Length is outside range',
 					path: 'testKey',
 					value: ['test', 'test'],
-					item: item
+					item
 				}]);
 			});
 
@@ -748,7 +748,7 @@ describe('Schema', () => {
 					error: 'Length is outside range',
 					path: 'testKey',
 					value: ['test', 'test'],
-					item: item
+					item
 				}]);
 			});
 		});
@@ -806,7 +806,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -846,7 +846,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -920,7 +920,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -960,7 +960,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -1019,7 +1019,7 @@ describe('Schema', () => {
 					error: 'Value should be a Number',
 					path: 'testKey',
 					value: 'test',
-					item: item
+					item
 				}]);
 			});
 		});
@@ -1075,7 +1075,7 @@ describe('Schema', () => {
 					error: 'Value should be a Enum',
 					path: 'testKey',
 					value: 'something',
-					item: item
+					item
 				}]);
 			});
 
@@ -1097,7 +1097,7 @@ describe('Schema', () => {
 					error: 'Value should be a Enum OR Value should be a Number',
 					path: 'testKey',
 					value: 'something',
-					item: item
+					item
 				}]);
 			});
 
@@ -1183,7 +1183,7 @@ describe('Schema', () => {
 							error: 'A value is required',
 							path: 'testKey',
 							value: undefined,
-							item: item
+							item
 						}]);
 					});
 
@@ -1254,7 +1254,7 @@ describe('Schema', () => {
 						error: 'Key found that isn\'t in the schema',
 						path: 'testKey2',
 						value: undefined,
-						item: item
+						item
 					}]);
 				});
 
@@ -1319,7 +1319,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 
@@ -1344,7 +1344,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey.testKey2',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 
@@ -1369,7 +1369,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey.0.testKey2',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 			});
@@ -1418,7 +1418,7 @@ describe('Schema', () => {
 						error: 'Value should be a ' + data.nativeName,
 						path: 'testKey',
 						value: datum,
-						item: item
+						item
 					}]);
 				});
 			});
@@ -1497,7 +1497,7 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey',
 				value: 'inValid',
-				item: item
+				item
 			}]);
 		});
 
@@ -1546,12 +1546,12 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey.0',
 				value: 'test1',
-				item: item
+				item
 			}, {
 				error: 'Value should be a Array',
 				path: 'testKey.1',
 				value: 'test2',
-				item: item
+				item
 			}]);
 		});
 
@@ -1596,7 +1596,7 @@ describe('Schema', () => {
 				error: 'Value should be a String',
 				path: 'testKey.1',
 				value: 3,
-				item: item
+				item
 			}]);
 		});
 
@@ -1641,7 +1641,7 @@ describe('Schema', () => {
 				error: 'Value should be a String OR Value should be a Number',
 				path: 'testKey.3',
 				value: true,
-				item: item
+				item
 			}]);
 		});
 
@@ -1740,7 +1740,7 @@ describe('Schema', () => {
 				error: 'Value should be a Object',
 				path: 'testKey',
 				value: [],
-				item: item
+				item
 			}]);
 		});
 
@@ -1829,7 +1829,7 @@ describe('Schema', () => {
 				error: 'Value should be a String',
 				path: 'testKey',
 				value: 10,
-				item: item
+				item
 			}]);
 		});
 
@@ -1854,7 +1854,7 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey.testKey2',
 				value: 'inValid',
-				item: item
+				item
 			}]);
 		});
 
@@ -1903,7 +1903,7 @@ describe('Schema', () => {
 				error: 'Value should be a Array',
 				path: 'testKey.testKey2',
 				value: 'inValid',
-				item: item
+				item
 			}]);
 		});
 
@@ -1961,7 +1961,7 @@ describe('Schema', () => {
 				error: 'Value should be a String',
 				path: 'testKey.testKey3',
 				value: 10,
-				item: item
+				item
 			}]);
 		});
 
@@ -2008,7 +2008,7 @@ describe('Schema', () => {
 					error: 'Length is outside range',
 					path: 'testKey',
 					value: ['test', 'test'],
-					item: item
+					item
 				}]);
 			});
 
@@ -2076,7 +2076,7 @@ describe('Schema', () => {
 					error: 'Length is outside range',
 					path: 'testKey',
 					value: ['test', 'test'],
-					item: item
+					item
 				}]);
 			});
 
@@ -2146,7 +2146,7 @@ describe('Schema', () => {
 					error: 'Length is outside range',
 					path: 'testKey',
 					value: 'test',
-					item: item
+					item
 				}]);
 			});
 
@@ -2214,7 +2214,7 @@ describe('Schema', () => {
 					error: 'Length is outside range',
 					path: 'testKey',
 					value: 'test',
-					item: item
+					item
 				}]);
 			});
 
@@ -2326,7 +2326,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -2372,7 +2372,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -2460,7 +2460,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -2506,7 +2506,7 @@ describe('Schema', () => {
 					error: 'Value is outside range',
 					path: 'testKey',
 					value: 12,
-					item: item
+					item
 				}]);
 			});
 
@@ -2553,7 +2553,7 @@ describe('Schema', () => {
 					error: 'Value should be a Number',
 					path: 'testKey',
 					value: 'test',
-					item: item
+					item
 				}]);
 			});
 		});
@@ -2605,7 +2605,7 @@ describe('Schema', () => {
 					error: 'Value should be a Enum',
 					path: 'testKey',
 					value: 'something',
-					item: item
+					item
 				}]);
 			});
 
@@ -2629,7 +2629,7 @@ describe('Schema', () => {
 					error: 'Value should be a Enum OR Value should be a Number',
 					path: 'testKey',
 					value: 'something',
-					item: item
+					item
 				}]);
 			});
 

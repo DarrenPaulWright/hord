@@ -455,7 +455,7 @@ describe('Collection', () => {
 			testCollection.eachChild(function() {
 				childContext = this;
 			}, {
-				onParent: function(item, depth) {
+				onParent(item, depth) {
 					parentContext = this;
 					total += depth;
 				}
@@ -487,7 +487,7 @@ describe('Collection', () => {
 			testCollection.eachChild(() => {
 				total++;
 			}, {
-				onParent: (item) => {
+				onParent(item) {
 					return item.prop === 'test 5';
 				}
 			});
@@ -813,7 +813,7 @@ describe('Collection', () => {
 				prop: 'test 3'
 			}];
 			const settings = {
-				onParent: function(item) {
+				onParent(item) {
 					item.testProperty = item.prop;
 				}
 			};
@@ -859,7 +859,7 @@ describe('Collection', () => {
 				testProperty: 'test 3'
 			}];
 			const settings = {
-				onChild: function(item) {
+				onChild(item) {
 					item.testProperty = item.prop;
 				}
 			};
@@ -899,7 +899,7 @@ describe('Collection', () => {
 				prop: 'test 3'
 			}];
 			const settings = {
-				onParent: function(item) {
+				onParent(item) {
 					return item.ignoreChildren;
 				}
 			};
@@ -950,7 +950,7 @@ describe('Collection', () => {
 			const settings = {
 				childKey: 'children2',
 				saveDepth: true,
-				onParent: function(item, parent) {
+				onParent(item, parent) {
 					parentContext = this;
 					item.testProperty = 'parent ' + item.prop;
 					if (parent) {
@@ -958,7 +958,7 @@ describe('Collection', () => {
 					}
 					return item.ignoreChildren;
 				},
-				onChild: function(item, parent) {
+				onChild(item, parent) {
 					childContext = this;
 					item.testProperty = 'child ' + item.prop;
 					if (parent) {
@@ -1012,10 +1012,10 @@ describe('Collection', () => {
 				childKey: 'children2',
 				saveDepth: true,
 				ignoreChildKey: 'ignoreChildren',
-				onParent: function(item) {
+				onParent(item) {
 					item.testProperty = 'parent ' + item.prop;
 				},
-				onChild: function(item) {
+				onChild(item) {
 					item.testProperty = 'child ' + item.prop;
 				}
 			};

@@ -12,16 +12,24 @@ describe('checkSchemaType', () => {
 
 	multiTest({
 		values: schemaTestTypes,
-		message: (input) => `should return true for ${input.name || input}`,
-		test: (type) => checkSchemaType(type),
+		message(input) {
+			return `should return true for ${input.name || input}`;
+		},
+		test(type) {
+			return checkSchemaType(type);
+		},
 		inputKey: 'value',
 		assertion: 'isTrue'
 	});
 
 	multiTest({
 		values: falseValues,
-		message: (input) => `should return false for ${input}`,
-		test: (type) => checkSchemaType(type),
+		message(input) {
+			return `should return false for ${input}`;
+		},
+		test(type) {
+			return checkSchemaType(type);
+		},
 		assertion: 'isFalse'
 	});
 
@@ -31,16 +39,24 @@ describe('checkSchemaType', () => {
 
 	multiTest({
 		values: schemaTestTypes,
-		message: (input) => `should return true for ${input.name || input} in an array`,
-		test: (type) => checkSchemaType([type]),
+		message(input) {
+			return `should return true for ${input.name || input} in an array`;
+		},
+		test(type) {
+			return checkSchemaType([type]);
+		},
 		inputKey: 'value',
 		assertion: 'isTrue'
 	});
 
 	multiTest({
 		values: falseValues,
-		message: (input) => `should return false for ${input} in an array`,
-		test: (type) => checkSchemaType([type]),
+		message(input) {
+			return `should return false for ${input} in an array`;
+		},
+		test(type) {
+			return checkSchemaType([type]);
+		},
 		assertion: 'isFalse'
 	});
 
@@ -60,20 +76,28 @@ describe('checkSchemaType', () => {
 
 	multiTest({
 		values: schemaTestTypes,
-		message: (input) => `should return true for ${input.name || input} in an object with key "type"`,
-		test: (type) => checkSchemaType({
-			type: type
-		}),
+		message(input) {
+			return `should return true for ${input.name || input} in an object with key "type"`;
+		},
+		test(type) {
+			return checkSchemaType({
+				type
+			});
+		},
 		inputKey: 'value',
 		assertion: 'isTrue'
 	});
 
 	multiTest({
 		values: falseValues,
-		message: (input) => `should return false for ${input} in an object with key "type"`,
-		test: (type) => checkSchemaType({
-			type: type
-		}),
+		message(input) {
+			return `should return false for ${input} in an object with key "type"`;
+		},
+		test(type) {
+			return checkSchemaType({
+				type
+			});
+		},
 		assertion: 'isFalse'
 	});
 
@@ -97,20 +121,28 @@ describe('checkSchemaType', () => {
 
 	multiTest({
 		values: schemaTestTypes,
-		message: (input) => `should return true for ${input.name || input} in an array in an object with key "type"`,
-		test: (type) => checkSchemaType({
-			type: [type]
-		}),
+		message(input) {
+			return `should return true for ${input.name || input} in an array in an object with key "type"`;
+		},
+		test(type) {
+			return checkSchemaType({
+				type: [type]
+			});
+		},
 		inputKey: 'value',
 		assertion: 'isTrue'
 	});
 
 	multiTest({
 		values: falseValues,
-		message: (input) => `should return false for ${input} in an array in an object with key "type"`,
-		test: (type) => checkSchemaType({
-			type: [type]
-		}),
+		message(input) {
+			return `should return false for ${input} in an array in an object with key "type"`;
+		},
+		test(type) {
+			return checkSchemaType({
+				type: [type]
+			});
+		},
 		assertion: 'isFalse'
 	});
 
@@ -122,7 +154,7 @@ describe('checkSchemaType', () => {
 
 	it('should return true for an object with key "enforce" that is assigned a value that is a function', () => {
 		assert.isTrue(checkSchemaType({
-			enforce: () => {
+			enforce() {
 			}
 		}));
 	});

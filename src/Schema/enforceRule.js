@@ -1,7 +1,7 @@
 import { clone, isEmpty, set, unset } from 'object-agent';
 import { enforce } from 'type-enforcer';
 
-export default (rule, item, path, value, replace, onError) => {
+export default (rule, item, path, value, replace) => {
 	const defaultValue = (rule.default !== undefined) ? rule.default : rule.isRequired ? replace || null : undefined;
 	let newValue = null;
 	let isChanged = false;

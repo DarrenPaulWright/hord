@@ -1,4 +1,5 @@
 import { appendToPath, get, repeat, set, unset } from 'object-agent';
+import { isObject } from 'type-enforcer';
 import checkRule from './checkRule';
 import enforceRule from './enforceRule';
 import ERRORS from './schemaErrors';
@@ -43,7 +44,7 @@ const processObject = (item, rule, path, value, onError, isEnforce) => {
 
 	if (keysNotInSchema) {
 		keysNotInSchema.forEach((key) => {
-			if (isEnforce) {
+			if (isEnforce && isObject(item)) {
 				unset(item, appendToPath(path, key));
 				isChanged = true;
 			}
@@ -67,7 +68,7 @@ export default function processValue(item, rule, path, onError, isEnforce, repla
 	}
 
 	if (isEnforce) {
-		isChanged = enforceRule(rule, item, path, value, replace, onError) || isChanged;
+		isChanged = enforceRule(rule, item, path, value, replace) || isChanged;
 	}
 
 	checkRule(rule, value, path, onError);

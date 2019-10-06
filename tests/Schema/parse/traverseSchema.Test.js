@@ -514,6 +514,39 @@ describe('traverseSchema', () => {
 		assert.equal(testVar, 3);
 	});
 
+	it('should handle a nested Schema in an object with key "type"', () => {
+		let total = 0;
+		let testVar = 0;
+		const subSchema = new Schema({
+			first: String,
+			last: String
+		});
+		const testTypeObject = {
+			type: subSchema
+		};
+		const testSchema = {
+			test: [{
+				level2: testTypeObject
+			}]
+		};
+
+		traverseSchema(testSchema, (path, value) => {
+			total++;
+			if (deepEqual(path, 'test') && value === Array) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0') && value === Object) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0.level2') && value === testTypeObject) {
+				testVar++;
+			}
+		});
+
+		assert.equal(total, 4);
+		assert.equal(testVar, 3);
+	});
+
 	it('should handle a nested Model', () => {
 		let total = 0;
 		let testVar = 0;
@@ -536,6 +569,39 @@ describe('traverseSchema', () => {
 				testVar++;
 			}
 			else if (deepEqual(path, 'test.0.level2') && value === subModel) {
+				testVar++;
+			}
+		});
+
+		assert.equal(total, 4);
+		assert.equal(testVar, 3);
+	});
+
+	it('should handle a nested Model in an object with key "type"', () => {
+		let total = 0;
+		let testVar = 0;
+		const subModel = new Model({
+			first: String,
+			last: String
+		});
+		const testTypeObject = {
+			type: subModel
+		};
+		const testSchema = {
+			test: [{
+				level2: testTypeObject
+			}]
+		};
+
+		traverseSchema(testSchema, (path, value) => {
+			total++;
+			if (deepEqual(path, 'test') && value === Array) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0') && value === Object) {
+				testVar++;
+			}
+			else if (deepEqual(path, 'test.0.level2') && value === testTypeObject) {
 				testVar++;
 			}
 		});

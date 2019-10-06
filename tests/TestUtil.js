@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { forOwn } from 'object-agent';
+import { forOwn, get } from 'object-agent';
 import { isObject } from 'type-enforcer';
 
 export const eachPair = (array1, array2, callback, isUnique = false) => {
@@ -81,7 +81,7 @@ export const multiTest = (settings) => {
 	const testSingleArrayValue = (value) => {
 		if (settings.output) {
 			if (settings.inputKey) {
-				testSingleValue(value[settings.inputKey], settings.output, value);
+				testSingleValue(get(value, settings.inputKey), settings.output, value);
 			}
 			else {
 				testSingleValue(value, settings.output, value);
@@ -89,15 +89,15 @@ export const multiTest = (settings) => {
 		}
 		else if (settings.outputKey) {
 			if (settings.inputKey) {
-				testSingleValue(value[settings.inputKey], value[settings.outputKey], value);
+				testSingleValue(get(value, settings.inputKey), get(value, settings.outputKey), value);
 			}
 			else {
-				testSingleValue(value, value[settings.outputKey], value);
+				testSingleValue(value, get(value, settings.outputKey), value);
 			}
 		}
 		else {
 			if (settings.inputKey) {
-				testSingleValue(value[settings.inputKey], undefined, value);
+				testSingleValue(get(value, settings.inputKey), undefined, value);
 			}
 			else {
 				testSingleValue(value, undefined, value);

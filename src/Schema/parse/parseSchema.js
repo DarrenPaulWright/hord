@@ -10,47 +10,36 @@ import traverseSchema from './traverseSchema';
 const EXCLUDE_KEYS = ['content', 'type', 'name', 'isRequired', 'default'];
 
 const buildRule = (type, value, isAnObject) => {
-	type = parseType(type, value, isAnObject);
+	let rule;
 
-	if (isInstanceOf(value, Schema)) {
-		return {
-			name: 'Schema',
-			check(item) {
-				return value.validate(item);
-			},
-			enforce(item) {
-				return value.enforce(item);
-			},
+	if (isAnObject) {
+		if (type === Enum && value.enum === undefined) {
+			throw new Error(ERRORS.MISSING_ENUM);
+		}
+		if (isFunction(value.enforce) && type.type === undefined) {
+			type = '*';
+		}
+	}
+
+	if (isInstanceOf(type, Schema) || isInstanceOf(type, Model)) {
+		rule = {
+			...TYPE_RULES.get('Schema'),
 			type: Schema,
-			schema: value
+			schema: type.schema || type
 		};
 	}
-	if (isInstanceOf(value, Model)) {
-		return {
-			name: 'Model',
-			check(item) {
-				return value.schema.validate(item);
-			},
-			enforce(item) {
-				return value.apply(item);
-			},
-			type: Model,
-			model: value
+	else {
+		rule = {
+			...TYPE_RULES.get(type) || (isFunction(type) ? {
+				...instanceRule,
+				name: type.name
+			} : {
+				...sameRule,
+				name: type + ''
+			}),
+			type: type
 		};
 	}
-
-	const isConstructor = isFunction(type);
-
-	const rule = {
-		...(TYPE_RULES.get(type) || (isConstructor ? {
-			...instanceRule,
-			name: type.name
-		} : {
-			...sameRule,
-			name: type + ''
-		})),
-		type
-	};
 
 	if (isAnObject) {
 		forOwn(value, (subValue, subKey) => {
@@ -70,19 +59,6 @@ const buildRule = (type, value, isAnObject) => {
 	return rule;
 };
 
-const parseType = (type, value, isAnObject) => {
-	if (isAnObject) {
-		if (type === Enum && value.enum === undefined) {
-			throw new Error(ERRORS.MISSING_ENUM);
-		}
-		if (isFunction(value.enforce) && type.type === undefined) {
-			type = '*';
-		}
-	}
-
-	return type;
-};
-
 const parseTypes = (isAnObject, value) => {
 	return castArray((isAnObject && value.type !== undefined) ? value.type : value)
 		.map((type) => buildRule(type, value, isAnObject));
@@ -92,34 +68,34 @@ export default (schema) => {
 	let schemaValues;
 
 	traverseSchema(schema, (path, value, isAnObject, isSchemaType) => {
-		const output = {
+		const rule = {
 			types: parseTypes(isAnObject, value)
 		};
 
 		if (isAnObject) {
 			if (value.isRequired !== undefined) {
-				output.isRequired = value.isRequired;
+				rule.isRequired = value.isRequired;
 			}
 			if (value.default !== undefined) {
-				output.default = value.default;
+				rule.default = value.default;
 			}
 			if (!isSchemaType) {
-				output.keys = [];
+				rule.keys = [];
 			}
 		}
 
 		if (path === '') {
-			schemaValues = output;
+			schemaValues = rule;
 		}
 		else {
 			const parent = findRule(initialInPath(path), schemaValues);
 			if (!parent.content) {
 				parent.content = [];
 			}
-			parent.content.push(output);
+			parent.content.push(rule);
 
 			const last = lastInPath(path);
-			output.key = isNumber(last, true) ? last - 0 : last;
+			rule.key = isNumber(last, true) ? last - 0 : last;
 			if (parent.keys) {
 				parent.keys.push(last);
 			}

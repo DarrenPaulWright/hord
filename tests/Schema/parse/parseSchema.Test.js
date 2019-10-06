@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+import displayValue from 'display-value';
 import {
 	enforceArray,
 	enforceBoolean,
@@ -11,10 +12,30 @@ import {
 } from 'type-enforcer';
 import parseSchema from '../../../src/Schema/parse/parseSchema';
 import { checkNumericRange, enforceSame, isAnything, isSame } from '../../../src/Schema/parse/schemaTypeRules';
+import Schema from '../../../src/Schema/Schema';
 import { multiTest } from '../../TestUtil';
-import { schemaTestTypes } from '../../testValues';
+import { schemaTestTypes, testSchema } from '../../testValues';
 
 const testEnforce = () => {
+};
+
+const getTypeRule = (type) => {
+	const output = {
+		name: type.nativeName,
+		check: type.check,
+		enforce: type.enforce,
+		type: type.value
+	};
+
+	if (type.nativeName === 'Schema') {
+		return {
+			...output,
+			type: Schema,
+			schema: testSchema
+		};
+	}
+
+	return output;
 };
 
 describe('parseSchema', () => {
@@ -252,27 +273,22 @@ describe('parseSchema', () => {
 							level1: type.value
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
 								name: 'Object',
 								check: isObject,
 								enforce: enforceObject,
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
 								key: 'level1',
-								types: [{
-									name: type.nativeName,
-									check: type.check,
-									enforce: type.enforce,
-									type: type.value
-								}]
+								types: [getTypeRule(type)]
 							}]
 						}
 					};
 				}),
 				message(input) {
-					return `should return a map for ${input.level1.name || input.level1}`;
+					return `should return a map for ${displayValue(input.level1)}`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -443,27 +459,22 @@ describe('parseSchema', () => {
 							}
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
+								name: 'Object',
 								check: isObject,
 								enforce: enforceObject,
-								name: 'Object',
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
-								key: 'level1',
-								types: [{
-									name: type.nativeName,
-									check: type.check,
-									enforce: type.enforce,
-									type: type.value
-								}]
+								types: [getTypeRule(type)],
+								key: 'level1'
 							}]
 						}
 					};
 				}),
 				message(input) {
-					return `should return a map for ${input.level1.type.name || input.level1.type} as an object with type`;
+					return `should return a map for ${displayValue(input.level1.type)} as an object with type`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -497,11 +508,8 @@ describe('parseSchema', () => {
 									key: 'level1',
 									isRequired: true,
 									types: [{
-										name: type.nativeName,
-										check: type.check,
+										...getTypeRule(type),
 										numericRange: checkNumericRange,
-										enforce: type.enforce,
-										type: type.value,
 										min: 0,
 										max: 10
 									}]
@@ -520,21 +528,18 @@ describe('parseSchema', () => {
 								}
 							},
 							output: {
-								keys: ['level1'],
 								types: [{
 									check: isObject,
 									enforce: enforceObject,
 									name: 'Object',
 									type: Object
 								}],
+								keys: ['level1'],
 								content: [{
 									key: 'level1',
 									isRequired: true,
 									types: [{
-										name: type.nativeName,
-										check: type.check,
-										enforce: type.enforce,
-										type: type.value,
+										...getTypeRule(type),
 										min: 0,
 										max: 10
 									}]
@@ -544,7 +549,7 @@ describe('parseSchema', () => {
 					}
 				}),
 				message(input) {
-					return `should return a map for ${input.level1.type.name || input.level1.type} as an object with type and other keys`;
+					return `should return a map for ${displayValue(input.level1.type)} as an object with type and other keys`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -868,38 +873,33 @@ describe('parseSchema', () => {
 							}]
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
 								check: isObject,
 								enforce: enforceObject,
 								name: 'Object',
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
-								key: 'level1',
 								types: [{
 									name: 'Array',
 									check: isArray,
 									enforce: enforceArray,
 									type: Array
 								}],
+								key: 'level1',
 								content: [{
-									key: 0,
-									keys: ['level2'],
 									types: [{
 										name: 'Object',
 										check: isObject,
 										enforce: enforceObject,
 										type: Object
 									}],
+									keys: ['level2'],
+									key: 0,
 									content: [{
 										key: 'level2',
-										types: [{
-											name: type.nativeName,
-											check: type.check,
-											enforce: type.enforce,
-											type: type.value
-										}]
+										types: [getTypeRule(type)]
 									}]
 								}]
 							}]
@@ -907,7 +907,7 @@ describe('parseSchema', () => {
 					};
 				}),
 				message(input) {
-					return `should return a map for a ${input.level1[0].level2.name || input.level1[0].level2} in an array`;
+					return `should return a map for a ${displayValue(input.level1[0].level2)} in an array`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -1088,38 +1088,33 @@ describe('parseSchema', () => {
 							}]
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
 								check: isObject,
 								enforce: enforceObject,
 								name: 'Object',
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
-								key: 'level1',
 								types: [{
 									name: 'Array',
 									check: isArray,
 									enforce: enforceArray,
 									type: Array
 								}],
+								key: 'level1',
 								content: [{
-									key: 0,
-									keys: ['level2'],
 									types: [{
 										name: 'Object',
 										check: isObject,
 										enforce: enforceObject,
 										type: Object
 									}],
+									keys: ['level2'],
+									key: 0,
 									content: [{
 										key: 'level2',
-										types: [{
-											name: type.nativeName,
-											check: type.check,
-											enforce: type.enforce,
-											type: type.value
-										}]
+										types: [getTypeRule(type)]
 									}]
 								}]
 							}]
@@ -1127,7 +1122,7 @@ describe('parseSchema', () => {
 					};
 				}),
 				message(input) {
-					return `should return a map for a ${input.level1[0].level2.type.name || input.level1[0].level2.type} in an array as an object with type`;
+					return `should return a map for a ${displayValue(input.level1[0].level2.type)} in an array as an object with type`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -1149,38 +1144,33 @@ describe('parseSchema', () => {
 							}]
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
 								check: isObject,
 								enforce: enforceObject,
 								name: 'Object',
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
-								key: 'level1',
 								types: [{
 									name: 'Array',
 									check: isArray,
 									enforce: enforceArray,
 									type: Array
 								}],
+								key: 'level1',
 								content: [{
-									key: 0,
-									keys: ['level2'],
 									types: [{
 										name: 'Object',
 										check: isObject,
 										enforce: enforceObject,
 										type: Object
 									}],
+									keys: ['level2'],
+									key: 0,
 									content: [{
 										key: 'level2',
-										types: [{
-											name: type.nativeName,
-											check: type.check,
-											enforce: type.enforce,
-											type: type.value
-										}],
+										types: [getTypeRule(type)],
 										isRequired: true
 									}]
 								}]
@@ -1189,7 +1179,7 @@ describe('parseSchema', () => {
 					};
 				}),
 				message(input) {
-					return `should return a map for a ${input.level1[0].level2.type.name || input.level1[0].level2.type} in an array as an object with type and other keys`;
+					return `should return a map for a ${displayValue(input.level1[0].level2.type)} in an array as an object with type and other keys`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -1636,38 +1626,33 @@ describe('parseSchema', () => {
 							}
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
 								check: isObject,
 								enforce: enforceObject,
 								name: 'Object',
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
-								key: 'level1',
 								types: [{
 									name: 'Array',
 									check: isArray,
 									enforce: enforceArray,
 									type: Array
 								}],
+								key: 'level1',
 								content: [{
-									key: 0,
-									keys: ['level2'],
 									types: [{
 										name: 'Object',
 										check: isObject,
 										enforce: enforceObject,
 										type: Object
 									}],
+									keys: ['level2'],
+									key: 0,
 									content: [{
 										key: 'level2',
-										types: [{
-											name: type.nativeName,
-											check: type.check,
-											enforce: type.enforce,
-											type: type.value
-										}]
+										types: [getTypeRule(type)]
 									}]
 								}]
 							}]
@@ -1675,7 +1660,7 @@ describe('parseSchema', () => {
 					};
 				}),
 				message(input) {
-					return `should return a map for a ${input.level1.content.level2.name || input.level1.content.level2} in an array`;
+					return `should return a map for a ${displayValue(input.level1.content.level2)} in an array`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -1905,38 +1890,33 @@ describe('parseSchema', () => {
 							}
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
 								check: isObject,
 								enforce: enforceObject,
 								name: 'Object',
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
-								key: 'level1',
 								types: [{
 									name: 'Array',
 									check: isArray,
 									enforce: enforceArray,
 									type: Array
 								}],
+								key: 'level1',
 								content: [{
-									key: 0,
-									keys: ['level2'],
 									types: [{
 										name: 'Object',
 										check: isObject,
 										enforce: enforceObject,
 										type: Object
 									}],
+									keys: ['level2'],
+									key: 0,
 									content: [{
 										key: 'level2',
-										types: [{
-											name: type.nativeName,
-											check: type.check,
-											enforce: type.enforce,
-											type: type.value
-										}]
+										types: [getTypeRule(type)]
 									}]
 								}]
 							}]
@@ -1944,7 +1924,7 @@ describe('parseSchema', () => {
 					};
 				}),
 				message(input) {
-					return `should return a map for a ${input.level1.content.level2.type.name || input.level1.content.level2.type} in an array as an object with type`;
+					return `should return a map for a ${displayValue(input.level1.content.level2.type)} in an array as an object with type`;
 				},
 				test(value) {
 					return parseSchema(value);
@@ -1969,38 +1949,33 @@ describe('parseSchema', () => {
 							}
 						},
 						output: {
-							keys: ['level1'],
 							types: [{
 								check: isObject,
 								enforce: enforceObject,
 								name: 'Object',
 								type: Object
 							}],
+							keys: ['level1'],
 							content: [{
-								key: 'level1',
 								types: [{
 									name: 'Array',
 									check: isArray,
 									enforce: enforceArray,
 									type: Array
 								}],
+								key: 'level1',
 								content: [{
-									key: 0,
-									keys: ['level2'],
 									types: [{
 										name: 'Object',
 										check: isObject,
 										enforce: enforceObject,
 										type: Object
 									}],
+									keys: ['level2'],
+									key: 0,
 									content: [{
 										key: 'level2',
-										types: [{
-											name: type.nativeName,
-											check: type.check,
-											enforce: type.enforce,
-											type: type.value
-										}],
+										types: [getTypeRule(type)],
 										isRequired: true
 									}]
 								}]
@@ -2009,7 +1984,7 @@ describe('parseSchema', () => {
 					};
 				}),
 				message(input) {
-					return `should return a map for a ${input.level1.content.level2.type.name || input.level1.content.level2.type} in an array as an object with type and other keys`;
+					return `should return a map for a ${displayValue(input.level1.content.level2.type)} in an array as an object with type and other keys`;
 				},
 				test(value) {
 					return parseSchema(value);

@@ -1,5 +1,6 @@
 import { enforce, is } from 'type-enforcer';
-import { enforceAnything, isAnything } from '../src/Schema/parse/schemaTypeRules';
+import { Model, Schema } from '../src';
+import { enforceAnything, isAnything, TYPE_RULES } from '../src/Schema/parse/schemaTypeRules';
 
 const difference = (array1, ...args) => {
 	let diffArrays = [].concat(...args);
@@ -10,6 +11,14 @@ class CustomClass {
 	constructor() {
 	}
 }
+
+export const testSchema = new Schema({
+	key: String
+});
+
+export const testModel = new Model({
+	key: String
+});
 
 const validArrays = [[1]];
 const validBooleans = [true, false];
@@ -151,6 +160,28 @@ const schemaTestTypes = [{
 	false: difference(testValues, validStrings),
 	coerceTrue: difference(testValues, validStrings, [null, undefined]),
 	coerceFalse: [null]
+}, {
+	value: testSchema,
+	nativeName: TYPE_RULES.get('Schema').name,
+	check: TYPE_RULES.get('Schema').check,
+	enforce: TYPE_RULES.get('Schema').enforce,
+	true: [{
+		key: 'test'
+	}],
+	false: testValues,
+	coerceTrue: [],
+	coerceFalse: []
+}, {
+	value: testModel,
+	nativeName: TYPE_RULES.get('Schema').name,
+	check: TYPE_RULES.get('Schema').check,
+	enforce: TYPE_RULES.get('Schema').enforce,
+	true: [{
+		key: 'test'
+	}],
+	false: testValues,
+	coerceTrue: [],
+	coerceFalse: []
 }];
 
 export { schemaTestTypes };

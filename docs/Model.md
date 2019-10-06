@@ -31,7 +31,9 @@
 <br><a name="new_Model_new"></a>
 
 #### new Model(schema)
-> Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.> > The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
+> Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.
+> 
+> The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
 
 
 | Param | Type |
@@ -39,7 +41,30 @@
 | schema | <code>Schema</code> | 
 
 **Example**  
-``` javascriptimport { Model } from 'hord';const Person = new Model({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});const johnDoe = Person.apply({ first: 'John', last: 'Doe', age: 21});johnDoe.hobbies = ['programming', 10];console.log(johnDoe);// => { first: 'John', last: 'Doe', age: 21, hobbies: ['programming'] }```
+``` javascript
+import { Model } from 'hord';
+
+const Person = new Model({
+ first: String,
+ last: String,
+ age: 'integer',
+ hobbies: {
+     type: Array,
+     content: String
+ }
+});
+
+const johnDoe = Person.apply({
+ first: 'John',
+ last: 'Doe',
+ age: 21
+});
+
+johnDoe.hobbies = ['programming', 10];
+
+console.log(johnDoe);
+// => { first: 'John', last: 'Doe', age: 21, hobbies: ['programming'] }
+```
 
 <br><a name="Model+schema"></a>
 

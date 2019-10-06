@@ -1,4 +1,4 @@
-import { enforce, Enum, is } from 'type-enforcer';
+import { enforce, Enum, is, isObject } from 'type-enforcer';
 
 export const isAnything = () => true;
 export const enforceAnything = (value) => value;
@@ -30,70 +30,80 @@ export const sameRule = {
 };
 
 export const TYPE_RULES = new Map()
-	.set('*', {
+	.set('*', Object.freeze({
 		name: '*',
 		check: isAnything,
 		enforce: enforceAnything
-	})
-	.set(Array, {
+	}))
+	.set(Array, Object.freeze({
 		name: 'Array',
 		check: is.array,
 		enforce: enforce.array
-	})
-	.set(Boolean, {
+	}))
+	.set(Boolean, Object.freeze({
 		name: 'Boolean',
 		check: is.boolean,
 		enforce: enforce.boolean
-	})
-	.set(Date, {
+	}))
+	.set(Date, Object.freeze({
 		name: 'Date',
 		check: is.date,
 		enforce: enforce.date
-	})
-	.set(Element, {
+	}))
+	.set(Element, Object.freeze({
 		name: 'Element',
 		check: is.element,
 		enforce: enforce.element
-	})
-	.set(Enum, {
+	}))
+	.set(Enum, Object.freeze({
 		name: 'Enum',
 		check(value, enumerable) {
 			return enumerable.has(value);
 		},
 		enforce: enforce.enum
-	})
-	.set(Function, {
+	}))
+	.set(Function, Object.freeze({
 		name: 'function',
 		check: is.function,
 		enforce: enforce.function
-	})
-	.set('float', {
+	}))
+	.set('float', Object.freeze({
 		name: 'Float',
 		check: is.float,
 		enforce: enforce.float
-	})
-	.set('integer', {
+	}))
+	.set('integer', Object.freeze({
 		name: 'Integer',
 		check: is.integer,
 		enforce: enforce.integer
-	})
-	.set(Number, {
+	}))
+	.set(Number, Object.freeze({
 		name: 'Number',
 		check: is.number,
 		enforce: enforce.number
-	})
-	.set(Object, {
+	}))
+	.set(Object, Object.freeze({
 		name: 'Object',
 		check: is.object,
 		enforce: enforce.object
-	})
-	.set(RegExp, {
+	}))
+	.set(RegExp, Object.freeze({
 		name: 'RegExp',
 		check: is.regExp,
 		enforce: enforce.regExp
-	})
-	.set(String, {
+	}))
+	.set(String, Object.freeze({
 		name: 'String',
 		check: is.string,
 		enforce: enforce.string
-	});
+	}))
+	.set('Schema', Object.freeze({
+		name: 'Schema',
+		check(item, schema) {
+			return schema.validate(item);
+		},
+		enforce(item, schema) {
+			schema.enforce(item);
+			return isObject(item) ? item : undefined;
+		}
+	}));

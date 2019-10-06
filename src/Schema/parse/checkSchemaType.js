@@ -1,24 +1,21 @@
 import { isArray, isFunction, isInstanceOf, isObject } from 'type-enforcer';
 import Model from '../../Model';
+import Schema from '../Schema';
 import { TYPE_RULES } from './schemaTypeRules';
 
-export const isType = (type) => TYPE_RULES.has(type) || (isFunction(type) && !isInstanceOf(type, Model)) || type === null;
+export const isValidType = (type) => TYPE_RULES.has(type) || isFunction(type) || isInstanceOf(type, Model) || isInstanceOf(type, Schema) || type === null;
 
-const isAllType = (value) => {
+const isAllValidTypes = (value) => {
 	if (isArray(value)) {
-		return value.length !== 0 && value.every(isType);
+		return value.length !== 0 && value.every(isValidType);
 	}
-	return isType(value);
+	return isValidType(value);
 };
 
 export default (value) => {
 	if (isObject(value)) {
-		if (value.type !== undefined) {
-			return isAllType(value.type);
-		}
-
-		return isFunction(value.enforce);
+		return (value.type !== undefined) ? isAllValidTypes(value.type) : isFunction(value.enforce);
 	}
 
-	return isAllType(value);
+	return isAllValidTypes(value);
 }

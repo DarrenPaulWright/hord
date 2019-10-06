@@ -51,7 +51,7 @@ import processValue from './processValue';
  *
  * @typedef {*|Object} SchemaDefinition
  *
- * @arg {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), and custom constructors (classes or constructor functions).
+ * @arg {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model.
  * @arg {Boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
  * @arg {Boolean} [default] - If isRequired is true, then schema.enforce() will set this value if the key is undefined.
  * @arg {Boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().

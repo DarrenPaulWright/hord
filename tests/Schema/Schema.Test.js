@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+import displayValue from 'display-value';
 import { clone, deepEqual } from 'object-agent';
 import { Enum } from 'type-enforcer';
 import { Schema } from '../../src/index';
@@ -152,7 +153,7 @@ describe('Schema', () => {
 			});
 
 			data.false.forEach((datum) => {
-				it(`should return an error for a value that doesn't match a ${data.nativeName}`, () => {
+				it(`should return an error for a value of ${displayValue(datum)} that doesn't match a ${data.nativeName}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -163,15 +164,20 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
-						path: 'testKey',
-						value: datum,
-						item
-					}]);
+					if (data.nativeName === 'Schema') {
+						assert.isAtLeast(errors.length, 1);
+					}
+					else {
+						assert.deepEqual(errors, [{
+							error: 'Value should be a ' + data.nativeName,
+							path: 'testKey',
+							value: datum,
+							item
+						}]);
+					}
 				});
 
-				it(`should return an error for a value that doesn\'t match a ${data.nativeName} in a nested object`, () => {
+				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -186,15 +192,20 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
-						path: 'testKey.testKey2',
-						value: datum,
-						item
-					}]);
+					if (data.nativeName === 'Schema') {
+						assert.isAtLeast(errors.length, 1);
+					}
+					else {
+						assert.deepEqual(errors, [{
+							error: 'Value should be a ' + data.nativeName,
+							path: 'testKey.testKey2',
+							value: datum,
+							item
+						}]);
+					}
 				});
 
-				it(`should return an error for a key that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
+				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -209,12 +220,17 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
-						path: 'testKey.0.testKey2',
-						value: datum,
-						item
-					}]);
+					if (data.nativeName === 'Schema') {
+						assert.isAtLeast(errors.length, 1);
+					}
+					else {
+						assert.deepEqual(errors, [{
+							error: 'Value should be a ' + data.nativeName,
+							path: 'testKey.0.testKey2',
+							value: datum,
+							item
+						}]);
+					}
 				});
 			});
 
@@ -1302,7 +1318,7 @@ describe('Schema', () => {
 			});
 
 			data.false.forEach((datum) => {
-				it(`should modify a value that doesn't match a ${data.nativeName}`, () => {
+				it(`should modify a value of ${displayValue(datum)} that doesn't match a ${data.nativeName}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1315,15 +1331,21 @@ describe('Schema', () => {
 					const errors = schema.enforce(item);
 
 					assert.deepEqual(item, output);
-					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
-						path: 'testKey',
-						value: datum,
-						item
-					}]);
+
+					if (data.nativeName === 'Schema') {
+						assert.isAtLeast(errors.length, 1);
+					}
+					else {
+						assert.deepEqual(errors, [{
+							error: 'Value should be a ' + data.nativeName,
+							path: 'testKey',
+							value: datum,
+							item
+						}]);
+					}
 				});
 
-				it(`should modify a value that doesn\'t match a ${data.nativeName} in a nested object`, () => {
+				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -1340,15 +1362,21 @@ describe('Schema', () => {
 					const errors = schema.enforce(item);
 
 					assert.deepEqual(item, output);
-					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
-						path: 'testKey.testKey2',
-						value: datum,
-						item
-					}]);
+
+					if (data.nativeName === 'Schema') {
+						assert.isAtLeast(errors.length, 1);
+					}
+					else {
+						assert.deepEqual(errors, [{
+							error: 'Value should be a ' + data.nativeName,
+							path: 'testKey.testKey2',
+							value: datum,
+							item
+						}]);
+					}
 				});
 
-				it(`should modify a key that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
+				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -1365,12 +1393,18 @@ describe('Schema', () => {
 					const errors = schema.enforce(item);
 
 					assert.deepEqual(item, output);
-					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
-						path: 'testKey.0.testKey2',
-						value: datum,
-						item
-					}]);
+
+					if (data.nativeName === 'Schema') {
+						assert.isAtLeast(errors.length, 1);
+					}
+					else {
+						assert.deepEqual(errors, [{
+							error: 'Value should be a ' + data.nativeName,
+							path: 'testKey.0.testKey2',
+							value: datum,
+							item
+						}]);
+					}
 				});
 			});
 

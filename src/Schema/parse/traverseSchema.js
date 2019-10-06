@@ -1,6 +1,6 @@
 import { appendToPath, lastInPath, traverse } from 'object-agent';
 import { isArray, isNumber, isObject } from 'type-enforcer';
-import checkSchemaType, { isType } from './checkSchemaType';
+import checkSchemaType, { isValidType } from './checkSchemaType';
 
 export default (item, callback) => {
 	const subTraverse = (basePath, item) => {
@@ -28,7 +28,7 @@ export default (item, callback) => {
 			}
 
 			if (isSchemaType && isAnObject && value.content !== undefined) {
-				subTraverse(appendToPath(basePath, path), isType(value.content) ? [[value.content]] : [value.content]);
+				subTraverse(appendToPath(basePath, path), isValidType(value.content) ? [[value.content]] : [value.content]);
 			}
 
 			return isSchemaType;

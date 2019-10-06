@@ -105,7 +105,7 @@
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| type | <code>\*</code>, <code>Array</code> |  | Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), and custom constructors (classes or constructor functions). |
+| type | <code>\*</code>, <code>Array</code> |  | Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model. |
 | [isRequired] | <code>Boolean</code> | <code>false</code> | Empty arrays or objects that aren't required will be removed by schema.enforce(). |
 | [default] | <code>Boolean</code> |  | If isRequired is true, then schema.enforce() will set this value if the key is undefined. |
 | [coerce] | <code>Boolean</code> | <code>false</code> | If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce(). |

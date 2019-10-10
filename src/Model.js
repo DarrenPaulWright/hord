@@ -214,7 +214,9 @@ Object.assign(Model.prototype, {
 	 *
 	 * @returns {Queue}
 	 */
-	onChange: methodQueue(),
+	onChange: methodQueue({
+		bind: false
+	}),
 	/**
 	 * Called when an error is returned from Schema validation
 	 *
@@ -229,5 +231,7 @@ Object.assign(Model.prototype, {
 	 *
 	 * @returns {Queue}
 	 */
-	onError: methodQueue()
+	onError: methodQueue({
+		bind: false
+	})
 });

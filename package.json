@@ -9,12 +9,12 @@
 		"patch": "npm version patch -m \"Increment patch version to %s\" && npm publish",
 		"minor": "npm version minor -m \"Increment minor version to %s\" && npm publish",
 		"major": "npm version major -m \"Increment major version to %s\" && npm publish",
-		"docs-readme": "jsdoc2md src/index.js > README.md -t docs/docs.hbs --plugin dmd-readable -d 3",
-		"docs-list": "jsdoc2md src/List.js > docs/List.md -t docs/docs.hbs --plugin dmd-readable -d 3",
-		"docs-schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md -t docs/docs.hbs --plugin dmd-readable -d 3",
-		"docs-model": "jsdoc2md src/Model.js > docs/Model.md -t docs/docs.hbs --plugin dmd-readable -d 3",
-		"docs-collection": "jsdoc2md src/Collection.js > docs/Collection.md -t docs/docs.hbs --plugin dmd-readable -d 3",
-		"docs-compare": "jsdoc2md src/utility/compare.js > docs/compare.md -t docs/docs.hbs --plugin dmd-readable -d 3",
+		"docs-readme": "jsdoc2md src/index.js > README.md -t docs/docs.hbs --plugin dmd-readable",
+		"docs-list": "jsdoc2md src/List.js > docs/List.md -t docs/docs.hbs --plugin dmd-readable",
+		"docs-schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md -t docs/docs.hbs --plugin dmd-readable",
+		"docs-model": "jsdoc2md src/Model.js > docs/Model.md -t docs/docs.hbs --plugin dmd-readable",
+		"docs-collection": "jsdoc2md src/Collection.js > docs/Collection.md -t docs/docs.hbs --plugin dmd-readable",
+		"docs-compare": "jsdoc2md src/utility/compare.js > docs/compare.md -t docs/docs.hbs --plugin dmd-readable",
 		"docs": "npm run docs-readme && npm run docs-list && npm run docs-schema && npm run docs-model && npm run docs-collection && npm run docs-compare"
 	},
 	"badges": [
@@ -74,17 +74,17 @@
 	"dependencies": {
 		"object-agent": "^1.1.3",
 		"on-change": "^1.6.2",
-		"type-enforcer": "^0.5.8"
+		"type-enforcer": "^0.6.2"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.6.2",
-		"@babel/preset-env": "^7.6.2",
+		"@babel/core": "^7.6.3",
+		"@babel/preset-env": "^7.6.3",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
 		"babel-plugin-istanbul": "^5.2.0",
 		"chai": "^4.2.0",
-		"display-value": "^1.2.0",
-		"dmd-readable": "^0.4.1",
+		"display-value": "^1.2.2",
+		"dmd-readable": "^1.0.0",
 		"eslint": "^6.5.1",
 		"eslint-loader": "^3.0.2",
 		"eslint-plugin-babel": "^5.3.0",

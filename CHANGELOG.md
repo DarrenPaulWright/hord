@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.5.6] - 2019-10-21
+### Security
+- Updated dependencies
+
 ## [0.5.5] - 2019-10-06
 ### Fixed
 - In Schema.enforce, don't try to set a value if the item is not an object
@@ -121,6 +125,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
+[0.5.6]: https://github.com/DarrenPaulWright/hord/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/DarrenPaulWright/hord/compare/v0.5.4...v0.5.5
 [0.5.4]: https://github.com/DarrenPaulWright/hord/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/DarrenPaulWright/hord/compare/v0.5.2...v0.5.3

@@ -72,9 +72,9 @@
 	"author": "Darren Paul Wright <Darren@DarrenPaulWright.com>",
 	"license": "MIT",
 	"dependencies": {
-		"object-agent": "^1.1.5",
+		"object-agent": "^1.2.0",
 		"on-change": "^1.6.2",
-		"type-enforcer": "^0.6.3"
+		"type-enforcer": "^0.6.4"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.6.4",

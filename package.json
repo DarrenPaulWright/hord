@@ -6,19 +6,18 @@
 	"files": [
 		"/src"
 	],
+	"sideEffects": false,
 	"scripts": {
 		"test": "karma start --single-run",
 		"test-watch": "karma start",
-		"patch": "npm version patch -m \"Increment patch version to %s\" && npm publish",
-		"minor": "npm version minor -m \"Increment minor version to %s\" && npm publish",
-		"major": "npm version major -m \"Increment major version to %s\" && npm publish",
-		"docs-readme": "jsdoc2md src/index.js > README.md -t docs/docs.hbs --plugin dmd-readable",
-		"docs-list": "jsdoc2md src/List.js > docs/List.md -t docs/docs.hbs --plugin dmd-readable",
-		"docs-schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md -t docs/docs.hbs --plugin dmd-readable",
-		"docs-model": "jsdoc2md src/Model.js > docs/Model.md -t docs/docs.hbs --plugin dmd-readable",
-		"docs-collection": "jsdoc2md src/Collection.js > docs/Collection.md -t docs/docs.hbs --plugin dmd-readable",
-		"docs-compare": "jsdoc2md src/utility/compare.js > docs/compare.md -t docs/docs.hbs --plugin dmd-readable",
-		"docs": "npm run docs-readme && npm run docs-list && npm run docs-schema && npm run docs-model && npm run docs-collection && npm run docs-compare"
+		"version": "npm run docs && git add docs",
+		"docs:readme": "jsdoc2md src/index.js > README.md",
+		"docs:list": "jsdoc2md src/List.js > docs/List.md",
+		"docs:schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md",
+		"docs:model": "jsdoc2md src/Model.js > docs/Model.md",
+		"docs:collection": "jsdoc2md src/Collection.js > docs/Collection.md",
+		"docs:compare": "jsdoc2md src/utility/compare.js > docs/compare.md",
+		"docs": "run-p \"docs:* -- -t docs/docs.hbs --plugin dmd-readable\""
 	},
 	"badges": [
 		{
@@ -101,6 +100,7 @@
 		"karma-mocha": "^1.3.0",
 		"karma-webpack": "^4.0.2",
 		"mocha": "^6.2.2",
+		"npm-run-all": "^4.1.5",
 		"test-runner-config": "^0.5.0",
 		"wallaby-webpack": "^3.9.15",
 		"webpack": "^4.41.2"

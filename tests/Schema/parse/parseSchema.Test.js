@@ -8,10 +8,11 @@ import {
 	isArray,
 	isBoolean,
 	isObject,
-	isString
+	isString,
+	strictEquality
 } from 'type-enforcer';
 import parseSchema from '../../../src/Schema/parse/parseSchema';
-import { checkNumericRange, enforceSame, isAnything, isSame } from '../../../src/Schema/parse/schemaTypeRules';
+import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/schemaTypeRules';
 import Schema from '../../../src/Schema/Schema';
 import { multiTest } from '../../TestUtil';
 import { schemaTestTypes, testSchema } from '../../testValues';
@@ -168,8 +169,8 @@ describe('parseSchema', () => {
 						key: 'level1',
 						types: [{
 							name: 'null',
-							check: isSame,
-							enforce: enforceSame,
+							check: strictEquality,
+							enforce: enforceAnything,
 							type: null
 						}]
 					}]
@@ -193,8 +194,8 @@ describe('parseSchema', () => {
 					content: [{
 						key: 'level1',
 						types: [{
-							check: isSame,
-							enforce: enforceSame,
+							check: strictEquality,
+							enforce: enforceAnything,
 							name: 'null',
 							type: null
 						}]
@@ -224,8 +225,8 @@ describe('parseSchema', () => {
 							enforce: enforceString,
 							type: String
 						}, {
-							check: isSame,
-							enforce: enforceSame,
+							check: strictEquality,
+							enforce: enforceAnything,
 							name: 'null',
 							type: null
 						}]
@@ -346,8 +347,8 @@ describe('parseSchema', () => {
 						key: 'level1',
 						types: [{
 							name: 'null',
-							check: isSame,
-							enforce: enforceSame,
+							check: strictEquality,
+							enforce: enforceAnything,
 							type: null
 						}]
 					}]
@@ -373,8 +374,8 @@ describe('parseSchema', () => {
 					content: [{
 						key: 'level1',
 						types: [{
-							check: isSame,
-							enforce: enforceSame,
+							check: strictEquality,
+							enforce: enforceAnything,
 							name: 'null',
 							type: null
 						}]
@@ -406,8 +407,8 @@ describe('parseSchema', () => {
 							enforce: enforceString,
 							type: String
 						}, {
-							check: isSame,
-							enforce: enforceSame,
+							check: strictEquality,
+							enforce: enforceAnything,
 							name: 'null',
 							type: null
 						}]
@@ -772,8 +773,8 @@ describe('parseSchema', () => {
 						content: [{
 							key: 0,
 							types: [{
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]
@@ -812,8 +813,8 @@ describe('parseSchema', () => {
 								enforce: enforceString,
 								type: String
 							}, {
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]
@@ -945,8 +946,8 @@ describe('parseSchema', () => {
 							key: 0,
 							types: [{
 								name: 'null',
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								type: null
 							}]
 						}]
@@ -981,8 +982,8 @@ describe('parseSchema', () => {
 						content: [{
 							key: 0,
 							types: [{
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]
@@ -1023,8 +1024,8 @@ describe('parseSchema', () => {
 								enforce: enforceString,
 								type: String
 							}, {
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]
@@ -1477,8 +1478,8 @@ describe('parseSchema', () => {
 							key: 0,
 							types: [{
 								name: 'null',
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								type: null
 							}]
 						}]
@@ -1514,8 +1515,8 @@ describe('parseSchema', () => {
 						content: [{
 							key: 0,
 							types: [{
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]
@@ -1557,8 +1558,8 @@ describe('parseSchema', () => {
 								enforce: enforceString,
 								type: String
 							}, {
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]
@@ -1741,8 +1742,8 @@ describe('parseSchema', () => {
 							key: 0,
 							types: [{
 								name: 'null',
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								type: null
 							}]
 						}]
@@ -1780,8 +1781,8 @@ describe('parseSchema', () => {
 						content: [{
 							key: 0,
 							types: [{
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]
@@ -1822,8 +1823,8 @@ describe('parseSchema', () => {
 								enforce: enforceString,
 								type: String
 							}, {
-								check: isSame,
-								enforce: enforceSame,
+								check: strictEquality,
+								enforce: enforceAnything,
 								name: 'null',
 								type: null
 							}]

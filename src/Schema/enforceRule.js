@@ -1,5 +1,5 @@
 import { clone, isEmpty, set, unset } from 'object-agent';
-import { enforce } from 'type-enforcer';
+import { enforceEnum, enforceInstance } from 'type-enforcer';
 
 export default (rule, item, path, value, replace) => {
 	const defaultValue = (rule.default !== undefined) ? rule.default : rule.isRequired ? replace || null : undefined;
@@ -14,10 +14,10 @@ export default (rule, item, path, value, replace) => {
 				isChanged = true;
 			}
 		}
-		else if (type.enforce === enforce.enum) {
+		else if (type.enforce === enforceEnum) {
 			newValue = type.enforce(value, type.enum, defaultValue, type.coerce);
 		}
-		else if (type.enforce === enforce.instance) {
+		else if (type.enforce === enforceInstance) {
 			newValue = type.enforce(value, type.type, defaultValue, type.coerce);
 		}
 		else {

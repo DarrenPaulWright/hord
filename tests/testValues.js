@@ -52,7 +52,7 @@ const testValues = [].concat(
 
 const schemaTestTypes = [{
 	value: CustomClass,
-	nativeName: 'CustomClass',
+	nativeName: new CustomClass().constructor.name,
 	check: is.instanceOf,
 	enforce: enforce.instance,
 	true: [new CustomClass()],

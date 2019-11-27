@@ -3,6 +3,9 @@
 	"version": "0.5.8",
 	"description": "A data storage and manipulation library for javascript",
 	"main": "src/index.js",
+	"files": [
+		"/src"
+	],
 	"scripts": {
 		"test": "karma start --single-run",
 		"test-watch": "karma start",

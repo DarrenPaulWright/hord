@@ -1,4 +1,4 @@
-import { castArray, PrivateVars } from 'type-enforcer';
+import { castArray, PrivateVars } from 'type-enforcer-ui';
 import compare from './utility/compare';
 import someRight from './utility/someRight';
 
@@ -220,7 +220,7 @@ export default class List {
 	 */
 	concat(...args) {
 		return this[spawn](_(this).array.concat(...args.map((item) => {
-			return _(item) ? _(item).array : item
+			return _(item) ? _(item).array : item;
 		}))).sort();
 	}
 

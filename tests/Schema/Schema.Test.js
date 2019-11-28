@@ -1,16 +1,19 @@
 import { assert } from 'chai';
 import displayValue from 'display-value';
 import { clone, deepEqual } from 'object-agent';
-import { Enum } from 'type-enforcer';
+import { Enum } from 'type-enforcer-ui';
 import { Schema } from '../../src/index';
 import Model from '../../src/Model';
 import { schemaTestTypes } from '../testValues';
+
+const parseName = (data) => data.name === 'function' ? 'function' : data.name.charAt(0)
+	.toUpperCase() + data.name.slice(1);
 
 describe('Schema', () => {
 	describe('.validate', () => {
 		schemaTestTypes.forEach((data) => {
 			data.true.forEach((datum) => {
-				it(`should NOT return an error for a value that matches a ${data.nativeName}`, () => {
+				it(`should NOT return an error for a value that matches a ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -24,7 +27,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should NOT return an error for a value that matches a ${data.nativeName} and isRequired=true`, () => {
+				it(`should NOT return an error for a value that matches a ${data.name} and isRequired=true`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -41,7 +44,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should return an error for a value of undefined when the type is ${data.nativeName} and isRequired=true`, () => {
+				it(`should return an error for a value of undefined when the type is ${data.name} and isRequired=true`, () => {
 					const item = {
 						testKey: undefined
 					};
@@ -63,7 +66,7 @@ describe('Schema', () => {
 					}]);
 				});
 
-				it(`should NOT return an error for a value of undefined when the type is ${data.nativeName} and isRequired=true and a default value is given`, () => {
+				it(`should NOT return an error for a value of undefined when the type is ${data.name} and isRequired=true and a default value is given`, () => {
 					const item = {
 						testKey: undefined
 					};
@@ -81,7 +84,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should NOT return an error for a value that matches a ${data.nativeName} in a nested object`, () => {
+				it(`should NOT return an error for a value that matches a ${data.name} in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -99,7 +102,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should return an error for a key with a ${data.nativeName} not in the schema`, () => {
+				it(`should return an error for a key with a ${data.name} not in the schema`, () => {
 					const item = {
 						testKey: 'test string',
 						testKey2: datum
@@ -119,7 +122,7 @@ describe('Schema', () => {
 					}]);
 				});
 
-				it(`should NOT return an error for a ${data.nativeName} in an array`, () => {
+				it(`should NOT return an error for a ${data.name} in an array`, () => {
 					const item = {
 						testKey: [datum]
 					};
@@ -133,7 +136,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should NOT return an error for a key that matches a ${data.nativeName} in an object in an array`, () => {
+				it(`should NOT return an error for a key that matches a ${data.name} in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -153,7 +156,11 @@ describe('Schema', () => {
 			});
 
 			data.false.forEach((datum) => {
-				it(`should return an error for a value of ${displayValue(datum)} that doesn't match a ${data.nativeName}`, () => {
+				if (datum === undefined || deepEqual(datum, {})) {
+					return;
+				}
+
+				it(`should return an error for a value of ${displayValue(datum)} that doesn't match a ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -164,12 +171,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					if (data.nativeName === 'Schema') {
+					if (data.name === 'Schema') {
 						assert.isAtLeast(errors.length, 1);
 					}
 					else {
 						assert.deepEqual(errors, [{
-							error: 'Value should be a ' + data.nativeName,
+							error: 'Value should be a ' + parseName(data),
 							path: 'testKey',
 							value: datum,
 							item
@@ -177,7 +184,7 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in a nested object`, () => {
+				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -192,12 +199,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					if (data.nativeName === 'Schema') {
+					if (data.name === 'Schema') {
 						assert.isAtLeast(errors.length, 1);
 					}
 					else {
 						assert.deepEqual(errors, [{
-							error: 'Value should be a ' + data.nativeName,
+							error: 'Value should be a ' + parseName(data),
 							path: 'testKey.testKey2',
 							value: datum,
 							item
@@ -205,7 +212,7 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
+				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -220,12 +227,12 @@ describe('Schema', () => {
 
 					const errors = schema.validate(item);
 
-					if (data.nativeName === 'Schema') {
+					if (data.name === 'Schema') {
 						assert.isAtLeast(errors.length, 1);
 					}
 					else {
 						assert.deepEqual(errors, [{
-							error: 'Value should be a ' + data.nativeName,
+							error: 'Value should be a ' + parseName(data),
 							path: 'testKey.0.testKey2',
 							value: datum,
 							item
@@ -235,7 +242,7 @@ describe('Schema', () => {
 			});
 
 			data.coerceTrue.forEach((datum) => {
-				it(`should NOT return an error for a value that is coercable to ${data.nativeName}`, () => {
+				it(`should NOT return an error for a value that is coercable to ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -254,7 +261,11 @@ describe('Schema', () => {
 			});
 
 			data.coerceFalse.forEach((datum) => {
-				it(`should return an error for a value that is not coercable to ${data.nativeName}`, () => {
+				if (datum === undefined || deepEqual(datum, {})) {
+					return;
+				}
+
+				it(`should return an error for a value that is not coercable to ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -269,7 +280,7 @@ describe('Schema', () => {
 					const errors = schema.validate(item);
 
 					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
+						error: 'Value should be a ' + parseName(data),
 						path: 'testKey',
 						value: datum,
 						item
@@ -1139,7 +1150,11 @@ describe('Schema', () => {
 	describe('.enforce', () => {
 		schemaTestTypes.forEach((data) => {
 			data.true.forEach((datum) => {
-				it(`should NOT modify a value that matches a ${data.nativeName}`, () => {
+				if (datum === undefined || deepEqual(datum, {})) {
+					return;
+				}
+
+				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1157,7 +1172,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should NOT modify a value that matches a ${data.nativeName} and isRequired=true`, () => {
+				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name} and isRequired=true`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1177,7 +1192,7 @@ describe('Schema', () => {
 				});
 
 				if (data.value !== '*') {
-					it(`should modify a value of undefined when the type is ${data.nativeName} and isRequired=true`, () => {
+					it(`should modify a value of undefined when the type is ${data.name} and isRequired=true`, () => {
 						const item = {
 							testKey: undefined
 						};
@@ -1203,7 +1218,7 @@ describe('Schema', () => {
 						}]);
 					});
 
-					it(`should NOT modify a value of undefined when the type is ${data.nativeName} and isRequired=true and a default value is given`, () => {
+					it(`should NOT modify the value undefined when the type is ${data.name} and isRequired=true and a default value is given`, () => {
 						const item = {
 							testKey: undefined
 						};
@@ -1226,7 +1241,7 @@ describe('Schema', () => {
 					});
 				}
 
-				it(`should NOT modify a value that matches a ${data.nativeName} in a nested object`, () => {
+				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name} in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -1250,7 +1265,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should unset a key with a ${data.nativeName} not in the schema`, () => {
+				it(`should unset a key with a ${data.name} not in the schema`, () => {
 					const item = {
 						testKey: 'test string',
 						testKey2: datum
@@ -1274,7 +1289,7 @@ describe('Schema', () => {
 					}]);
 				});
 
-				it(`should NOT remove a ${data.nativeName} in an array`, () => {
+				it(`should NOT remove a ${data.name} in an array`, () => {
 					const item = {
 						testKey: [datum]
 					};
@@ -1292,7 +1307,7 @@ describe('Schema', () => {
 					assert.equal(errors.length, 0);
 				});
 
-				it(`should NOT modify a value that matches a ${data.nativeName} in an object in an array`, () => {
+				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name} in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -1318,7 +1333,11 @@ describe('Schema', () => {
 			});
 
 			data.false.forEach((datum) => {
-				it(`should modify a value of ${displayValue(datum)} that doesn't match a ${data.nativeName}`, () => {
+				if (datum === undefined || deepEqual(datum, {})) {
+					return;
+				}
+
+				it(`should modify a value of ${displayValue(datum)} that doesn't match a ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1332,12 +1351,12 @@ describe('Schema', () => {
 
 					assert.deepEqual(item, output);
 
-					if (data.nativeName === 'Schema') {
+					if (data.name === 'Schema') {
 						assert.isAtLeast(errors.length, 1);
 					}
 					else {
 						assert.deepEqual(errors, [{
-							error: 'Value should be a ' + data.nativeName,
+							error: 'Value should be a ' + parseName(data),
 							path: 'testKey',
 							value: datum,
 							item
@@ -1345,7 +1364,7 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in a nested object`, () => {
+				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -1363,12 +1382,12 @@ describe('Schema', () => {
 
 					assert.deepEqual(item, output);
 
-					if (data.nativeName === 'Schema') {
+					if (data.name === 'Schema') {
 						assert.isAtLeast(errors.length, 1);
 					}
 					else {
 						assert.deepEqual(errors, [{
-							error: 'Value should be a ' + data.nativeName,
+							error: 'Value should be a ' + parseName(data),
 							path: 'testKey.testKey2',
 							value: datum,
 							item
@@ -1376,7 +1395,7 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.nativeName} in an object in an array`, () => {
+				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -1394,12 +1413,12 @@ describe('Schema', () => {
 
 					assert.deepEqual(item, output);
 
-					if (data.nativeName === 'Schema') {
+					if (data.name === 'Schema') {
 						assert.isAtLeast(errors.length, 1);
 					}
 					else {
 						assert.deepEqual(errors, [{
-							error: 'Value should be a ' + data.nativeName,
+							error: 'Value should be a ' + parseName(data),
 							path: 'testKey.0.testKey2',
 							value: datum,
 							item
@@ -1409,7 +1428,7 @@ describe('Schema', () => {
 			});
 
 			data.coerceTrue.forEach((datum) => {
-				it(`should NOT modify a value that is coercable to ${data.nativeName}`, () => {
+				it(`should NOT modify the value ${displayValue(datum)} that is coercable to ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1432,7 +1451,11 @@ describe('Schema', () => {
 			});
 
 			data.coerceFalse.forEach((datum) => {
-				it(`should modify a value that is not coercable to ${data.nativeName}`, () => {
+				if (datum === undefined || deepEqual(datum, {})) {
+					return;
+				}
+
+				it(`should modify a value that is not coercable to ${data.name}`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1449,7 +1472,7 @@ describe('Schema', () => {
 
 					assert.deepEqual(item, output);
 					assert.deepEqual(errors, [{
-						error: 'Value should be a ' + data.nativeName,
+						error: 'Value should be a ' + parseName(data),
 						path: 'testKey',
 						value: datum,
 						item

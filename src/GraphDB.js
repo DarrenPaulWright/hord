@@ -1,4 +1,4 @@
-import { castArray, PrivateVars, Queue } from 'type-enforcer';
+import { castArray, PrivateVars, Queue } from 'type-enforcer-ui';
 import Collection from './Collection';
 import List from './List';
 import Model, { MODEL_ERROR_LEVEL } from './Model';

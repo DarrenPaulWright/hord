@@ -1,5 +1,5 @@
 import { forOwn, get, mapOwn, set, traverse } from 'object-agent';
-import { isArray, isObject } from 'type-enforcer';
+import { isArray, isObject } from 'type-enforcer-ui';
 import List from '../../List';
 import operators from '../operators';
 import Index from './Index';

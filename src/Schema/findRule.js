@@ -1,5 +1,5 @@
 import { walkPath } from 'object-agent';
-import { isInteger } from 'type-enforcer';
+import { isInteger } from 'type-enforcer-ui';
 
 export default (path, schemaValues) => {
 	walkPath(path, (key) => {

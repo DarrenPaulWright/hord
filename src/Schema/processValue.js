@@ -1,5 +1,5 @@
 import { appendToPath, get, repeat, set, unset } from 'object-agent';
-import { isObject } from 'type-enforcer';
+import { isObject } from 'type-enforcer-ui';
 import checkRule from './checkRule';
 import enforceRule from './enforceRule';
 import ERRORS from './schemaErrors';

@@ -1,4 +1,4 @@
-import { Enum } from 'type-enforcer';
+import { Enum } from 'type-enforcer-ui';
 
 export default new Enum({
 	EQUAL: '$eq',

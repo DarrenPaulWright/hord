@@ -1,4 +1,4 @@
-import { Enum } from 'type-enforcer';
+import { Enum } from 'type-enforcer-ui';
 
 export default new Enum({
 	MISSING_ENUM: 'Enum types must provide an enum',

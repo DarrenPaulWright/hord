@@ -1,5 +1,5 @@
 import { forOwn, initialInPath, isEmpty, lastInPath, traverse } from 'object-agent';
-import { castArray, Enum, isFunction, isInstanceOf, isNumber } from 'type-enforcer';
+import { castArray, Enum, isFunction, isInstanceOf, isNumber } from 'type-enforcer-ui';
 import Model from '../../Model';
 import findRule from '../findRule';
 import Schema from '../Schema';

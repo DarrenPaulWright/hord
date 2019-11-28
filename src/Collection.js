@@ -10,7 +10,7 @@ import {
 	isObject,
 	PrivateVars,
 	sameValueZero
-} from 'type-enforcer';
+} from 'type-enforcer-ui';
 import List from './List';
 import Model from './Model';
 import findLastIndex from './utility/findLastIndex';

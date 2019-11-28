@@ -1,5 +1,5 @@
 import { get } from 'object-agent';
-import { isArray, isNumber } from 'type-enforcer';
+import { isArray, isNumber } from 'type-enforcer-ui';
 
 const kindOf = (value) => {
 	if (value === void 0) {

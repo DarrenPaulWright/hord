@@ -10,9 +10,11 @@ const checkRule = (type, value, path, onError) => {
 		});
 		return false;
 	}
+
 	if (!type.check(value, type.enum || type.coerce || type.type)) {
 		return type.message || ERRORS.CHECK + type.name;
 	}
+	
 	if (type.clamp !== true) {
 		if (type.numericRange && !type.numericRange(type, value, false)) {
 			return ERRORS.NUMERIC_RANGE;

@@ -1,4 +1,4 @@
-import { isArray, isFunction, isInstanceOf, isObject } from 'type-enforcer';
+import { isArray, isFunction, isInstanceOf, isObject } from 'type-enforcer-ui';
 import Model from '../../Model';
 import Schema from '../Schema';
 import { TYPE_RULES } from './schemaTypeRules';

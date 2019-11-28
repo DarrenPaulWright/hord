@@ -6,12 +6,17 @@ import {
 	enforceEnum,
 	enforceFloat,
 	enforceFunction,
-	enforceInstance,
+	enforceInstanceOf,
 	enforceInteger,
+	enforceMap,
 	enforceNumber,
 	enforceObject,
 	enforceRegExp,
+	enforceSet,
 	enforceString,
+	enforceSymbol,
+	enforceWeakMap,
+	enforceWeakSet,
 	Enum,
 	isArray,
 	isBoolean,
@@ -21,12 +26,17 @@ import {
 	isFunction,
 	isInstanceOf,
 	isInteger,
+	isMap,
 	isNumber,
 	isObject,
 	isRegExp,
+	isSet,
 	isString,
+	isSymbol,
+	isWeakMap,
+	isWeakSet,
 	strictEquality
-} from 'type-enforcer';
+} from 'type-enforcer-ui';
 
 export const isAnything = () => true;
 export const enforceAnything = (value) => value;
@@ -40,13 +50,14 @@ export const checkNumericRange = (rule, value, defaultValue) => {
 
 	return newValue;
 };
+
 export const checkLength = (rule, value) => {
 	return (!rule.minLength || rule.minLength <= value.length) && (!rule.maxLength || rule.maxLength >= value.length);
 };
 
 export const instanceRule = {
 	check: isInstanceOf,
-	enforce: enforceInstance
+	enforce: enforceInstanceOf
 };
 
 export const sameRule = {
@@ -102,6 +113,11 @@ export const TYPE_RULES = new Map()
 		check: isInteger,
 		enforce: enforceInteger
 	}))
+	.set(Map, Object.freeze({
+		name: 'Map',
+		check: isMap,
+		enforce: enforceMap
+	}))
 	.set(Number, Object.freeze({
 		name: 'Number',
 		check: isNumber,
@@ -117,10 +133,30 @@ export const TYPE_RULES = new Map()
 		check: isRegExp,
 		enforce: enforceRegExp
 	}))
+	.set(Set, Object.freeze({
+		name: 'Set',
+		check: isSet,
+		enforce: enforceSet
+	}))
 	.set(String, Object.freeze({
 		name: 'String',
 		check: isString,
 		enforce: enforceString
+	}))
+	.set(Symbol, Object.freeze({
+		name: 'Symbol',
+		check: isSymbol,
+		enforce: enforceSymbol
+	}))
+	.set(WeakMap, Object.freeze({
+		name: 'WeakMap',
+		check: isWeakMap,
+		enforce: enforceWeakMap
+	}))
+	.set(WeakSet, Object.freeze({
+		name: 'WeakSet',
+		check: isWeakSet,
+		enforce: enforceWeakSet
 	}))
 	.set('Schema', Object.freeze({
 		name: 'Schema',

@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { deepEqual } from 'object-agent';
-import { isObject } from 'type-enforcer';
+import { isObject } from 'type-enforcer-ui';
 import Model from '../../../src/Model';
 import traverseSchema from '../../../src/Schema/parse/traverseSchema';
 import Schema from '../../../src/Schema/Schema';

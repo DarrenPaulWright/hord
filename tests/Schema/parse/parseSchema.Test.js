@@ -10,7 +10,7 @@ import {
 	isObject,
 	isString,
 	strictEquality
-} from 'type-enforcer';
+} from 'type-enforcer-ui';
 import parseSchema from '../../../src/Schema/parse/parseSchema';
 import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/schemaTypeRules';
 import Schema from '../../../src/Schema/Schema';
@@ -22,13 +22,13 @@ const testEnforce = () => {
 
 const getTypeRule = (type) => {
 	const output = {
-		name: type.nativeName,
+		name: type.name === 'function' ? 'function' : type.name.charAt(0).toUpperCase() + type.name.slice(1),
 		check: type.check,
 		enforce: type.enforce,
 		type: type.value
 	};
 
-	if (type.nativeName === 'Schema') {
+	if (type.name === 'Schema') {
 		return {
 			...output,
 			type: Schema,

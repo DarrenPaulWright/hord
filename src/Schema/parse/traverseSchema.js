@@ -1,5 +1,5 @@
 import { appendToPath, lastInPath, traverse } from 'object-agent';
-import { isArray, isNumber, isObject } from 'type-enforcer';
+import { isArray, isNumber, isObject } from 'type-enforcer-ui';
 import checkSchemaType, { isValidType } from './checkSchemaType';
 
 export default (item, callback) => {

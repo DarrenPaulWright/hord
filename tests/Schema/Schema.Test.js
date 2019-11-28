@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import displayValue from 'display-value';
 import { clone, deepEqual } from 'object-agent';
 import { Enum } from 'type-enforcer-ui';
-import { Schema } from '../../src/index';
+import { Schema } from '../../index';
 import Model from '../../src/Model';
 import { schemaTestTypes } from '../testValues';
 

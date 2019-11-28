@@ -2,7 +2,7 @@
 	"name": "hord",
 	"version": "0.5.8",
 	"description": "A data storage and manipulation library for javascript",
-	"main": "src/index.js",
+	"main": "index.js",
 	"files": [
 		"/src"
 	],
@@ -12,7 +12,7 @@
 		"test": "karma start --single-run",
 		"test-watch": "karma start",
 		"version": "npm run docs && git add docs",
-		"docs:readme": "jsdoc2md src/index.js > README.md",
+		"docs:readme": "jsdoc2md index.js > README.md",
 		"docs:list": "jsdoc2md src/List.js > docs/List.md",
 		"docs:schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md",
 		"docs:model": "jsdoc2md src/Model.js > docs/Model.md",

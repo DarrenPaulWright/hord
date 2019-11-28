@@ -34,7 +34,7 @@ import {
 	isRegExp,
 	isString
 } from 'type-enforcer-ui';
-import { Model, Schema } from '../src';
+import { Model, Schema } from '../index';
 import { enforceAnything, isAnything, TYPE_RULES } from '../src/Schema/parse/schemaTypeRules';
 
 export const testSchema = new Schema({key: String});

@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { fill } from 'object-agent';
-import { List } from '../src';
+import { List } from '../index';
 import { sortedIndexOf } from '../src/List';
 
 describe('sortedIndexOf', () => {

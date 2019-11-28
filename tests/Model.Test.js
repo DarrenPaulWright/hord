@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { deepEqual, diffUpdate, intersection, set } from 'object-agent';
 import { isObject } from 'type-enforcer-ui';
-import { Model, MODEL_ERROR_LEVEL, Schema } from '../src';
+import { Model, MODEL_ERROR_LEVEL, Schema } from '../index';
 
 describe('Model', () => {
 	it('should return the schema', () => {

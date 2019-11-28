@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { Collection, Model } from '../src';
+import { Collection, Model } from '../index';
 import { _ } from '../src/Collection';
 import compare from '../src/utility/compare';
 

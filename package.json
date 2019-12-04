@@ -11,6 +11,7 @@
 		"clean": "rm -rf node_modules && del /f package-lock.json && npm install",
 		"test": "karma start --single-run",
 		"test-watch": "karma start",
+		"bench": "karma start karma.bench.conf.js",
 		"version": "npm run docs && git add docs",
 		"docs:readme": "jsdoc2md index.js > README.md",
 		"docs:list": "jsdoc2md src/List.js > docs/List.md",

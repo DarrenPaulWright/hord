@@ -1,10 +1,11 @@
 import { walkPath } from 'object-agent';
-import { isInteger } from 'type-enforcer-ui';
+
+const NUMBERIC_REGEX = /^\d+$/;
 
 export default (path, schemaValues) => {
 	walkPath(path, (key) => {
-		if (schemaValues && schemaValues.content) {
-			if (isInteger(key, true)) {
+		if (schemaValues !== undefined && schemaValues.content) {
+			if (NUMBERIC_REGEX.test(key)) {
 				schemaValues = schemaValues.content[0];
 			}
 			else {

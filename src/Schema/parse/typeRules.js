@@ -44,15 +44,11 @@ export const enforceAnything = (value) => value;
 export const checkNumericRange = (rule, value, defaultValue) => {
 	let newValue = rule.enforce(value, defaultValue, rule.coerce, rule.min, rule.max);
 
-	if (rule.clamp !== true && newValue !== rule.enforce(value, defaultValue, rule.coerce)) {
-		newValue = undefined;
-	}
-
-	return newValue;
+	return rule.clamp !== true && newValue !== rule.enforce(value, defaultValue, rule.coerce) ? undefined : newValue;
 };
 
 export const checkLength = (rule, value) => {
-	return (!rule.minLength || rule.minLength <= value.length) && (!rule.maxLength || rule.maxLength >= value.length);
+	return (rule.minLength === undefined || value.length >= rule.minLength) && (rule.maxLength === undefined || rule.maxLength >= value.length);
 };
 
 export const instanceRule = {

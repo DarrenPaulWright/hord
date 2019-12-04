@@ -2,7 +2,7 @@ import { get } from 'object-agent';
 import { isArray, isNumber } from 'type-enforcer-ui';
 
 const kindOf = (value) => {
-	if (value === void 0) {
+	if (value === undefined) {
 		return 3;
 	}
 	if (value === null) {
@@ -51,12 +51,12 @@ const compare = (a, b) => {
  * @returns {function} Accepts two arguments to be compared. Returns -1, 0, or 1.
  */
 export default (paths) => {
-	if (paths) {
+	if (paths !== undefined) {
 		if (isArray(paths)) {
 			return (a, b) => {
 				let output;
 
-				paths.some((path) => output = compare(get(a, path), get(b, path)));
+				paths.some((path) => (output = compare(get(a, path), get(b, path))) !== 0);
 
 				return output;
 			};

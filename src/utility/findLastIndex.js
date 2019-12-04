@@ -1,14 +1,9 @@
-import someRight from './someRight';
-
-export default (array, finder) => {
-	let output;
-
-	someRight(array, (item, index) => {
-		if (finder(item)) {
-			output = index;
-			return true;
+export default (array, callback) => {
+	for (let index = array.length - 1; index !== -1; index--) {
+		if (callback(array[index])) {
+			return index;
 		}
-	});
+	}
 
-	return (output === undefined) ? -1 : output;
+	return -1;
 }

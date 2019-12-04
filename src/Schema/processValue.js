@@ -5,11 +5,7 @@ import enforceRule from './enforceRule';
 import ERRORS from './schemaErrors';
 
 const getKeysNotInSchema = (value, rule) => {
-	if (!rule.keys || rule.keys.includes('*')) {
-		return false;
-	}
-
-	return Object.keys(value)
+	return rule.keys && !rule.keys.includes('*') && Object.keys(value)
 		.filter((key) => !rule.keys.includes(key));
 };
 
@@ -42,12 +38,13 @@ const processObject = (item, rule, path, value, onError, isEnforce) => {
 	let isChanged = false;
 	const keysNotInSchema = getKeysNotInSchema(value, rule);
 
-	if (keysNotInSchema) {
+	if (keysNotInSchema && keysNotInSchema.length !== 0) {
 		keysNotInSchema.forEach((key) => {
 			if (isEnforce && isObject(item)) {
 				unset(item, appendToPath(path, key));
 				isChanged = true;
 			}
+
 			onError(ERRORS.KEY_NOT_FOUND, appendToPath(path, key), value[key]);
 		});
 	}
@@ -61,17 +58,9 @@ const processObject = (item, rule, path, value, onError, isEnforce) => {
 
 export default function processValue(item, rule, path, onError, isEnforce, replace) {
 	const value = get(item, path);
-	let isChanged = false;
-
-	if (rule.content && value) {
-		isChanged = processContent(item, rule, path, value, onError, isEnforce) || isChanged;
-	}
-
-	if (isEnforce) {
-		isChanged = enforceRule(rule, item, path, value, replace) || isChanged;
-	}
+	let isChanged = (rule.content && value && processContent(item, rule, path, value, onError, isEnforce));
 
 	checkRule(rule, value, path, onError);
 
-	return isChanged;
+	return isEnforce && enforceRule(rule, item, path, value, replace) || isChanged;
 }

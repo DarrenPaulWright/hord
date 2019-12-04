@@ -30,29 +30,27 @@ const sorters = Object.freeze({
 
 export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = false) => {
 	let low = 0;
-	let mid;
 	let high = array.length;
+	let mid = high;
 	const max = high - 1;
-	let diff;
+	let diff = high;
 
-	while (low < high) {
+	while (low !== high) {
 		mid = high + low >>> 1;
 		diff = sorter(array[mid], item);
 
-		if (diff < 0 || (isLast && diff === 0 && mid < max && sorter(array[mid + 1], item) === 0)) {
+		if (diff < 0 || isLast === true && diff === 0 && mid < max && sorter(array[mid + 1], item) === 0) {
 			low = mid + 1;
-			continue;
 		}
-
-		if (diff > 0 || (!isLast && mid !== 0 && sorter(array[mid - 1], item) === 0)) {
+		else if (diff > 0 || isLast === false && mid !== 0 && sorter(array[mid - 1], item) === 0) {
 			high = mid;
-			continue;
 		}
-
-		return mid;
+		else {
+			return mid;
+		}
 	}
 
-	return isInsert ? (diff > 0 ? --mid : mid) : -1;
+	return isInsert === true ? (diff > 0 && --mid || mid) : -1;
 };
 
 export const _ = new PrivateVars();
@@ -79,17 +77,16 @@ export default class List {
 		_.set(this, {
 			sorter: sorters.default
 		});
+
 		this.values(values);
 	}
 
 	[spawn](values) {
 		const newList = new List();
+		const newSelf = _(newList);
 
-		_(newList).sorter = _(this).sorter;
-
-		if (values) {
-			_(newList).array = values;
-		}
+		newSelf.sorter = _(this).sorter;
+		newSelf.array = values || [];
 
 		return newList;
 	}
@@ -135,9 +132,10 @@ export default class List {
 	sort() {
 		const _self = _(this);
 
-		if (_self.array.length) {
+		if (_self.array.length !== 0) {
 			_self.array.sort(_self.sorter);
 		}
+
 		return this;
 	}
 
@@ -175,10 +173,9 @@ export default class List {
 			_self.array[0] = item;
 		}
 		else {
-			const sorter = _self.sorter;
-			let index = sortedIndexOf(_self.array, item, sorter, true);
+			let index = sortedIndexOf(_self.array, item, _self.sorter, true);
 
-			if (index === -1 || sorter(_self.array[index], item) !== 0) {
+			if (index === -1 || _self.sorter(_self.array[index], item) !== 0) {
 				_self.array.splice(index + 1, 0, item);
 			}
 		}
@@ -195,12 +192,12 @@ export default class List {
 	 * @returns {List}
 	 */
 	unique() {
-		const sorter = _(this).sorter;
-		const output = [];
-		let previous;
+		const _self = _(this);
+		let previous = _self.array[0];
+		const output = [previous];
 
-		this.forEach((item, index) => {
-			if (index === 0 || sorter(previous, item)) {
+		_self.array.forEach((item) => {
+			if (_self.sorter(previous, item)) {
 				output.push(item);
 				previous = item;
 			}
@@ -234,7 +231,9 @@ export default class List {
 	 * @arg {*} item - Uses the sorter function to determine equality.
 	 */
 	discard(item) {
-		_(this).array.splice(sortedIndexOf(_(this).array, item, _(this).sorter, true), 1);
+		const _self = _(this);
+
+		_self.array.splice(sortedIndexOf(_self.array, item, _self.sorter, true), 1);
 
 		return this;
 	}
@@ -284,7 +283,9 @@ export default class List {
 	 * @returns {Number} The index of the item or -1
 	 */
 	indexOf(item) {
-		return sortedIndexOf(_(this).array, item, _(this).sorter);
+		const _self = _(this);
+
+		return sortedIndexOf(_self.array, item, _self.sorter);
 	}
 
 	/**
@@ -298,7 +299,9 @@ export default class List {
 	 * @returns {Number} The index of the item or -1
 	 */
 	lastIndexOf(item) {
-		return sortedIndexOf(_(this).array, item, _(this).sorter, false, true);
+		const _self = _(this);
+
+		return sortedIndexOf(_self.array, item, _self.sorter, false, true);
 	}
 
 	/**
@@ -419,7 +422,9 @@ export default class List {
 	 * @returns {*}
 	 */
 	last() {
-		return _(this).array[_(this).array.length - 1];
+		const _self = _(this);
+
+		return _self.array[_self.array.length - 1];
 	}
 
 	/**
@@ -435,6 +440,7 @@ export default class List {
 	 */
 	someRight(callback, thisArg) {
 		callback = callback.bind(thisArg || this);
+
 		return someRight(_(this).array, callback);
 	}
 

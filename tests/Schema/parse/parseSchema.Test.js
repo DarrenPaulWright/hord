@@ -12,7 +12,7 @@ import {
 	strictEquality
 } from 'type-enforcer-ui';
 import parseSchema from '../../../src/Schema/parse/parseSchema';
-import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/schemaTypeRules';
+import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/typeRules';
 import Schema from '../../../src/Schema/Schema';
 import { multiTest } from '../../TestUtil';
 import { schemaTestTypes, testSchema } from '../../testValues';

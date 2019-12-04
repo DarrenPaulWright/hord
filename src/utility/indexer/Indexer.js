@@ -26,6 +26,7 @@ export default class Indexer {
 		forOwn(this.indexes, (index, path) => {
 			index.rebuild(map, (item) => get(item, path));
 		});
+
 		this.builds++;
 	}
 

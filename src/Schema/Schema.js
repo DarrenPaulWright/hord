@@ -69,25 +69,31 @@ import processValue from './processValue';
 const process = (item, rules, path, isEnforce, replace) => {
 	const errors = [];
 
-	const buildError = (message, path, value) => {
-		errors.push({
-			error: message,
-			path,
-			value,
-			item
-		});
-	};
-
-	if (rules) {
-		processValue(item, rules, path, buildError, isEnforce, replace);
+	if (rules !== undefined) {
+		processValue(item, rules, path, (message, path, value) => {
+			errors.push({
+				error: message,
+				path,
+				value,
+				item
+			});
+		}, isEnforce, replace);
 	}
 
 	return errors;
 };
 
-const _ = new PrivateVars();
+const eachRule = (self, callback, path = '', rule) => {
+	rule = rule || _(self).rules;
 
-const eachRule = Symbol();
+	return rule.types[0].schema !== undefined ?
+		!eachRule(rule.types[0].schema, callback, path) :
+		callback(path, rule) ||
+		rule.content !== undefined &&
+		!rule.content.some((item) => eachRule(self, callback, appendToPath(path, item.key || 0), item));
+};
+
+const _ = new PrivateVars();
 
 /**
  * Schema enforcement.
@@ -121,33 +127,9 @@ const eachRule = Symbol();
 export default class Schema {
 	constructor(schema) {
 		_.set(this, {
-			definition: clone(schema)
+			definition: clone(schema),
+			rules: parseSchema(schema)
 		});
-		_(this).rules = parseSchema(_(this).definition);
-	}
-
-	[eachRule](callback, basePath = '') {
-		const processRule = (path, rule) => {
-			const firstType = rule.types[0];
-
-			if (rule.types.length === 1 && firstType.schema) {
-				firstType.schema[eachRule](callback, path);
-			}
-			else if (rule.types.length === 1 && firstType.model) {
-				firstType.model.schema[eachRule](callback, path);
-			}
-			else {
-				if (callback(path, rule)) {
-					return true;
-				}
-
-				if (rule.content) {
-					rule.content.some((item) => processRule(appendToPath(path, item.key || '0'), item));
-				}
-			}
-		};
-
-		processRule(basePath, _(this).rules);
 	}
 
 	/**
@@ -190,7 +172,7 @@ export default class Schema {
 	 * @arg {Function} callback - Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level.
 	 */
 	eachRule(callback) {
-		this[eachRule](callback);
+		eachRule(this, callback);
 	}
 
 	/**

@@ -1,11 +1,11 @@
 import { forOwn, initialInPath, isEmpty, lastInPath, traverse } from 'object-agent';
-import { castArray, Enum, isFunction, isInstanceOf, isNumber } from 'type-enforcer-ui';
+import { castArray, Enum, isFunction, isNumber } from 'type-enforcer-ui';
 import Model from '../../Model';
 import findRule from '../findRule';
 import Schema from '../Schema';
 import ERRORS from '../schemaErrors';
-import { checkLength, checkNumericRange, instanceRule, sameRule, TYPE_RULES } from './schemaTypeRules';
 import traverseSchema from './traverseSchema';
+import { checkLength, checkNumericRange, instanceRule, sameRule, TYPE_RULES } from './typeRules';
 
 const EXCLUDE_KEYS = ['content', 'type', 'name', 'isRequired', 'default'];
 
@@ -21,24 +21,23 @@ const buildRule = (type, value, isAnObject) => {
 		}
 	}
 
-	if (isInstanceOf(type, Schema) || isInstanceOf(type, Model)) {
-		rule = {
-			...TYPE_RULES.get('Schema'),
+	if (type instanceof Schema || type instanceof Model) {
+		rule = Object.assign({}, TYPE_RULES.get('Schema'), {
 			type: Schema,
 			schema: type.schema || type
-		};
+		});
 	}
 	else {
-		rule = {
-			...TYPE_RULES.get(type) || (isFunction(type) ? {
-				...instanceRule,
-				name: type.name
-			} : {
-				...sameRule,
-				name: type + ''
-			}),
+		rule = Object.assign({}, TYPE_RULES.get(type) ||
+			(isFunction(type) ?
+				Object.assign({}, instanceRule, {
+					name: type.name
+				}) :
+				Object.assign({}, sameRule, {
+					name: type + ''
+				})), {
 			type: type
-		};
+		});
 	}
 
 	if (isAnObject) {
@@ -59,17 +58,13 @@ const buildRule = (type, value, isAnObject) => {
 	return rule;
 };
 
-const parseTypes = (isAnObject, value) => {
-	return castArray((isAnObject && value.type !== undefined) ? value.type : value)
-		.map((type) => buildRule(type, value, isAnObject));
-};
-
 export default (schema) => {
 	let schemaValues;
 
 	traverseSchema(schema, (path, value, isAnObject, isSchemaType) => {
 		const rule = {
-			types: parseTypes(isAnObject, value)
+			types: castArray((isAnObject && value.type !== undefined) ? value.type : value)
+				.map((type) => buildRule(type, value, isAnObject))
 		};
 
 		if (isAnObject) {
@@ -100,6 +95,7 @@ export default (schema) => {
 				parent.keys.push(last);
 			}
 		}
+
 		return false;
 	});
 

@@ -1,24 +1,40 @@
 import { clone, isEmpty, set, unset } from 'object-agent';
 import { enforceEnum, enforceInstanceOf } from 'type-enforcer-ui';
 
+const EMPTY_TYPES = [Array, Object, 'Schema'];
+
+const enforceLength = (type, prop, value, item, path, fixString) => {
+	if (type.clamp === true) {
+		if (type.type === Array) {
+			value.length = type[prop];
+		}
+		else {
+			set(item, path, fixString(value, type[prop]));
+		}
+	}
+	else {
+		unset(item, path);
+	}
+};
+
 export default (rule, item, path, value, replace) => {
-	const defaultValue = (rule.default !== undefined) ? rule.default : rule.isRequired ? replace || null : undefined;
-	let newValue = null;
-	let isChanged = false;
+	const defaultValue = (rule.default !== undefined) ?
+		rule.default :
+		rule.isRequired ?
+			replace || null :
+			undefined;
+	let newValue = value;
 
 	rule.types.some((type) => {
-		if (type.schema) {
+		if (type.schema !== undefined) {
 			newValue = type.enforce(clone(value), type.schema);
+
 			if (isEmpty(newValue)) {
 				newValue = rule.isRequired ? defaultValue : undefined;
-				isChanged = true;
 			}
 		}
-		else if (type.enforce === enforceEnum) {
-			newValue = type.enforce(value, type.enum, defaultValue, type.coerce);
-		}
-		else if (type.enforce === enforceInstanceOf) {
-			newValue = type.enforce(value, type.type, defaultValue, type.coerce);
+		else if (type.enforce === enforceEnum || type.enforce === enforceInstanceOf) {
+			newValue = type.enforce(value, type.enum || type.type, defaultValue, type.coerce);
 		}
 		else {
 			newValue = type.enforce(value, defaultValue, type.coerce);
@@ -28,57 +44,24 @@ export default (rule, item, path, value, replace) => {
 			newValue = type.numericRange(type, value, defaultValue);
 		}
 
-		if (type.length !== undefined) {
-			if (type.minLength !== undefined && type.minLength > value.length) {
-				if (type.clamp === true) {
-					if (type.type === Array) {
-						value.length = type.minLength;
-					}
-					else {
-						set(item, path, value.padEnd(type.minLength));
-					}
-				}
-				else {
-					unset(item, path);
-				}
-				isChanged = true;
-			}
-			if (type.maxLength !== undefined && type.maxLength < value.length) {
-				if (type.clamp === true) {
-					if (type.type === Array) {
-						value.length = type.maxLength;
-					}
-					else {
-						set(item, path, value.slice(0, type.maxLength));
-					}
-				}
-				else {
-					unset(item, path);
-				}
-				isChanged = true;
-			}
+		if (type.minLength !== undefined && value.length < type.minLength) {
+			enforceLength(type, 'minLength', value, item, path, (value, length) => value.padEnd(length));
+		}
+		if (type.maxLength !== undefined && value.length > type.maxLength) {
+			enforceLength(type, 'maxLength', value, item, path, (value, length) => value.slice(0, length));
 		}
 
 		return newValue !== null && newValue !== undefined;
 	});
 
-	if (newValue === undefined && !rule.isRequired) {
+	if (rule.isRequired !== true && (newValue === undefined || (EMPTY_TYPES.includes(rule.types[0].type) && isEmpty(value)))) {
 		unset(item, path);
-		isChanged = true;
+		return true;
 	}
 	else if (newValue !== value) {
 		set(item, path, newValue);
-		isChanged = true;
+		return true;
 	}
 
-	const type = rule.types[0].type;
-
-	if (type === Array || type === Object || type === 'Schema') {
-		if (!rule.isRequired && isEmpty(value)) {
-			unset(item, path);
-			isChanged = true;
-		}
-	}
-
-	return isChanged;
+	return false;
 };

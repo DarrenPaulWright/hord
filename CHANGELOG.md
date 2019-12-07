@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.5.10] - 2019-12-06
+### Security
+- Updated dependencies
+
+## [0.5.9] - 2019-12-04
+### Changed
+- Performance improvements
+
+### Security
+- Updated dependencies
+
 ## [0.5.8] - 2019-10-22
 ### Security
 - Updated dependencies
@@ -133,6 +144,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
+[0.5.10]: https://github.com/DarrenPaulWright/hord/compare/v0.5.9...v0.5.10
+[0.5.9]: https://github.com/DarrenPaulWright/hord/compare/v0.5.8...v0.5.9
 [0.5.8]: https://github.com/DarrenPaulWright/hord/compare/v0.5.7...v0.5.8
 [0.5.7]: https://github.com/DarrenPaulWright/hord/compare/v0.5.6...v0.5.7
 [0.5.6]: https://github.com/DarrenPaulWright/hord/compare/v0.5.5...v0.5.6

@@ -6,7 +6,7 @@ import { Schema } from '../../index';
 import Model from '../../src/Model';
 import { schemaTestTypes } from '../testValues';
 
-const parseName = (data) => data.name === 'function' ? 'function' : data.name.charAt(0)
+const parseName = (data) => data.name === 'function' ? 'function' : data.name.length === 1 ? data.name : data.name.charAt(0)
 	.toUpperCase() + data.name.slice(1);
 
 describe('Schema', () => {

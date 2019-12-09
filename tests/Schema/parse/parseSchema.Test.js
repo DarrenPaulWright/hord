@@ -21,8 +21,12 @@ const testEnforce = () => {
 };
 
 const getTypeRule = (type) => {
+	const getName = (name) => {
+		return name.length === 1 ? name : name.charAt(0).toUpperCase() + name.slice(1);
+	};
+
 	const output = {
-		name: type.name === 'function' ? 'function' : type.name.charAt(0).toUpperCase() + type.name.slice(1),
+		name: type.name === 'function' ? 'function' : getName(type.name),
 		check: type.check,
 		enforce: type.enforce,
 		type: type.value

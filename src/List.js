@@ -22,9 +22,7 @@ const sorters = Object.freeze({
 	},
 	id: {
 		asc: compare('id'),
-		desc(a, b) {
-			return compare('id')(b, a);
-		}
+		desc: compare('id', true)
 	}
 });
 

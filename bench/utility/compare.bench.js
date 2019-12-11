@@ -13,8 +13,11 @@ const parseDisplay = (value) => {
 suite('compare', () => {
 	let sandbox;
 	const simpleCompare = compare();
+	const simpleCompareDesc = compare(undefined, true);
 	const pathCompare = compare('key');
+	const pathCompareDesc = compare('key', true);
 	const pathsCompare = compare(['key', 'key2']);
+	const pathsCompareDesc = compare(['key', 'key2'], true);
 	let object1 = {};
 	let object2 = {};
 
@@ -31,24 +34,50 @@ suite('compare', () => {
 	}, benchSettings);
 
 	values.forEach((value) => {
-		benchmark('simple ' + parseDisplay(value) + ', ' + parseDisplay(value), () => {
+		benchmark(`simple ${parseDisplay(value)}, ${parseDisplay(value)}`, () => {
 			sandbox = simpleCompare(value, value);
+		}, benchSettings);
+
+		benchmark(`simple ${parseDisplay(value)}, ${parseDisplay(value)} desc`, () => {
+			sandbox = simpleCompareDesc(value, value);
 		}, benchSettings);
 	});
 
 	combo(values).forEach((value) => {
-		benchmark('simple ' + parseDisplay(value[0]) + ', ' + parseDisplay(value[1]), () => {
+		benchmark(`simple ${parseDisplay(value[0])}, ${parseDisplay(value[1])}`, () => {
 			sandbox = simpleCompare(value[0], value[1]);
 		}, benchSettings);
 
-		benchmark('simple ' + parseDisplay(value[1]) + ', ' + parseDisplay(value[0]), () => {
+		benchmark(`simple ${parseDisplay(value[0])}, ${parseDisplay(value[1])} desc`, () => {
+			sandbox = simpleCompareDesc(value[0], value[1]);
+		}, benchSettings);
+
+		benchmark(`simple ${parseDisplay(value[1])}, ${parseDisplay(value[0])}`, () => {
 			sandbox = simpleCompare(value[1], value[0]);
+		}, benchSettings);
+
+		benchmark(`simple ${parseDisplay(value[1])}, ${parseDisplay(value[0])} desc`, () => {
+			sandbox = simpleCompareDesc(value[1], value[0]);
 		}, benchSettings);
 	});
 
 	values.forEach((value) => {
-		benchmark('path ' + parseDisplay(value) + ', ' + parseDisplay(value), () => {
+		benchmark(`path ${parseDisplay(value)}, ${parseDisplay(value)}`, () => {
 			sandbox = pathCompare(object1, object2);
+		}, {
+			...benchSettings,
+			onCycle() {
+				object1 = {
+					key: value
+				};
+				object2 = {
+					key: value
+				};
+			}
+		});
+
+		benchmark(`path ${parseDisplay(value)}, ${parseDisplay(value)} desc`, () => {
+			sandbox = pathCompareDesc(object1, object2);
 		}, {
 			...benchSettings,
 			onCycle() {
@@ -63,8 +92,24 @@ suite('compare', () => {
 	});
 
 	values.forEach((value) => {
-		benchmark('paths ' + parseDisplay(value) + ', ' + parseDisplay(value), () => {
+		benchmark(`paths ${parseDisplay(value)}, ${parseDisplay(value)}`, () => {
 			sandbox = pathsCompare(object1, object2);
+		}, {
+			...benchSettings,
+			onCycle() {
+				object1 = {
+					key: value,
+					key2: value
+				};
+				object2 = {
+					key: value,
+					key2: value
+				};
+			}
+		});
+
+		benchmark(`paths ${parseDisplay(value)}, ${parseDisplay(value)} desc`, () => {
+			sandbox = pathsCompareDesc(object1, object2);
 		}, {
 			...benchSettings,
 			onCycle() {

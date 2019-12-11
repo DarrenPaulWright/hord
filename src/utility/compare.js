@@ -2,19 +2,10 @@ import { get } from 'object-agent';
 import { isArray, isNumber } from 'type-enforcer-ui';
 
 const kindOf = (value) => {
-	if (value === undefined) {
-		return 3;
-	}
-	if (value === null) {
-		return 2;
-	}
-	if (value !== value) {
-		return 1;
-	}
-	if (isNumber(value)) {
-		return -1;
-	}
-	return 0;
+	return value === undefined && 3 ||
+		value === null && 2 ||
+		value !== value && 1 ||
+		isNumber(value) && -1 || 0;
 };
 
 const compare = (a, b) => {
@@ -26,7 +17,7 @@ const compare = (a, b) => {
 		b = kindB;
 	}
 
-	return (a < b) ? -1 : (a > b ? 1 : 0);
+	return a < b && -1 || a > b && 1 || 0;
 };
 
 /**
@@ -47,23 +38,26 @@ const compare = (a, b) => {
  * @function compare
  *
  * @arg {Array|String} [paths] - The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on.
+ * @arg {Boolean} [desc=false] - If true then inverse values are returned
  *
  * @returns {function} Accepts two arguments to be compared. Returns -1, 0, or 1.
  */
-export default (paths) => {
+export default (paths, desc = false) => {
 	if (paths !== undefined) {
 		if (isArray(paths)) {
 			return (a, b) => {
-				let output;
+				let output = 0;
 
-				paths.some((path) => (output = compare(get(a, path), get(b, path))) !== 0);
+				for (let index = 0; output === 0 && index < paths.length; index++) {
+					output = compare(get(a, paths[index]), get(b, paths[index]));
+				}
 
-				return output;
+				return desc ? -output : output;
 			};
 		}
 
-		return (a, b) => compare(get(a, paths), get(b, paths));
+		return desc ? (a, b) => compare(get(b, paths), get(a, paths)) : (a, b) => compare(get(a, paths), get(b, paths));
 	}
 
-	return compare;
+	return desc ? (a, b) => compare(b, a) : compare;
 }

@@ -74,6 +74,7 @@ const _ = new PrivateVars();
  * A Graph Database designed for front end data visualization
  *
  * @class GraphDB
+ * @private
  * @summary
  *
  * ``` javascript

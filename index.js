@@ -1,22 +1,9 @@
 /**
  * @name Installation
+ * @private
  * @summary
  *
- * ```
- * npm install hord
- * ```
  * _Requires Babel 7.2+_
- */
-
-/**
- * @name Docs
- * @summary
- *
- * - [List](docs/List.md)
- * - [Schema](docs/Schema.md)
- * - [Model](docs/Model.md)
- * - [Collection](docs/Collection.md)
- * - [compare](docs/compare.md)
  */
 export { default as List } from './src/List';
 export { default as Schema } from './src/Schema/Schema';

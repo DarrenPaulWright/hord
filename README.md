@@ -10,16 +10,48 @@
 [![vulnerabilities][vulnerabilities]][vulnerabilities-url]
 [![license][license]][license-url]
 
-
 <br><a name="Installation"></a>
 
-### Installation
-```npm install hord```_Requires Babel 7.2+_
+## Installation
+```
+npm install hord
+```
+_Requires Babel 7.2+_
 
-<br><a name="Docs"></a>
 
-### Docs
-- [List](docs/List.md)- [Schema](docs/Schema.md)- [Model](docs/Model.md)- [Collection](docs/Collection.md)- [compare](docs/compare.md)
+<br>
+
+## Classes
+
+<dl>
+<dt><a href="docs/Collection.md">Collection</a> ⇐ <code>Array</code></dt>
+<dd><p>An array of objects with optional model enforcement and indexed queries.</p>
+</dd>
+<dt><a href="docs/List.md">List</a></dt>
+<dd><p>Always sorted array.</p>
+</dd>
+<dt><a href="docs/Model.md">Model</a></dt>
+<dd><p>Models with automatic schema enforcement.</p>
+</dd>
+<dt><a href="docs/Schema.md">Schema</a></dt>
+<dd><p>Schema enforcement.</p>
+</dd>
+</dl>
+
+<br>
+
+## Functions
+
+<dl>
+<dt><a href="docs/compare.md">compare([paths], [desc])</a> ⇒ <code>function</code></dt>
+<dd><p>Returns a function that compares two values. If paths are provided, compares the values at that path on objects.</p>
+<p>Notes:</p>
+<ul>
+<li>Handles undefined, null, and NaN.</li>
+<li>Distinguishes numbers from strings.</li>
+</ul>
+</dd>
+</dl>
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord

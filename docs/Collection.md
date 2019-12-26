@@ -13,8 +13,9 @@
 
 <br><a name="Collection"></a>
 
-### Collection ⇐ <code>Array</code>
-``` javascriptimport { Collection } from 'hord';```
+## Collection ⇐ <code>Array</code>
+> An array of objects with optional model enforcement and indexed queries.
+
 **Extends**: <code>Array</code>  
 
 * [Collection](#Collection) ⇐ <code>Array</code>
@@ -74,8 +75,8 @@
 
 <br><a name="new_Collection_new"></a>
 
-#### new Collection()
-> An array of objects with optional model enforcement and indexed queries. For info on indexing, see Collection.[model](#Collection+model).> > The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement and indexing.
+### new Collection()
+> ``` javascript> import { Collection } from 'hord';> ```> For info on indexing, see Collection.[model](#Collection+model).> The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement and indexing.
 
 
 | Type | Description |
@@ -85,7 +86,7 @@
 
 <br><a name="Collection+length"></a>
 
-#### collection.length : <code>Number</code>
+### collection.length : <code>Number</code>
 _`✎ Updates indexes`_
 > Set or return the number of elements in the collection.
 
@@ -93,7 +94,7 @@ _`✎ Updates indexes`_
 
 <br><a name="Collection+push"></a>
 
-#### collection.push(item) ⇒ <code>Number</code>
+### collection.push(item) ⇒ <code>Number</code>
 _`✎ Updates indexes`_
 > Add an item to the end of the collection.
 
@@ -107,7 +108,7 @@ _`✎ Updates indexes`_
 
 <br><a name="Collection+pop"></a>
 
-#### collection.pop() ⇒ <code>\*</code>
+### collection.pop() ⇒ <code>\*</code>
 _`✎ Updates indexes`_
 > Remove the last item from the collection and return it.
 
@@ -115,7 +116,7 @@ _`✎ Updates indexes`_
 
 <br><a name="Collection+unshift"></a>
 
-#### collection.unshift(item) ⇒ <code>Number</code>
+### collection.unshift(item) ⇒ <code>Number</code>
 _`✎ Updates indexes`_
 > Add an item to the beginning of the collection.
 
@@ -129,7 +130,7 @@ _`✎ Updates indexes`_
 
 <br><a name="Collection+shift"></a>
 
-#### collection.shift() ⇒ <code>\*</code>
+### collection.shift() ⇒ <code>\*</code>
 _`✎ Updates indexes`_
 > Remove the first item from the collection and return it.
 
@@ -137,7 +138,7 @@ _`✎ Updates indexes`_
 
 <br><a name="Collection+indexOf"></a>
 
-#### collection.indexOf(item) ⇒ <code>Number</code>
+### collection.indexOf(item) ⇒ <code>Number</code>
 _`⚡ Utilizes indexes`_
 > Gets the index of the item using exact equality.
 
@@ -150,7 +151,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+lastIndexOf"></a>
 
-#### collection.lastIndexOf(item) ⇒ <code>Number</code>
+### collection.lastIndexOf(item) ⇒ <code>Number</code>
 _`⚡ Utilizes indexes`_
 > Gets the index of the last matching item.
 
@@ -163,7 +164,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+includes"></a>
 
-#### collection.includes(item) ⇒ <code>Boolean</code>
+### collection.includes(item) ⇒ <code>Boolean</code>
 _`⚡ Utilizes indexes`_
 > Determines if an item exists in the collection.
 
@@ -175,7 +176,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+findIndex"></a>
 
-#### collection.findIndex(predicate) ⇒ <code>Number</code>
+### collection.findIndex(predicate) ⇒ <code>Number</code>
 _`⚡ Utilizes indexes`_
 > Gets the index of the first (lowest index) matching item.
 
@@ -188,7 +189,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+findLastIndex"></a>
 
-#### collection.findLastIndex(predicate) ⇒ <code>Number</code>
+### collection.findLastIndex(predicate) ⇒ <code>Number</code>
 _`⚡ Utilizes indexes`_
 > Gets the index of the last (greatest index) matching item.
 
@@ -201,7 +202,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+find"></a>
 
-#### collection.find(predicate) ⇒ <code>Object</code>
+### collection.find(predicate) ⇒ <code>Object</code>
 _`⚡ Utilizes indexes`_
 > Gets the first (lowest index) matching item from the collection.
 
@@ -214,7 +215,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+findLast"></a>
 
-#### collection.findLast(predicate) ⇒ <code>Object</code>
+### collection.findLast(predicate) ⇒ <code>Object</code>
 _`⚡ Utilizes indexes`_
 > Gets the last (greatest index) matching item from the collection.
 
@@ -227,7 +228,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+filter"></a>
 
-#### collection.filter(predicate) ⇒ [<code>Collection</code>](#Collection)
+### collection.filter(predicate) ⇒ [<code>Collection</code>](#Collection)
 _`⚡ Utilizes indexes`_
 > Gets all the matching items from the collection.
 
@@ -240,7 +241,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+sliceBy"></a>
 
-#### collection.sliceBy(beginPredicate, [endPredicate]) ⇒ [<code>Collection</code>](#Collection)
+### collection.sliceBy(beginPredicate, [endPredicate]) ⇒ [<code>Collection</code>](#Collection)
 _`⚡ Utilizes indexes`_
 > Like .slice(), but finds the begin and end indexes via predicates. (end is included)
 
@@ -254,19 +255,19 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+first"></a>
 
-#### collection.first() ⇒ <code>Object</code>
+### collection.first() ⇒ <code>Object</code>
 > Gets the first item in the collection without removing it.
 
 
 <br><a name="Collection+last"></a>
 
-#### collection.last() ⇒ <code>Object</code>
+### collection.last() ⇒ <code>Object</code>
 > Gets the last item in the collection without removing it.
 
 
 <br><a name="Collection+slice"></a>
 
-#### collection.slice(begin, [end]) ⇒ [<code>Collection</code>](#Collection)
+### collection.slice(begin, [end]) ⇒ [<code>Collection</code>](#Collection)
 > Returns a shallow copy of a portion of the collection selected from begin to end (end not included).
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
@@ -279,7 +280,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+flatten"></a>
 
-#### collection.flatten([settings]) ⇒ [<code>Collection</code>](#Collection)
+### collection.flatten([settings]) ⇒ [<code>Collection</code>](#Collection)
 > Returns a new flattened collection
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
@@ -295,7 +296,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+nest"></a>
 
-#### collection.nest([settings]) ⇒ [<code>Collection</code>](#Collection)
+### collection.nest([settings]) ⇒ [<code>Collection</code>](#Collection)
 _`⚡ Utilizes indexes`_
 > Returns a new nested collection
 
@@ -312,7 +313,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+unique"></a>
 
-#### collection.unique([countKey]) ⇒ [<code>Collection</code>](#Collection)
+### collection.unique([countKey]) ⇒ [<code>Collection</code>](#Collection)
 _`⚡ Utilizes indexes`_
 > Returns a new collection of deeply unique items
 
@@ -325,7 +326,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+merge"></a>
 
-#### collection.merge(collections, idKey, callback) ⇒ [<code>Collection</code>](#Collection)
+### collection.merge(collections, idKey, callback) ⇒ [<code>Collection</code>](#Collection)
 _`⚡ Utilizes indexes`_
 > Merges this collection with one or more other collections. Returns a new collection.
 
@@ -340,7 +341,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+concat"></a>
 
-#### collection.concat(value) ⇒ [<code>Collection</code>](#Collection)
+### collection.concat(value) ⇒ [<code>Collection</code>](#Collection)
 > Returns a shallow clone of this collection with the contents of one or more arrays or collections appended.
 
 **See**: [Array.prototype.concat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)  
@@ -352,12 +353,12 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+toString"></a>
 
-#### collection.toString() ⇒ <code>String</code>
+### collection.toString() ⇒ <code>String</code>
 **See**: [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)  
 
 <br><a name="Collection+toLocaleString"></a>
 
-#### collection.toLocaleString([locales], [options]) ⇒ <code>String</code>
+### collection.toLocaleString([locales], [options]) ⇒ <code>String</code>
 **See**: [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)  
 
 | Param | Type |
@@ -368,7 +369,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+join"></a>
 
-#### collection.join([separator]) ⇒ <code>String</code>
+### collection.join([separator]) ⇒ <code>String</code>
 **See**: [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)  
 
 | Param | Type | Default |
@@ -378,22 +379,22 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+entries"></a>
 
-#### collection.entries() ⇒ <code>Iterator</code>
+### collection.entries() ⇒ <code>Iterator</code>
 **See**: [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)  
 
 <br><a name="Collection+values"></a>
 
-#### collection.values() ⇒ <code>Iterator</code>
+### collection.values() ⇒ <code>Iterator</code>
 **See**: [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values)  
 
 <br><a name="Collection+keys"></a>
 
-#### collection.keys() ⇒ <code>Object</code>
+### collection.keys() ⇒ <code>Object</code>
 **See**: [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)  
 
 <br><a name="Collection+forEach"></a>
 
-#### collection.forEach(callback, [thisArg]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### collection.forEach(callback, [thisArg]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Calls a provided callback once for each array element in order starting at 0.> Unlike the native forEach, this one returns an instance of collection for chaining.
 
@@ -407,7 +408,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+forEachRight"></a>
 
-#### collection.forEachRight(callback, [thisArg]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### collection.forEachRight(callback, [thisArg]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Like .forEach(), but starts on the last (greatest index) item> and progresses backwards
 
@@ -420,7 +421,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+some"></a>
 
-#### collection.some(callback, [thisArg]) ⇒ <code>Boolean</code>
+### collection.some(callback, [thisArg]) ⇒ <code>Boolean</code>
 **See**: [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)  
 
 | Param | Type |
@@ -431,7 +432,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+someRight"></a>
 
-#### collection.someRight(callback, [thisArg]) ⇒ <code>Boolean</code>
+### collection.someRight(callback, [thisArg]) ⇒ <code>Boolean</code>
 > Like .some(), but starts on the last (greatest index) item and progresses backwards
 
 
@@ -443,7 +444,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+every"></a>
 
-#### collection.every(callback, [thisArg]) ⇒ <code>Boolean</code>
+### collection.every(callback, [thisArg]) ⇒ <code>Boolean</code>
 **See**: [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)  
 
 | Param | Type |
@@ -454,7 +455,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+reduce"></a>
 
-#### collection.reduce(callback, [thisArg]) ⇒ <code>\*</code>
+### collection.reduce(callback, [thisArg]) ⇒ <code>\*</code>
 **See**: [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)  
 
 | Param | Type |
@@ -465,7 +466,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+reduceRight"></a>
 
-#### collection.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
+### collection.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
 **See**: [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)  
 
 | Param | Type |
@@ -476,7 +477,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+map"></a>
 
-#### collection.map(callback, thisArg) ⇒ [<code>Collection</code>](#Collection)
+### collection.map(callback, thisArg) ⇒ [<code>Collection</code>](#Collection)
 > Returns a new collection with the results of calling a provided> function on every element.
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
@@ -489,7 +490,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+eachChild"></a>
 
-#### collection.eachChild(onChild, [settings])
+### collection.eachChild(onChild, [settings])
 > Calls a callback for each nested child
 
 
@@ -503,7 +504,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+flat"></a>
 
-#### collection.flat([depth]) ⇒ [<code>Collection</code>](#Collection)
+### collection.flat([depth]) ⇒ [<code>Collection</code>](#Collection)
 > Creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
@@ -516,7 +517,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+flatMap"></a>
 
-#### collection.flatMap(callback, thisArg) ⇒ [<code>Collection</code>](#Collection)
+### collection.flatMap(callback, thisArg) ⇒ [<code>Collection</code>](#Collection)
 > Maps each element using a mapping function, then flattens the result into a new array. Same as .map().flat().
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
@@ -530,7 +531,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+model"></a>
 
-#### collection.model() ⇒ <code>Model</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### collection.model() ⇒ <code>Model</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 _`✎ Builds indexes`_
 > A model that gets enforced on every item in the collection.> To create indexes, add 'index: true' to the schema type definition> like in the example below.
@@ -545,13 +546,13 @@ _`✎ Builds indexes`_
 
 <br><a name="Collection+remove"></a>
 
-#### collection.remove()
+### collection.remove()
 > Removes all model onChange events and indexes and empties the collection.
 
 
 <br><a name="Collection+copyWithin"></a>
 
-#### collection.copyWithin(target, [start], [end]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### collection.copyWithin(target, [start], [end]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 _`⚠ Forces a rebuild of all indexes`_
 > Shallow copies a portion of the collection to another location within the collection.
@@ -567,7 +568,7 @@ _`⚠ Forces a rebuild of all indexes`_
 
 <br><a name="Collection+fill"></a>
 
-#### collection.fill(value, [start], [end]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### collection.fill(value, [start], [end]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 _`⚠ Forces a rebuild of all indexes`_
 > Fills all or a portion of the collection with a static value.
@@ -583,7 +584,7 @@ _`⚠ Forces a rebuild of all indexes`_
 
 <br><a name="Collection+reverse"></a>
 
-#### collection.reverse() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### collection.reverse() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 _`⚠ Forces a rebuild of all indexes`_
 > Reverses the order of items in place.
@@ -592,7 +593,7 @@ _`⚠ Forces a rebuild of all indexes`_
 
 <br><a name="Collection+sort"></a>
 
-#### collection.sort([compareFunction]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### collection.sort([compareFunction]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 _`⚠ Forces a rebuild of all indexes`_
 > Sort the contents of the collection in place.
@@ -606,7 +607,7 @@ _`⚠ Forces a rebuild of all indexes`_
 
 <br><a name="Collection+splice"></a>
 
-#### collection.splice(start, [deleteCount]) ⇒ [<code>Collection</code>](#Collection)
+### collection.splice(start, [deleteCount]) ⇒ [<code>Collection</code>](#Collection)
 _`✎ Updates indexes`_
 > Changes the contents of an collection in place by removing or replacing existing elements and/or adding new elements
 
@@ -622,8 +623,8 @@ _`✎ Updates indexes`_
 
 <br><a name="predicate"></a>
 
-### predicate : <code>function</code> \| <code>Object</code>
-Can be either of the following:- A function that accepts one item from the collection and returns true to indicate a match.- A query object that is deeply compared to items in the collection. Available operators are outlined below.#### Query Operators##### $eq (EQual)The same as not providing any operator. Uses SameValue equality.``` javascript{age: 23}// OR{age: {$eq: 23}}```<br>##### $ne (Not Equal)Like $eq, $ne uses SameValue equality, but matches values that don't equal.``` javascript{age: {$ne: 23}}```<br>##### $in (IN)Matches any item in an array.``` javascript{age: {$in: [20, 30, 40]}}```<br>##### $nin (Not IN)Matches any item not in an array.``` javascript{age: {$nin: [20, 30, 40]}}```<br>##### $gt (Greater Than)Matches values greater than the provided value``` javascript{age: {$gt: 21}}```<br>##### $gte (Greater Than or Equal)Matches values greater than the provided value``` javascript{age: {$gte: 21}}```<br>##### $lt (Less Than)Matches values greater than the provided value``` javascript{age: {$lt: 21}}```<br>##### $lte (Less Than or Equal)Matches values greater than the provided value``` javascript{age: {$lte: 21}}```
+## predicate : <code>function</code> \| <code>Object</code>
+Can be either of the following:- A function that accepts one item from the collection and returns true to indicate a match.- A query object that is deeply compared to items in the collection. Available operators are outlined below.### Query Operators#### $eq (EQual)The same as not providing any operator. Uses SameValue equality.``` javascript{age: 23}// OR{age: {$eq: 23}}```<br>#### $ne (Not Equal)Like $eq, $ne uses SameValue equality, but matches values that don't equal.``` javascript{age: {$ne: 23}}```<br>#### $in (IN)Matches any item in an array.``` javascript{age: {$in: [20, 30, 40]}}```<br>#### $nin (Not IN)Matches any item not in an array.``` javascript{age: {$nin: [20, 30, 40]}}```<br>#### $gt (Greater Than)Matches values greater than the provided value``` javascript{age: {$gt: 21}}```<br>#### $gte (Greater Than or Equal)Matches values greater than the provided value``` javascript{age: {$gte: 21}}```<br>#### $lt (Less Than)Matches values greater than the provided value``` javascript{age: {$lt: 21}}```<br>#### $lte (Less Than or Equal)Matches values greater than the provided value``` javascript{age: {$lte: 21}}```
 > If you haven't set up any indexes, or you're searching on properties that aren't indexed, then providing a function will most likely have better performance. If you're searching on even one property that's indexed, then using an object will perform better, as the indexer can narrow the search before iterating over the results for a final match.
 
 

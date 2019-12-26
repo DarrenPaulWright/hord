@@ -25,7 +25,7 @@ export const MODEL_ERROR_LEVEL = new Enum({
 });
 
 /**
- * Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.
+ *  Once the Model is instantiated the schema can't be changed.
  *
  * The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
  *
@@ -56,6 +56,7 @@ export const MODEL_ERROR_LEVEL = new Enum({
  * ```
  *
  * @class Model
+ * @classdesc Models with automatic schema enforcement.
  *
  * @arg {Schema} schema
  */

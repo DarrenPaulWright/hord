@@ -13,8 +13,9 @@
 
 <br><a name="List"></a>
 
-### List
-``` javascriptimport { List } from 'hord';```
+## List
+> Always sorted array.
+
 
 * [List](#List)
     * [new List([values])](#new_List_new)
@@ -61,8 +62,8 @@
 
 <br><a name="new_List_new"></a>
 
-#### new List([values])
-> Always sorted array.> > List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
+### new List([values])
+> ``` javascript> import { List } from 'hord';> ```> List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
 
 
 | Param | Type |
@@ -72,14 +73,14 @@
 
 <br><a name="List+length"></a>
 
-#### list.length ⇒ <code>Number</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
+### list.length ⇒ <code>Number</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
 > The number of items in the list
 
 
 <br><a name="List+sorter"></a>
 
-#### list.sorter(sorter) ⇒ <code>\*</code>
+### list.sorter(sorter) ⇒ <code>\*</code>
 > The sorting function. This function is used by .sort() and the binary search to determine equality.> > See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);> ```
 
 
@@ -90,14 +91,14 @@
 
 <br><a name="List+sort"></a>
 
-#### list.sort() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.sort() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Sort the items.
 
 
 <br><a name="List+add"></a>
 
-#### list.add(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.add(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Add an item to the list. Uses binary search.
 
@@ -109,7 +110,7 @@
 
 <br><a name="List+addUnique"></a>
 
-#### list.addUnique(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.addUnique(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Add an item to the list if it isn't already included. Uses binary search.
 
@@ -121,13 +122,13 @@
 
 <br><a name="List+unique"></a>
 
-#### list.unique() ⇒ [<code>List</code>](#List)
+### list.unique() ⇒ [<code>List</code>](#List)
 > Get a new List of the unique (as determined by the sorter) values in this List.
 
 
 <br><a name="List+concat"></a>
 
-#### list.concat(values) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.concat(values) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Returns a shallow clone of this list with the contents of one or more arrays or lists appended.
 
@@ -139,7 +140,7 @@
 
 <br><a name="List+discard"></a>
 
-#### list.discard(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.discard(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Discard an item from the list. Uses binary search.
 
@@ -151,14 +152,14 @@
 
 <br><a name="List+discardAll"></a>
 
-#### list.discardAll() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.discardAll() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Discard all items from the list.
 
 
 <br><a name="List+values"></a>
 
-#### list.values([values]) ⇒ <code>Array</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.values([values]) ⇒ <code>Array</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > The current items in the list.
 
@@ -171,7 +172,7 @@
 
 <br><a name="List+indexOf"></a>
 
-#### list.indexOf(item) ⇒ <code>Number</code>
+### list.indexOf(item) ⇒ <code>Number</code>
 > Gets the index of the first matching item. Uses a binary search.
 
 **Returns**: <code>Number</code> - The index of the item or -1  
@@ -183,7 +184,7 @@
 
 <br><a name="List+lastIndexOf"></a>
 
-#### list.lastIndexOf(item) ⇒ <code>Number</code>
+### list.lastIndexOf(item) ⇒ <code>Number</code>
 > Gets the index of the last matching item. Uses a binary search.
 
 **Returns**: <code>Number</code> - The index of the item or -1  
@@ -195,7 +196,7 @@
 
 <br><a name="List+includes"></a>
 
-#### list.includes(item) ⇒ <code>Boolean</code>
+### list.includes(item) ⇒ <code>Boolean</code>
 > Determines if an item exists in the list. Uses a binary search.
 
 
@@ -206,7 +207,7 @@
 
 <br><a name="List+find"></a>
 
-#### list.find(item) ⇒ <code>\*</code>
+### list.find(item) ⇒ <code>\*</code>
 > Gets the first matching item from the list. Uses a binary search.
 
 **Returns**: <code>\*</code> - The item or undefined  
@@ -218,7 +219,7 @@
 
 <br><a name="List+findLast"></a>
 
-#### list.findLast(item) ⇒ <code>\*</code>
+### list.findLast(item) ⇒ <code>\*</code>
 > Gets the last matching item from the list. Uses a binary search.
 
 **Returns**: <code>\*</code> - The item or undefined  
@@ -230,7 +231,7 @@
 
 <br><a name="List+findAll"></a>
 
-#### list.findAll(item) ⇒ [<code>List</code>](#List)
+### list.findAll(item) ⇒ [<code>List</code>](#List)
 > Gets all the matching items from the list. Uses a binary search.
 
 
@@ -241,7 +242,7 @@
 
 <br><a name="List+findIndex"></a>
 
-#### list.findIndex(item) ⇒ <code>Number</code>
+### list.findIndex(item) ⇒ <code>Number</code>
 > Gets the index of the first matching item. Uses a binary search. (Identical to indexOf)
 
 **Returns**: <code>Number</code> - The index of the item or -1  
@@ -253,7 +254,7 @@
 
 <br><a name="List+findLastIndex"></a>
 
-#### list.findLastIndex(item) ⇒ <code>Number</code>
+### list.findLastIndex(item) ⇒ <code>Number</code>
 > Gets the index of the last matching item. Uses a binary search. (Identical to lastIndexOf)
 
 **Returns**: <code>Number</code> - The index of the item or -1  
@@ -265,19 +266,19 @@
 
 <br><a name="List+first"></a>
 
-#### list.first() ⇒ <code>\*</code>
+### list.first() ⇒ <code>\*</code>
 > Gets the first item in the list without removing it.
 
 
 <br><a name="List+last"></a>
 
-#### list.last() ⇒ <code>\*</code>
+### list.last() ⇒ <code>\*</code>
 > Gets the last item in the list without removing it.
 
 
 <br><a name="List+someRight"></a>
 
-#### list.someRight(callback, [thisArg]) ⇒ [<code>List</code>](#List)
+### list.someRight(callback, [thisArg]) ⇒ [<code>List</code>](#List)
 > Like .some(), but starts on the last (greatest index) item and progresses backwards
 
 
@@ -289,7 +290,7 @@
 
 <br><a name="List+intersection"></a>
 
-#### list.intersection(array) ⇒ [<code>List</code>](#List)
+### list.intersection(array) ⇒ [<code>List</code>](#List)
 > Gets the items that exist both in this list and in another list or array. Equality of items is determined by the sorter.
 
 
@@ -300,31 +301,31 @@
 
 <br><a name="List+pop"></a>
 
-#### list.pop() ⇒ <code>\*</code>
+### list.pop() ⇒ <code>\*</code>
 > See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
 
 
 <br><a name="List+shift"></a>
 
-#### list.shift() ⇒ <code>\*</code>
+### list.shift() ⇒ <code>\*</code>
 > See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
 
 
 <br><a name="List+toString"></a>
 
-#### list.toString() ⇒ <code>String</code>
+### list.toString() ⇒ <code>String</code>
 > See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
 
 
 <br><a name="List+keys"></a>
 
-#### list.keys() ⇒ <code>Object</code>
+### list.keys() ⇒ <code>Object</code>
 > See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
 
 
 <br><a name="List+every"></a>
 
-#### list.every(callback, [thisArg]) ⇒ <code>Boolean</code>
+### list.every(callback, [thisArg]) ⇒ <code>Boolean</code>
 > See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 
 
@@ -336,7 +337,7 @@
 
 <br><a name="List+forEach"></a>
 
-#### list.forEach(callback, [thisArg]) ⇒ <code>undefined</code>
+### list.forEach(callback, [thisArg]) ⇒ <code>undefined</code>
 > See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 
 
@@ -348,7 +349,7 @@
 
 <br><a name="List+toLocaleString"></a>
 
-#### list.toLocaleString([locales], [options]) ⇒ <code>String</code>
+### list.toLocaleString([locales], [options]) ⇒ <code>String</code>
 > See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
 
 
@@ -360,7 +361,7 @@
 
 <br><a name="List+join"></a>
 
-#### list.join([separator]) ⇒ <code>String</code>
+### list.join([separator]) ⇒ <code>String</code>
 > See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
 
 
@@ -371,7 +372,7 @@
 
 <br><a name="List+map"></a>
 
-#### list.map(callback, [thisArg]) ⇒ <code>Array</code>
+### list.map(callback, [thisArg]) ⇒ <code>Array</code>
 > See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 
 
@@ -383,7 +384,7 @@
 
 <br><a name="List+reduce"></a>
 
-#### list.reduce(callback, [thisArg]) ⇒ <code>\*</code>
+### list.reduce(callback, [thisArg]) ⇒ <code>\*</code>
 > See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 
 
@@ -395,7 +396,7 @@
 
 <br><a name="List+reduceRight"></a>
 
-#### list.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
+### list.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
 > See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
 
 
@@ -407,7 +408,7 @@
 
 <br><a name="List+some"></a>
 
-#### list.some(callback, [thisArg]) ⇒ <code>Boolean</code>
+### list.some(callback, [thisArg]) ⇒ <code>Boolean</code>
 > See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
 
@@ -419,7 +420,7 @@
 
 <br><a name="List+filter"></a>
 
-#### list.filter(callback, [thisArg]) ⇒ [<code>List</code>](#List)
+### list.filter(callback, [thisArg]) ⇒ [<code>List</code>](#List)
 > See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
 
@@ -431,7 +432,7 @@
 
 <br><a name="List+slice"></a>
 
-#### list.slice([begin], [end]) ⇒ [<code>List</code>](#List)
+### list.slice([begin], [end]) ⇒ [<code>List</code>](#List)
 > See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
 
 
@@ -443,7 +444,7 @@
 
 <br><a name="List.sorter"></a>
 
-#### List.sorter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
+### List.sorter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
 > Some simple sorter functions.
 

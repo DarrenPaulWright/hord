@@ -13,7 +13,9 @@
 
 <br><a name="Model"></a>
 
-### Model
+## Model
+> Models with automatic schema enforcement.
+
 
 * [Model](#Model)
     * [new Model(schema)](#new_Model_new)
@@ -30,8 +32,8 @@
 
 <br><a name="new_Model_new"></a>
 
-#### new Model(schema)
-> Models with automatic schema enforcement. Once the Model is instantiated the schema can't be changed.> > The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
+### new Model(schema)
+> Once the Model is instantiated the schema can't be changed.> > The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
 
 
 | Param | Type |
@@ -43,14 +45,14 @@
 
 <br><a name="Model+schema"></a>
 
-#### model.schema ⇒ <code>Schema</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
+### model.schema ⇒ <code>Schema</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
 > Get the schema for this model
 
 
 <br><a name="Model+apply"></a>
 
-#### model.apply(object) ⇒ <code>Object</code>
+### model.apply(object) ⇒ <code>Object</code>
 > Apply this model to an object
 
 
@@ -61,7 +63,7 @@
 
 <br><a name="Model+extend"></a>
 
-#### model.extend(model) ⇒ [<code>Model</code>](#Model)
+### model.extend(model) ⇒ [<code>Model</code>](#Model)
 > Returns a new Model with a new [extended](docs/Schema.md#Schema+extend) Schema. Retains the errorLevel from the calling Model.
 
 
@@ -72,7 +74,7 @@
 
 <br><a name="Model+errorLevel"></a>
 
-#### model.errorLevel(errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### model.errorLevel(errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > How to handle errors on this model. Overrides Model.defaultErrorLevel()
 
@@ -85,7 +87,7 @@
 
 <br><a name="Model+onChange"></a>
 
-#### model.onChange(callback) ⇒ <code>Queue</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### model.onChange(callback) ⇒ <code>Queue</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Called when a change is observed on an object applied to this model
 
@@ -98,7 +100,7 @@
 
 <br><a name="Model+onError"></a>
 
-#### model.onError(callback) ⇒ <code>Queue</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### model.onError(callback) ⇒ <code>Queue</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Called when an error is returned from Schema validation
 
@@ -111,7 +113,7 @@
 
 <br><a name="Model.defaultErrorLevel"></a>
 
-#### Model.defaultErrorLevel(errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
+### Model.defaultErrorLevel(errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
 > How to handle errors on all models
 
 **Default**: <code>MODEL_ERROR_LEVEL.WARN</code>  
@@ -123,7 +125,7 @@
 
 <br><a name="MODEL_ERROR_LEVEL"></a>
 
-### MODEL\_ERROR\_LEVEL : <code>Enum</code>
+## MODEL\_ERROR\_LEVEL : <code>Enum</code>
 > How to handle Schema validation errors in models.
 
 **Properties**

@@ -56,17 +56,13 @@ export const _ = new PrivateVars();
 const spawn = Symbol();
 
 /**
- * @class List
- * @summary
- *
  * ``` javascript
  * import { List } from 'hord';
  * ```
- * @description
- * Always sorted array.
- *
  * List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
  *
+ * @class List
+ * @classdesc Always sorted array.
  *
  * @arg {Array} [values]
  */

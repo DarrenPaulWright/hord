@@ -12,59 +12,54 @@
 		"test": "karma start --single-run",
 		"test-watch": "karma start",
 		"bench": "karma start karma.bench.conf.js",
-		"patch": "npm version patch && npm publish",
-		"minor": "npm version minor && npm publish",
-		"major": "npm version major && npm publish",
 		"preversion": "npm test && npm run docs && git add --all && git diff --staged --quiet || git commit -m \"Updating docs\"",
+		"postversion": "npm publish",
 		"postpublish": "git push --follow-tags",
 		"deps": "ncu -u && npm install",
-		"deps-commit": "npm run deps && git add --all && git commit -m \"Updating dependencies\"",
-		"deps-patch": "npm run deps-commit && npm run patch",
-		"docs:readme": "jsdoc2md index.js > README.md",
-		"docs:list": "jsdoc2md src/List.js > docs/List.md",
-		"docs:schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md",
-		"docs:model": "jsdoc2md src/Model.js > docs/Model.md",
-		"docs:collection": "jsdoc2md src/Collection.js > docs/Collection.md",
-		"docs:compare": "jsdoc2md src/utility/compare.js > docs/compare.md",
-		"docs": "run-p \"docs:* -- -t docs/docs.hbs --plugin dmd-readable\""
+		"deps-commit": "npm run deps && npm test && git add --all && git diff --staged --quiet || git commit -m \"Updating dependencies\"",
+		"deps-patch": "npm run deps-commit && npm version patch",
+		"docs:readme": "jsdoc2md ./index.js src/**/*.js > README.md -t node_modules/dmd-readable/overview.hbs --plugin dmd-readable/overview-plugin.js",
+		"docs:list": "jsdoc2md src/List.js > docs/List.md -t node_modules/dmd-readable/docs.hbs --plugin dmd-readable",
+		"docs:schema": "jsdoc2md src/Schema/Schema.js > docs/Schema.md -t node_modules/dmd-readable/docs.hbs --plugin dmd-readable",
+		"docs:model": "jsdoc2md src/Model.js > docs/Model.md -t node_modules/dmd-readable/docs.hbs --plugin dmd-readable",
+		"docs:collection": "jsdoc2md src/Collection.js > docs/Collection.md -t node_modules/dmd-readable/docs.hbs --plugin dmd-readable",
+		"docs:compare": "jsdoc2md src/utility/compare.js > docs/compare.md -t node_modules/dmd-readable/docs.hbs --plugin dmd-readable",
+		"docs": "run-p docs:*"
 	},
-	"badges": [
-		{
-			"name": "npm",
-			"image": "https://img.shields.io/npm/v/hord.svg",
-			"url": "https://npmjs.com/package/hord"
+	"badges": {
+		"npm": {
+			"image": "https://img.shields.io/npm/v/{{name}}.svg",
+			"url": "https://npmjs.com/package/{{name}}"
 		},
-		{
-			"name": "build",
-			"image": "https://travis-ci.org/DarrenPaulWright/hord.svg?branch=master",
-			"url": "https://travis-ci.org/DarrenPaulWright/hord"
+		"build": {
+			"base": "https://travis-ci.org/DarrenPaulWright/",
+			"image": "{{name}}.svg?branch=master",
+			"url": "{{name}}"
 		},
-		{
-			"name": "coverage",
-			"image": "https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch=master",
-			"url": "https://coveralls.io/github/DarrenPaulWright/hord?branch=master"
+		"coverage": {
+			"base": "https://coveralls.io/",
+			"image": "repos/github/DarrenPaulWright/{{name}}/badge.svg?branch=master",
+			"url": "github/DarrenPaulWright/{{name}}?branch=master"
 		},
-		{
-			"name": "deps",
-			"image": "https://david-dm.org/darrenpaulwright/hord.svg",
-			"url": "https://david-dm.org/darrenpaulwright/hord"
+		"deps": {
+			"image": "https://david-dm.org/darrenpaulwright/{{name}}.svg",
+			"url": "https://david-dm.org/darrenpaulwright/{{name}}"
 		},
-		{
-			"name": "size",
-			"image": "https://packagephobia.now.sh/badge?p=hord",
-			"url": "https://packagephobia.now.sh/result?p=hord"
+		"size": {
+			"base": "https://packagephobia.now.sh/",
+			"image": "badge?p={{name}}",
+			"url": "result?p={{name}}"
 		},
-		{
-			"name": "vulnerabilities",
-			"image": "https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile=package.json",
-			"url": "https://snyk.io/test/github/DarrenPaulWright/hord?targetFile=package.json"
+		"vulnerabilities": {
+			"base": "https://snyk.io/test/github/DarrenPaulWright/{{name}}",
+			"image": "/badge.svg?targetFile=package.json",
+			"url": "?targetFile=package.json"
 		},
-		{
-			"name": "license",
-			"image": "https://img.shields.io/github/license/DarrenPaulWright/hord.svg",
-			"url": "https://npmjs.com/package/hord/LICENSE.md"
+		"license": {
+			"image": "https://img.shields.io/github/license/DarrenPaulWright/{{name}}.svg",
+			"url": "https://npmjs.com/package/{{name}}/LICENSE.md"
 		}
-	],
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/DarrenPaulWright/hord.git"
@@ -83,18 +78,15 @@
 	"author": "Darren Paul Wright <Darren@DarrenPaulWright.com>",
 	"license": "MIT",
 	"dependencies": {
-		"object-agent": "^1.4.3",
+		"object-agent": "^1.4.4",
 		"on-change": "^1.6.2",
-		"type-enforcer-ui": "^1.0.2"
+		"type-enforcer-ui": "^1.0.3"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.7.5",
-		"@babel/preset-env": "^7.7.6",
-		"dmd-readable": "^1.0.1",
+		"dmd-readable": "^1.1.1",
 		"jsdoc-to-markdown": "^5.0.3",
-		"karma-webpack-bundle": "0.0.5",
+		"karma-webpack-bundle": "0.0.8",
 		"npm-run-all": "^4.1.5",
-		"type-enforcer-test-helper": "^1.0.4",
-		"webpack": "^4.41.2"
+		"type-enforcer-test-helper": "^1.0.5"
 	}
 }

@@ -13,7 +13,9 @@
 
 <br><a name="Schema"></a>
 
-### Schema
+## Schema
+> Schema enforcement.
+
 
 * [Schema](#Schema)
     * [new Schema(schema)](#new_Schema_new)
@@ -25,9 +27,7 @@
 
 <br><a name="new_Schema_new"></a>
 
-#### new Schema(schema)
-> Schema enforcement.
-
+### new Schema(schema)
 
 | Param | Type |
 | --- | --- |
@@ -38,7 +38,7 @@
 
 <br><a name="Schema+validate"></a>
 
-#### schema.validate(item, [path]) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
+### schema.validate(item, [path]) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
 > Validate an item against the schema
 
 
@@ -50,7 +50,7 @@
 
 <br><a name="Schema+enforce"></a>
 
-#### schema.enforce(item, [path], [replace]) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
+### schema.enforce(item, [path], [replace]) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
 > Enforce an items structure against the schema. This function mutates the original item.
 
 
@@ -63,7 +63,7 @@
 
 <br><a name="Schema+eachRule"></a>
 
-#### schema.eachRule(callback)
+### schema.eachRule(callback)
 > Calls a callback for each rule that will be used to validate this schema.
 
 
@@ -74,7 +74,7 @@
 
 <br><a name="Schema+extend"></a>
 
-#### schema.extend(schema) ⇒ [<code>Schema</code>](#Schema)
+### schema.extend(schema) ⇒ [<code>Schema</code>](#Schema)
 > Returns a new Schema with the rules from the provided schema [superimposed](https://github.com/DarrenPaulWright/object-agent/blob/master/docs/superimpose.md) on the rules from this schema. If no args are provided, then the returned Schema is effectively a clone of this one.
 
 
@@ -85,7 +85,7 @@
 
 <br><a name="SchemaError"></a>
 
-### SchemaError : <code>Object</code>
+## SchemaError : <code>Object</code>
 > Schema validation errors
 
 
@@ -99,7 +99,7 @@
 
 <br><a name="SchemaDefinition"></a>
 
-### SchemaDefinition : <code>\*</code> \| <code>Object</code>
+## SchemaDefinition : <code>\*</code> \| <code>Object</code>
 > Schema type definitions. Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.> > '*' can be used as a key to indicate that any keys are allowed in an object.
 
 

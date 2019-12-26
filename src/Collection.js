@@ -23,9 +23,9 @@ import someRight from './utility/someRight';
  * - A function that accepts one item from the collection and returns true to indicate a match.
  * - A query object that is deeply compared to items in the collection. Available operators are outlined below.
  *
- * #### Query Operators
+ * ### Query Operators
  *
- * ##### $eq (EQual)
+ * #### $eq (EQual)
  * The same as not providing any operator. Uses SameValue equality.
  * ``` javascript
  * {age: 23}
@@ -35,7 +35,7 @@ import someRight from './utility/someRight';
  *
  * <br>
  *
- * ##### $ne (Not Equal)
+ * #### $ne (Not Equal)
  * Like $eq, $ne uses SameValue equality, but matches values that don't equal.
  * ``` javascript
  * {age: {$ne: 23}}
@@ -43,7 +43,7 @@ import someRight from './utility/someRight';
  *
  * <br>
  *
- * ##### $in (IN)
+ * #### $in (IN)
  * Matches any item in an array.
  * ``` javascript
  * {age: {$in: [20, 30, 40]}}
@@ -51,7 +51,7 @@ import someRight from './utility/someRight';
  *
  * <br>
  *
- * ##### $nin (Not IN)
+ * #### $nin (Not IN)
  * Matches any item not in an array.
  * ``` javascript
  * {age: {$nin: [20, 30, 40]}}
@@ -59,7 +59,7 @@ import someRight from './utility/someRight';
  *
  * <br>
  *
- * ##### $gt (Greater Than)
+ * #### $gt (Greater Than)
  * Matches values greater than the provided value
  * ``` javascript
  * {age: {$gt: 21}}
@@ -67,7 +67,7 @@ import someRight from './utility/someRight';
  *
  * <br>
  *
- * ##### $gte (Greater Than or Equal)
+ * #### $gte (Greater Than or Equal)
  * Matches values greater than the provided value
  * ``` javascript
  * {age: {$gte: 21}}
@@ -75,7 +75,7 @@ import someRight from './utility/someRight';
  *
  * <br>
  *
- * ##### $lt (Less Than)
+ * #### $lt (Less Than)
  * Matches values greater than the provided value
  * ``` javascript
  * {age: {$lt: 21}}
@@ -83,7 +83,7 @@ import someRight from './utility/someRight';
  *
  * <br>
  *
- * ##### $lte (Less Than or Equal)
+ * #### $lte (Less Than or Equal)
  * Matches values greater than the provided value
  * ``` javascript
  * {age: {$lte: 21}}
@@ -155,17 +155,16 @@ const registerModelOnChange = Symbol();
 const spawn = Symbol();
 
 /**
- * An array of objects with optional model enforcement and indexed queries. For info on indexing, see Collection.{@link Collection#model}.
- *
- * The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement and indexing.
- *
- * @class Collection
- * @extends Array
- * @summary
  *
  * ``` javascript
  * import { Collection } from 'hord';
  * ```
+ * For info on indexing, see Collection.{@link Collection#model}.
+ * The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement and indexing.
+ *
+ * @class Collection
+ * @extends Array
+ * @classdesc An array of objects with optional model enforcement and indexed queries.
  *
  * @arg {Array|Object} - Accepts an array of objects or multiple args of objects.
  */

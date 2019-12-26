@@ -13,7 +13,7 @@
 
 <br><a name="compare"></a>
 
-### compare([paths], [desc]) ⇒ <code>function</code>
+## compare([paths], [desc]) ⇒ <code>function</code>
 > Returns a function that compares two values. If paths are provided, compares the values at that path on objects.> > Notes:> - Handles undefined, null, and NaN.> - Distinguishes numbers from strings.
 
 **Returns**: <code>function</code> - Accepts two arguments to be compared. Returns -1, 0, or 1.  

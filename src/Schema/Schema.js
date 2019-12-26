@@ -96,8 +96,6 @@ const eachRule = (self, callback, path = '', rule) => {
 const _ = new PrivateVars();
 
 /**
- * Schema enforcement.
- *
  * @example
  * ``` javascript
  * import { Schema } from 'hord';
@@ -121,6 +119,7 @@ const _ = new PrivateVars();
  * ```
  *
  * @class Schema
+ * @classdesc Schema enforcement.
  *
  * @arg {SchemaDefinition} schema
  */

@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.6.2]
+### Changed
+- .sorter to .comparer in [List](docs/List.md)
+
+## [0.6.1] - 2019-12-26
+### Changed
+- Better docs
+
+### Security
+- Updated dependencies
+
+## [0.6.0] - 2019-12-11
+### Added
+- "desc" option to [compare](docs/compare.md) 
+
 ## [0.5.10] - 2019-12-09
 ### Security
 - Updated dependencies
@@ -144,6 +159,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
+[0.6.1]: https://github.com/DarrenPaulWright/hord/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/DarrenPaulWright/hord/compare/v0.5.10...v0.6.0
 [0.5.10]: https://github.com/DarrenPaulWright/hord/compare/v0.5.9...v0.5.10
 [0.5.9]: https://github.com/DarrenPaulWright/hord/compare/v0.5.8...v0.5.9
 [0.5.8]: https://github.com/DarrenPaulWright/hord/compare/v0.5.7...v0.5.8

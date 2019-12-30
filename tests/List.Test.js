@@ -9,36 +9,36 @@ describe('sortedIndexOf', () => {
 	});
 
 	it('should return the right index for the first item of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 0}, List.sorter.id.asc), 0);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 0}, List.comparers.id.asc), 0);
 	});
 
 	it('should return the right index for the last item of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, List.sorter.id.asc), 999999);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, List.comparers.id.asc), 999999);
 	});
 
 	it('should return the right index near the beginning of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 9}, List.sorter.id.asc), 9);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 9}, List.comparers.id.asc), 9);
 	});
 
 	it('should return the right index near the end of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, List.sorter.id.asc), 987300);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, List.comparers.id.asc), 987300);
 	});
 
 	it('should return the right index just before the middle of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, List.sorter.id.asc), 499500);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, List.comparers.id.asc), 499500);
 	});
 
 	it('should return the right index just after the middle of an array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, List.sorter.id.asc), 500009);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, List.comparers.id.asc), 500009);
 	});
 
 	it('should return -1 for a value that isn\'t in the array', () => {
-		assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.sorter.id.asc), -1);
+		assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.comparers.id.asc), -1);
 	});
 
 	describe('isLast = true', () => {
 		it('should return -1 for a value that isn\'t in the array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.sorter.id.asc, false, true), -1);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.comparers.id.asc, false, true), -1);
 		});
 
 		it('should return the index of the last of multiple items in the array', () => {
@@ -54,65 +54,65 @@ describe('sortedIndexOf', () => {
 				7,
 				8,
 				9,
-				10], 3, List.sorter.default, false, true), 5);
+				10], 3, List.comparers.default, false, true), 5);
 		});
 
 		it('should return 9 as the index of the last of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([3, 4, 5, 6, 7, 8, 9, 10, 10, 10], 10, List.sorter.default, false, true), 9);
+			assert.equal(sortedIndexOf([3, 4, 5, 6, 7, 8, 9, 10, 10, 10], 10, List.comparers.default, false, true), 9);
 		});
 	});
 
 	describe('isInsert = true', () => {
 		it('should return the right index for the first item of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 0}, List.sorter.id.asc, true), 0);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 0}, List.comparers.id.asc, true), 0);
 		});
 
 		it('should return the right index for the last item of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, List.sorter.id.asc, true), 999999);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 999999}, List.comparers.id.asc, true), 999999);
 		});
 
 		it('should return the right index near the beginning of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 9}, List.sorter.id.asc, true), 9);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 9}, List.comparers.id.asc, true), 9);
 		});
 
 		it('should return the right index near the end of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, List.sorter.id.asc, true), 987300);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 987300}, List.comparers.id.asc, true), 987300);
 		});
 
 		it('should return the right index just before the middle of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, List.sorter.id.asc, true), 499500);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 499500}, List.comparers.id.asc, true), 499500);
 		});
 
 		it('should return the right index just after the middle of an array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, List.sorter.id.asc, true), 500009);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 500009}, List.comparers.id.asc, true), 500009);
 		});
 
 		it('should return the last index for a value that is greater than all others in the big array', () => {
-			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.sorter.id.asc, true), 999999);
+			assert.equal(sortedIndexOf(bigArrayID, {id: 1000001}, List.comparers.id.asc, true), 999999);
 		});
 
 		it('should return the last index for a value that is greater than all others in the array', () => {
-			assert.equal(sortedIndexOf([1, 2, 3, 4, 8, 9], 5, List.sorter.default, true), 3);
+			assert.equal(sortedIndexOf([1, 2, 3, 4, 8, 9], 5, List.comparers.default, true), 3);
 		});
 
 		it('should return the last index for a value that is greater than all others in the array', () => {
-			assert.equal(sortedIndexOf([1, 2, 3, 4, 9], 5, List.sorter.default, true), 3);
+			assert.equal(sortedIndexOf([1, 2, 3, 4, 9], 5, List.comparers.default, true), 3);
 		});
 
 		it('should return the index of the first of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([1, 2, 3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, List.sorter.default, true), 2);
+			assert.equal(sortedIndexOf([1, 2, 3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, List.comparers.default, true), 2);
 		});
 
 		it('should return 0 as the index of the first of multiple items in the array', () => {
-			assert.equal(sortedIndexOf([3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, List.sorter.default, true), 0);
+			assert.equal(sortedIndexOf([3, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10], 3, List.comparers.default, true), 0);
 		});
 	});
 });
 
 describe('List', () => {
-	describe('.sorter', () => {
-		it('should have an initial sorter', () => {
-			assert.equal(new List().sorter(), List.sorter.default);
+	describe('.comparer', () => {
+		it('should have an initial comparer', () => {
+			assert.equal(new List().comparer(), List.comparers.default);
 		});
 
 		it('should sort initial values', () => {
@@ -129,8 +129,9 @@ describe('List', () => {
 				10]);
 		});
 
-		it('should sort initial values with List.sorter.number.asc', () => {
-			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).sorter(List.sorter.number.asc).values(), [0,
+		it('should sort initial values with List.comparers.number.asc', () => {
+			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).comparer(List.comparers.number.asc)
+				.values(), [0,
 				1,
 				2,
 				3,
@@ -143,8 +144,9 @@ describe('List', () => {
 				10]);
 		});
 
-		it('should sort initial values with List.sorter.number.desc', () => {
-			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).sorter(List.sorter.number.desc).values(), [10,
+		it('should sort initial values with List.comparers.number.desc', () => {
+			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).comparer(List.comparers.number.desc)
+				.values(), [10,
 				9,
 				8,
 				7,
@@ -157,21 +159,21 @@ describe('List', () => {
 				0]);
 		});
 
-		it('should sort initial values with List.sorter.string.asc', () => {
-			assert.deepEqual(new List(['c', 'b', 'a']).sorter(List.sorter.string.asc).values(), ['a', 'b', 'c']);
+		it('should sort initial values with List.comparers.string.asc', () => {
+			assert.deepEqual(new List(['c', 'b', 'a']).comparer(List.comparers.string.asc).values(), ['a', 'b', 'c']);
 		});
 
-		it('should sort initial values with List.sorter.string.desc', () => {
-			assert.deepEqual(new List(['b', 'a', 'c']).sorter(List.sorter.string.desc).values(), ['c', 'b', 'a']);
+		it('should sort initial values with List.comparers.string.desc', () => {
+			assert.deepEqual(new List(['b', 'a', 'c']).comparer(List.comparers.string.desc).values(), ['c', 'b', 'a']);
 		});
 
-		it('should sort initial values with List.sorter.id.asc', () => {
-			assert.deepEqual(new List([{id: 'c'}, {id: 'b'}, {id: 'a'}]).sorter(List.sorter.id.asc)
+		it('should sort initial values with List.comparers.id.asc', () => {
+			assert.deepEqual(new List([{id: 'c'}, {id: 'b'}, {id: 'a'}]).comparer(List.comparers.id.asc)
 				.values(), [{id: 'a'}, {id: 'b'}, {id: 'c'}]);
 		});
 
-		it('should sort initial values with List.sorter.id.desc', () => {
-			assert.deepEqual(new List([{id: 'b'}, {id: 'a'}, {id: 'c'}]).sorter(List.sorter.id.desc)
+		it('should sort initial values with List.comparers.id.desc', () => {
+			assert.deepEqual(new List([{id: 'b'}, {id: 'a'}, {id: 'c'}]).comparer(List.comparers.id.desc)
 				.values(), [{id: 'c'}, {id: 'b'}, {id: 'a'}]);
 		});
 	});
@@ -196,7 +198,7 @@ describe('List', () => {
 
 	describe('.addUnique', () => {
 		it('should add an item when no other values have been set', () => {
-			const list = new List().sorter(List.sorter.id.asc);
+			const list = new List().comparer(List.comparers.id.asc);
 			const newValue = {
 				id: 2
 			};
@@ -214,7 +216,7 @@ describe('List', () => {
 				id: 4
 			}, {
 				id: 5
-			}]).sorter(List.sorter.id.asc);
+			}]).comparer(List.comparers.id.asc);
 			const newValue = {
 				id: 0
 			};
@@ -242,7 +244,7 @@ describe('List', () => {
 				id: 7
 			}, {
 				id: 8
-			}]).sorter(List.sorter.id.asc);
+			}]).comparer(List.comparers.id.asc);
 			const newValue = {
 				id: 6
 			};
@@ -270,7 +272,7 @@ describe('List', () => {
 				id: 4
 			}, {
 				id: 5
-			}]).sorter(List.sorter.id.asc);
+			}]).comparer(List.comparers.id.asc);
 			const newValue = {
 				id: 10
 			};
@@ -294,7 +296,7 @@ describe('List', () => {
 				id: 4
 			}, {
 				id: 5
-			}]).sorter(List.sorter.id.asc);
+			}]).comparer(List.comparers.id.asc);
 			const newValue = {
 				id: 3
 			};
@@ -320,7 +322,7 @@ describe('List', () => {
 				id: 7
 			}, {
 				id: 8
-			}]).sorter(List.sorter.id.asc);
+			}]).comparer(List.comparers.id.asc);
 			const newValue = {
 				id: 5
 			};
@@ -346,7 +348,7 @@ describe('List', () => {
 				id: 4
 			}, {
 				id: 5
-			}]).sorter(List.sorter.id.asc);
+			}]).comparer(List.comparers.id.asc);
 			const newValue = {
 				id: 5
 			};
@@ -364,7 +366,7 @@ describe('List', () => {
 
 	describe('.unique', () => {
 		it('should return a new list of unique values', () => {
-			const list = new List().sorter(List.sorter.id.asc).values([{
+			const list = new List().comparer(List.comparers.id.asc).values([{
 				id: 1
 			}, {
 				id: 1
@@ -521,7 +523,7 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => {
+				.comparer((a, b) => {
 					return a.value - b.value;
 				});
 
@@ -555,7 +557,7 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => {
+				.comparer((a, b) => {
 					return a.value - b.value;
 				});
 
@@ -589,7 +591,7 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => a.value - b.value);
+				.comparer((a, b) => a.value - b.value);
 			const output = [];
 			const result = list.findAll({
 				value: 4
@@ -619,7 +621,7 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => a.value - b.value);
+				.comparer((a, b) => a.value - b.value);
 			const output = [{
 				value: 3,
 				other: 'blah'
@@ -652,7 +654,7 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => a.value - b.value);
+				.comparer((a, b) => a.value - b.value);
 			const output = [{
 				value: 5,
 				other: 'ok'
@@ -690,7 +692,7 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => {
+				.comparer((a, b) => {
 					return a.value - b.value;
 				});
 
@@ -721,7 +723,7 @@ describe('List', () => {
 				value: 6,
 				other: 'aaarrr'
 			}])
-				.sorter((a, b) => {
+				.comparer((a, b) => {
 					return a.value - b.value;
 				});
 
@@ -749,20 +751,9 @@ describe('List', () => {
 		});
 
 		it('should add the content of multiple arrays', () => {
-			assert.deepEqual(new List([4, 5, 6]).sorter(List.sorter.number.asc)
+			assert.deepEqual(new List([4, 5, 6]).comparer(List.comparers.number.asc)
 				.concat([1, 2, 3], [7, 8, 9], [10, 11, 12])
-				.values(), [1,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7,
-				8,
-				9,
-				10,
-				11,
-				12]);
+				.values(), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
 		});
 	});
 

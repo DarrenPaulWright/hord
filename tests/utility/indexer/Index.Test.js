@@ -149,7 +149,7 @@ describe('Index', () => {
 
 			const result = index.spawn([1, 3, 5]);
 
-			assert.equal(index.list.sorter(), result.list.sorter());
+			assert.equal(index.list.comparer(), result.list.comparer());
 			assert.deepEqual(result.list.values(), [{
 				v: 'a',
 				i: 1

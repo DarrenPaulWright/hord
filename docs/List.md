@@ -21,7 +21,7 @@
     * [new List([values])](#new_List_new)
     * _instance_
         * [.length](#List+length) ⇒ <code>Number</code>
-        * [.sorter(sorter)](#List+sorter) ⇒ <code>\*</code>
+        * [.comparer(comparer)](#List+comparer) ⇒ <code>\*</code>
         * [.sort()](#List+sort) ↩︎
         * [.add(item)](#List+add) ↩︎
         * [.addUnique(item)](#List+addUnique) ↩︎
@@ -57,7 +57,7 @@
         * [.filter(callback, [thisArg])](#List+filter) ⇒ [<code>List</code>](#List)
         * [.slice([begin], [end])](#List+slice) ⇒ [<code>List</code>](#List)
     * _static_
-        * [.sorter](#List.sorter)
+        * [.comparers](#List.comparers)
 
 
 <br><a name="new_List_new"></a>
@@ -78,15 +78,15 @@
 > The number of items in the list
 
 
-<br><a name="List+sorter"></a>
+<br><a name="List+comparer"></a>
 
-### list.sorter(sorter) ⇒ <code>\*</code>
-> The sorting function. This function is used by .sort() and the binary search to determine equality.> > See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);> ```
+### list.comparer(comparer) ⇒ <code>\*</code>
+> Used by .sort() and the binary search to determine equality.> > See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple comparer functions are provided via the static property [List.comparers](#List.comparers)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().comparer(List.comparers.number.asc).values([1,2,3]);> ```
 
 
 | Param | Type |
 | --- | --- |
-| sorter | <code>function</code> | 
+| comparer | <code>function</code> | 
 
 
 <br><a name="List+sort"></a>
@@ -123,7 +123,7 @@
 <br><a name="List+unique"></a>
 
 ### list.unique() ⇒ [<code>List</code>](#List)
-> Get a new List of the unique (as determined by the sorter) values in this List.
+> Get a new List of the unique (as determined by the comparer) values in this List.
 
 
 <br><a name="List+concat"></a>
@@ -147,7 +147,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+discardAll"></a>
@@ -179,7 +179,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+lastIndexOf"></a>
@@ -191,7 +191,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+includes"></a>
@@ -202,7 +202,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+find"></a>
@@ -214,7 +214,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findLast"></a>
@@ -226,7 +226,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findAll"></a>
@@ -237,7 +237,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findIndex"></a>
@@ -249,7 +249,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findLastIndex"></a>
@@ -261,7 +261,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the sorter function to determine equality. |
+| item | <code>\*</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+first"></a>
@@ -291,7 +291,7 @@
 <br><a name="List+intersection"></a>
 
 ### list.intersection(array) ⇒ [<code>List</code>](#List)
-> Gets the items that exist both in this list and in another list or array. Equality of items is determined by the sorter.
+> Gets the items that exist both in this list and in another list or array. Equality of items is determined by the comparer.
 
 
 | Param | Type |
@@ -442,11 +442,11 @@
 | [end] | <code>Number</code> | <code>array.length</code> | 
 
 
-<br><a name="List.sorter"></a>
+<br><a name="List.comparers"></a>
 
-### List.sorter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
+### List.comparers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
-> Some simple sorter functions.
+> Some simple comparer functions.
 
 **Properties**
 

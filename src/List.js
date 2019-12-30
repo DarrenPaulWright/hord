@@ -2,7 +2,7 @@ import { castArray, PrivateVars } from 'type-enforcer-ui';
 import compare from './utility/compare';
 import someRight from './utility/someRight';
 
-const sorters = Object.freeze({
+const comparers = Object.freeze({
 	default: compare(),
 	string: {
 		asc(a, b) {
@@ -26,7 +26,7 @@ const sorters = Object.freeze({
 	}
 });
 
-export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = false) => {
+export const sortedIndexOf = (array, item, comparer, isInsert = false, isLast = false) => {
 	let low = 0;
 	let high = array.length;
 	let mid = high;
@@ -35,12 +35,12 @@ export const sortedIndexOf = (array, item, sorter, isInsert = false, isLast = fa
 
 	while (low !== high) {
 		mid = high + low >>> 1;
-		diff = sorter(array[mid], item);
+		diff = comparer(array[mid], item);
 
-		if (diff < 0 || isLast === true && diff === 0 && mid < max && sorter(array[mid + 1], item) === 0) {
+		if (diff < 0 || isLast === true && diff === 0 && mid < max && comparer(array[mid + 1], item) === 0) {
 			low = mid + 1;
 		}
-		else if (diff > 0 || isLast === false && mid !== 0 && sorter(array[mid - 1], item) === 0) {
+		else if (diff > 0 || isLast === false && mid !== 0 && comparer(array[mid - 1], item) === 0) {
 			high = mid;
 		}
 		else {
@@ -69,7 +69,7 @@ const spawn = Symbol();
 export default class List {
 	constructor(values = []) {
 		_.set(this, {
-			sorter: sorters.default
+			comparer: comparers.default
 		});
 
 		this.values(values);
@@ -79,41 +79,41 @@ export default class List {
 		const newList = new List();
 		const newSelf = _(newList);
 
-		newSelf.sorter = _(this).sorter;
+		newSelf.comparer = _(this).comparer;
 		newSelf.array = values || [];
 
 		return newList;
 	}
 
 	/**
-	 * The sorting function. This function is used by .sort() and the binary search to determine equality.
+	 * Used by .sort() and the binary search to determine equality.
 	 *
-	 * See the compareFunction for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
-	 * A few simple sorter functions are provided via the static property [List.sorter](#List.sorter)
+	 * See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
+	 * A few simple comparer functions are provided via the static property [List.comparers](#List.comparers)
 	 *
 	 * If you're setting this, you may want to call this before setting the values, like this:
 	 * ``` javascript
 	 * import { List } from 'hord';
 	 *
-	 * const list = new List().sorter(List.sorter.number.asc).values([1,2,3]);
+	 * const list = new List().comparer(List.comparers.number.asc).values([1,2,3]);
 	 * ```
 	 *
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {Function} sorter
+	 * @arg {Function} comparer
 	 *
 	 * @returns {*}
 	 */
-	sorter(sorter) {
+	comparer(comparer) {
 		if (arguments.length) {
-			_(this).sorter = sorter;
+			_(this).comparer = comparer;
 			this.sort();
 
 			return this;
 		}
 
-		return _(this).sorter;
+		return _(this).comparer;
 	}
 
 	/**
@@ -127,7 +127,7 @@ export default class List {
 		const _self = _(this);
 
 		if (_self.array.length !== 0) {
-			_self.array.sort(_self.sorter);
+			_self.array.sort(_self.comparer);
 		}
 
 		return this;
@@ -146,7 +146,7 @@ export default class List {
 	add(item) {
 		const _self = _(this);
 
-		_self.array.splice(sortedIndexOf(_self.array, item, _self.sorter, true) + 1, 0, item);
+		_self.array.splice(sortedIndexOf(_self.array, item, _self.comparer, true) + 1, 0, item);
 
 		return this;
 	}
@@ -167,9 +167,9 @@ export default class List {
 			_self.array[0] = item;
 		}
 		else {
-			let index = sortedIndexOf(_self.array, item, _self.sorter, true);
+			let index = sortedIndexOf(_self.array, item, _self.comparer, true);
 
-			if (index === -1 || _self.sorter(_self.array[index], item) !== 0) {
+			if (index === -1 || _self.comparer(_self.array[index], item) !== 0) {
 				_self.array.splice(index + 1, 0, item);
 			}
 		}
@@ -178,7 +178,7 @@ export default class List {
 	}
 
 	/**
-	 * Get a new List of the unique (as determined by the sorter) values in this List.
+	 * Get a new List of the unique (as determined by the comparer) values in this List.
 	 *
 	 * @memberOf List
 	 * @instance
@@ -191,7 +191,7 @@ export default class List {
 		const output = [previous];
 
 		_self.array.forEach((item) => {
-			if (_self.sorter(previous, item)) {
+			if (_self.comparer(previous, item)) {
 				output.push(item);
 				previous = item;
 			}
@@ -222,12 +222,12 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 */
 	discard(item) {
 		const _self = _(this);
 
-		_self.array.splice(sortedIndexOf(_self.array, item, _self.sorter, true), 1);
+		_self.array.splice(sortedIndexOf(_self.array, item, _self.comparer, true), 1);
 
 		return this;
 	}
@@ -272,14 +272,14 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
 	indexOf(item) {
 		const _self = _(this);
 
-		return sortedIndexOf(_self.array, item, _self.sorter);
+		return sortedIndexOf(_self.array, item, _self.comparer);
 	}
 
 	/**
@@ -288,14 +288,14 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
 	lastIndexOf(item) {
 		const _self = _(this);
 
-		return sortedIndexOf(_self.array, item, _self.sorter, false, true);
+		return sortedIndexOf(_self.array, item, _self.comparer, false, true);
 	}
 
 	/**
@@ -304,7 +304,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Boolean}
 	 */
@@ -318,7 +318,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {*} The item or undefined
 	 */
@@ -332,7 +332,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {*} The item or undefined
 	 */
@@ -346,7 +346,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {List}
 	 */
@@ -373,7 +373,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -387,7 +387,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the sorter function to determine equality.
+	 * @arg {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -439,7 +439,7 @@ export default class List {
 	}
 
 	/**
-	 * Gets the items that exist both in this list and in another list or array. Equality of items is determined by the sorter.
+	 * Gets the items that exist both in this list and in another list or array. Equality of items is determined by the comparer.
 	 *
 	 * @memberOf List
 	 * @instance
@@ -469,7 +469,7 @@ export default class List {
 }
 
 /**
- * Some simple sorter functions.
+ * Some simple comparer functions.
  *
  * @memberOf List
  * @readonly
@@ -483,7 +483,7 @@ export default class List {
  * @property {Function} number.asc - Sorts numbers in numeric order
  * @property {Function} number.desc - Inverse of number.asc
  */
-List.sorter = sorters;
+List.comparers = comparers;
 
 /**
  * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)

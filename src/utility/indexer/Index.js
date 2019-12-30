@@ -2,9 +2,9 @@ import List, { _ as _list } from '../../List';
 import compare from '../compare';
 import operators from '../operators';
 
-const comparer = compare('v');
-const sorter = (a, b) => {
-	let result = comparer(a, b);
+const compareFirst = compare('v');
+const comparer = (a, b) => {
+	let result = compareFirst(a, b);
 
 	if (result === 0 && a.i !== undefined && b.i !== undefined) {
 		return a.i - b.i;
@@ -39,7 +39,7 @@ const notEqual = (value, list) => {
 
 export default class Index {
 	constructor() {
-		this.list = new List().sorter(sorter);
+		this.list = new List().comparer(comparer);
 	}
 
 	spawn(indexes) {

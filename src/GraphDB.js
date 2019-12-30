@@ -96,7 +96,7 @@ export default class GraphDB {
 			whenReady: new Queue(),
 			nodes: new Collection().model(buildModel(settings.nodeModel || null, baseNodeSchema)),
 			links: new Collection().model(buildModel(settings.linkModel || null, baseLinkSchema)),
-			nodeCrawler: new List().sorter(List.sorter.id.asc)
+			nodeCrawler: new List().comparer(List.comparers.id.asc)
 		});
 
 		self

@@ -6,7 +6,7 @@ import { sortedIndexOf } from '../src/List';
 suite('sortedIndexOf', () => {
 	let sandbox;
 	const sortedArray = fill(1000);
-	const sorter = compare();
+	const comparer = compare();
 
 	benchmark('indexOf start', () => {
 		sandbox = sortedArray.indexOf(0);
@@ -21,15 +21,15 @@ suite('sortedIndexOf', () => {
 	}, benchSettings);
 
 	benchmark('start', () => {
-		sandbox = sortedIndexOf(sortedArray, 0, sorter);
+		sandbox = sortedIndexOf(sortedArray, 0, comparer);
 	}, benchSettings);
 
 	benchmark('mid', () => {
-		sandbox = sortedIndexOf(sortedArray, 500, sorter);
+		sandbox = sortedIndexOf(sortedArray, 500, comparer);
 	}, benchSettings);
 
 	benchmark('end', () => {
-		sandbox = sortedIndexOf(sortedArray, 999, sorter);
+		sandbox = sortedIndexOf(sortedArray, 999, comparer);
 	}, benchSettings);
 
 });

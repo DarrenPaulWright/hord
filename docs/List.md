@@ -28,6 +28,7 @@
         * [.unique()](#List+unique) ⇒ [<code>List</code>](#List)
         * [.concat(values)](#List+concat) ↩︎
         * [.discard(item)](#List+discard) ↩︎
+        * [.discardAt(index)](#List+discardAt) ↩︎
         * [.discardAll()](#List+discardAll) ↩︎
         * [.values([values])](#List+values) ⇒ <code>Array</code>
         * [.indexOf(item)](#List+indexOf) ⇒ <code>Number</code>
@@ -148,6 +149,18 @@
 | Param | Type | Description |
 | --- | --- | --- |
 | item | <code>\*</code> | Uses the comparer function to determine equality. |
+
+
+<br><a name="List+discardAt"></a>
+
+### list.discardAt(index) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+
+> Discard an item from the list at a specified index.
+
+
+| Param | Type |
+| --- | --- |
+| index | <code>\*</code> | 
 
 
 <br><a name="List+discardAll"></a>

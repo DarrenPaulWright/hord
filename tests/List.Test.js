@@ -429,6 +429,20 @@ describe('List', () => {
 		});
 	});
 
+	describe('.discardAt', () => {
+		it('should remove an item from the beginning of the array', () => {
+			assert.deepEqual(new List([2, 3, 4, 5]).discardAt(0).values(), [3, 4, 5]);
+		});
+
+		it('should remove an item from the end of the array', () => {
+			assert.deepEqual(new List([2, 3, 4, 5]).discardAt(3).values(), [2, 3, 4]);
+		});
+
+		it('should remove an item from the middle of the array', () => {
+			assert.deepEqual(new List([2, 3, 4, 5]).discardAt(2).values(), [2, 3, 5]);
+		});
+	});
+
 	describe('.discardAll', () => {
 		it('should do nothing to an empty list', () => {
 			assert.deepEqual(new List().discardAll().values(), []);

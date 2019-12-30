@@ -233,6 +233,21 @@ export default class List {
 	}
 
 	/**
+	 * Discard an item from the list at a specified index.
+	 *
+	 * @memberOf List
+	 * @instance
+	 * @chainable
+	 *
+	 * @arg {*} index
+	 */
+	discardAt(index) {
+		_(this).array.splice(index, 1);
+
+		return this;
+	}
+
+	/**
 	 * Discard all items from the list.
 	 *
 	 * @memberOf List

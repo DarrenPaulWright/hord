@@ -1,38 +1,6 @@
 import { benchSettings } from 'karma-webpack-bundle';
 import { fill } from 'object-agent';
-import { compare, List } from '../index';
-import { sortedIndexOf } from '../src/List';
-
-suite('sortedIndexOf', () => {
-	let sandbox;
-	const sortedArray = fill(1000);
-	const comparer = compare();
-
-	benchmark('indexOf start', () => {
-		sandbox = sortedArray.indexOf(0);
-	}, benchSettings);
-
-	benchmark('indexOf mid', () => {
-		sandbox = sortedArray.indexOf(500);
-	}, benchSettings);
-
-	benchmark('indexOf end', () => {
-		sandbox = sortedArray.indexOf(999);
-	}, benchSettings);
-
-	benchmark('start', () => {
-		sandbox = sortedIndexOf(sortedArray, 0, comparer);
-	}, benchSettings);
-
-	benchmark('mid', () => {
-		sandbox = sortedIndexOf(sortedArray, 500, comparer);
-	}, benchSettings);
-
-	benchmark('end', () => {
-		sandbox = sortedIndexOf(sortedArray, 999, comparer);
-	}, benchSettings);
-
-});
+import { List } from '../index';
 
 suite('List', () => {
 	let sandbox;

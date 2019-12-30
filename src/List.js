@@ -1,5 +1,7 @@
 import { castArray, PrivateVars } from 'type-enforcer-ui';
 import compare from './utility/compare';
+import binarySearchLeft from './utility/searchers/binarySearchLeft';
+import binarySearchRight from './utility/searchers/binarySearchRight';
 import someRight from './utility/someRight';
 
 const comparers = Object.freeze({
@@ -25,31 +27,6 @@ const comparers = Object.freeze({
 		desc: compare('id', true)
 	}
 });
-
-export const sortedIndexOf = (array, item, comparer, isInsert = false, isLast = false) => {
-	let low = 0;
-	let high = array.length;
-	let mid = high;
-	const max = high - 1;
-	let diff = high;
-
-	while (low !== high) {
-		mid = high + low >>> 1;
-		diff = comparer(array[mid], item);
-
-		if (diff < 0 || isLast === true && diff === 0 && mid < max && comparer(array[mid + 1], item) === 0) {
-			low = mid + 1;
-		}
-		else if (diff > 0 || isLast === false && mid !== 0 && comparer(array[mid - 1], item) === 0) {
-			high = mid;
-		}
-		else {
-			return mid;
-		}
-	}
-
-	return isInsert === true ? (diff > 0 && --mid || mid) : -1;
-};
 
 export const _ = new PrivateVars();
 
@@ -146,7 +123,7 @@ export default class List {
 	add(item) {
 		const _self = _(this);
 
-		_self.array.splice(sortedIndexOf(_self.array, item, _self.comparer, true) + 1, 0, item);
+		_self.array.splice(binarySearchLeft(_self.array, item, _self.comparer, true) + 1, 0, item);
 
 		return this;
 	}
@@ -167,7 +144,7 @@ export default class List {
 			_self.array[0] = item;
 		}
 		else {
-			let index = sortedIndexOf(_self.array, item, _self.comparer, true);
+			let index = binarySearchLeft(_self.array, item, _self.comparer, true);
 
 			if (index === -1 || _self.comparer(_self.array[index], item) !== 0) {
 				_self.array.splice(index + 1, 0, item);
@@ -227,7 +204,7 @@ export default class List {
 	discard(item) {
 		const _self = _(this);
 
-		_self.array.splice(sortedIndexOf(_self.array, item, _self.comparer, true), 1);
+		_self.array.splice(binarySearchLeft(_self.array, item, _self.comparer, true), 1);
 
 		return this;
 	}
@@ -294,7 +271,7 @@ export default class List {
 	indexOf(item) {
 		const _self = _(this);
 
-		return sortedIndexOf(_self.array, item, _self.comparer);
+		return binarySearchLeft(_self.array, item, _self.comparer);
 	}
 
 	/**
@@ -310,7 +287,7 @@ export default class List {
 	lastIndexOf(item) {
 		const _self = _(this);
 
-		return sortedIndexOf(_self.array, item, _self.comparer, false, true);
+		return binarySearchRight(_self.array, item, _self.comparer);
 	}
 
 	/**

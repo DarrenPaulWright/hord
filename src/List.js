@@ -1,3 +1,4 @@
+import isObject from 'object-agent/src/utility/isObject';
 import { castArray, PrivateVars } from 'type-enforcer-ui';
 import compare from './utility/compare';
 import binarySearchLeft from './utility/searchers/binarySearchLeft';
@@ -30,8 +31,6 @@ const comparers = Object.freeze({
 
 export const _ = new PrivateVars();
 
-const spawn = Symbol();
-
 /**
  * ``` javascript
  * import { List } from 'hord';
@@ -45,21 +44,15 @@ const spawn = Symbol();
  */
 export default class List {
 	constructor(values = []) {
-		_.set(this, {
-			comparer: comparers.default
-		});
-
-		this.values(values);
-	}
-
-	[spawn](values) {
-		const newList = new List();
-		const newSelf = _(newList);
-
-		newSelf.comparer = _(this).comparer;
-		newSelf.array = values || [];
-
-		return newList;
+		if (isObject(values) && 'comparer' in values && 'array' in values) {
+			_.set(this, values);
+		}
+		else {
+			_.set(this, {
+				comparer: comparers.default,
+				array: castArray(values).sort(comparers.default)
+			});
+		}
 	}
 
 	/**
@@ -174,7 +167,10 @@ export default class List {
 			}
 		});
 
-		return this[spawn](output);
+		return new List({
+			array: output,
+			comparer: _self.comparer
+		});
 	}
 
 	/**
@@ -187,9 +183,14 @@ export default class List {
 	 * @arg {*} values
 	 */
 	concat(...args) {
-		return this[spawn](_(this).array.concat(...args.map((item) => {
-			return _(item) ? _(item).array : item;
-		}))).sort();
+		const _self = _(this);
+
+		return new List({
+			array: _self.array.concat(...args.map((item) => {
+				return item instanceof List ? _(item).array : item;
+			})).sort(_self.comparer),
+			comparer: _self.comparer
+		});
 	}
 
 	/**
@@ -343,20 +344,10 @@ export default class List {
 	 * @returns {List}
 	 */
 	findAll(item) {
-		const self = this;
-		const start = self.indexOf(item);
-
-		if (start === -1) {
-			return self[spawn]();
-		}
-
-		const end = self.lastIndexOf(item);
-
-		if (start === end) {
-			return self[spawn]([_(self).array[start]]);
-		}
-
-		return this[spawn](_(self).array.slice(start, end + 1));
+		return new List({
+			array: _(this).array.slice(this.indexOf(item), this.lastIndexOf(item) + 1),
+			comparer: _(this).comparer
+		});
 	}
 
 	/**
@@ -663,6 +654,9 @@ List.comparers = comparers;
 	'slice'
 ].forEach((key) => {
 	List.prototype[key] = function(...args) {
-		return this[spawn](_(this).array[key](...args));
+		return new List({
+			array: _(this).array[key](...args),
+			comparer: _(this).comparer
+		});
 	};
 });

@@ -7,6 +7,10 @@ suite('List', () => {
 	let list = new List();
 	let list2 = new List();
 	let array = [];
+	const overlap = 20;
+	const smallArrayLength = 30;
+	const mediumArrayLength = 500;
+	const largeArrayLength = 1000;
 
 	benchmark('init undefined', () => {
 		sandbox = new List();
@@ -112,71 +116,105 @@ suite('List', () => {
 		}
 	});
 
-	benchmark('intersection no lists, small', () => {
+	benchmark(`intersection no lists, ${smallArrayLength}`, () => {
 		sandbox = list.filter((item) => array.includes(item));
 	}, {
 		...benchSettings,
 		onCycle() {
-			array = [4, 5, 7, 8, 8654685];
-			list = fill(20);
+			array = fill(smallArrayLength, (x) => x + smallArrayLength - overlap);
+			list = fill(smallArrayLength);
 		}
 	});
 
-	benchmark('intersection array, small', () => {
+	benchmark(`intersection array, ${smallArrayLength}`, () => {
 		sandbox = list.intersection(array);
 	}, {
 		...benchSettings,
 		onStart() {
-			array = [4, 5, 7, 8, 8654685];
-			list = new List(fill(20));
+			array = fill(smallArrayLength, (x) => x + smallArrayLength - overlap);
+			list = new List(fill(smallArrayLength));
 		},
 		onCycle() {
-			array = [4, 5, 7, 8, 8654685];
-			list = new List(fill(20));
+			array = fill(smallArrayLength, (x) => x + smallArrayLength - overlap);
+			list = new List(fill(smallArrayLength));
 		}
 	});
 
-	benchmark('intersection list, small', () => {
+	benchmark(`intersection list, ${smallArrayLength}`, () => {
 		sandbox = list.intersection(list2);
 	}, {
 		...benchSettings,
 		onCycle() {
-			list = new List(fill(20));
-			list2 = new List([4, 5, 7, 8, 8654685]);
+			list = new List(fill(smallArrayLength));
+			list2 = new List(fill(smallArrayLength, (x) => x + smallArrayLength - overlap));
 		}
 	});
 
-	benchmark('intersection no lists, large', () => {
+	benchmark(`intersection no lists, ${mediumArrayLength}`, () => {
 		sandbox = list.filter((item) => array.includes(item));
 	}, {
 		...benchSettings,
 		onCycle() {
-			array = [4, 5, 7, 8, 8654685];
-			list = fill(1000);
+			array = fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap);
+			list = fill(mediumArrayLength);
 		}
 	});
 
-	benchmark('intersection array, large', () => {
+	benchmark(`intersection array, ${mediumArrayLength}`, () => {
 		sandbox = list.intersection(array);
 	}, {
 		...benchSettings,
 		onStart() {
-			array = [4, 5, 7, 8, 8654685];
-			list = new List(fill(1000));
+			array = fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap);
+			list = new List(fill(mediumArrayLength));
 		},
 		onCycle() {
-			array = [4, 5, 7, 8, 8654685];
-			list = new List(fill(1000));
+			array = fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap);
+			list = new List(fill(mediumArrayLength));
 		}
 	});
 
-	benchmark('intersection list, large', () => {
+	benchmark(`intersection list, ${mediumArrayLength}`, () => {
 		sandbox = list.intersection(list2);
 	}, {
 		...benchSettings,
 		onCycle() {
-			list = new List(fill(1000));
-			list2 = new List([4, 5, 7, 8, 8654685]);
+			list = new List(fill(mediumArrayLength));
+			list2 = new List(fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap));
+		}
+	});
+
+	benchmark(`intersection no lists, ${largeArrayLength}`, () => {
+		sandbox = list.filter((item) => array.includes(item));
+	}, {
+		...benchSettings,
+		onCycle() {
+			array = fill(largeArrayLength, (x) => x + largeArrayLength - overlap);
+			list = fill(largeArrayLength);
+		}
+	});
+
+	benchmark(`intersection array, ${largeArrayLength}`, () => {
+		sandbox = list.intersection(array);
+	}, {
+		...benchSettings,
+		onStart() {
+			array = fill(largeArrayLength, (x) => x + largeArrayLength - overlap);
+			list = new List(fill(largeArrayLength));
+		},
+		onCycle() {
+			array = fill(largeArrayLength, (x) => x + largeArrayLength - overlap);
+			list = new List(fill(largeArrayLength));
+		}
+	});
+
+	benchmark(`intersection list, ${largeArrayLength}`, () => {
+		sandbox = list.intersection(list2);
+	}, {
+		...benchSettings,
+		onCycle() {
+			list = new List(fill(largeArrayLength));
+			list2 = new List(fill(largeArrayLength, (x) => x + largeArrayLength - overlap));
 		}
 	});
 

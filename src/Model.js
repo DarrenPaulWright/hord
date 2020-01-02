@@ -56,7 +56,7 @@ export const MODEL_ERROR_LEVEL = new Enum({
  * ```
  *
  * @class Model
- * @classdesc Models with automatic schema enforcement.
+ * @classdesc Data models with automatic schema enforcement.
  *
  * @arg {Schema} schema
  */

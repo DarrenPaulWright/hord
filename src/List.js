@@ -1,4 +1,3 @@
-import isObject from 'object-agent/src/utility/isObject';
 import { castArray, PrivateVars } from 'type-enforcer-ui';
 import compare from './utility/compare';
 import binarySearchLeft from './utility/searchers/binarySearchLeft';
@@ -29,6 +28,8 @@ const comparers = Object.freeze({
 	}
 });
 
+const spawn = Symbol();
+
 export const _ = new PrivateVars();
 
 /**
@@ -44,7 +45,7 @@ export const _ = new PrivateVars();
  */
 export default class List {
 	constructor(values = []) {
-		if (isObject(values) && 'comparer' in values && 'array' in values) {
+		if (arguments[1] === spawn) {
 			_.set(this, values);
 		}
 		else {
@@ -73,14 +74,13 @@ export default class List {
 	 *
 	 * @arg {Function} comparer
 	 *
-	 * @returns {*}
+	 * @returns {Function}
 	 */
 	comparer(comparer) {
 		if (arguments.length) {
 			_(this).comparer = comparer;
-			this.sort();
 
-			return this;
+			return this.sort();
 		}
 
 		return _(this).comparer;
@@ -170,7 +170,7 @@ export default class List {
 		return new List({
 			array: output,
 			comparer: _self.comparer
-		});
+		}, spawn);
 	}
 
 	/**
@@ -190,7 +190,7 @@ export default class List {
 				return item instanceof List ? _(item).array : item;
 			})).sort(_self.comparer),
 			comparer: _self.comparer
-		});
+		}, spawn);
 	}
 
 	/**
@@ -347,7 +347,7 @@ export default class List {
 		return new List({
 			array: _(this).array.slice(this.indexOf(item), this.lastIndexOf(item) + 1),
 			comparer: _(this).comparer
-		});
+		}, spawn);
 	}
 
 	/**
@@ -657,6 +657,6 @@ List.comparers = comparers;
 		return new List({
 			array: _(this).array[key](...args),
 			comparer: _(this).comparer
-		});
+		}, spawn);
 	};
 });

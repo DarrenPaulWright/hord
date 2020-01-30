@@ -719,6 +719,158 @@ describe('List', () => {
 		});
 	});
 
+	describe('.median', () => {
+		it('should get the median from an array of length 1', () => {
+			const list = new List([7]);
+
+			assert.deepEqual(list.median(), 7);
+		});
+
+		it('should get the median from an array of length 2', () => {
+			const list = new List([7, 9]);
+
+			assert.deepEqual(list.median(), 8);
+		});
+
+		it('should get the median from an odd length array', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+			assert.deepEqual(list.median(), 5);
+		});
+
+		it('should get the median from an even length array', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+			assert.deepEqual(list.median(), 5.5);
+		});
+
+		it('should get the first item when 0,0 is provided', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+			assert.deepEqual(list.median(0, 0), 1);
+		});
+
+		it('should get the median of the first half when high is provided in an even length array', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+			assert.deepEqual(list.median(0, 4), 3);
+		});
+
+		it('should get the median of the second half when low is provided in an even length array', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+			assert.deepEqual(list.median(5), 8);
+		});
+
+		it('should get the median of the first half when high is provided in an odd length array', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+			assert.deepEqual(list.median(0, 4), 3);
+		});
+
+		it('should get the median of the second half when low is provided in an odd length array', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+			assert.deepEqual(list.median(4), 7);
+		});
+	});
+
+	describe('.total', () => {
+		it('should get the total of all the values', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7]);
+
+			assert.deepEqual(list.total, 28);
+		});
+	});
+
+	describe('.mean', () => {
+		it('should get the mean of all the values', () => {
+			const list = new List([1, 2, 3, 4, 5, 6, 7]);
+
+			assert.deepEqual(list.mean(), 4);
+		});
+	});
+
+	describe('.quartiles', () => {
+		it('should get the quartiles from an array of length 1', () => {
+			const list = new List([48]);
+
+			assert.deepEqual(list.quartiles(), {
+				min: 48,
+				Q1: 48,
+				median: 48,
+				Q3: 48,
+				max: 48,
+				outliers: []
+			});
+		});
+
+		it('should get the quartiles from an array of length 2', () => {
+			const list = new List([48, 50]);
+
+			assert.deepEqual(list.quartiles(), {
+				min: 48,
+				Q1: 48,
+				median: 49,
+				Q3: 50,
+				max: 50,
+				outliers: []
+			});
+		});
+
+		it('should get the quartiles from an array of length 3', () => {
+			const list = new List([48, 50, 52]);
+
+			assert.deepEqual(list.quartiles(), {
+				min: 48,
+				Q1: 49,
+				median: 50,
+				Q3: 51,
+				max: 52,
+				outliers: []
+			});
+		});
+
+		it('should get the quartiles from an odd length array', () => {
+			const list = new List([1, 48, 49, 50, 51, 52, 100]);
+
+			assert.deepEqual(list.quartiles(), {
+				min: 48,
+				Q1: 48.5,
+				median: 50,
+				Q3: 51.5,
+				max: 52,
+				outliers: [1, 100]
+			});
+		});
+
+		it('should get the quartiles from an even length array', () => {
+			const list = new List([1, 48, 49, 50, 51, 52, 53, 100]);
+
+			assert.deepEqual(list.quartiles(), {
+				min: 48,
+				Q1: 48.5,
+				median: 50.5,
+				Q3: 52.5,
+				max: 53,
+				outliers: [1, 100]
+			});
+		});
+
+		it('should get return an empty array if no outliers are provided', () => {
+			const list = new List([47, 48, 49, 50, 51, 52, 53, 54]);
+
+			assert.deepEqual(list.quartiles(), {
+				min: 47,
+				Q1: 48.5,
+				median: 50.5,
+				Q3: 52.5,
+				max: 54,
+				outliers: []
+			});
+		});
+	});
+
 	it('.toString should return a string of the array', () => {
 		assert.deepEqual(new List([1, 2, 3]).toString(), '1,2,3');
 	});

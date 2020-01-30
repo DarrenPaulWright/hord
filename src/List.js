@@ -438,6 +438,97 @@ export default class List {
 	}
 
 	/**
+	 * If the values in the list are Numbers, then this will return the median value. If there are an odd number of elements, then the value of the middle element is returned. If there are an even number of elements then the mean of the middle two elements is returned. To get the mean of a range of elements, low and high can be provided.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @arg {Int} [low=0]
+	 * @arg {Int} [high=n]
+	 *
+	 * @returns {Number}
+	 */
+	median(low = 0, high) {
+		const array = _(this).array;
+		const length = (high === undefined ? array.length - 1 : high) - low + 1;
+		const halfLength = length / 2;
+
+		if (length % 2 === 0) {
+			return (array[low + halfLength - 1] + array[low + halfLength]) / 2;
+		}
+
+		return array[low + halfLength - 0.5];
+	}
+
+	/**
+	 * If the values in the list are Numbers, then this will return the total value of all the elements added together.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {Number}
+	 */
+	get total() {
+		return _(this).array.reduce((total, value) => total + value, 0);
+	}
+
+	/**
+	 * If the values in the list are Numbers, then this will return the mean(average) of all the elements.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {Number}
+	 */
+	mean() {
+		return this.total / this.length;
+	}
+
+	/**
+	 * If the values in the list are Numbers, then this will return an object with a [quartile](https://en.wikipedia.org/wiki/Quartile) summary.
+	 *
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {Object} Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).
+	 */
+	quartiles() {
+		const array = _(this).array;
+		const output = {
+			median: this.median()
+		};
+		const mid = (array.length - 1) / 2;
+
+		if (array.length === 1) {
+			output.Q1 = array[0];
+			output.Q3 = array[0];
+		}
+		else if (array.length % 2 === 0) {
+			output.Q1 = this.median(0, Math.floor(mid));
+			output.Q3 = this.median(Math.ceil(mid));
+		}
+		else {
+			output.Q1 = this.median(0, mid);
+			output.Q3 = this.median(mid);
+		}
+
+		const IQR = output.Q3 - output.Q1;
+		const min = output.Q1 - (IQR * 1.5);
+		const max = output.Q3 + (IQR * 1.5);
+
+		output.min = array.findIndex((value) => value >= min);
+		output.outliers = array.slice(0, output.min);
+		output.min = array[output.min];
+
+		output.max = array.findIndex((value) => value > max);
+		output.max = (output.max === -1) ? array.length - 1 : output.max - 1;
+		output.outliers = output.outliers.concat(array.slice(output.max + 1));
+		output.max = array[output.max];
+
+		return output;
+	}
+
+	/**
 	 * The number of items in the list
 	 *
 	 * @memberOf List

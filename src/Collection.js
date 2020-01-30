@@ -1440,9 +1440,9 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @arg {function} [compareFunction]
+	 * @arg {function} [compareFunction=List.comparers.default]
 	 */
-	sort(compareFunction) {
+	sort(compareFunction = List.comparers.default) {
 		const self = this;
 
 		if (_(self).indexer) {

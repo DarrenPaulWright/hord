@@ -4,12 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
-## [0.6.2]
+## [0.7.0] - 2020-01-30
 ### Added
-- .discardAt to [List](docs/List.md)
+- .discardAt, .median, .total, .mean, and .quartiles methods to [List](docs/List.md)
 
 ### Changed
 - .sorter to .comparer in [List](docs/List.md)
+- Collection.sort has a default comparer function
 
 ## [0.6.1] - 2019-12-26
 ### Changed
@@ -162,6 +163,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [List](docs/List.md)
 
+[0.7.0]: https://github.com/DarrenPaulWright/hord/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/DarrenPaulWright/hord/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/DarrenPaulWright/hord/compare/v0.5.10...v0.6.0
 [0.5.10]: https://github.com/DarrenPaulWright/hord/compare/v0.5.9...v0.5.10

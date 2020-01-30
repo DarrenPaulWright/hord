@@ -20,8 +20,9 @@
 * [List](#List)
     * [new List([values])](#new_List_new)
     * _instance_
+        * [.total](#List+total) ⇒ <code>Number</code>
         * [.length](#List+length) ⇒ <code>Number</code>
-        * [.comparer(comparer)](#List+comparer) ⇒ <code>\*</code>
+        * [.comparer(comparer)](#List+comparer) ⇒ <code>function</code>
         * [.sort()](#List+sort) ↩︎
         * [.add(item)](#List+add) ↩︎
         * [.addUnique(item)](#List+addUnique) ↩︎
@@ -43,6 +44,9 @@
         * [.last()](#List+last) ⇒ <code>\*</code>
         * [.someRight(callback, [thisArg])](#List+someRight) ⇒ [<code>List</code>](#List)
         * [.intersection(array)](#List+intersection) ⇒ [<code>List</code>](#List)
+        * [.median([low], [high])](#List+median) ⇒ <code>Number</code>
+        * [.mean()](#List+mean) ⇒ <code>Number</code>
+        * [.quartiles()](#List+quartiles) ⇒ <code>Object</code>
         * [.pop()](#List+pop) ⇒ <code>\*</code>
         * [.shift()](#List+shift) ⇒ <code>\*</code>
         * [.toString()](#List+toString) ⇒ <code>String</code>
@@ -72,6 +76,12 @@
 | [values] | <code>Array</code> | 
 
 
+<br><a name="List+total"></a>
+
+### list.total ⇒ <code>Number</code>
+> If the values in the list are Numbers, then this will return the total value of all the elements added together.
+
+
 <br><a name="List+length"></a>
 
 ### list.length ⇒ <code>Number</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
@@ -81,7 +91,7 @@
 
 <br><a name="List+comparer"></a>
 
-### list.comparer(comparer) ⇒ <code>\*</code>
+### list.comparer(comparer) ⇒ <code>function</code>
 > Used by .sort() and the binary search to determine equality.> > See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple comparer functions are provided via the static property [List.comparers](#List.comparers)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().comparer(List.comparers.number.asc).values([1,2,3]);> ```
 
 
@@ -311,6 +321,31 @@
 | --- | --- |
 | array | [<code>List</code>](#List), <code>Array</code> | 
 
+
+<br><a name="List+median"></a>
+
+### list.median([low], [high]) ⇒ <code>Number</code>
+> If the values in the list are Numbers, then this will return the median value. If there are an odd number of elements, then the value of the middle element is returned. If there are an even number of elements then the mean of the middle two elements is returned. To get the mean of a range of elements, low and high can be provided.
+
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [low] | <code>Int</code> | <code>0</code> | 
+| [high] | <code>Int</code> | <code>n</code> | 
+
+
+<br><a name="List+mean"></a>
+
+### list.mean() ⇒ <code>Number</code>
+> If the values in the list are Numbers, then this will return the mean(average) of all the elements.
+
+
+<br><a name="List+quartiles"></a>
+
+### list.quartiles() ⇒ <code>Object</code>
+> If the values in the list are Numbers, then this will return an object with a [quartile](https://en.wikipedia.org/wiki/Quartile) summary.
+
+**Returns**: <code>Object</code> - Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).  
 
 <br><a name="List+pop"></a>
 

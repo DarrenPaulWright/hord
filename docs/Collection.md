@@ -600,9 +600,9 @@ _`⚠ Forces a rebuild of all indexes`_
 
 **See**: [Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)  
 
-| Param | Type |
-| --- | --- |
-| [compareFunction] | <code>function</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [compareFunction] | <code>function</code> | <code>List.comparers.default</code> | 
 
 
 <br><a name="Collection+splice"></a>

@@ -31,7 +31,7 @@ _Requires Babel 7.2+_
 <dd><p>Always sorted array.</p>
 </dd>
 <dt><a href="docs/Model.md">Model</a></dt>
-<dd><p>Models with automatic schema enforcement.</p>
+<dd><p>Data models with automatic schema enforcement.</p>
 </dd>
 <dt><a href="docs/Schema.md">Schema</a></dt>
 <dd><p>Schema enforcement.</p>

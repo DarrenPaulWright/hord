@@ -14,7 +14,7 @@
 <br><a name="Model"></a>
 
 ## Model
-> Models with automatic schema enforcement.
+> Data models with automatic schema enforcement.
 
 
 * [Model](#Model)

@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import traverseSchema from '../../../src/Schema/parse/traverseSchema';
+import traverseSchema from '../../../src/Schema/parse/traverseSchema.js';
 
 suite('traverseSchema', () => {
 	let sandbox;

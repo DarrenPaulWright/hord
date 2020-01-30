@@ -1,6 +1,6 @@
 import { benchSettings } from 'karma-webpack-bundle';
 import { get } from 'object-agent';
-import enforceRule from '../../src/Schema/enforceRule';
+import enforceRule from '../../src/Schema/enforceRule.js';
 
 suite('enforceRule', () => {
 	let sandbox;

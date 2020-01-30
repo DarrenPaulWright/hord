@@ -1,6 +1,6 @@
-import List, { _ as _list } from '../../List';
-import compare from '../compare';
-import operators from '../operators';
+import List, { _ as _list } from '../../List.js';
+import compare from '../compare.js';
+import operators from '../operators.js';
 
 const compareFirst = compare('v');
 const comparer = (a, b) => {

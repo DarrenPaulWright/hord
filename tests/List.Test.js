@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { List } from '../index';
+import { List } from '../index.js';
 
 describe('List', () => {
 	describe('.comparer', () => {

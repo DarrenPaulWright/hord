@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import processValue from '../../src/Schema/processValue';
+import processValue from '../../src/Schema/processValue.js';
 
 suite('processValue', () => {
 	let sandbox;

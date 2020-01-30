@@ -1,9 +1,9 @@
 import { repeat } from 'object-agent';
-import bothLink from './bothLink';
-import filter from './filter';
-import inLink from './inLink';
-import linkQuery from './linkQuery';
-import outLink from './outLink';
+import bothLink from './bothLink.js';
+import filter from './filter.js';
+import inLink from './inLink.js';
+import linkQuery from './linkQuery.js';
+import outLink from './outLink.js';
 
 const nodeQuery = function(promise, mainNodes, mainLinks) {
 	const nextLinks = (promise, callback) => {

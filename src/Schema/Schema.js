@@ -1,8 +1,8 @@
 import { appendToPath, clone, superimpose } from 'object-agent';
 import { PrivateVars } from 'type-enforcer-ui';
-import findRule from './findRule';
-import parseSchema from './parse/parseSchema';
-import processValue from './processValue';
+import findRule from './findRule.js';
+import parseSchema from './parse/parseSchema.js';
+import processValue from './processValue.js';
 
 /**
  * Schema validation errors

@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import checkSchemaType from '../../../src/Schema/parse/checkTypeDef';
+import checkSchemaType from '../../../src/Schema/parse/checkTypeDef.js';
 
 suite('checkSchemaType', () => {
 	let sandbox;

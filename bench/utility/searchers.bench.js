@@ -1,10 +1,10 @@
 import { benchSettings } from 'karma-webpack-bundle';
 import { fill } from 'object-agent';
-import binarySearch from '../../src/utility/searchers/binarySearch';
-import binarySearchLeft from '../../src/utility/searchers/binarySearchLeft';
-import binarySearchRight from '../../src/utility/searchers/binarySearchRight';
-import scanSearchLeft from '../../src/utility/searchers/scanSearchLeft';
-import scanSearchRight from '../../src/utility/searchers/scanSearchRight';
+import binarySearch from '../../src/utility/searchers/binarySearch.js';
+import binarySearchLeft from '../../src/utility/searchers/binarySearchLeft.js';
+import binarySearchRight from '../../src/utility/searchers/binarySearchRight.js';
+import scanSearchLeft from '../../src/utility/searchers/scanSearchLeft.js';
+import scanSearchRight from '../../src/utility/searchers/scanSearchRight.js';
 
 const benchSearch = (searcher) => {
 	let sandbox;

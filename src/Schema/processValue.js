@@ -1,8 +1,8 @@
 import { appendToPath, get, repeat, set, unset } from 'object-agent';
 import { isObject } from 'type-enforcer-ui';
-import checkRule from './checkRule';
-import enforceRule from './enforceRule';
-import ERRORS from './schemaErrors';
+import checkRule from './checkRule.js';
+import enforceRule from './enforceRule.js';
+import ERRORS from './schemaErrors.js';
 
 const getKeysNotInSchema = (value, rule) => {
 	return rule.keys && !rule.keys.includes('*') && Object.keys(value)

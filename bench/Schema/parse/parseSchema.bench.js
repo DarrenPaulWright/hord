@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import parseSchema from '../../../src/Schema/parse/parseSchema';
+import parseSchema from '../../../src/Schema/parse/parseSchema.js';
 
 suite('parseSchema', () => {
 	let sandbox;

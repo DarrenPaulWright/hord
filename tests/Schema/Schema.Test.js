@@ -2,9 +2,9 @@ import { assert } from 'chai';
 import displayValue from 'display-value';
 import { clone, deepEqual } from 'object-agent';
 import { Enum } from 'type-enforcer-ui';
-import { Schema } from '../../index';
-import Model from '../../src/Model';
-import { schemaTestTypes } from '../testValues';
+import { Schema } from '../../index.js';
+import Model from '../../src/Model.js';
+import { schemaTestTypes } from '../testValues.js';
 
 const parseName = (data) => data.name === 'function' ? 'function' : data.name.length === 1 ? data.name : data.name.charAt(0)
 	.toUpperCase() + data.name.slice(1);

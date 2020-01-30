@@ -1,8 +1,8 @@
 import { forOwn, get, mapOwn, set, traverse } from 'object-agent';
 import { isArray, isObject } from 'type-enforcer-ui';
-import List from '../../List';
-import operators from '../operators';
-import Index from './Index';
+import List from '../../List.js';
+import operators from '../operators.js';
+import Index from './Index.js';
 
 export default class Indexer {
 	constructor() {

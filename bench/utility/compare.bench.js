@@ -2,7 +2,7 @@ import displayValue from 'display-value';
 import { benchSettings } from 'karma-webpack-bundle';
 import { combo } from 'object-agent';
 import { isDate } from 'type-enforcer-ui';
-import { compare } from '../../index';
+import { compare } from '../../index.js';
 
 const values = ['test', 'test2', undefined, 3, 4, new Date('1/2/2000')];
 

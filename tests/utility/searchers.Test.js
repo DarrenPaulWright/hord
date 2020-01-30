@@ -1,11 +1,11 @@
 import { assert } from 'chai';
 import { fill } from 'object-agent';
-import { List } from '../../index';
-import binarySearch from '../../src/utility/searchers/binarySearch';
-import binarySearchLeft from '../../src/utility/searchers/binarySearchLeft';
-import binarySearchRight from '../../src/utility/searchers/binarySearchRight';
-import scanSearchLeft from '../../src/utility/searchers/scanSearchLeft';
-import scanSearchRight from '../../src/utility/searchers/scanSearchRight';
+import { List } from '../../index.js';
+import binarySearch from '../../src/utility/searchers/binarySearch.js';
+import binarySearchLeft from '../../src/utility/searchers/binarySearchLeft.js';
+import binarySearchRight from '../../src/utility/searchers/binarySearchRight.js';
+import scanSearchLeft from '../../src/utility/searchers/scanSearchLeft.js';
+import scanSearchRight from '../../src/utility/searchers/scanSearchRight.js';
 
 const array = fill(100);
 const comparer = List.comparers.number.asc;

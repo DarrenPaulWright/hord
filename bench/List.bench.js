@@ -1,6 +1,6 @@
 import { benchSettings } from 'karma-webpack-bundle';
 import { fill } from 'object-agent';
-import { List } from '../index';
+import { List } from '../index.js';
 
 suite('List', () => {
 	let sandbox;

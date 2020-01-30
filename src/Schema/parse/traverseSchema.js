@@ -1,6 +1,6 @@
 import { appendToPath, lastInPath, traverse } from 'object-agent';
 import { isArray, isNumber, isObject } from 'type-enforcer-ui';
-import checkTypeDef, { isValidType } from './checkTypeDef';
+import checkTypeDef, { isValidType } from './checkTypeDef.js';
 
 const subTraverse = (basePath, item, callback) => {
 	traverse(item, (path, value) => {

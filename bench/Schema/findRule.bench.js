@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import findRule from '../../src/Schema/findRule';
+import findRule from '../../src/Schema/findRule.js';
 
 suite('findRule', () => {
 	let sandbox;

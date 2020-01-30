@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import checkRule from '../../src/Schema/checkRule';
+import checkRule from '../../src/Schema/checkRule.js';
 
 suite('checkRule', () => {
 	let sandbox;

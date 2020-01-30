@@ -1,5 +1,5 @@
 import { appendToPath } from 'object-agent';
-import ERRORS from './schemaErrors';
+import ERRORS from './schemaErrors.js';
 
 const OR_SEPARATOR = ' OR ';
 

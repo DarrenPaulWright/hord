@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import Index from '../../../src/utility/indexer/Index';
+import Index from '../../../src/utility/indexer/Index.js';
 
 describe('Index', () => {
 	describe('.add', () => {

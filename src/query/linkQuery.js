@@ -1,8 +1,8 @@
-import bothNode from './bothNode';
-import filter from './filter';
-import inNode from './inNode';
-import nodeQuery from './nodeQuery';
-import outNode from './outNode';
+import bothNode from './bothNode.js';
+import filter from './filter.js';
+import inNode from './inNode.js';
+import nodeQuery from './nodeQuery.js';
+import outNode from './outNode.js';
 
 const linkQuery = function(promise, mainNodes, mainLinks) {
 	const nextNodes = (callback) => {

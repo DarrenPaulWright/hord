@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import Schema from '../../src/Schema/Schema';
+import Schema from '../../src/Schema/Schema.js';
 
 suite('Schema', () => {
 	let sandbox;

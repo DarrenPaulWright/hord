@@ -11,11 +11,11 @@ import {
 	isString,
 	strictEquality
 } from 'type-enforcer-ui';
-import parseSchema from '../../../src/Schema/parse/parseSchema';
-import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/typeRules';
-import Schema from '../../../src/Schema/Schema';
-import { multiTest } from '../../TestUtil';
-import { schemaTestTypes, testSchema } from '../../testValues';
+import parseSchema from '../../../src/Schema/parse/parseSchema.js';
+import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/typeRules.js';
+import Schema from '../../../src/Schema/Schema.js';
+import { multiTest } from '../../TestUtil.js';
+import { schemaTestTypes, testSchema } from '../../testValues.js';
 
 const testEnforce = () => {
 };

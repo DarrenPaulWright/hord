@@ -2,6 +2,7 @@
 	"name": "hord",
 	"version": "0.6.1",
 	"description": "A data storage and manipulation library for javascript",
+	"type": "module",
 	"main": "index.js",
 	"files": [
 		"/src"

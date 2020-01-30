@@ -1,8 +1,8 @@
 import { castArray, PrivateVars } from 'type-enforcer-ui';
-import compare from './utility/compare';
-import binarySearchLeft from './utility/searchers/binarySearchLeft';
-import binarySearchRight from './utility/searchers/binarySearchRight';
-import someRight from './utility/someRight';
+import compare from './utility/compare.js';
+import binarySearchLeft from './utility/searchers/binarySearchLeft.js';
+import binarySearchRight from './utility/searchers/binarySearchRight.js';
+import someRight from './utility/someRight.js';
 
 const comparers = Object.freeze({
 	default: compare(),

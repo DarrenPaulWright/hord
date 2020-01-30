@@ -1,11 +1,11 @@
 import { assert } from 'chai';
 import { deepEqual } from 'object-agent';
 import { isObject } from 'type-enforcer-ui';
-import Model from '../../../src/Model';
-import traverseSchema from '../../../src/Schema/parse/traverseSchema';
-import Schema from '../../../src/Schema/Schema';
-import { multiTest } from '../../TestUtil';
-import { schemaTestTypes } from '../../testValues';
+import Model from '../../../src/Model.js';
+import traverseSchema from '../../../src/Schema/parse/traverseSchema.js';
+import Schema from '../../../src/Schema/Schema.js';
+import { multiTest } from '../../TestUtil.js';
+import { schemaTestTypes } from '../../testValues.js';
 
 describe('traverseSchema', () => {
 	it('should call the callback twice for a nested empty array', () => {

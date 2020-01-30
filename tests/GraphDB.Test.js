@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { clone } from 'object-agent';
-import { GraphDB } from '../index';
+import { GraphDB } from '../index.js';
 
 const testNodes = [{
 	id: 0,

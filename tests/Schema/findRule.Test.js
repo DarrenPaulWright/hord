@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import findRule from '../../src/Schema/findRule';
+import findRule from '../../src/Schema/findRule.js';
 
 describe('findRule', () => {
 	const schema = {

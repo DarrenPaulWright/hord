@@ -1,6 +1,6 @@
 import { assert } from 'chai';
-import Index from '../../../src/utility/indexer/Index';
-import Indexer from '../../../src/utility/indexer/Indexer';
+import Index from '../../../src/utility/indexer/Index.js';
+import Indexer from '../../../src/utility/indexer/Indexer.js';
 
 describe('Indexer', () => {
 	describe('.addIndex', () => {

@@ -1,7 +1,7 @@
 import { assert } from 'chai';
-import { Collection, Model } from '../index';
-import { _ } from '../src/Collection';
-import compare from '../src/utility/compare';
+import { Collection, Model } from '../index.js';
+import { _ } from '../src/Collection.js';
+import compare from '../src/utility/compare.js';
 
 describe('Collection', () => {
 	const noIndexModel = new Model({

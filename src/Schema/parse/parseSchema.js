@@ -1,11 +1,11 @@
 import { forOwn, initialInPath, isEmpty, lastInPath, traverse } from 'object-agent';
 import { castArray, Enum, isFunction, isNumber } from 'type-enforcer-ui';
-import Model from '../../Model';
-import findRule from '../findRule';
-import Schema from '../Schema';
-import ERRORS from '../schemaErrors';
-import traverseSchema from './traverseSchema';
-import { checkLength, checkNumericRange, instanceRule, sameRule, TYPE_RULES } from './typeRules';
+import Model from '../../Model.js';
+import findRule from '../findRule.js';
+import Schema from '../Schema.js';
+import ERRORS from '../schemaErrors.js';
+import traverseSchema from './traverseSchema.js';
+import { checkLength, checkNumericRange, instanceRule, sameRule, TYPE_RULES } from './typeRules.js';
 
 const EXCLUDE_KEYS = ['content', 'type', 'name', 'isRequired', 'default'];
 

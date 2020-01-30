@@ -1,6 +1,6 @@
 import onChange from 'on-change';
 import { Enum, isInstanceOf, methodEnum, methodQueue, PrivateVars } from 'type-enforcer-ui';
-import Schema from './Schema/Schema';
+import Schema from './Schema/Schema.js';
 
 const _ = new PrivateVars();
 

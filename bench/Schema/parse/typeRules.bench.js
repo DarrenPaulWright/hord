@@ -1,6 +1,6 @@
 import { benchSettings } from 'karma-webpack-bundle';
 import { enforceNumber } from 'type-enforcer-ui';
-import { checkLength, checkNumericRange } from '../../../src/Schema/parse/typeRules';
+import { checkLength, checkNumericRange } from '../../../src/Schema/parse/typeRules.js';
 
 suite('checkNumericRange', () => {
 	let sandbox;

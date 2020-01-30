@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import someRight from '../../src/utility/someRight';
+import someRight from '../../src/utility/someRight.js';
 
 suite('someRight', () => {
 	let sandbox;

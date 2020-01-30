@@ -1,10 +1,10 @@
 import { castArray, PrivateVars, Queue } from 'type-enforcer-ui';
-import Collection from './Collection';
-import List from './List';
-import Model, { MODEL_ERROR_LEVEL } from './Model';
-import linkQuery from './query/linkQuery';
-import nodeQuery from './query/nodeQuery';
-import Schema from './Schema/Schema';
+import Collection from './Collection.js';
+import List from './List.js';
+import Model, { MODEL_ERROR_LEVEL } from './Model.js';
+import linkQuery from './query/linkQuery.js';
+import nodeQuery from './query/nodeQuery.js';
+import Schema from './Schema/Schema.js';
 
 const baseNodeSchema = new Schema({
 	id: {

@@ -1,6 +1,6 @@
-import Model from '../../Model';
-import Schema from '../Schema';
-import { TYPE_RULES } from './typeRules';
+import Model from '../../Model.js';
+import Schema from '../Schema.js';
+import { TYPE_RULES } from './typeRules.js';
 
 export const isValidType = (type) => TYPE_RULES.has(type) ||
 	typeof type === 'function' ||

@@ -1,5 +1,5 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import findLastIndex from '../../src/utility/findLastIndex';
+import findLastIndex from '../../src/utility/findLastIndex.js';
 
 suite('findLastIndex', () => {
 	let sandbox;

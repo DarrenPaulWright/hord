@@ -11,11 +11,11 @@ import {
 	PrivateVars,
 	sameValueZero
 } from 'type-enforcer-ui';
-import List from './List';
-import Model from './Model';
-import findLastIndex from './utility/findLastIndex';
-import Indexer from './utility/indexer/Indexer';
-import someRight from './utility/someRight';
+import List from './List.js';
+import Model from './Model.js';
+import findLastIndex from './utility/findLastIndex.js';
+import Indexer from './utility/indexer/Indexer.js';
+import someRight from './utility/someRight.js';
 
 /**
  * @summary

@@ -1,5 +1,8 @@
 # Hord
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/DarrenPaulWright/hord.svg)](https://greenkeeper.io/)
+
+
 > A data storage and manipulation library for javascript
 >
 > [![npm][npm]][npm-url]

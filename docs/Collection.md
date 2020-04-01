@@ -76,7 +76,11 @@
 <br><a name="new_Collection_new"></a>
 
 ### new Collection()
-> ``` javascript> import { Collection } from 'hord';> ```> For info on indexing, see Collection.[model](#Collection+model).> The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement and indexing.
+> ``` javascript
+> import { Collection } from 'hord';
+> ```
+> For info on indexing, see Collection.[model](#Collection+model).
+> The collection class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and maintain model enforcement and indexing.
 
 
 | Type | Description |
@@ -396,7 +400,8 @@ _`⚡ Utilizes indexes`_
 
 ### collection.forEach(callback, [thisArg]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
-> Calls a provided callback once for each array element in order starting at 0.> Unlike the native forEach, this one returns an instance of collection for chaining.
+> Calls a provided callback once for each array element in order starting at 0.
+> Unlike the native forEach, this one returns an instance of collection for chaining.
 
 **See**: [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)  
 
@@ -410,7 +415,8 @@ _`⚡ Utilizes indexes`_
 
 ### collection.forEachRight(callback, [thisArg]) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
-> Like .forEach(), but starts on the last (greatest index) item> and progresses backwards
+> Like .forEach(), but starts on the last (greatest index) item
+> and progresses backwards
 
 
 | Param | Type | Default |
@@ -478,7 +484,8 @@ _`⚡ Utilizes indexes`_
 <br><a name="Collection+map"></a>
 
 ### collection.map(callback, thisArg) ⇒ [<code>Collection</code>](#Collection)
-> Returns a new collection with the results of calling a provided> function on every element.
+> Returns a new collection with the results of calling a provided
+> function on every element.
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection without a model.  
 
@@ -534,7 +541,9 @@ _`⚡ Utilizes indexes`_
 ### collection.model() ⇒ <code>Model</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 _`✎ Builds indexes`_
-> A model that gets enforced on every item in the collection.> To create indexes, add 'index: true' to the schema type definition> like in the example below.
+> A model that gets enforced on every item in the collection.
+> To create indexes, add 'index: true' to the schema type definition
+> like in the example below.
 
 
 | Type | Description |
@@ -542,7 +551,45 @@ _`✎ Builds indexes`_
 | <code>Model</code>, <code>Object</code> | Can be an instance of class:Model or an object with a schema structure. |
 
 **Example**  
-``` javascriptimport { Collection, Model } from 'hord';const Person = new Model({    id: {        type: Number,        index: true    },    first: {        type: String,        index: true    },    last: {        type: String,        index: true    },    age: Number});const people = new Collection().model(Person);// ORconst people = new Collection().model({    id: {        type: Number,        index: true    },    first: {        type: String,        index: true    },    last: {        type: String,        index: true    },    age: Number});```
+``` javascript
+import { Collection, Model } from 'hord';
+
+const Person = new Model({
+    id: {
+        type: Number,
+        index: true
+    },
+    first: {
+        type: String,
+        index: true
+    },
+    last: {
+        type: String,
+        index: true
+    },
+    age: Number
+});
+
+const people = new Collection().model(Person);
+
+// OR
+
+const people = new Collection().model({
+    id: {
+        type: Number,
+        index: true
+    },
+    first: {
+        type: String,
+        index: true
+    },
+    last: {
+        type: String,
+        index: true
+    },
+    age: Number
+});
+```
 
 <br><a name="Collection+remove"></a>
 
@@ -624,7 +671,75 @@ _`✎ Updates indexes`_
 <br><a name="predicate"></a>
 
 ## predicate : <code>function</code> \| <code>Object</code>
-Can be either of the following:- A function that accepts one item from the collection and returns true to indicate a match.- A query object that is deeply compared to items in the collection. Available operators are outlined below.### Query Operators#### $eq (EQual)The same as not providing any operator. Uses SameValue equality.``` javascript{age: 23}// OR{age: {$eq: 23}}```<br>#### $ne (Not Equal)Like $eq, $ne uses SameValue equality, but matches values that don't equal.``` javascript{age: {$ne: 23}}```<br>#### $in (IN)Matches any item in an array.``` javascript{age: {$in: [20, 30, 40]}}```<br>#### $nin (Not IN)Matches any item not in an array.``` javascript{age: {$nin: [20, 30, 40]}}```<br>#### $gt (Greater Than)Matches values greater than the provided value``` javascript{age: {$gt: 21}}```<br>#### $gte (Greater Than or Equal)Matches values greater than the provided value``` javascript{age: {$gte: 21}}```<br>#### $lt (Less Than)Matches values greater than the provided value``` javascript{age: {$lt: 21}}```<br>#### $lte (Less Than or Equal)Matches values greater than the provided value``` javascript{age: {$lte: 21}}```
+Can be either of the following:
+- A function that accepts one item from the collection and returns true to indicate a match.
+- A query object that is deeply compared to items in the collection. Available operators are outlined below.
+
+### Query Operators
+
+#### $eq (EQual)
+The same as not providing any operator. Uses SameValue equality.
+``` javascript
+{age: 23}
+// OR
+{age: {$eq: 23}}
+```
+
+<br>
+
+#### $ne (Not Equal)
+Like $eq, $ne uses SameValue equality, but matches values that don't equal.
+``` javascript
+{age: {$ne: 23}}
+```
+
+<br>
+
+#### $in (IN)
+Matches any item in an array.
+``` javascript
+{age: {$in: [20, 30, 40]}}
+```
+
+<br>
+
+#### $nin (Not IN)
+Matches any item not in an array.
+``` javascript
+{age: {$nin: [20, 30, 40]}}
+```
+
+<br>
+
+#### $gt (Greater Than)
+Matches values greater than the provided value
+``` javascript
+{age: {$gt: 21}}
+```
+
+<br>
+
+#### $gte (Greater Than or Equal)
+Matches values greater than the provided value
+``` javascript
+{age: {$gte: 21}}
+```
+
+<br>
+
+#### $lt (Less Than)
+Matches values greater than the provided value
+``` javascript
+{age: {$lt: 21}}
+```
+
+<br>
+
+#### $lte (Less Than or Equal)
+Matches values greater than the provided value
+``` javascript
+{age: {$lte: 21}}
+```
 > If you haven't set up any indexes, or you're searching on properties that aren't indexed, then providing a function will most likely have better performance. If you're searching on even one property that's indexed, then using an object will perform better, as the indexer can narrow the search before iterating over the results for a final match.
 
 

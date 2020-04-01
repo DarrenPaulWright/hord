@@ -1,5 +1,5 @@
-import { assert } from 'chai';
 import { clone } from 'object-agent';
+import { assert } from 'type-enforcer';
 import { GraphDB } from '../index.js';
 
 const testNodes = [{
@@ -106,7 +106,9 @@ const testLinksProcessed = testLinks.map((link) => {
 describe('GraphDB', () => {
 	describe('init', () => {
 		it('should initialize without settings', () => {
-			assert.ok(new GraphDB());
+			assert.notThrows(() => {
+				new GraphDB();
+			});
 		});
 	});
 
@@ -119,7 +121,7 @@ describe('GraphDB', () => {
 
 			return graph.nodes()
 				.then((nodes) => {
-					assert.deepEqual(nodes, testNodes);
+					assert.equal(nodes, testNodes);
 				});
 		});
 
@@ -131,7 +133,7 @@ describe('GraphDB', () => {
 			return graph.nodes(clone(testNodes))
 				.then(() => graph.nodes())
 				.then((nodes) => {
-					assert.deepEqual(nodes, testNodes);
+					assert.equal(nodes, testNodes);
 				});
 		});
 	});
@@ -152,7 +154,7 @@ describe('GraphDB', () => {
 				)
 				.then(() => graph.nodes())
 				.then((nodes) => {
-					assert.deepEqual(nodes, [...testNodes, {
+					assert.equal(nodes, [...testNodes, {
 						id: 13245,
 						label: 'qwerty'
 					}]);
@@ -176,7 +178,7 @@ describe('GraphDB', () => {
 				)
 				.then(() => graph.nodes())
 				.then((nodes) => {
-					assert.deepEqual(nodes, [...testNodes, {
+					assert.equal(nodes, [...testNodes, {
 						id: 13245,
 						label: 'qwerty'
 					}, {
@@ -196,7 +198,7 @@ describe('GraphDB', () => {
 
 			return graph.links()
 				.then((links) => {
-					assert.deepEqual(links, testLinksProcessed);
+					assert.equal(links, testLinksProcessed);
 				});
 		});
 
@@ -207,7 +209,7 @@ describe('GraphDB', () => {
 				.then(() => graph.links(clone(testLinks)))
 				.then(() => graph.links())
 				.then((links) => {
-					assert.deepEqual(links, testLinksProcessed);
+					assert.equal(links, testLinksProcessed);
 				});
 		});
 	});
@@ -228,8 +230,8 @@ describe('GraphDB', () => {
 				)
 				.then(() => graph.links())
 				.then((links) => {
-					assert.equal(links.length, 8);
-					assert.deepEqual(links, [...testLinksProcessed, {
+					assert.is(links.length, 8);
+					assert.equal(links, [...testLinksProcessed, {
 						source: testNodes[4],
 						target: testNodes[6]
 					}]);
@@ -254,8 +256,8 @@ describe('GraphDB', () => {
 				)
 				.then(() => graph.links())
 				.then((links) => {
-					assert.equal(links.length, 9);
-					assert.deepEqual(links, [...testLinksProcessed, {
+					assert.is(links.length, 9);
+					assert.equal(links, [...testLinksProcessed, {
 						source: testNodes[4],
 						target: testNodes[6]
 					}, {
@@ -279,24 +281,24 @@ describe('GraphDB', () => {
 				it('.should return the nodes', () => {
 					return graph.query.nodes
 						.then((result) => {
-							assert.deepEqual(result, testNodes);
+							assert.equal(result, testNodes);
 						});
 				});
 
 				it('.filter should filter the results', () => {
 					return graph.query.nodes
-						.filter({label: 'person'})
+						.filter({ label: 'person' })
 						.then((result) => {
-							assert.deepEqual(result, testNodes.slice(0, 5));
+							assert.equal(result, testNodes.slice(0, 5));
 						});
 				});
 
 				it('.filter should filter the results twice', () => {
 					return graph.query.nodes
-						.filter({label: 'person'})
-						.filter({last: 'Smith'})
+						.filter({ label: 'person' })
+						.filter({ last: 'Smith' })
 						.then((result) => {
-							assert.deepEqual(result, [testNodes[2], testNodes[3]]);
+							assert.equal(result, [testNodes[2], testNodes[3]]);
 						});
 				});
 
@@ -304,15 +306,15 @@ describe('GraphDB', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
-							last: {$ne: 'Smith'}
+							last: { $ne: 'Smith' }
 						})
 						.inLink
 						.then((result) => {
-							assert.equal(result.length, 2);
-							assert.deepEqual(result[0].source, testNodes[0]);
-							assert.deepEqual(result[0].target, testNodes[1]);
-							assert.deepEqual(result[1].source, testNodes[1]);
-							assert.deepEqual(result[1].target, testNodes[0]);
+							assert.is(result.length, 2);
+							assert.equal(result[0].source, testNodes[0]);
+							assert.equal(result[0].target, testNodes[1]);
+							assert.equal(result[1].source, testNodes[1]);
+							assert.equal(result[1].target, testNodes[0]);
 						});
 				});
 
@@ -320,13 +322,13 @@ describe('GraphDB', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
-							last: {$ne: 'Smith'}
+							last: { $ne: 'Smith' }
 						})
 						.in
 						.then((result) => {
-							assert.equal(result.length, 2);
-							assert.deepEqual(result[0], testNodes[0]);
-							assert.deepEqual(result[1], testNodes[1]);
+							assert.is(result.length, 2);
+							assert.equal(result[0], testNodes[0]);
+							assert.equal(result[1], testNodes[1]);
 						});
 				});
 
@@ -334,19 +336,19 @@ describe('GraphDB', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
-							last: {$ne: 'Smith'}
+							last: { $ne: 'Smith' }
 						})
 						.outLink
 						.then((result) => {
-							assert.equal(result.length, 4);
-							assert.deepEqual(result[0].source, testNodes[1]);
-							assert.deepEqual(result[0].target, testNodes[5]);
-							assert.deepEqual(result[1].source, testNodes[0]);
-							assert.deepEqual(result[1].target, testNodes[1]);
-							assert.deepEqual(result[2].source, testNodes[1]);
-							assert.deepEqual(result[2].target, testNodes[0]);
-							assert.deepEqual(result[3].source, testNodes[4]);
-							assert.deepEqual(result[3].target, testNodes[5]);
+							assert.is(result.length, 4);
+							assert.equal(result[0].source, testNodes[1]);
+							assert.equal(result[0].target, testNodes[5]);
+							assert.equal(result[1].source, testNodes[0]);
+							assert.equal(result[1].target, testNodes[1]);
+							assert.equal(result[2].source, testNodes[1]);
+							assert.equal(result[2].target, testNodes[0]);
+							assert.equal(result[3].source, testNodes[4]);
+							assert.equal(result[3].target, testNodes[5]);
 						});
 				});
 
@@ -354,14 +356,14 @@ describe('GraphDB', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
-							last: {$ne: 'Smith'}
+							last: { $ne: 'Smith' }
 						})
 						.out
 						.then((result) => {
-							assert.equal(result.length, 3);
-							assert.deepEqual(result[0], testNodes[5]);
-							assert.deepEqual(result[1], testNodes[1]);
-							assert.deepEqual(result[2], testNodes[0]);
+							assert.is(result.length, 3);
+							assert.equal(result[0], testNodes[5]);
+							assert.equal(result[1], testNodes[1]);
+							assert.equal(result[2], testNodes[0]);
 						});
 				});
 
@@ -369,19 +371,19 @@ describe('GraphDB', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
-							last: {$ne: 'Smith'}
+							last: { $ne: 'Smith' }
 						})
 						.bothLink
 						.then((result) => {
-							assert.equal(result.length, 4);
-							assert.deepEqual(result[0].source, testNodes[1]);
-							assert.deepEqual(result[0].target, testNodes[5]);
-							assert.deepEqual(result[1].source, testNodes[0]);
-							assert.deepEqual(result[1].target, testNodes[1]);
-							assert.deepEqual(result[2].source, testNodes[1]);
-							assert.deepEqual(result[2].target, testNodes[0]);
-							assert.deepEqual(result[3].source, testNodes[4]);
-							assert.deepEqual(result[3].target, testNodes[5]);
+							assert.is(result.length, 4);
+							assert.equal(result[0].source, testNodes[1]);
+							assert.equal(result[0].target, testNodes[5]);
+							assert.equal(result[1].source, testNodes[0]);
+							assert.equal(result[1].target, testNodes[1]);
+							assert.equal(result[2].source, testNodes[1]);
+							assert.equal(result[2].target, testNodes[0]);
+							assert.equal(result[3].source, testNodes[4]);
+							assert.equal(result[3].target, testNodes[5]);
 						});
 				});
 
@@ -389,51 +391,51 @@ describe('GraphDB', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
-							last: {$ne: 'Smith'}
+							last: { $ne: 'Smith' }
 						})
 						.both
 						.then((result) => {
-							assert.equal(result.length, 4);
-							assert.deepEqual(result[0], testNodes[1]);
-							assert.deepEqual(result[1], testNodes[0]);
-							assert.deepEqual(result[2], testNodes[4]);
-							assert.deepEqual(result[3], testNodes[5]);
+							assert.is(result.length, 4);
+							assert.equal(result[0], testNodes[1]);
+							assert.equal(result[1], testNodes[0]);
+							assert.equal(result[2], testNodes[4]);
+							assert.equal(result[3], testNodes[5]);
 						});
 				});
 
 				it('.extent should return nodes and links of depth 1', () => {
 					return graph.query.nodes
-						.filter({id: 1})
+						.filter({ id: 1 })
 						.extent()
 						.then((result) => {
-							assert.equal(result.nodes.length, 3);
-							assert.deepEqual(result.nodes[0], testNodes[1]);
-							assert.deepEqual(result.nodes[1], testNodes[0]);
-							assert.deepEqual(result.nodes[2], testNodes[5]);
+							assert.is(result.nodes.length, 3);
+							assert.equal(result.nodes[0], testNodes[1]);
+							assert.equal(result.nodes[1], testNodes[0]);
+							assert.equal(result.nodes[2], testNodes[5]);
 
-							assert.equal(result.links.length, 3);
-							assert.deepEqual(result.links[0], testLinksProcessed[0]);
-							assert.deepEqual(result.links[1], testLinksProcessed[5]);
-							assert.deepEqual(result.links[2], testLinksProcessed[4]);
+							assert.is(result.links.length, 3);
+							assert.equal(result.links[0], testLinksProcessed[0]);
+							assert.equal(result.links[1], testLinksProcessed[5]);
+							assert.equal(result.links[2], testLinksProcessed[4]);
 						});
 				});
 
 				it('.extent should return nodes and links of depth 2', () => {
 					return graph.query.nodes
-						.filter({id: 1})
+						.filter({ id: 1 })
 						.extent(2)
 						.then((result) => {
-							assert.equal(result.nodes.length, 4);
-							assert.deepEqual(result.nodes[0], testNodes[1]);
-							assert.deepEqual(result.nodes[1], testNodes[0]);
-							assert.deepEqual(result.nodes[2], testNodes[5]);
-							assert.deepEqual(result.nodes[3], testNodes[4]);
+							assert.is(result.nodes.length, 4);
+							assert.equal(result.nodes[0], testNodes[1]);
+							assert.equal(result.nodes[1], testNodes[0]);
+							assert.equal(result.nodes[2], testNodes[5]);
+							assert.equal(result.nodes[3], testNodes[4]);
 
-							assert.equal(result.links.length, 4);
-							assert.deepEqual(result.links[0], testLinksProcessed[0]);
-							assert.deepEqual(result.links[1], testLinksProcessed[4]);
-							assert.deepEqual(result.links[2], testLinksProcessed[5]);
-							assert.deepEqual(result.links[3], testLinksProcessed[6]);
+							assert.is(result.links.length, 4);
+							assert.equal(result.links[0], testLinksProcessed[0]);
+							assert.equal(result.links[1], testLinksProcessed[4]);
+							assert.equal(result.links[2], testLinksProcessed[5]);
+							assert.equal(result.links[3], testLinksProcessed[6]);
 						});
 				});
 			});
@@ -441,24 +443,24 @@ describe('GraphDB', () => {
 			describe('.links', () => {
 				it('.should return the links', () => {
 					return graph.query.links.then((result) => {
-						assert.deepEqual(result, testLinksProcessed);
+						assert.equal(result, testLinksProcessed);
 					});
 				});
 
 				it('.filter should filter the results', () => {
 					return graph.query.links
-						.filter({label: 'married'})
+						.filter({ label: 'married' })
 						.then((result) => {
-							assert.deepEqual(result, testLinksProcessed.slice(2, 6));
+							assert.equal(result, testLinksProcessed.slice(2, 6));
 						});
 				});
 
 				it('.filter should filter the results twice', () => {
 					return graph.query.links
-						.filter({label: 'married'})
-						.filter({id: 'link3'})
+						.filter({ label: 'married' })
+						.filter({ id: 'link3' })
 						.then((result) => {
-							assert.deepEqual(result, testLinksProcessed.slice(3, 4));
+							assert.equal(result, testLinksProcessed.slice(3, 4));
 						});
 				});
 
@@ -466,14 +468,14 @@ describe('GraphDB', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
-							id: {$ne: 'link3'}
+							id: { $ne: 'link3' }
 						})
 						.inNode
 						.then((result) => {
-							assert.equal(result.length, 3);
-							assert.deepEqual(result[0], testNodes[2]);
-							assert.deepEqual(result[1], testNodes[1]);
-							assert.deepEqual(result[2], testNodes[0]);
+							assert.is(result.length, 3);
+							assert.equal(result[0], testNodes[2]);
+							assert.equal(result[1], testNodes[1]);
+							assert.equal(result[2], testNodes[0]);
 						});
 				});
 
@@ -481,15 +483,15 @@ describe('GraphDB', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
-							id: {$ne: 'link3'}
+							id: { $ne: 'link3' }
 						})
 						.in
 						.then((result) => {
-							assert.equal(result.length, 4);
-							assert.deepEqual(result[0], testLinksProcessed[0]);
-							assert.deepEqual(result[1], testLinksProcessed[3]);
-							assert.deepEqual(result[2], testLinksProcessed[4]);
-							assert.deepEqual(result[3], testLinksProcessed[5]);
+							assert.is(result.length, 4);
+							assert.equal(result[0], testLinksProcessed[0]);
+							assert.equal(result[1], testLinksProcessed[3]);
+							assert.equal(result[2], testLinksProcessed[4]);
+							assert.equal(result[3], testLinksProcessed[5]);
 						});
 				});
 
@@ -497,14 +499,14 @@ describe('GraphDB', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
-							id: {$ne: 'link3'}
+							id: { $ne: 'link3' }
 						})
 						.outNode
 						.then((result) => {
-							assert.equal(result.length, 3);
-							assert.deepEqual(result[0], testNodes[3]);
-							assert.deepEqual(result[1], testNodes[0]);
-							assert.deepEqual(result[2], testNodes[1]);
+							assert.is(result.length, 3);
+							assert.equal(result[0], testNodes[3]);
+							assert.equal(result[1], testNodes[0]);
+							assert.equal(result[2], testNodes[1]);
 						});
 				});
 
@@ -512,14 +514,14 @@ describe('GraphDB', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
-							id: {$ne: 'link3'}
+							id: { $ne: 'link3' }
 						})
 						.out
 						.then((result) => {
-							assert.equal(result.length, 3);
-							assert.deepEqual(result[0], testLinksProcessed[3]);
-							assert.deepEqual(result[1], testLinksProcessed[4]);
-							assert.deepEqual(result[2], testLinksProcessed[5]);
+							assert.is(result.length, 3);
+							assert.equal(result[0], testLinksProcessed[3]);
+							assert.equal(result[1], testLinksProcessed[4]);
+							assert.equal(result[2], testLinksProcessed[5]);
 						});
 				});
 
@@ -527,15 +529,15 @@ describe('GraphDB', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
-							id: {$ne: 'link3'}
+							id: { $ne: 'link3' }
 						})
 						.bothNode
 						.then((result) => {
-							assert.equal(result.length, 4);
-							assert.deepEqual(result[0], testNodes[3]);
-							assert.deepEqual(result[1], testNodes[0]);
-							assert.deepEqual(result[2], testNodes[1]);
-							assert.deepEqual(result[3], testNodes[2]);
+							assert.is(result.length, 4);
+							assert.equal(result[0], testNodes[3]);
+							assert.equal(result[1], testNodes[0]);
+							assert.equal(result[2], testNodes[1]);
+							assert.equal(result[3], testNodes[2]);
 						});
 				});
 
@@ -543,17 +545,17 @@ describe('GraphDB', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
-							id: {$ne: 'link3'}
+							id: { $ne: 'link3' }
 						})
 						.both
 						.then((result) => {
-							assert.equal(result.length, 6);
-							assert.deepEqual(result[0], testLinksProcessed[0]);
-							assert.deepEqual(result[1], testLinksProcessed[1]);
-							assert.deepEqual(result[2], testLinksProcessed[2]);
-							assert.deepEqual(result[3], testLinksProcessed[3]);
-							assert.deepEqual(result[4], testLinksProcessed[4]);
-							assert.deepEqual(result[5], testLinksProcessed[5]);
+							assert.is(result.length, 6);
+							assert.equal(result[0], testLinksProcessed[0]);
+							assert.equal(result[1], testLinksProcessed[1]);
+							assert.equal(result[2], testLinksProcessed[2]);
+							assert.equal(result[3], testLinksProcessed[3]);
+							assert.equal(result[4], testLinksProcessed[4]);
+							assert.equal(result[5], testLinksProcessed[5]);
 						});
 				});
 			});
@@ -580,7 +582,7 @@ describe('GraphDB', () => {
 					.shortestPaths(testNodes[2], testNodes[1])
 				)
 				.then((paths) => {
-					assert.equal(paths.length, 0);
+					assert.is(paths.length, 0);
 				});
 		});
 
@@ -595,9 +597,9 @@ describe('GraphDB', () => {
 					.shortestPaths(testNodes[0], testNodes[4])
 				)
 				.then((paths) => {
-					assert.equal(paths.length, 1);
-					assert.equal(paths[0].length, 4);
-					assert.deepEqual(paths, [[testNodes[4], testNodes[5], testNodes[1], testNodes[0]]]);
+					assert.is(paths.length, 1);
+					assert.is(paths[0].length, 4);
+					assert.equal(paths, [[testNodes[4], testNodes[5], testNodes[1], testNodes[0]]]);
 				});
 		});
 	});

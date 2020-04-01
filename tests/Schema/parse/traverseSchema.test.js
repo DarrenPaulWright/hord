@@ -1,10 +1,10 @@
-import { assert } from 'chai';
 import { deepEqual } from 'object-agent';
+import { assert } from 'type-enforcer';
+import { multiTest } from 'type-enforcer-test-helper';
 import { isObject } from 'type-enforcer-ui';
 import Model from '../../../src/Model.js';
 import traverseSchema from '../../../src/Schema/parse/traverseSchema.js';
 import Schema from '../../../src/Schema/Schema.js';
-import { multiTest } from '../../TestUtil.js';
 import { schemaTestTypes } from '../../testValues.js';
 
 describe('traverseSchema', () => {
@@ -30,8 +30,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 3);
+		assert.is(total, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback once for an array of multiple types', () => {
@@ -48,8 +48,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 2);
-		assert.equal(testVar, 1);
+		assert.is(total, 2);
+		assert.is(testVar, 1);
 	});
 
 	it('should call the callback once for an array of multiple types in an object', () => {
@@ -68,8 +68,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 2);
-		assert.equal(testVar, 1);
+		assert.is(total, 2);
+		assert.is(testVar, 1);
 	});
 
 	it('should call the callback for an object with key "type"', () => {
@@ -86,8 +86,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 2);
-		assert.equal(testVar, 1);
+		assert.is(total, 2);
+		assert.is(testVar, 1);
 	});
 
 	it('should call the callback for an object with key "type"', () => {
@@ -105,7 +105,7 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(testVar, 1);
+		assert.is(testVar, 1);
 	});
 
 	it('should call the callback for an object with key "enforce"', () => {
@@ -126,8 +126,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 2);
-		assert.equal(testVar, 1);
+		assert.is(total, 2);
+		assert.is(testVar, 1);
 	});
 
 	it('should call the callback once for an array object', () => {
@@ -146,8 +146,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 2);
-		assert.equal(testVar, 1);
+		assert.is(total, 2);
+		assert.is(testVar, 1);
 	});
 
 	it('should call the callback four times for an array object with key "content"', () => {
@@ -178,8 +178,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 4);
+		assert.is(total, 4);
+		assert.is(testVar, 4);
 	});
 
 	it('should call the callback four times for an array object with key "content" with a type', () => {
@@ -205,8 +205,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 3);
+		assert.is(total, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback four times for an array object with key "content" with multiple types', () => {
@@ -232,8 +232,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 3);
+		assert.is(total, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback four times for an array object with key "content" with multiple types as an object', () => {
@@ -261,8 +261,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 3);
+		assert.is(total, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback four times for an array object with key "content" with a type Array', () => {
@@ -290,8 +290,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 3);
+		assert.is(total, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback four times for an array object with key "content" with null', () => {
@@ -317,8 +317,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 3);
+		assert.is(total, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback four times for an array object with key "content" with null as an object', () => {
@@ -346,8 +346,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 3);
+		assert.is(total, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback four times for an array with an object', () => {
@@ -377,8 +377,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 4);
+		assert.is(total, 4);
+		assert.is(testVar, 4);
 	});
 
 	multiTest({
@@ -406,7 +406,7 @@ describe('traverseSchema', () => {
 		},
 		inputKey: 'value',
 		output: 1,
-		assertion: 'deepEqual'
+		assertion: 'equal'
 	});
 
 	it('should call the callback twice for nested empty arrays', () => {
@@ -428,8 +428,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 3);
-		assert.equal(testVar, 2);
+		assert.is(total, 3);
+		assert.is(testVar, 2);
 	});
 
 	it('should call the callback three times for nested arrays with content', () => {
@@ -454,8 +454,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 3);
+		assert.is(total, 4);
+		assert.is(testVar, 3);
 	});
 
 	it('should call the callback three times for an array with an object and keys', () => {
@@ -480,8 +480,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 3);
+		assert.is(total, 4);
+		assert.is(testVar, 3);
 	});
 
 	it('should handle a nested Schema', () => {
@@ -510,8 +510,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 3);
+		assert.is(total, 4);
+		assert.is(testVar, 3);
 	});
 
 	it('should handle a nested Schema in an object with key "type"', () => {
@@ -543,8 +543,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 3);
+		assert.is(total, 4);
+		assert.is(testVar, 3);
 	});
 
 	it('should handle a nested Model', () => {
@@ -573,8 +573,8 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 3);
+		assert.is(total, 4);
+		assert.is(testVar, 3);
 	});
 
 	it('should handle a nested Model in an object with key "type"', () => {
@@ -606,7 +606,7 @@ describe('traverseSchema', () => {
 			}
 		});
 
-		assert.equal(total, 4);
-		assert.equal(testVar, 3);
+		assert.is(total, 4);
+		assert.is(testVar, 3);
 	});
 });

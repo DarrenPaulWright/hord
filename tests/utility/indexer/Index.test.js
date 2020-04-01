@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { assert } from 'type-enforcer';
 import Index from '../../../src/utility/indexer/Index.js';
 
 describe('Index', () => {
@@ -32,7 +32,7 @@ describe('Index', () => {
 				.add('b', 5)
 				.add('b', 4);
 
-			assert.deepEqual(index.list.values(), expected);
+			assert.equal(index.list.values(), expected);
 		});
 	});
 
@@ -64,7 +64,7 @@ describe('Index', () => {
 				.add('b', 4)
 				.discard('b', 1);
 
-			assert.deepEqual(index.list.values(), expected);
+			assert.equal(index.list.values(), expected);
 		});
 	});
 
@@ -81,7 +81,7 @@ describe('Index', () => {
 
 			const result = index.query('b', '$eq');
 
-			assert.deepEqual(result.values(), [0, 1, 4, 5]);
+			assert.equal(result.values(), [0, 1, 4, 5]);
 		});
 
 		it('should return an empty array if there\'s no match', () => {
@@ -96,7 +96,7 @@ describe('Index', () => {
 
 			const result = index.query('d');
 
-			assert.deepEqual(result.values(), []);
+			assert.equal(result.values(), []);
 		});
 	});
 
@@ -133,7 +133,7 @@ describe('Index', () => {
 
 			index.rebuild((callback) => newValues.map(callback), (item) => item.test);
 
-			assert.deepEqual(index.list.values(), expected);
+			assert.equal(index.list.values(), expected);
 		});
 	});
 
@@ -149,8 +149,8 @@ describe('Index', () => {
 
 			const result = index.spawn([1, 3, 5]);
 
-			assert.equal(index.list.comparer(), result.list.comparer());
-			assert.deepEqual(result.list.values(), [{
+			assert.is(index.list.comparer(), result.list.comparer());
+			assert.equal(result.list.values(), [{
 				v: 'a',
 				i: 1
 			}, {
@@ -194,7 +194,7 @@ describe('Index', () => {
 				.add('b', 4)
 				.increment(1);
 
-			assert.deepEqual(index.list.values(), expected);
+			assert.equal(index.list.values(), expected);
 		});
 
 		it('should increment all indexes starting at start by 1', () => {
@@ -227,7 +227,7 @@ describe('Index', () => {
 				.add('b', 4)
 				.increment(1, 3);
 
-			assert.deepEqual(index.list.values(), expected);
+			assert.equal(index.list.values(), expected);
 		});
 
 		it('should increment all indexes by -1', () => {
@@ -260,7 +260,7 @@ describe('Index', () => {
 				.add('b', 4)
 				.increment(-1);
 
-			assert.deepEqual(index.list.values(), expected);
+			assert.equal(index.list.values(), expected);
 		});
 	});
 
@@ -289,7 +289,7 @@ describe('Index', () => {
 				.add('b', 4)
 				.length(4);
 
-			assert.deepEqual(index.list.values(), expected);
+			assert.equal(index.list.values(), expected);
 		});
 	});
 
@@ -306,7 +306,7 @@ describe('Index', () => {
 
 			index.clear();
 
-			assert.deepEqual(index.list.values(), []);
+			assert.equal(index.list.values(), []);
 		});
 	});
 });

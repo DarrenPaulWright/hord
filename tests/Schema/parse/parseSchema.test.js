@@ -1,5 +1,6 @@
-import { assert } from 'chai';
 import displayValue from 'display-value';
+import { assert } from 'type-enforcer';
+import { multiTest } from 'type-enforcer-test-helper';
 import {
 	enforceArray,
 	enforceBoolean,
@@ -14,7 +15,6 @@ import {
 import parseSchema from '../../../src/Schema/parse/parseSchema.js';
 import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/typeRules.js';
 import Schema from '../../../src/Schema/Schema.js';
-import { multiTest } from '../../TestUtil.js';
 import { schemaTestTypes, testSchema } from '../../testValues.js';
 
 const testEnforce = () => {
@@ -75,7 +75,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an Array', () => {
@@ -101,7 +101,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an object literal', () => {
@@ -128,7 +128,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an Object', () => {
@@ -154,7 +154,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null', () => {
@@ -180,7 +180,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null in an array', () => {
@@ -206,7 +206,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null and a type in an array', () => {
@@ -237,7 +237,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for two types in an array', () => {
@@ -268,7 +268,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			multiTest({
@@ -300,7 +300,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 		});
 
@@ -330,7 +330,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null', () => {
@@ -358,7 +358,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null in an array', () => {
@@ -386,7 +386,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null and a type in an array', () => {
@@ -419,7 +419,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for two types in an array', () => {
@@ -452,7 +452,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			multiTest({
@@ -486,7 +486,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 
 			multiTest({
@@ -561,7 +561,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 
 			describe('overrides', () => {
@@ -590,7 +590,7 @@ describe('parseSchema', () => {
 						}]
 					};
 
-					assert.deepEqual(parseSchema(schema), output);
+					assert.equal(parseSchema(schema), output);
 				});
 			});
 		});
@@ -625,7 +625,7 @@ describe('parseSchema', () => {
 				}]
 			};
 
-			assert.deepEqual(parseSchema(schema), output);
+			assert.equal(parseSchema(schema), output);
 		});
 	});
 
@@ -663,7 +663,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an Array in an array literal', () => {
@@ -689,7 +689,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an empty object in an array', () => {
@@ -725,7 +725,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an Object in an array', () => {
@@ -751,7 +751,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null in two array literals', () => {
@@ -786,7 +786,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null and a type in two array literals', () => {
@@ -826,7 +826,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for two types in an array', () => {
@@ -866,7 +866,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			multiTest({
@@ -919,7 +919,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 		});
 
@@ -958,7 +958,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null in an array', () => {
@@ -995,7 +995,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null and a type in an array', () => {
@@ -1037,7 +1037,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for two types in an array', () => {
@@ -1079,7 +1079,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			multiTest({
@@ -1134,7 +1134,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 
 			multiTest({
@@ -1191,7 +1191,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 
 			describe('overrides', () => {
@@ -1241,7 +1241,7 @@ describe('parseSchema', () => {
 						}]
 					};
 
-					assert.deepEqual(parseSchema(schema), output);
+					assert.equal(parseSchema(schema), output);
 				});
 			});
 		});
@@ -1296,7 +1296,7 @@ describe('parseSchema', () => {
 				}]
 			};
 
-			assert.deepEqual(parseSchema(schema), output);
+			assert.equal(parseSchema(schema), output);
 		});
 	});
 
@@ -1337,7 +1337,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an Array in an array literal', () => {
@@ -1375,7 +1375,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an empty object in an array', () => {
@@ -1414,7 +1414,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for an Object in an array', () => {
@@ -1452,7 +1452,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null', () => {
@@ -1490,7 +1490,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null in an array', () => {
@@ -1528,7 +1528,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null and a type in an array', () => {
@@ -1571,7 +1571,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for two types in an array', () => {
@@ -1616,7 +1616,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			multiTest({
@@ -1672,7 +1672,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 		});
 
@@ -1714,7 +1714,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null', () => {
@@ -1754,7 +1754,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null in an array', () => {
@@ -1794,7 +1794,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for null and a type in an array', () => {
@@ -1836,7 +1836,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			it('should return a map for two types in an array', () => {
@@ -1878,7 +1878,7 @@ describe('parseSchema', () => {
 					}]
 				};
 
-				assert.deepEqual(parseSchema(schema), output);
+				assert.equal(parseSchema(schema), output);
 			});
 
 			multiTest({
@@ -1936,7 +1936,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 
 			multiTest({
@@ -1996,7 +1996,7 @@ describe('parseSchema', () => {
 				},
 				inputKey: 'input',
 				outputKey: 'output',
-				assertion: 'deepEqual'
+				assertion: 'equal'
 			});
 
 			describe('overrides', () => {
@@ -2049,7 +2049,7 @@ describe('parseSchema', () => {
 						}]
 					};
 
-					assert.deepEqual(parseSchema(schema), output);
+					assert.equal(parseSchema(schema), output);
 				});
 			});
 		});

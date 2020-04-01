@@ -1,8 +1,7 @@
 module.exports = [{
 	type: 'helper',
 	files: [
-		'tests/testValues.js',
-		'tests/TestUtil.js'
+		'tests/testValues.js'
 	]
 }, {
 	type: 'src',

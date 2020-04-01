@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { assert } from 'type-enforcer';
 import Index from '../../../src/utility/indexer/Index.js';
 import Indexer from '../../../src/utility/indexer/Indexer.js';
 
@@ -8,7 +8,7 @@ describe('Indexer', () => {
 			const indexer = new Indexer();
 			indexer.addIndex('path');
 
-			assert.isTrue(indexer.indexes.path instanceof Index);
+			assert.is(indexer.indexes.path instanceof Index, true);
 		});
 	});
 
@@ -17,14 +17,14 @@ describe('Indexer', () => {
 			const indexer = new Indexer();
 			indexer.addIndex('path');
 
-			assert.isTrue(indexer.hasIndex('path'));
+			assert.is(indexer.hasIndex('path'), true);
 		});
 
 		it('should return false for a path that is not added', () => {
 			const indexer = new Indexer();
 			indexer.addIndex('path');
 
-			assert.isFalse(indexer.hasIndex('path2'));
+			assert.is(indexer.hasIndex('path2'), false);
 		});
 	});
 
@@ -39,8 +39,8 @@ describe('Indexer', () => {
 				path2: 2
 			}, 3);
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 1, i: 3}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 2, i: 3}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 1, i: 3 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 2, i: 3 }]);
 		});
 	});
 
@@ -65,8 +65,8 @@ describe('Indexer', () => {
 				path2: 2
 			}, 3);
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 3, i: 4}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 4, i: 4}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 3, i: 4 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 4, i: 4 }]);
 		});
 	});
 
@@ -117,9 +117,9 @@ describe('Indexer', () => {
 				path3: 'd'
 			});
 
-			assert.deepEqual(result.matches.values(), []);
-			assert.deepEqual(result.nonIndexedSearches, {path3: {$eq: 'd'}});
-			assert.isFalse(result.usedIndexes);
+			assert.equal(result.matches.values(), []);
+			assert.equal(result.nonIndexedSearches, { path3: { $eq: 'd' } });
+			assert.is(result.usedIndexes, false);
 		});
 
 		it('should handle not finding anything on an indexed path', () => {
@@ -127,9 +127,9 @@ describe('Indexer', () => {
 				path1: 'd'
 			});
 
-			assert.deepEqual(result.matches.values(), []);
-			assert.deepEqual(result.nonIndexedSearches, {});
-			assert.isTrue(result.usedIndexes);
+			assert.equal(result.matches.values(), []);
+			assert.equal(result.nonIndexedSearches, {});
+			assert.is(result.usedIndexes, true);
 		});
 
 		it('should find a range of matching items on one shallow index', () => {
@@ -137,9 +137,9 @@ describe('Indexer', () => {
 				path1: 'b'
 			});
 
-			assert.deepEqual(result.matches.values(), [0, 1, 2, 4]);
-			assert.deepEqual(result.nonIndexedSearches, {});
-			assert.isTrue(result.usedIndexes);
+			assert.equal(result.matches.values(), [0, 1, 2, 4]);
+			assert.equal(result.nonIndexedSearches, {});
+			assert.is(result.usedIndexes, true);
 		});
 
 		it('should find a range of matching items on nested indexer', () => {
@@ -153,9 +153,9 @@ describe('Indexer', () => {
 				}
 			});
 
-			assert.deepEqual(result.matches.values(), [1, 4]);
-			assert.deepEqual(result.nonIndexedSearches, {path3: {x: {$eq: 'x'}}});
-			assert.isTrue(result.usedIndexes);
+			assert.equal(result.matches.values(), [1, 4]);
+			assert.equal(result.nonIndexedSearches, { path3: { x: { $eq: 'x' } } });
+			assert.is(result.usedIndexes, true);
 		});
 	});
 
@@ -177,8 +177,8 @@ describe('Indexer', () => {
 
 			indexer.update('path1', 3, 7, 1);
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 3, i: 4}, {v: 7, i: 3}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 2, i: 3}, {v: 4, i: 4}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 3, i: 4 }, { v: 7, i: 3 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 2, i: 3 }, { v: 4, i: 4 }]);
 		});
 	});
 
@@ -213,8 +213,8 @@ describe('Indexer', () => {
 
 			indexer.rebuild((callback) => newValues.map(callback));
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 7, i: 0}, {v: 9, i: 1}, {v: 11, i: 2}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 8, i: 2}, {v: 10, i: 1}, {v: 12, i: 0}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 7, i: 0 }, { v: 9, i: 1 }, { v: 11, i: 2 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 8, i: 2 }, { v: 10, i: 1 }, { v: 12, i: 0 }]);
 		});
 	});
 
@@ -239,8 +239,8 @@ describe('Indexer', () => {
 
 			indexer.increment(1);
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 1, i: 4}, {v: 3, i: 5}, {v: 5, i: 6}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 2, i: 4}, {v: 4, i: 5}, {v: 6, i: 6}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 1, i: 4 }, { v: 3, i: 5 }, { v: 5, i: 6 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 2, i: 4 }, { v: 4, i: 5 }, { v: 6, i: 6 }]);
 		});
 
 		it('should increment all indexes starting at start by 1', () => {
@@ -263,8 +263,8 @@ describe('Indexer', () => {
 
 			indexer.increment(1, 4);
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 1, i: 3}, {v: 3, i: 5}, {v: 5, i: 6}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 2, i: 3}, {v: 4, i: 5}, {v: 6, i: 6}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 1, i: 3 }, { v: 3, i: 5 }, { v: 5, i: 6 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 2, i: 3 }, { v: 4, i: 5 }, { v: 6, i: 6 }]);
 		});
 
 		it('should increment all indexes by -1', () => {
@@ -287,8 +287,8 @@ describe('Indexer', () => {
 
 			indexer.increment(-1);
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 1, i: 2}, {v: 3, i: 3}, {v: 5, i: 4}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 2, i: 2}, {v: 4, i: 3}, {v: 6, i: 4}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 1, i: 2 }, { v: 3, i: 3 }, { v: 5, i: 4 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 2, i: 2 }, { v: 4, i: 3 }, { v: 6, i: 4 }]);
 		});
 	});
 
@@ -313,8 +313,8 @@ describe('Indexer', () => {
 
 			indexer.length(4);
 
-			assert.deepEqual(indexer.indexes.path1.list.values(), [{v: 1, i: 3}]);
-			assert.deepEqual(indexer.indexes.path2.list.values(), [{v: 2, i: 3}]);
+			assert.equal(indexer.indexes.path1.list.values(), [{ v: 1, i: 3 }]);
+			assert.equal(indexer.indexes.path2.list.values(), [{ v: 2, i: 3 }]);
 		});
 	});
 
@@ -339,7 +339,7 @@ describe('Indexer', () => {
 
 			indexer.clear();
 
-			assert.deepEqual(indexer.indexes, {});
+			assert.equal(indexer.indexes, {});
 		});
 	});
 });

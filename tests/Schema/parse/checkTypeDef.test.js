@@ -1,13 +1,13 @@
-import { assert } from 'chai';
+import { assert } from 'type-enforcer';
+import { multiTest } from 'type-enforcer-test-helper';
 import checkSchemaType from '../../../src/Schema/parse/checkTypeDef.js';
-import { multiTest } from '../../TestUtil.js';
 import { schemaTestTypes } from '../../testValues.js';
 
 describe('checkSchemaType', () => {
 	const falseValues = [undefined, 'test', true, false, [], {}, 3, /g/];
 
 	it('should return true for null', () => {
-		assert.isTrue(checkSchemaType(null, false));
+		assert.is(checkSchemaType(null, false), true);
 	});
 
 	multiTest({
@@ -19,7 +19,7 @@ describe('checkSchemaType', () => {
 			return checkSchemaType(type, false);
 		},
 		inputKey: 'value',
-		assertion: 'isTrue'
+		assertion: 'true'
 	});
 
 	multiTest({
@@ -30,11 +30,11 @@ describe('checkSchemaType', () => {
 		test(type) {
 			return checkSchemaType(type, false);
 		},
-		assertion: 'isFalse'
+		assertion: 'false'
 	});
 
 	it('should return true for null in an array', () => {
-		assert.isTrue(checkSchemaType([null], false));
+		assert.is(checkSchemaType([null], false), true);
 	});
 
 	multiTest({
@@ -46,7 +46,7 @@ describe('checkSchemaType', () => {
 			return checkSchemaType([type], false);
 		},
 		inputKey: 'value',
-		assertion: 'isTrue'
+		assertion: 'true'
 	});
 
 	multiTest({
@@ -57,21 +57,21 @@ describe('checkSchemaType', () => {
 		test(type) {
 			return checkSchemaType([type], false);
 		},
-		assertion: 'isFalse'
+		assertion: 'false'
 	});
 
 	it('should return true for multiple types and null in an array', () => {
-		assert.isTrue(checkSchemaType([String, Boolean, null], false));
+		assert.is(checkSchemaType([String, Boolean, null], false), true);
 	});
 
 	it('should return false for multiple types and a non-type in an array', () => {
-		assert.isFalse(checkSchemaType([String, 3, null], false));
+		assert.is(checkSchemaType([String, 3, null], false), false);
 	});
 
 	it('should return true for null in an object with key "type"', () => {
-		assert.isTrue(checkSchemaType({
+		assert.is(checkSchemaType({
 			type: null
-		}, true));
+		}, true), true);
 	});
 
 	multiTest({
@@ -85,7 +85,7 @@ describe('checkSchemaType', () => {
 			}, true);
 		},
 		inputKey: 'value',
-		assertion: 'isTrue'
+		assertion: 'true'
 	});
 
 	multiTest({
@@ -98,25 +98,25 @@ describe('checkSchemaType', () => {
 				type
 			}, true);
 		},
-		assertion: 'isFalse'
+		assertion: 'false'
 	});
 
 	it('should return true for multiple types and null in an array in an object with key "type"', () => {
-		assert.isTrue(checkSchemaType({
+		assert.is(checkSchemaType({
 			type: [String, Boolean, null]
-		}, true));
+		}, true), true);
 	});
 
 	it('should return false for multiple types and a non-type in an array in an object with key "type"', () => {
-		assert.isFalse(checkSchemaType({
+		assert.is(checkSchemaType({
 			type: [String, 3, null]
-		}, true));
+		}, true), false);
 	});
 
 	it('should return true for null in an array in an object with key "type"', () => {
-		assert.isTrue(checkSchemaType({
+		assert.is(checkSchemaType({
 			type: [null]
-		}, true));
+		}, true), true);
 	});
 
 	multiTest({
@@ -130,7 +130,7 @@ describe('checkSchemaType', () => {
 			}, true);
 		},
 		inputKey: 'value',
-		assertion: 'isTrue'
+		assertion: 'true'
 	});
 
 	multiTest({
@@ -143,23 +143,23 @@ describe('checkSchemaType', () => {
 				type: [type]
 			}, true);
 		},
-		assertion: 'isFalse'
+		assertion: 'false'
 	});
 
 	it('should return true for multiple types and null in an array in an object with key "type"', () => {
-		assert.isTrue(checkSchemaType({
+		assert.is(checkSchemaType({
 			type: [String, Boolean, null]
-		}, true));
+		}, true), true);
 	});
 
 	it('should return true for an object with key "enforce" that is assigned a value that is a function', () => {
-		assert.isTrue(checkSchemaType({
+		assert.is(checkSchemaType({
 			enforce() {
 			}
-		}, true));
+		}, true), true);
 	});
 
 	it('should return false if nothing is provided', () => {
-		assert.isFalse(checkSchemaType());
+		assert.is(checkSchemaType(), false);
 	});
 });

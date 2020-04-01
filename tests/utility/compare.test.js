@@ -1,5 +1,5 @@
-import { assert } from 'chai';
 import displayValue from 'display-value';
+import { assert } from 'type-enforcer';
 import { compare } from '../../index.js';
 
 describe('compare', () => {
@@ -10,35 +10,35 @@ describe('compare', () => {
 			const expected = index1 < index2 ? -1 : (index1 > index2 ? 1 : 0);
 
 			it(`should return ${displayValue(expected)} for ${displayValue(value1)} and ${displayValue(value2)}`, () => {
-				assert.equal(compare()(value1, value2), expected);
+				assert.is(compare()(value1, value2), expected);
 			});
 
 			it(`should return ${displayValue(expected)} for {x: ${displayValue(value1)}} and {x: ${displayValue(value2)}}`, () => {
-				assert.equal(compare('x')({x: value1}, {x: value2}), expected);
+				assert.is(compare('x')({ x: value1 }, { x: value2 }), expected);
 			});
 
 			it(`should return ${displayValue(expected)} for {x: ${displayValue(value1)}} and {x: ${displayValue(value2)}} with the key in an array`, () => {
-				assert.equal(compare(['x'])({x: value1}, {x: value2}), expected);
+				assert.is(compare(['x'])({ x: value1 }, { x: value2 }), expected);
 			});
 
 			it(`should return ${displayValue(expected)} for {x: ${displayValue(value1)}, y: 1} and {x: ${displayValue(value2)}, y: 1} with the keys ['y', 'x']`, () => {
-				assert.equal(compare(['y', 'x'])({x: value1, y: 1}, {x: value2, y: 1}), expected);
+				assert.is(compare(['y', 'x'])({ x: value1, y: 1 }, { x: value2, y: 1 }), expected);
 			});
 
 			it(`should return ${displayValue(expected)} for ${displayValue(value1)} and ${displayValue(value2)} when desc: true`, () => {
-				assert.equal(compare(undefined, true)(value1, value2), -expected);
+				assert.is(compare(undefined, true)(value1, value2) === -expected, true);
 			});
 
 			it(`should return ${displayValue(expected)} for {x: ${displayValue(value1)}} and {x: ${displayValue(value2)}} when desc: true`, () => {
-				assert.equal(compare('x', true)({x: value1}, {x: value2}), -expected);
+				assert.is(compare('x', true)({ x: value1 }, { x: value2 }) === -expected, true);
 			});
 
 			it(`should return ${displayValue(expected)} for {x: ${displayValue(value1)}} and {x: ${displayValue(value2)}} with the key in an array when desc: true`, () => {
-				assert.equal(compare(['x'], true)({x: value1}, {x: value2}), -expected);
+				assert.is(compare(['x'], true)({ x: value1 }, { x: value2 }), -expected);
 			});
 
 			it(`should return ${displayValue(expected)} for {x: ${displayValue(value1)}, y: 1} and {x: ${displayValue(value2)}, y: 1} with the keys ['y', 'x'] when desc: true`, () => {
-				assert.equal(compare(['y', 'x'], true)({x: value1, y: 1}, {x: value2, y: 1}), -expected);
+				assert.is(compare(['y', 'x'], true)({ x: value1, y: 1 }, { x: value2, y: 1 }), -expected);
 			});
 		});
 	});
@@ -49,33 +49,33 @@ describe('compare', () => {
 
 			values.sort(compare());
 
-			assert.equal(values[0], 1);
-			assert.equal(values[1], 2);
-			assert.equal(values[2], 3);
-			assert.equal(values[3], 4);
-			assert.equal(values[4], 5);
-			assert.equal(values[5], 6);
-			assert.equal(values[6], 7);
-			assert.equal(values[7], 8);
-			assert.equal(values[8], 9);
-			assert.isTrue(Object.is(values[9], NaN));
-			assert.equal(values[10], null);
-			assert.equal(values[11], undefined);
+			assert.is(values[0], 1);
+			assert.is(values[1], 2);
+			assert.is(values[2], 3);
+			assert.is(values[3], 4);
+			assert.is(values[4], 5);
+			assert.is(values[5], 6);
+			assert.is(values[6], 7);
+			assert.is(values[7], 8);
+			assert.is(values[8], 9);
+			assert.is(Object.is(values[9], NaN), true);
+			assert.is(values[10], null);
+			assert.is(values[11], undefined);
 
 			values.sort(compare(undefined, true));
 
-			assert.equal(values[10], 1);
-			assert.equal(values[9], 2);
-			assert.equal(values[8], 3);
-			assert.equal(values[7], 4);
-			assert.equal(values[6], 5);
-			assert.equal(values[5], 6);
-			assert.equal(values[4], 7);
-			assert.equal(values[3], 8);
-			assert.equal(values[2], 9);
-			assert.isTrue(Object.is(values[1], NaN));
-			assert.equal(values[0], null);
-			assert.equal(values[11], undefined);
+			assert.is(values[10], 1);
+			assert.is(values[9], 2);
+			assert.is(values[8], 3);
+			assert.is(values[7], 4);
+			assert.is(values[6], 5);
+			assert.is(values[5], 6);
+			assert.is(values[4], 7);
+			assert.is(values[3], 8);
+			assert.is(values[2], 9);
+			assert.is(Object.is(values[1], NaN), true);
+			assert.is(values[0], null);
+			assert.is(values[11], undefined);
 		});
 
 		it('should sort an array of objects with a key', () => {
@@ -139,11 +139,11 @@ describe('compare', () => {
 
 			values.sort(compare('x'));
 
-			assert.deepEqual(values, expected);
+			assert.equal(values, expected);
 
 			values.sort(compare('x', true));
 
-			assert.deepEqual(values, expectedDesc);
+			assert.equal(values, expectedDesc);
 		});
 
 		it('should sort an array of objects with a key in an array', () => {
@@ -188,7 +188,7 @@ describe('compare', () => {
 
 			values.sort(compare(['x']));
 
-			assert.deepEqual(values, expected);
+			assert.equal(values, expected);
 		});
 
 		it('should sort an array of objects with a multiple keys', () => {
@@ -297,11 +297,11 @@ describe('compare', () => {
 
 			values.sort(compare(['x', 'y']));
 
-			assert.deepEqual(values, expected);
+			assert.equal(values, expected);
 
 			values.sort(compare(['x', 'y'], true));
 
-			assert.deepEqual(values, expectedDesc);
+			assert.equal(values, expectedDesc);
 		});
 	});
 });

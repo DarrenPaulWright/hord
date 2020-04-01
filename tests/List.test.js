@@ -1,14 +1,14 @@
-import { assert } from 'chai';
+import { assert } from 'type-enforcer';
 import { List } from '../index.js';
 
 describe('List', () => {
 	describe('.comparer', () => {
 		it('should have an initial comparer', () => {
-			assert.equal(new List().comparer(), List.comparers.default);
+			assert.is(new List().comparer(), List.comparers.default);
 		});
 
 		it('should sort initial values', () => {
-			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).values(), [0,
+			assert.equal(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).values(), [0,
 				1,
 				2,
 				3,
@@ -22,7 +22,7 @@ describe('List', () => {
 		});
 
 		it('should sort initial values with List.comparers.number.asc', () => {
-			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).comparer(List.comparers.number.asc)
+			assert.equal(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).comparer(List.comparers.number.asc)
 				.values(), [0,
 				1,
 				2,
@@ -37,7 +37,7 @@ describe('List', () => {
 		});
 
 		it('should sort initial values with List.comparers.number.desc', () => {
-			assert.deepEqual(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).comparer(List.comparers.number.desc)
+			assert.equal(new List([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).comparer(List.comparers.number.desc)
 				.values(), [10,
 				9,
 				8,
@@ -52,39 +52,39 @@ describe('List', () => {
 		});
 
 		it('should sort initial values with List.comparers.string.asc', () => {
-			assert.deepEqual(new List(['c', 'b', 'a']).comparer(List.comparers.string.asc).values(), ['a', 'b', 'c']);
+			assert.equal(new List(['c', 'b', 'a']).comparer(List.comparers.string.asc).values(), ['a', 'b', 'c']);
 		});
 
 		it('should sort initial values with List.comparers.string.desc', () => {
-			assert.deepEqual(new List(['b', 'a', 'c']).comparer(List.comparers.string.desc).values(), ['c', 'b', 'a']);
+			assert.equal(new List(['b', 'a', 'c']).comparer(List.comparers.string.desc).values(), ['c', 'b', 'a']);
 		});
 
 		it('should sort initial values with List.comparers.id.asc', () => {
-			assert.deepEqual(new List([{id: 'c'}, {id: 'b'}, {id: 'a'}]).comparer(List.comparers.id.asc)
-				.values(), [{id: 'a'}, {id: 'b'}, {id: 'c'}]);
+			assert.equal(new List([{ id: 'c' }, { id: 'b' }, { id: 'a' }]).comparer(List.comparers.id.asc)
+				.values(), [{ id: 'a' }, { id: 'b' }, { id: 'c' }]);
 		});
 
 		it('should sort initial values with List.comparers.id.desc', () => {
-			assert.deepEqual(new List([{id: 'b'}, {id: 'a'}, {id: 'c'}]).comparer(List.comparers.id.desc)
-				.values(), [{id: 'c'}, {id: 'b'}, {id: 'a'}]);
+			assert.equal(new List([{ id: 'b' }, { id: 'a' }, { id: 'c' }]).comparer(List.comparers.id.desc)
+				.values(), [{ id: 'c' }, { id: 'b' }, { id: 'a' }]);
 		});
 	});
 
 	describe('.add', () => {
 		it('should add an item when no other values have been set', () => {
-			assert.deepEqual(new List().add(2).values(), [2]);
+			assert.equal(new List().add(2).values(), [2]);
 		});
 
 		it('should add an item to the beginning of the array', () => {
-			assert.deepEqual(new List([3, 4, 5]).add(0).values(), [0, 3, 4, 5]);
+			assert.equal(new List([3, 4, 5]).add(0).values(), [0, 3, 4, 5]);
 		});
 
 		it('should add an item in the middle of an array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).add(6).values(), [3, 4, 5, 6, 7, 8]);
+			assert.equal(new List([3, 4, 5, 7, 8]).add(6).values(), [3, 4, 5, 6, 7, 8]);
 		});
 
 		it('should add an item to the end of the array', () => {
-			assert.deepEqual(new List([3, 4, 5]).add(10).values(), [3, 4, 5, 10]);
+			assert.equal(new List([3, 4, 5]).add(10).values(), [3, 4, 5, 10]);
 		});
 	});
 
@@ -98,7 +98,7 @@ describe('List', () => {
 				id: 2
 			}];
 
-			assert.deepEqual(list.addUnique(newValue).values(), output);
+			assert.equal(list.addUnique(newValue).values(), output);
 		});
 
 		it('should add an item to the beginning of the array', () => {
@@ -122,7 +122,7 @@ describe('List', () => {
 				id: 5
 			}];
 
-			assert.deepEqual(list.addUnique(newValue).values(), output);
+			assert.equal(list.addUnique(newValue).values(), output);
 		});
 
 		it('should add an item in the middle of an array', () => {
@@ -154,7 +154,7 @@ describe('List', () => {
 				id: 8
 			}];
 
-			assert.deepEqual(list.addUnique(newValue).values(), output);
+			assert.equal(list.addUnique(newValue).values(), output);
 		});
 
 		it('should add an item to the end of the array', () => {
@@ -178,7 +178,7 @@ describe('List', () => {
 				id: 10
 			}];
 
-			assert.deepEqual(list.addUnique(newValue).values(), output);
+			assert.equal(list.addUnique(newValue).values(), output);
 		});
 
 		it('should NOT add a duplicate item to the beginning of the array', () => {
@@ -200,7 +200,7 @@ describe('List', () => {
 				id: 5
 			}];
 
-			assert.deepEqual(list.addUnique(newValue).values(), output);
+			assert.equal(list.addUnique(newValue).values(), output);
 		});
 
 		it('should NOT add a duplicate item in the middle of an array', () => {
@@ -230,7 +230,7 @@ describe('List', () => {
 				id: 8
 			}];
 
-			assert.deepEqual(list.addUnique(newValue).values(), output);
+			assert.equal(list.addUnique(newValue).values(), output);
 		});
 
 		it('should NOT add a duplicate item to the end of the array', () => {
@@ -252,7 +252,7 @@ describe('List', () => {
 				id: 5
 			}];
 
-			assert.deepEqual(list.addUnique(newValue).values(), output);
+			assert.equal(list.addUnique(newValue).values(), output);
 		});
 	});
 
@@ -303,111 +303,111 @@ describe('List', () => {
 				id: 8
 			}];
 
-			assert.deepEqual(list.unique().values(), output);
+			assert.equal(list.unique().values(), output);
 		});
 	});
 
 	describe('.discard', () => {
 		it('should remove an item from the beginning of the array', () => {
-			assert.deepEqual(new List([2, 3, 4, 5]).discard(2).values(), [3, 4, 5]);
+			assert.equal(new List([2, 3, 4, 5]).discard(2).values(), [3, 4, 5]);
 		});
 
 		it('should remove an item from the end of the array', () => {
-			assert.deepEqual(new List([2, 3, 4, 5]).discard(5).values(), [2, 3, 4]);
+			assert.equal(new List([2, 3, 4, 5]).discard(5).values(), [2, 3, 4]);
 		});
 
 		it('should remove an item from the middle of the array', () => {
-			assert.deepEqual(new List([2, 3, 4, 5]).discard(4).values(), [2, 3, 5]);
+			assert.equal(new List([2, 3, 4, 5]).discard(4).values(), [2, 3, 5]);
 		});
 	});
 
 	describe('.discardAt', () => {
 		it('should remove an item from the beginning of the array', () => {
-			assert.deepEqual(new List([2, 3, 4, 5]).discardAt(0).values(), [3, 4, 5]);
+			assert.equal(new List([2, 3, 4, 5]).discardAt(0).values(), [3, 4, 5]);
 		});
 
 		it('should remove an item from the end of the array', () => {
-			assert.deepEqual(new List([2, 3, 4, 5]).discardAt(3).values(), [2, 3, 4]);
+			assert.equal(new List([2, 3, 4, 5]).discardAt(3).values(), [2, 3, 4]);
 		});
 
 		it('should remove an item from the middle of the array', () => {
-			assert.deepEqual(new List([2, 3, 4, 5]).discardAt(2).values(), [2, 3, 5]);
+			assert.equal(new List([2, 3, 4, 5]).discardAt(2).values(), [2, 3, 5]);
 		});
 	});
 
 	describe('.discardAll', () => {
 		it('should do nothing to an empty list', () => {
-			assert.deepEqual(new List().discardAll().values(), []);
+			assert.equal(new List().discardAll().values(), []);
 		});
 
 		it('should remove all the items from a list', () => {
-			assert.deepEqual(new List([2, 3, 4, 5]).discardAll().values(), []);
+			assert.equal(new List([2, 3, 4, 5]).discardAll().values(), []);
 		});
 	});
 
 	describe('.indexOf', () => {
 		it('should return -1 for an item that isn\'t in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).indexOf(6), -1);
+			assert.equal(new List([3, 4, 5, 7, 8]).indexOf(6), -1);
 		});
 
 		it('should find an item in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).indexOf(7), 3);
+			assert.equal(new List([3, 4, 5, 7, 8]).indexOf(7), 3);
 		});
 
 		it('should find the first item in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).indexOf(3), 0);
+			assert.equal(new List([3, 4, 5, 7, 8]).indexOf(3), 0);
 		});
 
 		it('should find the last item in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).indexOf(8), 4);
+			assert.equal(new List([3, 4, 5, 7, 8]).indexOf(8), 4);
 		});
 
 		it('should find the first of multiple items in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 5, 5, 5, 7, 8]).indexOf(5), 2);
+			assert.equal(new List([3, 4, 5, 5, 5, 5, 7, 8]).indexOf(5), 2);
 		});
 	});
 
 	describe('.lastIndexOf', () => {
 		it('should return -1 for an item that isn\'t in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).lastIndexOf(6), -1);
+			assert.equal(new List([3, 4, 5, 7, 8]).lastIndexOf(6), -1);
 		});
 
 		it('should find an item in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).lastIndexOf(7), 3);
+			assert.equal(new List([3, 4, 5, 7, 8]).lastIndexOf(7), 3);
 		});
 
 		it('should find the first item in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).lastIndexOf(3), 0);
+			assert.equal(new List([3, 4, 5, 7, 8]).lastIndexOf(3), 0);
 		});
 
 		it('should find the last item in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).lastIndexOf(8), 4);
+			assert.equal(new List([3, 4, 5, 7, 8]).lastIndexOf(8), 4);
 		});
 
 		it('should find the last of multiple items in the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 5, 5, 5, 7, 8]).lastIndexOf(5), 5);
+			assert.equal(new List([3, 4, 5, 5, 5, 5, 7, 8]).lastIndexOf(5), 5);
 		});
 	});
 
 	describe('.includes', () => {
 		it('should return false for an item that isn\'t in the array', () => {
-			assert.isFalse(new List([3, 4, 5, 7, 8]).includes(6));
+			assert.is(new List([3, 4, 5, 7, 8]).includes(6), false);
 		});
 
 		it('should return true for an item in the array', () => {
-			assert.isTrue(new List([3, 4, 5, 7, 8]).includes(7));
+			assert.is(new List([3, 4, 5, 7, 8]).includes(7), true);
 		});
 
 		it('should return true for the first item in the array', () => {
-			assert.isTrue(new List([3, 4, 5, 7, 8]).includes(3));
+			assert.is(new List([3, 4, 5, 7, 8]).includes(3), true);
 		});
 
 		it('should return true for the last item in the array', () => {
-			assert.isTrue(new List([3, 4, 5, 7, 8]).includes(8));
+			assert.is(new List([3, 4, 5, 7, 8]).includes(8), true);
 		});
 
 		it('should return true for the first of multiple items in the array', () => {
-			assert.isTrue(new List([3, 4, 5, 5, 5, 5, 7, 8]).includes(5));
+			assert.is(new List([3, 4, 5, 5, 5, 5, 7, 8]).includes(5), true);
 		});
 	});
 
@@ -433,7 +433,7 @@ describe('List', () => {
 					return a.value - b.value;
 				});
 
-			assert.deepEqual(list.find({
+			assert.equal(list.find({
 				value: 5
 			}), {
 				value: 5,
@@ -467,7 +467,7 @@ describe('List', () => {
 					return a.value - b.value;
 				});
 
-			assert.deepEqual(list.findLast({
+			assert.equal(list.findLast({
 				value: 5
 			}), {
 				value: 5,
@@ -503,8 +503,8 @@ describe('List', () => {
 				value: 4
 			});
 
-			assert.isTrue(result instanceof List);
-			assert.deepEqual(result.values(), output);
+			assert.is(result instanceof List, true);
+			assert.equal(result.values(), output);
 		});
 
 		it('should find an item in the array', () => {
@@ -536,8 +536,8 @@ describe('List', () => {
 				value: 3
 			});
 
-			assert.isTrue(result instanceof List);
-			assert.deepEqual(result.values(), output);
+			assert.is(result instanceof List, true);
+			assert.equal(result.values(), output);
 		});
 
 		it('should find mulitple items in the array', () => {
@@ -575,8 +575,8 @@ describe('List', () => {
 				value: 5
 			});
 
-			assert.isTrue(result instanceof List);
-			assert.deepEqual(result.values(), output);
+			assert.is(result instanceof List, true);
+			assert.equal(result.values(), output);
 		});
 	});
 
@@ -602,7 +602,7 @@ describe('List', () => {
 					return a.value - b.value;
 				});
 
-			assert.deepEqual(list.findIndex({
+			assert.equal(list.findIndex({
 				value: 5
 			}), 3);
 		});
@@ -633,7 +633,7 @@ describe('List', () => {
 					return a.value - b.value;
 				});
 
-			assert.deepEqual(list.findLastIndex({
+			assert.equal(list.findLastIndex({
 				value: 5
 			}), 4);
 		});
@@ -641,23 +641,23 @@ describe('List', () => {
 
 	describe('.first', () => {
 		it('should return the first item of the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).first(), 3);
+			assert.equal(new List([3, 4, 5, 7, 8]).first(), 3);
 		});
 	});
 
 	describe('.last', () => {
 		it('should return the last item of the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).last(), 8);
+			assert.equal(new List([3, 4, 5, 7, 8]).last(), 8);
 		});
 	});
 
 	describe('.concat', () => {
 		it('should add the content of an array', () => {
-			assert.deepEqual(new List([1, 2, 3]).concat([4, 5, 6]).values(), [1, 2, 3, 4, 5, 6]);
+			assert.equal(new List([1, 2, 3]).concat([4, 5, 6]).values(), [1, 2, 3, 4, 5, 6]);
 		});
 
 		it('should add the content of multiple arrays', () => {
-			assert.deepEqual(new List([4, 5, 6]).comparer(List.comparers.number.asc)
+			assert.equal(new List([4, 5, 6]).comparer(List.comparers.number.asc)
 				.concat([1, 2, 3], [7, 8, 9], [10, 11, 12])
 				.values(), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
 		});
@@ -665,39 +665,39 @@ describe('List', () => {
 
 	describe('.length', () => {
 		it('should return 0 for an empty array', () => {
-			assert.deepEqual(new List([]).length, 0);
+			assert.equal(new List([]).length, 0);
 		});
 
 		it('should return the length of the array', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).length, 5);
+			assert.equal(new List([3, 4, 5, 7, 8]).length, 5);
 		});
 
 		it('should return the length of the array after add is called', () => {
-			assert.deepEqual(new List([3, 4, 5, 7, 8]).add(10).length, 6);
+			assert.equal(new List([3, 4, 5, 7, 8]).add(10).length, 6);
 		});
 	});
 
 	describe('.pop', () => {
 		it('should return the last element from array', () => {
-			assert.deepEqual(new List([1, 2, 3]).pop(), 3);
+			assert.equal(new List([1, 2, 3]).pop(), 3);
 		});
 
 		it('should remove the last item from array', () => {
 			const list = new List([1, 2, 3]);
 			list.pop();
-			assert.deepEqual(list.values(), [1, 2]);
+			assert.equal(list.values(), [1, 2]);
 		});
 	});
 
 	describe('.shift', () => {
 		it('should return the first element from array', () => {
-			assert.deepEqual(new List([1, 2, 3]).shift(), 1);
+			assert.equal(new List([1, 2, 3]).shift(), 1);
 		});
 
 		it('should remove the first item from array', () => {
 			const list = new List([1, 2, 3]);
 			list.shift();
-			assert.deepEqual(list.values(), [2, 3]);
+			assert.equal(list.values(), [2, 3]);
 		});
 	});
 
@@ -706,16 +706,16 @@ describe('List', () => {
 			const list = new List([1, 2, 3, 4, 5]);
 			const result = list.intersection([5, 6, 7, 8, 9, 4]);
 
-			assert.isTrue(result instanceof List);
-			assert.deepEqual(result.values(), [4, 5]);
+			assert.is(result instanceof List, true);
+			assert.equal(result.values(), [4, 5]);
 		});
 
 		it('should get the intersection from a list', () => {
 			const list = new List([1, 2, 3, 4, 5]);
 			const result = list.intersection(new List([5, 6, 7, 8, 9, 4]));
 
-			assert.isTrue(result instanceof List);
-			assert.deepEqual(result.values(), [4, 5]);
+			assert.is(result instanceof List, true);
+			assert.equal(result.values(), [4, 5]);
 		});
 	});
 
@@ -723,55 +723,55 @@ describe('List', () => {
 		it('should get the median from an array of length 1', () => {
 			const list = new List([7]);
 
-			assert.deepEqual(list.median(), 7);
+			assert.equal(list.median(), 7);
 		});
 
 		it('should get the median from an array of length 2', () => {
 			const list = new List([7, 9]);
 
-			assert.deepEqual(list.median(), 8);
+			assert.equal(list.median(), 8);
 		});
 
 		it('should get the median from an odd length array', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-			assert.deepEqual(list.median(), 5);
+			assert.equal(list.median(), 5);
 		});
 
 		it('should get the median from an even length array', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-			assert.deepEqual(list.median(), 5.5);
+			assert.equal(list.median(), 5.5);
 		});
 
 		it('should get the first item when 0,0 is provided', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-			assert.deepEqual(list.median(0, 0), 1);
+			assert.equal(list.median(0, 0), 1);
 		});
 
 		it('should get the median of the first half when high is provided in an even length array', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-			assert.deepEqual(list.median(0, 4), 3);
+			assert.equal(list.median(0, 4), 3);
 		});
 
 		it('should get the median of the second half when low is provided in an even length array', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-			assert.deepEqual(list.median(5), 8);
+			assert.equal(list.median(5), 8);
 		});
 
 		it('should get the median of the first half when high is provided in an odd length array', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-			assert.deepEqual(list.median(0, 4), 3);
+			assert.equal(list.median(0, 4), 3);
 		});
 
 		it('should get the median of the second half when low is provided in an odd length array', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-			assert.deepEqual(list.median(4), 7);
+			assert.equal(list.median(4), 7);
 		});
 	});
 
@@ -779,7 +779,7 @@ describe('List', () => {
 		it('should get the total of all the values', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7]);
 
-			assert.deepEqual(list.total, 28);
+			assert.equal(list.total, 28);
 		});
 	});
 
@@ -787,7 +787,7 @@ describe('List', () => {
 		it('should get the mean of all the values', () => {
 			const list = new List([1, 2, 3, 4, 5, 6, 7]);
 
-			assert.deepEqual(list.mean(), 4);
+			assert.equal(list.mean(), 4);
 		});
 	});
 
@@ -795,7 +795,7 @@ describe('List', () => {
 		it('should get the quartiles from an array of length 1', () => {
 			const list = new List([48]);
 
-			assert.deepEqual(list.quartiles(), {
+			assert.equal(list.quartiles(), {
 				min: 48,
 				Q1: 48,
 				median: 48,
@@ -808,7 +808,7 @@ describe('List', () => {
 		it('should get the quartiles from an array of length 2', () => {
 			const list = new List([48, 50]);
 
-			assert.deepEqual(list.quartiles(), {
+			assert.equal(list.quartiles(), {
 				min: 48,
 				Q1: 48,
 				median: 49,
@@ -821,7 +821,7 @@ describe('List', () => {
 		it('should get the quartiles from an array of length 3', () => {
 			const list = new List([48, 50, 52]);
 
-			assert.deepEqual(list.quartiles(), {
+			assert.equal(list.quartiles(), {
 				min: 48,
 				Q1: 49,
 				median: 50,
@@ -834,7 +834,7 @@ describe('List', () => {
 		it('should get the quartiles from an odd length array', () => {
 			const list = new List([1, 48, 49, 50, 51, 52, 100]);
 
-			assert.deepEqual(list.quartiles(), {
+			assert.equal(list.quartiles(), {
 				min: 48,
 				Q1: 48.5,
 				median: 50,
@@ -847,7 +847,7 @@ describe('List', () => {
 		it('should get the quartiles from an even length array', () => {
 			const list = new List([1, 48, 49, 50, 51, 52, 53, 100]);
 
-			assert.deepEqual(list.quartiles(), {
+			assert.equal(list.quartiles(), {
 				min: 48,
 				Q1: 48.5,
 				median: 50.5,
@@ -860,7 +860,7 @@ describe('List', () => {
 		it('should get return an empty array if no outliers are provided', () => {
 			const list = new List([47, 48, 49, 50, 51, 52, 53, 54]);
 
-			assert.deepEqual(list.quartiles(), {
+			assert.equal(list.quartiles(), {
 				min: 47,
 				Q1: 48.5,
 				median: 50.5,
@@ -872,7 +872,7 @@ describe('List', () => {
 	});
 
 	it('.toString should return a string of the array', () => {
-		assert.deepEqual(new List([1, 2, 3]).toString(), '1,2,3');
+		assert.equal(new List([1, 2, 3]).toString(), '1,2,3');
 	});
 
 	it('.keys should return a string of the array', () => {
@@ -884,17 +884,17 @@ describe('List', () => {
 				testVar++;
 			}
 		}
-		assert.equal(testVar, 3);
+		assert.is(testVar, 3);
 	});
 
 	it('.every should return a boolean', () => {
-		assert.deepEqual(new List([1, 2, 3]).every((item) => item > 0), true);
+		assert.equal(new List([1, 2, 3]).every((item) => item > 0), true);
 	});
 
 	it('.filter should return a new array', () => {
 		const output = new List([1, 2, 3]).filter((item) => item > 1);
-		assert.isTrue(output instanceof List);
-		assert.deepEqual(output.values(), [2, 3]);
+		assert.is(output instanceof List, true);
+		assert.equal(output.values(), [2, 3]);
 	});
 
 	it('.forEach should call a callback for every item in array', () => {
@@ -905,40 +905,40 @@ describe('List', () => {
 				testVar++;
 			}
 		});
-		assert.deepEqual(testVar, 3);
+		assert.equal(testVar, 3);
 	});
 
 	it('.toLocaleString should return a string of the array', () => {
-		assert.deepEqual(new List([1,
+		assert.equal(new List([1,
 			'a',
-			new Date('21 Dec 1997 14:12:00 UTC')]).toLocaleString('en', {timeZone: 'UTC'}), '1,a,12/21/1997, 2:12:00 PM');
+			new Date('21 Dec 1997 14:12:00 UTC')]).toLocaleString('en', { timeZone: 'UTC' }), '1,a,12/21/1997, 2:12:00 PM');
 	});
 
 	it('.join should return a string of the array', () => {
-		assert.deepEqual(new List([1, 2, 3]).join('|'), '1|2|3');
+		assert.equal(new List([1, 2, 3]).join('|'), '1|2|3');
 	});
 
 	it('.map should return a mapped version of the array as a list', () => {
 		const mapper = (item) => item + 'px';
 		const output = new List([1, 2, 3]).map(mapper);
 
-		assert.deepEqual(output, ['1px', '2px', '3px']);
+		assert.equal(output, ['1px', '2px', '3px']);
 	});
 
 	it('.reduce should return the result', () => {
 		const mapper = (accumulator, currentValue) => accumulator + currentValue;
-		assert.deepEqual(new List([1, 2, 3]).reduce(mapper), 6);
+		assert.equal(new List([1, 2, 3]).reduce(mapper), 6);
 	});
 
 	it('.reduceRight should return the result', () => {
 		const mapper = (accumulator, currentValue) => accumulator + currentValue;
-		assert.deepEqual(new List([1, 2, 3]).reduceRight(mapper), 6);
+		assert.equal(new List([1, 2, 3]).reduceRight(mapper), 6);
 	});
 
 	it('.slice should return a new List', () => {
 		const output = new List([1, 2, 3, 4, 5, 6]).slice(2, 4);
-		assert.isTrue(output instanceof List);
-		assert.deepEqual(output.values(), [3, 4]);
+		assert.is(output instanceof List, true);
+		assert.equal(output.values(), [3, 4]);
 	});
 
 	it('.some should call a callback for every item in array until true is returned', () => {
@@ -948,6 +948,6 @@ describe('List', () => {
 			testVar++;
 			return item === 2;
 		});
-		assert.deepEqual(testVar, 2);
+		assert.equal(testVar, 2);
 	});
 });

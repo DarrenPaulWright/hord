@@ -1,5 +1,5 @@
-import { assert } from 'chai';
 import { deepEqual, diffUpdate, intersection, set } from 'object-agent';
+import { assert } from 'type-enforcer';
 import { isObject } from 'type-enforcer-ui';
 import { Model, MODEL_ERROR_LEVEL, Schema } from '../index.js';
 
@@ -14,7 +14,7 @@ describe('Model', () => {
 
 		const model = new Model(schema);
 
-		assert.equal(model.schema, schema);
+		assert.is(model.schema, schema);
 	});
 
 	it('should still resemble an Object', () => {
@@ -30,7 +30,7 @@ describe('Model', () => {
 			testKey2: 'test'
 		});
 
-		assert.isTrue(isObject(thing));
+		assert.is(isObject(thing), true);
 	});
 
 	describe('get', () => {
@@ -48,10 +48,10 @@ describe('Model', () => {
 				hobbies: ['programming']
 			});
 
-			assert.equal(person.first, 'John');
-			assert.equal(person.last, 'Doe');
-			assert.equal(person.age, 21);
-			assert.equal(person.hobbies, undefined);
+			assert.is(person.first, 'John');
+			assert.is(person.last, 'Doe');
+			assert.is(person.age, 21);
+			assert.is(person.hobbies, undefined);
 		});
 	});
 
@@ -76,7 +76,7 @@ describe('Model', () => {
 
 			person.age = 1200;
 
-			assert.equal(person.age, 120);
+			assert.is(person.age, 120);
 		});
 
 		it('should enforce the schema when setting a value with Object.defineProperty', () => {
@@ -101,7 +101,7 @@ describe('Model', () => {
 				value: 1200
 			});
 
-			assert.equal(person.age, 120);
+			assert.is(person.age, 120);
 		});
 
 		it('should enforce the schema when setting a value with Object.deleteProperty', () => {
@@ -125,7 +125,7 @@ describe('Model', () => {
 
 			delete person.age;
 
-			assert.equal(person.age, 0);
+			assert.is(person.age, 0);
 		});
 
 		it('should be able to set values', () => {
@@ -143,9 +143,9 @@ describe('Model', () => {
 
 			set(person, 'age', 32);
 
-			assert.equal(person.first, 'John');
-			assert.equal(person.last, 'Doe');
-			assert.equal(person.age, 32);
+			assert.is(person.first, 'John');
+			assert.is(person.last, 'Doe');
+			assert.is(person.age, 32);
 		});
 
 		it('should enforce the schema in an array', () => {
@@ -191,7 +191,7 @@ describe('Model', () => {
 				strength: 2
 			});
 
-			assert.deepEqual(person, output);
+			assert.equal(person, output);
 		});
 
 		it('should enforce the schema in an array #2', () => {
@@ -238,7 +238,7 @@ describe('Model', () => {
 
 			person.hobbies[0].strength = 3;
 
-			assert.deepEqual(person, output);
+			assert.equal(person, output);
 		});
 	});
 
@@ -262,7 +262,7 @@ describe('Model', () => {
 				age: 32
 			});
 
-			assert.deepEqual(output, {
+			assert.equal(output, {
 				last: 'Buck',
 				age: 32
 			});
@@ -289,7 +289,7 @@ describe('Model', () => {
 				age: 21
 			});
 
-			assert.isTrue(deepEqual(person, person2));
+			assert.is(deepEqual(person, person2), true);
 		});
 
 		it('should return false for two models with the different values', () => {
@@ -311,7 +311,7 @@ describe('Model', () => {
 				age: 22
 			});
 
-			assert.isFalse(deepEqual(person, person2));
+			assert.is(deepEqual(person, person2), false);
 		});
 
 		it('should return false for two models with the different keys', () => {
@@ -332,7 +332,7 @@ describe('Model', () => {
 				last: 'Doe'
 			});
 
-			assert.isFalse(deepEqual(person, person2));
+			assert.is(deepEqual(person, person2), false);
 		});
 
 		it('should return true for two models with the same nested models', () => {
@@ -370,7 +370,7 @@ describe('Model', () => {
 				})]
 			});
 
-			assert.isTrue(deepEqual(person, person2));
+			assert.is(deepEqual(person, person2), true);
 		});
 
 		it('should return false for two models with the different nested schemas', () => {
@@ -412,7 +412,7 @@ describe('Model', () => {
 				}]
 			});
 
-			assert.isFalse(deepEqual(person, person2));
+			assert.is(deepEqual(person, person2), false);
 		});
 
 		it('should return false for two models with the different nested models', () => {
@@ -454,7 +454,7 @@ describe('Model', () => {
 				}]
 			});
 
-			assert.isFalse(deepEqual(person, person2));
+			assert.is(deepEqual(person, person2), false);
 		});
 	});
 
@@ -478,7 +478,7 @@ describe('Model', () => {
 				age: 32
 			}]);
 
-			assert.deepEqual(output, {
+			assert.equal(output, {
 				first: 'John'
 			});
 		});
@@ -518,11 +518,11 @@ describe('Model', () => {
 
 			person.age = 1200;
 
-			assert.equal(context, person);
-			assert.equal(returnedPath, 'age');
-			assert.equal(returnedValue, 1200);
-			assert.equal(returnedPrevious, 21);
-			assert.equal(callCount, 1);
+			assert.is(context, person);
+			assert.is(returnedPath, 'age');
+			assert.is(returnedValue, 1200);
+			assert.is(returnedPrevious, 21);
+			assert.is(callCount, 1);
 		});
 
 		it('should only call the onChange callback once if apply is called multiple times', () => {
@@ -567,11 +567,11 @@ describe('Model', () => {
 
 			person.age = 1200;
 
-			assert.equal(context, person);
-			assert.equal(returnedPath, 'age');
-			assert.equal(returnedValue, 1200);
-			assert.equal(returnedPrevious, 21);
-			assert.equal(callCount, 1);
+			assert.is(context, person);
+			assert.is(returnedPath, 'age');
+			assert.is(returnedValue, 1200);
+			assert.is(returnedPrevious, 21);
+			assert.is(callCount, 1);
 		});
 	});
 
@@ -607,9 +607,9 @@ describe('Model', () => {
 
 			person.age = 1200;
 
-			assert.equal(context, person);
-			assert.equal(returnedErrors.length, 1);
-			assert.equal(callCount, 1);
+			assert.is(context, person);
+			assert.is(returnedErrors.length, 1);
+			assert.is(callCount, 1);
 		});
 	});
 
@@ -631,7 +631,7 @@ describe('Model', () => {
 				age: 21
 			});
 
-			assert.doesNotThrow(() => {
+			assert.notThrows(() => {
 				person.age = 1200;
 			});
 		});
@@ -721,9 +721,9 @@ describe('Model', () => {
 				}
 			});
 
-			assert.equal(total, 12);
-			assert.equal(testVar, 12);
-			assert.notEqual(model, result);
+			assert.is(total, 12);
+			assert.is(testVar, 12);
+			assert.notIs(model, result);
 		});
 
 		it('should accept an object', () => {
@@ -789,8 +789,8 @@ describe('Model', () => {
 				}
 			});
 
-			assert.equal(total, 12);
-			assert.equal(testVar, 12);
+			assert.is(total, 12);
+			assert.is(testVar, 12);
 		});
 
 		it('should accept an instance of Schema', () => {
@@ -876,8 +876,8 @@ describe('Model', () => {
 				}
 			});
 
-			assert.equal(total, 17);
-			assert.equal(testVar, 17);
+			assert.is(total, 17);
+			assert.is(testVar, 17);
 		});
 	});
 });

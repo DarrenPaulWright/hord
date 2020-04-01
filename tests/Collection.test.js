@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { assert } from 'type-enforcer';
 import { Collection, Model } from '../index.js';
 import { _ } from '../src/Collection.js';
 import compare from '../src/utility/compare.js';
@@ -81,7 +81,7 @@ describe('Collection', () => {
 
 	describe('init', () => {
 		it('should accept an array when instantiated', () => {
-			assert.equal(new Collection([{value: 1}]).length, 1);
+			assert.is(new Collection([{ value: 1 }]).length, 1);
 		});
 	});
 
@@ -97,9 +97,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, iterationCollection);
-			assert.equal(testVar, 4);
-			assert.equal(total, 4);
+			assert.is(result, iterationCollection);
+			assert.is(testVar, 4);
+			assert.is(total, 4);
 		});
 
 		it('should bind thisArg to the callback', () => {
@@ -113,9 +113,9 @@ describe('Collection', () => {
 				}
 			}, noIndexModel);
 
-			assert.equal(result, iterationCollection);
-			assert.equal(testVar, 4);
-			assert.equal(total, 4);
+			assert.is(result, iterationCollection);
+			assert.is(testVar, 4);
+			assert.is(total, 4);
 		});
 	});
 
@@ -131,9 +131,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, iterationCollection);
-			assert.equal(testVar, -1);
-			assert.equal(total, 4);
+			assert.is(result, iterationCollection);
+			assert.is(testVar, -1);
+			assert.is(total, 4);
 		});
 
 		it('should bind thisArg to the callback', () => {
@@ -147,9 +147,9 @@ describe('Collection', () => {
 				}
 			}, noIndexModel);
 
-			assert.equal(result, iterationCollection);
-			assert.equal(testVar, -1);
-			assert.equal(total, 4);
+			assert.is(result, iterationCollection);
+			assert.is(testVar, -1);
+			assert.is(total, 4);
 		});
 	});
 
@@ -166,9 +166,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, true);
-			assert.equal(testVar, 3);
-			assert.equal(total, 3);
+			assert.is(result, true);
+			assert.is(testVar, 3);
+			assert.is(total, 3);
 		});
 
 		it('should call a callback for each item in collection', () => {
@@ -182,9 +182,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, false);
-			assert.equal(testVar, 4);
-			assert.equal(total, 4);
+			assert.is(result, false);
+			assert.is(testVar, 4);
+			assert.is(total, 4);
 		});
 	});
 
@@ -203,9 +203,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, true);
-			assert.equal(testVar, 1);
-			assert.equal(total, 2);
+			assert.is(result, true);
+			assert.is(testVar, 1);
+			assert.is(total, 2);
 		});
 
 		it('should call a callback for each item in collection, starting at the right', () => {
@@ -219,9 +219,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, false);
-			assert.equal(testVar, -1);
-			assert.equal(total, 4);
+			assert.is(result, false);
+			assert.is(testVar, -1);
+			assert.is(total, 4);
 		});
 	});
 
@@ -238,9 +238,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, true);
-			assert.equal(testVar, 4);
-			assert.equal(total, 4);
+			assert.is(result, true);
+			assert.is(testVar, 4);
+			assert.is(total, 4);
 		});
 
 		it('should call a callback for each item in collection until false is returned', () => {
@@ -256,9 +256,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(result, false);
-			assert.equal(testVar, 3);
-			assert.equal(total, 3);
+			assert.is(result, false);
+			assert.is(testVar, 3);
+			assert.is(total, 3);
 		});
 	});
 
@@ -269,7 +269,7 @@ describe('Collection', () => {
 				return value;
 			}, '');
 
-			assert.equal(result, '2341');
+			assert.is(result, '2341');
 		});
 	});
 
@@ -280,7 +280,7 @@ describe('Collection', () => {
 				return value;
 			}, '');
 
-			assert.equal(result, '1432');
+			assert.is(result, '1432');
 		});
 	});
 
@@ -290,12 +290,12 @@ describe('Collection', () => {
 				return item.id;
 			});
 
-			assert.equal(result.length, 4);
-			assert.equal(result[0], 2);
-			assert.equal(result[1], 3);
-			assert.equal(result[2], 4);
-			assert.equal(result[3], 1);
-			assert.isTrue(result instanceof Collection);
+			assert.is(result.length, 4);
+			assert.is(result[0], 2);
+			assert.is(result[1], 3);
+			assert.is(result[2], 4);
+			assert.is(result[3], 1);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
@@ -322,7 +322,7 @@ describe('Collection', () => {
 				total++;
 			});
 
-			assert.equal(total, 6);
+			assert.is(total, 6);
 		});
 
 		it('should stop calling a callback if true is returned from the callback', () => {
@@ -348,7 +348,7 @@ describe('Collection', () => {
 				return item.prop === 'test 4';
 			});
 
-			assert.equal(total, 3);
+			assert.is(total, 3);
 		});
 
 		it('should NOT call the callback for children that don\'t match the childKey', () => {
@@ -375,7 +375,7 @@ describe('Collection', () => {
 				childKey: 'children2'
 			});
 
-			assert.equal(total, 3);
+			assert.is(total, 3);
 		});
 
 		it('should call the callback for children that match the childKey', () => {
@@ -402,7 +402,7 @@ describe('Collection', () => {
 				childKey: 'children2'
 			});
 
-			assert.equal(total, 6);
+			assert.is(total, 6);
 		});
 
 		it('should provide the depth of each child', () => {
@@ -429,7 +429,7 @@ describe('Collection', () => {
 				childKey: 'children2'
 			});
 
-			assert.equal(total, 4);
+			assert.is(total, 4);
 		});
 
 		it('should call the onParent callback if provided', () => {
@@ -461,9 +461,9 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(total, 1);
-			assert.equal(parentContext, testCollection);
-			assert.equal(childContext, testCollection);
+			assert.is(total, 1);
+			assert.is(parentContext, testCollection);
+			assert.is(childContext, testCollection);
 		});
 
 		it('should not call the callback for children when onParent returns true', () => {
@@ -492,7 +492,7 @@ describe('Collection', () => {
 				}
 			});
 
-			assert.equal(total, 5);
+			assert.is(total, 5);
 		});
 	});
 
@@ -514,8 +514,8 @@ describe('Collection', () => {
 
 			const result = unflatCollection.flat();
 
-			assert.deepEqual(result, iterationCollection);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, iterationCollection);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
@@ -539,8 +539,8 @@ describe('Collection', () => {
 				return item;
 			});
 
-			assert.deepEqual(result, iterationCollection);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, iterationCollection);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
@@ -564,12 +564,12 @@ describe('Collection', () => {
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.first(), {
+			assert.equal(testCollection.first(), {
 				id: 2,
 				two: 10,
 				value: 'test 2'
 			});
-			assert.equal(testCollection.length, 4);
+			assert.is(testCollection.length, 4);
 		});
 	});
 
@@ -593,28 +593,28 @@ describe('Collection', () => {
 				value: 'test 1'
 			});
 
-			assert.deepEqual(testCollection.last(), {
+			assert.equal(testCollection.last(), {
 				id: 1,
 				two: 13,
 				value: 'test 1'
 			});
-			assert.equal(testCollection.length, 4);
+			assert.is(testCollection.length, 4);
 		});
 	});
 
 	describe('.slice', () => {
 		it('should return an empty collection if the collection is empty', () => {
 			const result = new Collection().slice();
-			assert.deepEqual(result, []);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, []);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
 	describe('.flatten', () => {
 		it('should return an empty collection if the collection is empty', () => {
 			const result = new Collection().flatten();
-			assert.deepEqual(result, []);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, []);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return the input if the input is an object without children', () => {
@@ -626,8 +626,8 @@ describe('Collection', () => {
 			}];
 			const result = testCollection.flatten();
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return an array that is already flat', () => {
@@ -659,8 +659,8 @@ describe('Collection', () => {
 			}];
 			const result = testCollection.flatten();
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should flatten a nested array', () => {
@@ -694,8 +694,8 @@ describe('Collection', () => {
 			}];
 			const result = testCollection.flatten();
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should flatten a nested array using a specific child property', () => {
@@ -733,8 +733,8 @@ describe('Collection', () => {
 			};
 			const result = testCollection.flatten(settings);
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should add a depth property to each returned object if saveDepth is true', () => {
@@ -777,8 +777,8 @@ describe('Collection', () => {
 			};
 			const result = testCollection.flatten(settings);
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should save properties set in the onParent callback', () => {
@@ -819,8 +819,8 @@ describe('Collection', () => {
 			};
 			const result = testCollection.flatten(settings);
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should save properties set in the onChild callback', () => {
@@ -865,8 +865,8 @@ describe('Collection', () => {
 			};
 			const result = testCollection.flatten(settings);
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should ignore children of objects when onParent returns true', () => {
@@ -905,8 +905,8 @@ describe('Collection', () => {
 			};
 			const result = testCollection.flatten(settings);
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should be able to use all the settings together', () => {
@@ -969,10 +969,10 @@ describe('Collection', () => {
 			};
 			const result = testCollection.flatten(settings);
 
-			assert.deepEqual(result, output);
-			assert.equal(parentContext, testCollection);
-			assert.equal(childContext, testCollection);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(parentContext, testCollection);
+			assert.is(childContext, testCollection);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should not modify the original collection', () => {
@@ -1022,15 +1022,15 @@ describe('Collection', () => {
 
 			testCollection.flatten(settings);
 
-			assert.deepEqual(testCollection, output);
+			assert.equal(testCollection, output);
 		});
 	});
 
 	describe('.nest', () => {
 		it('should return an empty collection if the collection is empty', () => {
 			const result = new Collection().nest();
-			assert.deepEqual(result, []);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, []);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return the input if the input doesn\'t have parents', () => {
@@ -1042,8 +1042,8 @@ describe('Collection', () => {
 			}];
 			const result = testCollection.nest();
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return properly nested data', () => {
@@ -1099,8 +1099,8 @@ describe('Collection', () => {
 			}];
 			const result = testCollection.nest();
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should remove the parent property from items if deleteParentKey = true', () => {
@@ -1154,16 +1154,16 @@ describe('Collection', () => {
 				deleteParentKey: true
 			});
 
-			assert.deepEqual(result, output);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, output);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
 	describe('.unique', () => {
 		it('should return an empty collection if the collection is empty', () => {
 			const result = new Collection().unique();
-			assert.deepEqual(result, []);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, []);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return a new collection with duplicates removed', () => {
@@ -1190,8 +1190,8 @@ describe('Collection', () => {
 
 			const result = testCollection.unique();
 
-			assert.deepEqual(result, testOutput);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, testOutput);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return a new collection with duplicates removed and counts added', () => {
@@ -1221,8 +1221,8 @@ describe('Collection', () => {
 
 			const result = testCollection.unique('count');
 
-			assert.deepEqual(result, testOutput);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, testOutput);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
@@ -1264,8 +1264,8 @@ describe('Collection', () => {
 				y: y.value
 			}));
 
-			assert.deepEqual(result, testOutput);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, testOutput);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return a new collection with zipped data from three arrays', () => {
@@ -1320,8 +1320,8 @@ describe('Collection', () => {
 				z: z.value
 			}));
 
-			assert.deepEqual(result, testOutput);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, testOutput);
+			assert.is(result instanceof Collection, true);
 		});
 
 		it('should return a new collection with zipped data from three arrays with multiples of some IDs', () => {
@@ -1390,8 +1390,8 @@ describe('Collection', () => {
 				z: z.value
 			}));
 
-			assert.deepEqual(result, testOutput);
-			assert.isTrue(result instanceof Collection);
+			assert.equal(result, testOutput);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
@@ -1420,7 +1420,7 @@ describe('Collection', () => {
 
 			const result = collection1.concat(collection2);
 
-			assert.deepEqual(result, [{
+			assert.equal(result, [{
 				id: 2,
 				value: 'test 2'
 			}, {
@@ -1439,9 +1439,9 @@ describe('Collection', () => {
 				id: 6,
 				value: 'test 6'
 			}]);
-			assert.equal(collection1.length, 4);
-			assert.equal(collection2.length, 2);
-			assert.isTrue(result instanceof Collection);
+			assert.is(collection1.length, 4);
+			assert.is(collection2.length, 2);
+			assert.is(result instanceof Collection, true);
 		});
 	});
 
@@ -1463,8 +1463,8 @@ describe('Collection', () => {
 
 			const result = collection1.toString();
 
-			assert.deepEqual(result, '[object Object],[object Object],[object Object],[object Object]');
-			assert.equal(collection1.length, 4);
+			assert.equal(result, '[object Object],[object Object],[object Object],[object Object]');
+			assert.is(collection1.length, 4);
 		});
 	});
 
@@ -1486,8 +1486,8 @@ describe('Collection', () => {
 
 			const result = collection1.toLocaleString();
 
-			assert.deepEqual(result, '[object Object],[object Object],[object Object],[object Object]');
-			assert.equal(collection1.length, 4);
+			assert.equal(result, '[object Object],[object Object],[object Object],[object Object]');
+			assert.is(collection1.length, 4);
 		});
 	});
 
@@ -1509,8 +1509,8 @@ describe('Collection', () => {
 
 			const result = collection1.join(' - ');
 
-			assert.deepEqual(result, '[object Object] - [object Object] - [object Object] - [object Object]');
-			assert.equal(collection1.length, 4);
+			assert.equal(result, '[object Object] - [object Object] - [object Object] - [object Object]');
+			assert.is(collection1.length, 4);
 		});
 	});
 
@@ -1526,9 +1526,9 @@ describe('Collection', () => {
 
 			const result = collection.entries();
 
-			assert.deepEqual(result.next().value, [0, collection[0]]);
-			assert.deepEqual(result.next().value, [1, collection[1]]);
-			assert.equal(collection.length, 2);
+			assert.equal(result.next().value, [0, collection[0]]);
+			assert.equal(result.next().value, [1, collection[1]]);
+			assert.is(collection.length, 2);
 		});
 	});
 
@@ -1544,9 +1544,9 @@ describe('Collection', () => {
 
 			const result = collection.values();
 
-			assert.deepEqual(result.next().value, collection[0]);
-			assert.deepEqual(result.next().value, collection[1]);
-			assert.equal(collection.length, 2);
+			assert.equal(result.next().value, collection[0]);
+			assert.equal(result.next().value, collection[1]);
+			assert.is(collection.length, 2);
 		});
 	});
 
@@ -1562,9 +1562,9 @@ describe('Collection', () => {
 
 			const result = collection.keys();
 
-			assert.deepEqual(result.next().value, 0);
-			assert.deepEqual(result.next().value, 1);
-			assert.equal(collection.length, 2);
+			assert.equal(result.next().value, 0);
+			assert.equal(result.next().value, 1);
+			assert.is(collection.length, 2);
 		});
 	});
 
@@ -1572,7 +1572,7 @@ describe('Collection', () => {
 		it('should accept a model', () => {
 			const testCollection1 = new Collection().model(singleIndexModel);
 
-			assert.equal(_(testCollection1).indexer.builds, 1);
+			assert.is(_(testCollection1).indexer.builds, 1);
 		});
 
 		it('should enforce the model', () => {
@@ -1590,15 +1590,15 @@ describe('Collection', () => {
 				hobby: ['programming']
 			});
 
-			assert.deepEqual(testCollection1[0], {
+			assert.equal(testCollection1[0], {
 				first: 'John',
 				last: 'Doe'
 			});
-			assert.deepEqual(testCollection1[1], {
+			assert.equal(testCollection1[1], {
 				first: 'Jane',
 				last: 'Doe'
 			});
-			assert.equal(_(testCollection1).indexer.builds, 1);
+			assert.is(_(testCollection1).indexer.builds, 1);
 		});
 
 		it('should accept an object', () => {
@@ -1628,27 +1628,27 @@ describe('Collection', () => {
 				hobbies: ['programming']
 			});
 
-			assert.deepEqual(testCollection1[0], {
+			assert.equal(testCollection1[0], {
 				first: 'John',
 				last: 'Doe'
 			});
-			assert.deepEqual(testCollection1[1], {
+			assert.equal(testCollection1[1], {
 				first: 'Jane',
 				last: 'Doe'
 			});
-			assert.equal(_(testCollection1).indexer.builds, 1);
+			assert.is(_(testCollection1).indexer.builds, 1);
 		});
 
 		it('should build indexes', () => {
 			const testCollection1 = new Collection().model(fullIndexModel);
 
-			assert.equal(_(testCollection1).indexer.builds, 1);
-			assert.isTrue(_(testCollection1).indexer.hasIndex('id'));
-			assert.isTrue(_(testCollection1).indexer.hasIndex('first'));
-			assert.isTrue(_(testCollection1).indexer.hasIndex('last'));
-			assert.isTrue(_(testCollection1).indexer.hasIndex('age'));
-			assert.isTrue(_(testCollection1).indexer.hasIndex('hobbies.0.name'));
-			assert.isTrue(_(testCollection1).indexer.hasIndex('hobbies.0.start'));
+			assert.is(_(testCollection1).indexer.builds, 1);
+			assert.is(_(testCollection1).indexer.hasIndex('id'), true);
+			assert.is(_(testCollection1).indexer.hasIndex('first'), true);
+			assert.is(_(testCollection1).indexer.hasIndex('last'), true);
+			assert.is(_(testCollection1).indexer.hasIndex('age'), true);
+			assert.is(_(testCollection1).indexer.hasIndex('hobbies.0.name'), true);
+			assert.is(_(testCollection1).indexer.hasIndex('hobbies.0.start'), true);
 		});
 	});
 
@@ -1732,18 +1732,18 @@ describe('Collection', () => {
 
 		if (builds !== undefined) {
 			it(`should have built the indexes ${builds} time(s)`, () => {
-				assert.equal(_(queryCollection).indexer.builds, builds);
+				assert.is(_(queryCollection).indexer.builds, builds);
 
 			});
 		}
 
 		describe('.indexOf', () => {
 			it('should return the index of the item', () => {
-				assert.deepEqual(queryCollection.indexOf(queryCollection[3]), 3);
+				assert.equal(queryCollection.indexOf(queryCollection[3]), 3);
 			});
 
 			it('should return -1 for an item that is deepEqual to an item in the collection but isn\'t actually in the collection', () => {
-				assert.deepEqual(queryCollection.indexOf({
+				assert.equal(queryCollection.indexOf({
 					id: 6,
 					first: 'Steve',
 					last: 'Smith',
@@ -1754,17 +1754,17 @@ describe('Collection', () => {
 			});
 
 			it('should return -1 for an item that isn\'t in the collection', () => {
-				assert.deepEqual(queryCollection.indexOf({}), -1);
+				assert.equal(queryCollection.indexOf({}), -1);
 			});
 		});
 
 		describe('.lastIndexOf', () => {
 			it('should return the last index of the item', () => {
-				assert.deepEqual(queryCollection.lastIndexOf(queryCollection[3]), 3);
+				assert.equal(queryCollection.lastIndexOf(queryCollection[3]), 3);
 			});
 
 			it('should return -1 for an item that is deepEqual to an item in the collection but isn\'t actually in the collection', () => {
-				assert.deepEqual(queryCollection.lastIndexOf({
+				assert.equal(queryCollection.lastIndexOf({
 					id: 6,
 					first: 'Steve',
 					last: 'Smith',
@@ -1775,258 +1775,258 @@ describe('Collection', () => {
 			});
 
 			it('should return -1 for an item that isnt in the collection', () => {
-				assert.deepEqual(queryCollection.lastIndexOf({}), -1);
+				assert.equal(queryCollection.lastIndexOf({}), -1);
 			});
 		});
 
 		describe('.includes', () => {
 			it('should return true for an item in the collection', () => {
-				assert.deepEqual(queryCollection.includes(queryCollection[3]), true);
+				assert.equal(queryCollection.includes(queryCollection[3]), true);
 			});
 
 			it('should return -1 for an item that isnt in the collection', () => {
-				assert.deepEqual(queryCollection.includes({}), false);
+				assert.equal(queryCollection.includes({}), false);
 			});
 		});
 
 		describe('.findIndex', () => {
 			it('should find an item via a callback', () => {
 				const result = queryCollection.findIndex((item) => item.first === 'Jane');
-				assert.deepEqual(result, 1);
+				assert.equal(result, 1);
 			});
 
 			it('should find an item at the beginning of the collection', () => {
 				reset();
-				const result = queryCollection.findIndex({first: 'John'});
-				assert.deepEqual(result, 0);
+				const result = queryCollection.findIndex({ first: 'John' });
+				assert.equal(result, 0);
 			});
 
 			it('should find an item in the middle of the collection', () => {
-				const result = queryCollection.findIndex({first: 'Jane'});
-				assert.deepEqual(result, 1);
+				const result = queryCollection.findIndex({ first: 'Jane' });
+				assert.equal(result, 1);
 			});
 
 			it('should find an item at the end of the collection', () => {
-				const result = queryCollection.findIndex({first: 'Steve'});
-				assert.deepEqual(result, 3);
+				const result = queryCollection.findIndex({ first: 'Steve' });
+				assert.equal(result, 3);
 			});
 
 			it('should find an item that matches two paths', () => {
-				const result = queryCollection.findIndex({first: 'Jane', id: 3});
-				assert.deepEqual(result, 1);
+				const result = queryCollection.findIndex({ first: 'Jane', id: 3 });
+				assert.equal(result, 1);
 			});
 
 			it('should NOT find an item that doesn\'t match two paths', () => {
-				const result = queryCollection.findIndex({first: 'Jane', age: 27});
-				assert.deepEqual(result, -1);
+				const result = queryCollection.findIndex({ first: 'Jane', age: 27 });
+				assert.equal(result, -1);
 			});
 
 			it('should find an item that matches in a nested Model', () => {
-				const result = queryCollection.findIndex({hobbies: [{name: 'programming'}]});
-				assert.deepEqual(result, 1);
+				const result = queryCollection.findIndex({ hobbies: [{ name: 'programming' }] });
+				assert.equal(result, 1);
 			});
 		});
 
 		describe('.findLastIndex', () => {
 			it('should find an item via a callback', () => {
 				const result = queryCollection.findLastIndex((item) => item.first === 'Jane');
-				assert.deepEqual(result, 2);
+				assert.equal(result, 2);
 			});
 
 			it('should find an item at the beginning of the collection', () => {
-				const result = queryCollection.findLastIndex({first: 'John'});
-				assert.deepEqual(result, 0);
+				const result = queryCollection.findLastIndex({ first: 'John' });
+				assert.equal(result, 0);
 			});
 
 			it('should find an item in the middle of the collection', () => {
-				const result = queryCollection.findLastIndex({first: 'Jane'});
-				assert.deepEqual(result, 2);
+				const result = queryCollection.findLastIndex({ first: 'Jane' });
+				assert.equal(result, 2);
 			});
 
 			it('should find an item at the end of the collection', () => {
-				const result = queryCollection.findLastIndex({first: 'Steve'});
-				assert.deepEqual(result, 4);
+				const result = queryCollection.findLastIndex({ first: 'Steve' });
+				assert.equal(result, 4);
 			});
 
 			it('should find an item that matches two paths', () => {
-				const result = queryCollection.findLastIndex({first: 'Jane', id: 3});
-				assert.deepEqual(result, 1);
+				const result = queryCollection.findLastIndex({ first: 'Jane', id: 3 });
+				assert.equal(result, 1);
 			});
 
 			it('should NOT find an item that doesn\'t match two paths', () => {
-				const result = queryCollection.findLastIndex({first: 'Jane', age: 27});
-				assert.deepEqual(result, -1);
+				const result = queryCollection.findLastIndex({ first: 'Jane', age: 27 });
+				assert.equal(result, -1);
 			});
 
 			it('should find an item that matches in a nested Model', () => {
-				const result = queryCollection.findLastIndex({hobbies: [{name: 'programming'}]});
-				assert.deepEqual(result, 1);
+				const result = queryCollection.findLastIndex({ hobbies: [{ name: 'programming' }] });
+				assert.equal(result, 1);
 			});
 		});
 
 		describe('.find', () => {
 			it('should find an item via a callback', () => {
 				const result = queryCollection.find((item) => item.first === 'Jane');
-				assert.deepEqual(result, queryCollection[1]);
+				assert.equal(result, queryCollection[1]);
 			});
 
 			it('should find an item at the beginning of the collection', () => {
-				const result = queryCollection.find({first: 'John'});
-				assert.deepEqual(result, queryCollection[0]);
+				const result = queryCollection.find({ first: 'John' });
+				assert.equal(result, queryCollection[0]);
 			});
 
 			it('should find an item in the middle of the collection', () => {
-				const result = queryCollection.find({first: 'Jane'});
-				assert.deepEqual(result, queryCollection[1]);
+				const result = queryCollection.find({ first: 'Jane' });
+				assert.equal(result, queryCollection[1]);
 			});
 
 			it('should find an item at the end of the collection', () => {
-				const result = queryCollection.find({first: 'Steve'});
-				assert.deepEqual(result, queryCollection[3]);
+				const result = queryCollection.find({ first: 'Steve' });
+				assert.equal(result, queryCollection[3]);
 			});
 
 			it('should find an item that matches two paths', () => {
-				const result = queryCollection.find({first: 'Jane', id: 3});
-				assert.deepEqual(result, queryCollection[1]);
+				const result = queryCollection.find({ first: 'Jane', id: 3 });
+				assert.equal(result, queryCollection[1]);
 			});
 
 			it('should NOT find an item that doesn\'t match two paths', () => {
-				const result = queryCollection.find({first: 'Jane', age: 27});
-				assert.deepEqual(result, undefined);
+				const result = queryCollection.find({ first: 'Jane', age: 27 });
+				assert.equal(result, undefined);
 			});
 
 			it('should find an item that matches in a nested Model', () => {
-				const result = queryCollection.find({hobbies: [{name: 'programming'}]});
-				assert.deepEqual(result, queryCollection[1]);
+				const result = queryCollection.find({ hobbies: [{ name: 'programming' }] });
+				assert.equal(result, queryCollection[1]);
 			});
 		});
 
 		describe('.findLast', () => {
 			it('should find an item via a callback', () => {
 				const result = queryCollection.findLast((item) => item.first === 'Jane');
-				assert.deepEqual(result, queryCollection[2]);
+				assert.equal(result, queryCollection[2]);
 			});
 
 			it('should find an item at the beginning of the collection', () => {
-				const result = queryCollection.findLast({first: 'John'});
-				assert.deepEqual(result, queryCollection[0]);
+				const result = queryCollection.findLast({ first: 'John' });
+				assert.equal(result, queryCollection[0]);
 			});
 
 			it('should find an item in the middle of the collection', () => {
-				const result = queryCollection.findLast({first: 'Jane'});
-				assert.deepEqual(result, queryCollection[2]);
+				const result = queryCollection.findLast({ first: 'Jane' });
+				assert.equal(result, queryCollection[2]);
 			});
 
 			it('should find an item at the end of the collection', () => {
-				const result = queryCollection.findLast({first: 'Steve'});
-				assert.deepEqual(result, queryCollection[4]);
+				const result = queryCollection.findLast({ first: 'Steve' });
+				assert.equal(result, queryCollection[4]);
 			});
 
 			it('should find an item that matches two paths', () => {
-				const result = queryCollection.findLast({first: 'Jane', id: 3});
-				assert.deepEqual(result, queryCollection[1]);
+				const result = queryCollection.findLast({ first: 'Jane', id: 3 });
+				assert.equal(result, queryCollection[1]);
 			});
 
 			it('should NOT find an item that doesn\'t match two paths', () => {
-				const result = queryCollection.findLast({first: 'Jane', age: 27});
-				assert.deepEqual(result, undefined);
+				const result = queryCollection.findLast({ first: 'Jane', age: 27 });
+				assert.equal(result, undefined);
 			});
 
 			it('should find an item that matches in a nested Model', () => {
-				const result = queryCollection.findLast({hobbies: [{name: 'programming'}]});
-				assert.deepEqual(result, queryCollection[1]);
+				const result = queryCollection.findLast({ hobbies: [{ name: 'programming' }] });
+				assert.equal(result, queryCollection[1]);
 			});
 		});
 
 		describe('.filter', () => {
 			it('should find an item via a callback', () => {
 				const result = queryCollection.filter((item) => item.first === 'Jane');
-				assert.deepEqual(result, queryCollection.slice(1, 3));
-				assert.isTrue(result instanceof Collection);
+				assert.equal(result, queryCollection.slice(1, 3));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item at the beginning of the collection', () => {
-				const result = queryCollection.filter({first: 'John'});
-				assert.deepEqual(result, queryCollection.slice(0, 1));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ first: 'John' });
+				assert.equal(result, queryCollection.slice(0, 1));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item in the middle of the collection', () => {
-				const result = queryCollection.filter({first: 'Jane'});
-				assert.deepEqual(result, queryCollection.slice(1, 3));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ first: 'Jane' });
+				assert.equal(result, queryCollection.slice(1, 3));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item at the end of the collection', () => {
-				const result = queryCollection.filter({first: 'Steve'});
-				assert.deepEqual(result, queryCollection.slice(3, 5));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ first: 'Steve' });
+				assert.equal(result, queryCollection.slice(3, 5));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches two paths', () => {
-				const result = queryCollection.filter({first: 'Jane', id: 3});
-				assert.deepEqual(result, queryCollection.slice(1, 2));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ first: 'Jane', id: 3 });
+				assert.equal(result, queryCollection.slice(1, 2));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should NOT find an item that doesn\'t match two paths', () => {
-				const result = queryCollection.filter({first: 'Jane', age: 27});
-				assert.deepEqual(result, []);
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ first: 'Jane', age: 27 });
+				assert.equal(result, []);
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches in a nested Model', () => {
-				const result = queryCollection.filter({hobbies: [{name: 'programming'}]});
-				assert.deepEqual(result, queryCollection.slice(1, 2));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ hobbies: [{ name: 'programming' }] });
+				assert.equal(result, queryCollection.slice(1, 2));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $in operator', () => {
-				const result = queryCollection.filter({first: {$in: ['John', 'Steve']}});
-				assert.deepEqual(result, [person1, person4, person5]);
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ first: { $in: ['John', 'Steve'] } });
+				assert.equal(result, [person1, person4, person5]);
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $nin operator', () => {
-				const result = queryCollection.filter({first: {$nin: ['John', 'Steve']}});
-				assert.deepEqual(result, queryCollection.slice(1, 3));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ first: { $nin: ['John', 'Steve'] } });
+				assert.equal(result, queryCollection.slice(1, 3));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $gt operator', () => {
-				const result = queryCollection.filter({id: {$gt: 3}});
-				assert.deepEqual(result, queryCollection.slice(2));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ id: { $gt: 3 } });
+				assert.equal(result, queryCollection.slice(2));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $gte operator', () => {
-				const result = queryCollection.filter({id: {$gte: 3}});
-				assert.deepEqual(result, queryCollection.slice(1));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ id: { $gte: 3 } });
+				assert.equal(result, queryCollection.slice(1));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $lt operator', () => {
-				const result = queryCollection.filter({id: {$lt: 4}});
-				assert.deepEqual(result, queryCollection.slice(0, 2));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ id: { $lt: 4 } });
+				assert.equal(result, queryCollection.slice(0, 2));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $lte operator', () => {
-				const result = queryCollection.filter({id: {$lte: 4}});
-				assert.deepEqual(result, queryCollection.slice(0, 3));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ id: { $lte: 4 } });
+				assert.equal(result, queryCollection.slice(0, 3));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $eq operator', () => {
-				const result = queryCollection.filter({id: {$eq: 4}});
-				assert.deepEqual(result, queryCollection.slice(2, 3));
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ id: { $eq: 4 } });
+				assert.equal(result, queryCollection.slice(2, 3));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches an $ne operator', () => {
-				const result = queryCollection.filter({id: {$ne: 4}});
-				assert.deepEqual(result, [person1, person2, person4, person5]);
-				assert.isTrue(result instanceof Collection);
+				const result = queryCollection.filter({ id: { $ne: 4 } });
+				assert.equal(result, [person1, person2, person4, person5]);
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should find an item that matches multiple operators', () => {
@@ -2037,16 +2037,16 @@ describe('Collection', () => {
 						$lte: 5
 					}
 				});
-				assert.deepEqual(result, [person2, person4]);
-				assert.isTrue(result instanceof Collection);
+				assert.equal(result, [person2, person4]);
+				assert.is(result instanceof Collection, true);
 			});
 		});
 
 		describe('.sliceBy', () => {
 			it('should return an empty collection if the collection is empty', () => {
 				const result = new Collection().sliceBy();
-				assert.deepEqual(result, []);
-				assert.isTrue(result instanceof Collection);
+				assert.equal(result, []);
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should return an array of items from the end of the collection if no endFilter is provided', () => {
@@ -2056,8 +2056,8 @@ describe('Collection', () => {
 
 				const result = queryCollection.sliceBy(startFilter);
 
-				assert.deepEqual(result, queryCollection.slice(1));
-				assert.isTrue(result instanceof Collection);
+				assert.equal(result, queryCollection.slice(1));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should return an array of items from the middle of the input array if both filters are valid', () => {
@@ -2071,8 +2071,8 @@ describe('Collection', () => {
 
 				const result = queryCollection.sliceBy(startFilter, endFilter);
 
-				assert.deepEqual(result, queryCollection.slice(1, 3));
-				assert.isTrue(result instanceof Collection);
+				assert.equal(result, queryCollection.slice(1, 3));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should return an array of items from the middle of the input array if both filters are valid but the end filter matches an item before the start filter', () => {
@@ -2087,8 +2087,8 @@ describe('Collection', () => {
 
 				const result = queryCollection.sliceBy(startFilter, endFilter);
 
-				assert.deepEqual(result, queryCollection.slice(1, 3));
-				assert.isTrue(result instanceof Collection);
+				assert.equal(result, queryCollection.slice(1, 3));
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should return an array of items from the beginning of the collection if the first filter doesn\'t match anything', () => {
@@ -2101,8 +2101,8 @@ describe('Collection', () => {
 
 				const result = queryCollection.sliceBy(startFilter, endFilter);
 
-				assert.deepEqual(result, queryCollection.slice(0, 3));
-				assert.isTrue(result instanceof Collection);
+				assert.equal(result, queryCollection.slice(0, 3));
+				assert.is(result instanceof Collection, true);
 			});
 		});
 
@@ -2110,17 +2110,17 @@ describe('Collection', () => {
 			it('should add an item to the end of the collection', () => {
 				queryCollection.push(extraPerson);
 
-				assert.equal(queryCollection.findIndex({first: 'Sarah'}), 5);
+				assert.is(queryCollection.findIndex({ first: 'Sarah' }), 5);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 
 				const result = queryCollection.pop();
 
-				assert.equal(queryCollection.findIndex({first: 'Sarah'}), -1);
-				assert.deepEqual(result, extraPerson);
+				assert.is(queryCollection.findIndex({ first: 'Sarah' }), -1);
+				assert.equal(result, extraPerson);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2129,17 +2129,17 @@ describe('Collection', () => {
 			it('should add an item to the beginning of the collection', () => {
 				queryCollection.unshift(extraPerson);
 
-				assert.equal(queryCollection.findIndex({first: 'Sarah'}), 0);
+				assert.is(queryCollection.findIndex({ first: 'Sarah' }), 0);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 
 				const result = queryCollection.shift();
 
-				assert.equal(queryCollection.findIndex({first: 'Sarah'}), -1);
-				assert.deepEqual(result, extraPerson);
+				assert.is(queryCollection.findIndex({ first: 'Sarah' }), -1);
+				assert.equal(result, extraPerson);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2151,10 +2151,10 @@ describe('Collection', () => {
 
 				bumpBuilds();
 
-				assert.equal(queryCollection.findIndex({first: 'Steve'}), 1);
-				assert.equal(queryCollection, result);
+				assert.is(queryCollection.findIndex({ first: 'Steve' }), 1);
+				assert.is(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
@@ -2164,11 +2164,11 @@ describe('Collection', () => {
 
 				bumpBuilds();
 
-				assert.equal(queryCollection.filter({first: 'John'}).length, 2);
-				assert.equal(queryCollection.filter({first: 'Steve'}).length, 1);
-				assert.equal(queryCollection, result);
+				assert.is(queryCollection.filter({ first: 'John' }).length, 2);
+				assert.is(queryCollection.filter({ first: 'Steve' }).length, 1);
+				assert.is(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2181,11 +2181,11 @@ describe('Collection', () => {
 
 				bumpBuilds();
 
-				assert.equal(queryCollection.findIndex({first: 'Matt'}), 2);
-				assert.equal(queryCollection.filter({first: 'Matt'}).length, 2);
-				assert.equal(queryCollection, result);
+				assert.is(queryCollection.findIndex({ first: 'Matt' }), 2);
+				assert.is(queryCollection.filter({ first: 'Matt' }).length, 2);
+				assert.is(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2197,14 +2197,14 @@ describe('Collection', () => {
 
 				bumpBuilds();
 
-				assert.equal(queryCollection.findIndex(person5), 0);
-				assert.equal(queryCollection.findIndex(person4), 1);
-				assert.equal(queryCollection.findIndex(person3), 2);
-				assert.equal(queryCollection.findIndex(person2), 3);
-				assert.equal(queryCollection.findIndex(person1), 4);
-				assert.equal(queryCollection, result);
+				assert.is(queryCollection.findIndex(person5), 0);
+				assert.is(queryCollection.findIndex(person4), 1);
+				assert.is(queryCollection.findIndex(person3), 2);
+				assert.is(queryCollection.findIndex(person2), 3);
+				assert.is(queryCollection.findIndex(person1), 4);
+				assert.is(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2216,14 +2216,14 @@ describe('Collection', () => {
 
 				bumpBuilds();
 
-				assert.equal(queryCollection.findIndex(person1), 2);
-				assert.equal(queryCollection.findIndex(person2), 0);
-				assert.equal(queryCollection.findIndex(person3), 1);
-				assert.equal(queryCollection.findIndex(person4), 3);
-				assert.equal(queryCollection.findIndex(person5), 4);
-				assert.equal(queryCollection, result);
+				assert.is(queryCollection.findIndex(person1), 2);
+				assert.is(queryCollection.findIndex(person2), 0);
+				assert.is(queryCollection.findIndex(person3), 1);
+				assert.is(queryCollection.findIndex(person4), 3);
+				assert.is(queryCollection.findIndex(person5), 4);
+				assert.is(queryCollection, result);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2233,59 +2233,59 @@ describe('Collection', () => {
 				reset();
 				const result = queryCollection.splice(2, 0, extraPerson);
 
-				assert.equal(queryCollection.findIndex(person1), 0);
-				assert.equal(queryCollection.findIndex(person2), 1);
-				assert.equal(queryCollection.findIndex(extraPerson), 2);
-				assert.equal(queryCollection.findIndex(person3), 3);
-				assert.equal(queryCollection.findIndex(person4), 4);
-				assert.equal(queryCollection.findIndex(person5), 5);
-				assert.equal(result.length, 0);
+				assert.is(queryCollection.findIndex(person1), 0);
+				assert.is(queryCollection.findIndex(person2), 1);
+				assert.is(queryCollection.findIndex(extraPerson), 2);
+				assert.is(queryCollection.findIndex(person3), 3);
+				assert.is(queryCollection.findIndex(person4), 4);
+				assert.is(queryCollection.findIndex(person5), 5);
+				assert.is(result.length, 0);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
-				assert.isTrue(result instanceof Collection);
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should remove an item from the collection', () => {
 				reset();
 				const result = queryCollection.splice(2, 1);
 
-				assert.equal(queryCollection.findIndex(person1), 0);
-				assert.equal(queryCollection.findIndex(person2), 1);
-				assert.equal(queryCollection.findIndex(person3), -1);
-				assert.equal(queryCollection.findIndex(person4), 2);
-				assert.equal(queryCollection.findIndex(person5), 3);
-				assert.equal(result.length, 1);
+				assert.is(queryCollection.findIndex(person1), 0);
+				assert.is(queryCollection.findIndex(person2), 1);
+				assert.is(queryCollection.findIndex(person3), -1);
+				assert.is(queryCollection.findIndex(person4), 2);
+				assert.is(queryCollection.findIndex(person5), 3);
+				assert.is(result.length, 1);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
-				assert.isTrue(result instanceof Collection);
+				assert.is(result instanceof Collection, true);
 			});
 
 			it('should replace an item in the collection', () => {
 				reset();
 				const result = queryCollection.splice(2, 1, extraPerson);
 
-				assert.equal(queryCollection.findIndex(person1), 0);
-				assert.equal(queryCollection.findIndex(person2), 1);
-				assert.equal(queryCollection.findIndex(extraPerson), 2);
-				assert.equal(queryCollection.findIndex(person3), -1);
-				assert.equal(queryCollection.findIndex(person4), 3);
-				assert.equal(queryCollection.findIndex(person5), 4);
-				assert.equal(result.length, 1);
+				assert.is(queryCollection.findIndex(person1), 0);
+				assert.is(queryCollection.findIndex(person2), 1);
+				assert.is(queryCollection.findIndex(extraPerson), 2);
+				assert.is(queryCollection.findIndex(person3), -1);
+				assert.is(queryCollection.findIndex(person4), 3);
+				assert.is(queryCollection.findIndex(person5), 4);
+				assert.is(result.length, 1);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
-				assert.isTrue(result instanceof Collection);
+				assert.is(result instanceof Collection, true);
 			});
 		});
 
 		describe('.length', () => {
 			it('should get the length of the collection', () => {
 				reset();
-				assert.equal(queryCollection.length, 5);
+				assert.is(queryCollection.length, 5);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
@@ -2294,31 +2294,31 @@ describe('Collection', () => {
 
 				queryCollection.length = 7;
 
-				assert.equal(queryCollection.length, 7);
-				assert.equal(queryCollection.findIndex(person1), 0);
-				assert.equal(queryCollection.findIndex(person2), 1);
-				assert.equal(queryCollection.findIndex(person3), 2);
-				assert.equal(queryCollection.findIndex(person4), 3);
-				assert.equal(queryCollection.findIndex(person5), 4);
-				assert.equal(queryCollection.findIndex(extraPerson), -1);
-				assert.equal(queryCollection[5], undefined);
-				assert.equal(queryCollection[6], undefined);
+				assert.is(queryCollection.length, 7);
+				assert.is(queryCollection.findIndex(person1), 0);
+				assert.is(queryCollection.findIndex(person2), 1);
+				assert.is(queryCollection.findIndex(person3), 2);
+				assert.is(queryCollection.findIndex(person4), 3);
+				assert.is(queryCollection.findIndex(person5), 4);
+				assert.is(queryCollection.findIndex(extraPerson), -1);
+				assert.is(queryCollection[5], undefined);
+				assert.is(queryCollection[6], undefined);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
 			it('should remove cells from the end of the collection', () => {
 				queryCollection.length = 4;
 
-				assert.equal(queryCollection.length, 4);
-				assert.equal(queryCollection.findIndex(person1), 0);
-				assert.equal(queryCollection.findIndex(person2), 1);
-				assert.equal(queryCollection.findIndex(person3), 2);
-				assert.equal(queryCollection.findIndex(person4), 3);
-				assert.equal(queryCollection.findIndex(person5), -1);
+				assert.is(queryCollection.length, 4);
+				assert.is(queryCollection.findIndex(person1), 0);
+				assert.is(queryCollection.findIndex(person2), 1);
+				assert.is(queryCollection.findIndex(person3), 2);
+				assert.is(queryCollection.findIndex(person4), 3);
+				assert.is(queryCollection.findIndex(person5), -1);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 
@@ -2326,14 +2326,14 @@ describe('Collection', () => {
 				queryCollection.length = 7;
 				queryCollection.length = 4;
 
-				assert.equal(queryCollection.length, 4);
-				assert.equal(queryCollection.findIndex(person1), 0);
-				assert.equal(queryCollection.findIndex(person2), 1);
-				assert.equal(queryCollection.findIndex(person3), 2);
-				assert.equal(queryCollection.findIndex(person4), 3);
-				assert.equal(queryCollection.findIndex(person5), -1);
+				assert.is(queryCollection.length, 4);
+				assert.is(queryCollection.findIndex(person1), 0);
+				assert.is(queryCollection.findIndex(person2), 1);
+				assert.is(queryCollection.findIndex(person3), 2);
+				assert.is(queryCollection.findIndex(person4), 3);
+				assert.is(queryCollection.findIndex(person5), -1);
 				if (builds !== undefined) {
-					assert.equal(_(queryCollection).indexer.builds, builds);
+					assert.is(_(queryCollection).indexer.builds, builds);
 				}
 			});
 		});
@@ -2344,9 +2344,9 @@ describe('Collection', () => {
 
 				queryCollection[4].first = 'Joe';
 
-				const result = queryCollection.findIndex({first: 'Joe'});
+				const result = queryCollection.findIndex({ first: 'Joe' });
 
-				assert.deepEqual(result, 4);
+				assert.equal(result, 4);
 			});
 
 			it('should not find an item after it\'s changed', () => {
@@ -2355,13 +2355,13 @@ describe('Collection', () => {
 
 				result[0].first = 'Sam';
 
-				assert.equal(queryCollection.findIndex(person1), 0);
-				assert.equal(queryCollection.findIndex(person2), 1);
-				assert.equal(queryCollection.findIndex(person3), -1);
-				assert.equal(queryCollection.findIndex(person4), 2);
-				assert.equal(queryCollection.findIndex(person5), 3);
-				assert.equal(queryCollection.findIndex({first: 'Sam'}), -1);
-				assert.equal(result.length, 1);
+				assert.is(queryCollection.findIndex(person1), 0);
+				assert.is(queryCollection.findIndex(person2), 1);
+				assert.is(queryCollection.findIndex(person3), -1);
+				assert.is(queryCollection.findIndex(person4), 2);
+				assert.is(queryCollection.findIndex(person5), 3);
+				assert.is(queryCollection.findIndex({ first: 'Sam' }), -1);
+				assert.is(result.length, 1);
 			});
 		});
 
@@ -2369,8 +2369,8 @@ describe('Collection', () => {
 			it('should set the model to null and set it\'s own length to 0', () => {
 				queryCollection.remove();
 
-				assert.deepEqual(_(queryCollection).model, undefined);
-				assert.equal(queryCollection.length, 0);
+				assert.equal(_(queryCollection).model, undefined);
+				assert.is(queryCollection.length, 0);
 			});
 		});
 	};

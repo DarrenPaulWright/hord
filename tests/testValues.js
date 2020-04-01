@@ -1,7 +1,6 @@
 import {
 	booleanData,
 	dateData,
-	difference,
 	floatData,
 	functionData,
 	instanceData,
@@ -37,8 +36,8 @@ import {
 import { Model, Schema } from '../index.js';
 import { enforceAnything, isAnything, TYPE_RULES } from '../src/Schema/parse/typeRules.js';
 
-export const testSchema = new Schema({key: String});
-export const testModel = new Model({key: String});
+export const testSchema = new Schema({ key: String });
+export const testModel = new Model({ key: String });
 
 const validElements = [document.createElement('div')];
 
@@ -73,7 +72,7 @@ const schemaTestTypes = [{
 	check: isElement,
 	enforce: enforceElement,
 	true: validElements,
-	false: difference(testValues.filter((value) => value !== undefined), validElements),
+	false: testValues.filter((value) => value !== undefined && !validElements.includes(value)),
 	coerceTrue: [],
 	coerceFalse: []
 }, {

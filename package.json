@@ -1,6 +1,6 @@
 {
 	"name": "hord",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"description": "A data storage and manipulation library for javascript",
 	"author": {
 		"name": "Darren Paul Wright",

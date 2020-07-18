@@ -113,10 +113,10 @@ export default class GraphDB {
 		const _self = _(self);
 
 		if (link.source !== undefined && link.source.id === undefined) {
-			link.source = _self.nodes.find({id: link.source});
+			link.source = _self.nodes.find({ id: link.source });
 		}
 		if (link.target !== undefined && link.target.id === undefined) {
-			link.target = _self.nodes.find({id: link.target});
+			link.target = _self.nodes.find({ id: link.target });
 		}
 
 		if (link.source && link.target) {
@@ -307,7 +307,7 @@ export default class GraphDB {
 		const processNode = (node, distance) => {
 			let paths = [];
 			let localShortest = Infinity;
-			let checkFurther = [];
+			const checkFurther = [];
 
 			if (node && node.both) {
 				node.both.some((linkedNode) => {
@@ -344,7 +344,7 @@ export default class GraphDB {
 		_self.nodeCrawler.forEach((item) => item.distance = shortest);
 
 		return new Promise((resolve) => {
-			let paths = processNode(_self.nodeCrawler.find({id: source.id}), 1);
+			let paths = processNode(_self.nodeCrawler.find({ id: source.id }), 1);
 
 			paths = paths.map((path) => {
 				return path.map((link) => link.node);

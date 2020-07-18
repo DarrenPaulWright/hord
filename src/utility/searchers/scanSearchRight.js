@@ -13,4 +13,4 @@ export default (array, item, comparer, isInsert = false, high = array.length - 1
 	}
 
 	return -1;
-}
+};

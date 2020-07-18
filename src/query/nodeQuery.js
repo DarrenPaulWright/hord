@@ -43,7 +43,6 @@ const nodeQuery = function(promise, mainNodes, mainLinks) {
 
 				repeat(depth, () => {
 					promise = promise.then((graph) => new Promise((resolve) => {
-
 						nodeQuery(new Promise((resolve) => {
 							resolve(graph.nodes);
 						}), mainNodes, mainLinks)
@@ -60,7 +59,6 @@ const nodeQuery = function(promise, mainNodes, mainLinks) {
 								graph.nodes = graph.nodes.concat(nodes);
 								resolve(graph);
 							});
-
 					}));
 				});
 

@@ -6,8 +6,13 @@ import { Schema } from '../../index.js';
 import Model from '../../src/Model.js';
 import { schemaTestTypes } from '../testValues.js';
 
-const parseName = (data) => data.name === 'function' ? 'function' : data.name.length === 1 ? data.name : data.name.charAt(0)
-	.toUpperCase() + data.name.slice(1);
+const parseName = (data) => {
+	return data.name === 'function' ?
+		'function' :
+		(data.name.length === 1 ?
+			data.name :
+			data.name.charAt(0).toUpperCase() + data.name.slice(1));
+};
 
 describe('Schema', () => {
 	describe('.validate', () => {

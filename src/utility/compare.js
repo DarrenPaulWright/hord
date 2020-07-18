@@ -60,4 +60,4 @@ export default (paths, desc = false) => {
 	}
 
 	return desc ? (a, b) => compare(b, a) : compare;
-}
+};

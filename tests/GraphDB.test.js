@@ -150,8 +150,7 @@ describe('GraphDB', () => {
 					.addNodes({
 						id: 13245,
 						label: 'qwerty'
-					})
-				)
+					}))
 				.then(() => graph.nodes())
 				.then((nodes) => {
 					assert.equal(nodes, [...testNodes, {
@@ -226,8 +225,7 @@ describe('GraphDB', () => {
 					.addLinks({
 						source: 4,
 						target: 6
-					})
-				)
+					}))
 				.then(() => graph.links())
 				.then((links) => {
 					assert.is(links.length, 8);
@@ -252,8 +250,7 @@ describe('GraphDB', () => {
 					}, {
 						source: 5,
 						target: 6
-					}])
-				)
+					}]))
 				.then(() => graph.links())
 				.then((links) => {
 					assert.is(links.length, 9);
@@ -266,7 +263,6 @@ describe('GraphDB', () => {
 					}]);
 				});
 		});
-
 	});
 
 	describe('.query', () => {
@@ -578,9 +574,7 @@ describe('GraphDB', () => {
 			});
 
 			return graph.whenReady()
-				.then(() => graph
-					.shortestPaths(testNodes[2], testNodes[1])
-				)
+				.then(() => graph.shortestPaths(testNodes[2], testNodes[1]))
 				.then((paths) => {
 					assert.is(paths.length, 0);
 				});
@@ -593,9 +587,7 @@ describe('GraphDB', () => {
 			});
 
 			return graph.whenReady()
-				.then(() => graph
-					.shortestPaths(testNodes[0], testNodes[4])
-				)
+				.then(() => graph.shortestPaths(testNodes[0], testNodes[4]))
 				.then((paths) => {
 					assert.is(paths.length, 1);
 					assert.is(paths[0].length, 4);

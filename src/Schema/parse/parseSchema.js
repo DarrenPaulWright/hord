@@ -36,7 +36,7 @@ const buildRule = (type, value, isAnObject) => {
 				Object.assign({}, sameRule, {
 					name: type + ''
 				})), {
-			type: type
+			type
 		});
 	}
 
@@ -108,4 +108,4 @@ export default (schema) => {
 	});
 
 	return schemaValues;
-}
+};

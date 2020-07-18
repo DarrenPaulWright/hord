@@ -522,8 +522,8 @@ describe('parseSchema', () => {
 							}
 						};
 					}
-					else {
-						return {
+
+					return {
 							input: {
 								level1: {
 									type: type.value,
@@ -550,8 +550,7 @@ describe('parseSchema', () => {
 									}]
 								}]
 							}
-						};
-					}
+					};
 				}),
 				message(input) {
 					return `should return a map for ${displayValue(input.level1.type)} as an object with type and other keys`;

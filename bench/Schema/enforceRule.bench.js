@@ -177,5 +177,4 @@ suite('enforceRule', () => {
 			value = get(item, path);
 		}
 	});
-
 });

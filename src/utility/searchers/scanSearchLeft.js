@@ -13,4 +13,4 @@ export default (array, item, comparer, isInsert = false) => {
 	}
 
 	return isInsert ? array.length - 1 : -1;
-}
+};

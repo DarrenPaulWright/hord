@@ -36,4 +36,4 @@ const subTraverse = (basePath, item, callback) => {
 
 export default (item, callback) => {
 	subTraverse('', item, callback);
-}
+};

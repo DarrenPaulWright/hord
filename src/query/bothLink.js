@@ -5,14 +5,14 @@ export default (mainLinks) => (nodes) => {
 		resolve(mainLinks
 			.filter({
 				source: {
-					id: {$in: nodeIds}
+					id: { $in: nodeIds }
 				}
 			})
 			.concat(mainLinks.filter({
 				target: {
-					id: {$in: nodeIds}
+					id: { $in: nodeIds }
 				}
 			}))
 			.unique());
 	});
-}
+};

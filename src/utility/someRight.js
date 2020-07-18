@@ -4,6 +4,6 @@ export default (array, callback) => {
 			return true;
 		}
 	}
-	
+
 	return false;
-}
+};

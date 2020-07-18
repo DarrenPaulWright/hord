@@ -4,7 +4,7 @@ import operators from '../operators.js';
 
 const compareFirst = compare('v');
 const comparer = (a, b) => {
-	let result = compareFirst(a, b);
+	const result = compareFirst(a, b);
 
 	if (result === 0 && a.i !== undefined && b.i !== undefined) {
 		return a.i - b.i;
@@ -14,23 +14,23 @@ const comparer = (a, b) => {
 };
 
 const greaterThan = (value, list) => {
-	return list.slice(list.lastIndexOf({v: value}) + 1);
+	return list.slice(list.lastIndexOf({ v: value }) + 1);
 };
 
 const greaterThanOrEqual = (value, list) => {
-	return list.slice(list.indexOf({v: value}));
+	return list.slice(list.indexOf({ v: value }));
 };
 
 const lessThan = (value, list) => {
-	return list.slice(0, list.indexOf({v: value}));
+	return list.slice(0, list.indexOf({ v: value }));
 };
 
 const lessThanOrEqual = (value, list) => {
-	return list.slice(0, list.lastIndexOf({v: value}) + 1);
+	return list.slice(0, list.lastIndexOf({ v: value }) + 1);
 };
 
 const equal = (value, list) => {
-	return list.findAll({v: value});
+	return list.findAll({ v: value });
 };
 
 const notEqual = (value, list) => {

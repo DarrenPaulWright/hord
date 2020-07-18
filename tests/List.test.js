@@ -879,7 +879,7 @@ describe('List', () => {
 		let testVar = 0;
 		const keys = new List([1, 2, 3]).keys();
 
-		for (let key of keys) {
+		for (const key of keys) {
 			if (key !== undefined) {
 				testVar++;
 			}

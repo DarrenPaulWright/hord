@@ -16,4 +16,4 @@ export default (path, schemaValues) => {
 	});
 
 	return schemaValues;
-}
+};

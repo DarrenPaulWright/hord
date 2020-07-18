@@ -102,7 +102,7 @@ const buildFinder = (predicate) => {
 
 		traverse(predicate, (path, value) => {
 			if (path.length) {
-				let initialLength = rules.length;
+				const initialLength = rules.length;
 
 				if (isObject(value)) {
 					if (value.$in !== undefined) {
@@ -1005,8 +1005,8 @@ export default class Collection extends Array {
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	sliceBy(beginPredicate, endPredicate) {
-		let begin = beginPredicate ? Math.max(this.findIndex(beginPredicate), 0) : 0;
-		let end = endPredicate ? this.findLastIndex(endPredicate) : this.length;
+		const begin = beginPredicate ? Math.max(this.findIndex(beginPredicate), 0) : 0;
+		const end = endPredicate ? this.findLastIndex(endPredicate) : this.length;
 
 		return (end < begin) ? this.slice(end, begin + 1) : this.slice(begin, end + 1);
 	}
@@ -1215,10 +1215,10 @@ export default class Collection extends Array {
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
 	merge(collections, idKey, callback) {
-		let output = this[spawn]();
+		const output = this[spawn]();
 		let matches = [];
 		let maxLength;
-		let idSet = new Set();
+		const idSet = new Set();
 
 		if (isInstanceOf(collections, Collection)) {
 			collections = [collections];

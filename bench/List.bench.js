@@ -217,5 +217,4 @@ suite('List', () => {
 			list2 = new List(fill(largeArrayLength, (x) => x + largeArrayLength - overlap));
 		}
 	});
-
 });

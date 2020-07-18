@@ -252,7 +252,6 @@ describe('Collection', () => {
 				if (index === testVar) {
 					testVar++;
 					return index !== 2;
-
 				}
 			});
 
@@ -1733,7 +1732,6 @@ describe('Collection', () => {
 		if (builds !== undefined) {
 			it(`should have built the indexes ${builds} time(s)`, () => {
 				assert.is(_(queryCollection).indexer.builds, builds);
-
 			});
 		}
 

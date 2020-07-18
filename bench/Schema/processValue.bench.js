@@ -8,7 +8,7 @@ suite('processValue', () => {
 	const returnInput = (input) => input;
 	const onError = () => {
 	};
-	let rule = {
+	const rule = {
 		keys: ['foo', 'bar'],
 		types: [{
 			check: returnTrue,

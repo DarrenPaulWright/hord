@@ -13,6 +13,6 @@ const isAllValidTypes = (value) => Array.isArray(value) ?
 	isValidType(value);
 
 export default (value, isObject) => isObject === true ?
-	(value.type !== undefined) ? isAllValidTypes(value.type) : typeof value.enforce === 'function' :
+	((value.type !== undefined) ? isAllValidTypes(value.type) : typeof value.enforce === 'function') :
 	isAllValidTypes(value);
 

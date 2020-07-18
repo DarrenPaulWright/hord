@@ -137,7 +137,7 @@ export default class List {
 			_self.array[0] = item;
 		}
 		else {
-			let index = binarySearchLeft(_self.array, item, _self.comparer, true);
+			const index = binarySearchLeft(_self.array, item, _self.comparer, true);
 
 			if (index === -1 || _self.comparer(_self.array[index], item) !== 0) {
 				_self.array.splice(index + 1, 0, item);

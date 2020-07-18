@@ -13,9 +13,8 @@ const processContent = (item, rule, path, value, onError, isEnforce) => {
 	if (rule.types[0].type === Array) {
 		return processArray(item, rule, path, value, onError, isEnforce);
 	}
-	else {
-		return processObject(item, rule, path, value, onError, isEnforce);
-	}
+
+	return processObject(item, rule, path, value, onError, isEnforce);
 };
 
 const processArray = (item, rule, path, value, onError, isEnforce) => {
@@ -58,7 +57,7 @@ const processObject = (item, rule, path, value, onError, isEnforce) => {
 
 export default function processValue(item, rule, path, onError, isEnforce, replace) {
 	const value = get(item, path);
-	let isChanged = (rule.content && value && processContent(item, rule, path, value, onError, isEnforce));
+	const isChanged = (rule.content && value && processContent(item, rule, path, value, onError, isEnforce));
 
 	checkRule(rule, value, path, onError);
 

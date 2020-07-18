@@ -21,5 +21,4 @@ suite('findRule', () => {
 	benchmark('two levels', () => {
 		sandbox = findRule('foo.1', rules);
 	}, benchSettings);
-
 });

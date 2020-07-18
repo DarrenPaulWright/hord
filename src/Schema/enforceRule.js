@@ -3,13 +3,13 @@ import { enforceEnum, enforceInstanceOf } from 'type-enforcer-ui';
 
 const EMPTY_TYPES = [Array, Object, 'Schema'];
 
-const enforceLength = (type, prop, value, item, path, fixString) => {
+const enforceLength = (type, property, value, item, path, fixString) => {
 	if (type.clamp === true) {
 		if (type.type === Array) {
-			value.length = type[prop];
+			value.length = type[property];
 		}
 		else {
-			set(item, path, fixString(value, type[prop]));
+			set(item, path, fixString(value, type[property]));
 		}
 	}
 	else {
@@ -20,9 +20,9 @@ const enforceLength = (type, prop, value, item, path, fixString) => {
 export default (rule, item, path, value, replace) => {
 	const defaultValue = (rule.default !== undefined) ?
 		rule.default :
-		rule.isRequired ?
+		(rule.isRequired ?
 			replace || null :
-			undefined;
+			undefined);
 	let newValue = value;
 
 	rule.types.some((type) => {

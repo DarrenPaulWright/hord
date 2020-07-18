@@ -87,7 +87,7 @@ export default class Indexer {
 					});
 				}
 				else if (!isArray(value)) {
-					subQuery(path, {$eq: value}, operators.EQUAL);
+					subQuery(path, { $eq: value }, operators.EQUAL);
 				}
 
 				return didSubQuery;
@@ -98,7 +98,7 @@ export default class Indexer {
 			matches = new List();
 		}
 
-		return {matches, nonIndexedSearches, usedIndexes};
+		return { matches, nonIndexedSearches, usedIndexes };
 	}
 
 	update(path, index, value, previous) {

@@ -42,7 +42,7 @@ export const isAnything = () => true;
 export const enforceAnything = (value) => value;
 
 export const checkNumericRange = (rule, value, defaultValue) => {
-	let newValue = rule.enforce(value, defaultValue, rule.coerce, rule.min, rule.max);
+	const newValue = rule.enforce(value, defaultValue, rule.coerce, rule.min, rule.max);
 
 	return rule.clamp !== true && newValue !== rule.enforce(value, defaultValue, rule.coerce) ? undefined : newValue;
 };

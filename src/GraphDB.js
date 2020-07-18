@@ -81,7 +81,7 @@ const _ = new PrivateVars();
  * import { GraphDB } from 'hord';
  * ```
  *
- * @param {Object} [settings]
+ * @param {object} [settings]
  * @param {Model} [settings.nodeModel]
  * @param {Model} [settings.linkModel]
  * @param {Array} [settings.nodes]

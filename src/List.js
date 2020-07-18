@@ -180,13 +180,15 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {*} values
+	 * @param {...Array|List} lists - One or more lists or arrays to concat to this list.
+	 *
+	 * @returns {List}
 	 */
-	concat(...args) {
+	concat(...lists) {
 		const _self = _(this);
 
 		return new List({
-			array: _self.array.concat(...args.map((item) => {
+			array: _self.array.concat(...lists.map((item) => {
 				return item instanceof List ? _(item).array : item;
 			})).sort(_self.comparer),
 			comparer: _self.comparer
@@ -267,7 +269,7 @@ export default class List {
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	indexOf(item) {
 		const _self = _(this);
@@ -283,7 +285,7 @@ export default class List {
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	lastIndexOf(item) {
 		const _self = _(this);
@@ -299,10 +301,10 @@ export default class List {
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 	includes(item) {
-		return this.indexOf(item) !== -1;
+		return this.indexOf(item) !== -1; // eslint-disable-line unicorn/prefer-includes
 	}
 
 	/**
@@ -358,7 +360,7 @@ export default class List {
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	findIndex(item) {
 		return this.indexOf(item);
@@ -372,7 +374,7 @@ export default class List {
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	findLastIndex(item) {
 		return this.lastIndexOf(item);
@@ -410,8 +412,8 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {function} callback
-	 * @param {Object} [thisArg]
+	 * @param {Function} callback
+	 * @param {object} [thisArg]
 	 *
 	 * @returns {List}
 	 */
@@ -446,7 +448,7 @@ export default class List {
 	 * @param {Int} [low=0]
 	 * @param {Int} [high=n]
 	 *
-	 * @returns {Number}
+	 * @returns {number}
 	 */
 	median(low = 0, high) {
 		const array = _(this).array;
@@ -466,7 +468,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @returns {Number}
+	 * @returns {number}
 	 */
 	get total() {
 		return _(this).array.reduce((total, value) => total + value, 0);
@@ -478,7 +480,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @returns {Number}
+	 * @returns {number}
 	 */
 	mean() {
 		return this.total / this.length;
@@ -490,7 +492,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @returns {Object} Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).
+	 * @returns {object} Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).
 	 */
 	quartiles() {
 		const array = _(this).array;
@@ -535,7 +537,7 @@ export default class List {
 	 * @instance
 	 * @readonly
 	 *
-	 * @returns {Number}
+	 * @returns {number}
 	 */
 	get length() {
 		return _(this).array.length;
@@ -550,10 +552,10 @@ export default class List {
  * @static
  *
  * @property {Function} default - Replicates the default behavior of Array.sort()
- * @property {Object} string
+ * @property {object} string
  * @property {Function} string.asc - Uses localeCompare to sort strings. This is less efficient, but is useful for lists that will be displayed to users.
  * @property {Function} string.desc - Inverse of string.asc
- * @property {Object} number
+ * @property {object} number
  * @property {Function} number.asc - Sorts numbers in numeric order
  * @property {Function} number.desc - Inverse of number.asc
  */
@@ -584,7 +586,7 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @returns {String}
+ * @returns {string}
  */
 /**
  * See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
@@ -593,7 +595,7 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @returns {Object}
+ * @returns {object}
  */
 [
 	'pop',
@@ -614,9 +616,9 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Function} callback
- * @param {Object} [thisArg]
+ * @param {object} [thisArg]
  *
- * @returns {Boolean}
+ * @returns {boolean}
  */
 /**
  * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
@@ -626,7 +628,7 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Function} callback
- * @param {Object} [thisArg]
+ * @param {object} [thisArg]
  *
  * @returns {undefined}
  */
@@ -638,9 +640,9 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Array} [locales]
- * @param {Object} [options]
+ * @param {object} [options]
  *
- * @returns {String}
+ * @returns {string}
  */
 /**
  * See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
@@ -649,9 +651,9 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @param {String} [separator=',']
+ * @param {string} [separator=',']
  *
- * @returns {String}
+ * @returns {string}
  */
 /**
  * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
@@ -661,7 +663,7 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Function} callback
- * @param {Object} [thisArg]
+ * @param {object} [thisArg]
  *
  * @returns {Array}
  */
@@ -673,7 +675,7 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Function} callback
- * @param {Object} [thisArg]
+ * @param {object} [thisArg]
  *
  * @returns {*}
  */
@@ -685,7 +687,7 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Function} callback
- * @param {Object} [thisArg]
+ * @param {object} [thisArg]
  *
  * @returns {*}
  */
@@ -697,9 +699,9 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Function} callback
- * @param {Object} [thisArg]
+ * @param {object} [thisArg]
  *
- * @returns {Boolean}
+ * @returns {boolean}
  */
 [
 	'every',
@@ -724,7 +726,7 @@ List.comparers = comparers;
  * @instance
  *
  * @param {Function} callback
- * @param {Object} [thisArg]
+ * @param {object} [thisArg]
  *
  * @returns {List}
  */
@@ -735,8 +737,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @param {Number} [begin=0]
- * @param {Number} [end=array.length]
+ * @param {number} [begin=0]
+ * @param {number} [end=array.length]
  *
  * @returns {List}
  */

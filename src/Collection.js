@@ -94,7 +94,7 @@ import someRight from './utility/someRight.js';
  * If you haven't set up any indexes, or you're searching on properties that aren't indexed, then providing a function will most likely have better performance. If you're searching on even one property that's indexed, then using an object will perform better, as the indexer can narrow the search before iterating over the results for a final match.
  *
  * @typedef predicate
- * @type {function|Object}
+ * @type {Function|object}
  */
 const buildFinder = (predicate) => {
 	if (isObject(predicate)) {
@@ -166,7 +166,7 @@ const spawn = Symbol();
  * @extends Array
  * @classdesc An array of objects with optional model enforcement and indexed queries.
  *
- * @param {Array|Object} - Accepts an array of objects or multiple args of objects.
+ * @param {Array|object} - - Accepts an array of objects or multiple args of objects.
  */
 export default class Collection extends Array {
 	constructor(...args) {
@@ -318,7 +318,7 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @param {Model|Object} - Can be an instance of class:Model or an object with a schema structure.
+	 * @param {Model|object} model - Can be an instance of class:Model or an object with a schema structure.
 	 *
 	 * @returns {Model}
 	 */
@@ -392,7 +392,7 @@ export default class Collection extends Array {
 	 * @see [Array.length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length)
 	 *
 	 *
-	 * @member {Number} length
+	 * @member {number} length
 	 * @memberOf Collection
 	 * @instance
 	 */
@@ -414,7 +414,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {*} item
 	 *
-	 * @returns {Number} The new length of the collection
+	 * @returns {number} The new length of the collection
 	 */
 	push(item) {
 		const self = this;
@@ -484,7 +484,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {*} item
 	 *
-	 * @returns {Number} The new length of the collection
+	 * @returns {number} The new length of the collection
 	 */
 	unshift(item) {
 		const self = this;
@@ -594,9 +594,9 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} callback
-	 * @param {Object} [thisArg]
+	 * @param {object} [thisArg]
 	 *
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 
 	/**
@@ -607,9 +607,9 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} callback
-	 * @param {Object} [thisArg]
+	 * @param {object} [thisArg]
 	 *
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 	someRight(callback, thisArg) {
 		callback = callback.bind(thisArg || this);
@@ -625,9 +625,9 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} callback
-	 * @param {Object} [thisArg]
+	 * @param {object} [thisArg]
 	 *
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 
 	/**
@@ -639,7 +639,7 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} callback
-	 * @param {Object} [thisArg]
+	 * @param {object} [thisArg]
 	 *
 	 * @returns {*}
 	 */
@@ -653,7 +653,7 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} callback
-	 * @param {Object} [thisArg]
+	 * @param {object} [thisArg]
 	 *
 	 * @returns {*}
 	 */
@@ -683,8 +683,8 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} onChild - Called for each item and child item. If true is returned, all iteration stops. Provides three args: the child item, the nested depth of the item, and the items parent. Context is set to this Collection.
-	 * @param {Object}   [settings]
-	 * @param {String}   [settings.childKey=children] - The key that contains children items
+	 * @param {object}   [settings]
+	 * @param {string}   [settings.childKey=children] - The key that contains children items
 	 * @param {Function} [settings.onParent] - Called for each item that contains children. If true is returned, then the children will not get processed. Provides the same args and context as the onChild callback.
 	 */
 	eachChild(onChild, settings = {}) {
@@ -721,7 +721,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @param {Number} [depth=1]
+	 * @param {number} [depth=1]
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -736,7 +736,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @param {function} callback
+	 * @param {Function} callback
 	 * @param {*} thisArg
 	 *
 	 * @returns {Collection} A new Collection without a model.
@@ -754,9 +754,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @param {Object} item
+	 * @param {object} item
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	indexOf(item) {
 		const self = this;
@@ -791,9 +791,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @param {Object} item
+	 * @param {object} item
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	lastIndexOf(item) {
 		const self = this;
@@ -828,12 +828,12 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @param {Object} item
+	 * @param {object} item
 	 *
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 	includes(item) {
-		return this.indexOf(item) !== -1;
+		return this.indexOf(item) !== -1; // eslint-disable-line unicorn/prefer-includes
 	}
 
 	/**
@@ -848,7 +848,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {predicate} predicate
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	findIndex(predicate) {
 		const self = this;
@@ -889,7 +889,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {predicate} predicate
 	 *
-	 * @returns {Number} The index of the item or -1
+	 * @returns {number} The index of the item or -1
 	 */
 	findLastIndex(predicate) {
 		const self = this;
@@ -930,7 +930,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {predicate} predicate
 	 *
-	 * @returns {Object} The item or undefined
+	 * @returns {object} The item or undefined
 	 */
 	find(predicate) {
 		return this[this.findIndex(predicate)];
@@ -948,7 +948,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {predicate} predicate
 	 *
-	 * @returns {Object} The item or undefined
+	 * @returns {object} The item or undefined
 	 */
 	findLast(predicate) {
 		return this[this.findLastIndex(predicate)];
@@ -1020,7 +1020,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @returns {Object}
+	 * @returns {object}
 	 */
 	first() {
 		return this[0];
@@ -1033,12 +1033,13 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @returns {Object}
+	 * @returns {object}
 	 */
 	last() {
 		return this[this.length - 1];
 	}
 
+	/* eslint-disable jsdoc/check-param-names */
 	/**
 	 * Returns a shallow copy of a portion of the collection selected from begin to end (end not included).
 	 *
@@ -1046,11 +1047,13 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @param {Object} begin - Index at which to begin extraction.
-	 * @param {Object} [end=collection.length] - Index before which to end extraction
+	 * @param {object} begin - Index at which to begin extraction.
+	 * @param {object} [end=collection.length] - Index before which to end extraction
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
+
+	/* eslint-enable jsdoc/check-param-names */
 	slice(...args) {
 		return this[spawn](super.slice(...args));
 	}
@@ -1062,9 +1065,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @param {Object}   [settings]
-	 * @param {String}   [settings.childKey='children']
-	 * @param {Boolean}  [settings.saveDepth=false] - if true appends a property "depth" to each returned object with the nested depth of the original object
+	 * @param {object}   [settings]
+	 * @param {string}   [settings.childKey='children']
+	 * @param {boolean}  [settings.saveDepth=false] - if true appends a property "depth" to each returned object with the nested depth of the original object
 	 * @param {Function} [settings.onParent] - Called on every parent item. Provides two args: the parent item and that item's parent. Context is set to the Collection. If true is returned, then the children will not be flattened.
 	 * @param {Function} [settings.onChild] - Called on every child item. Provides two args: the child item and that item's parent. Context is set to the Collection. If true is returned, then this item (and any children) will not be included in the output.
 	 *
@@ -1117,11 +1120,11 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @param {Object}   [settings]
-	 * @param {String}   [settings.idKey='id'] - The id property of items
-	 * @param {String}   [settings.parentKey='parent'] - The key that holds the id of the parent item. _Performance improvement if indexed_
-	 * @param {String}   [settings.childKey='children'] - The key to save children under. _Performance improvement if indexed_
-	 * @param {String}   [settings.deleteParentKey=false] - Should the parent key be deleted after nesting
+	 * @param {object}   [settings]
+	 * @param {string}   [settings.idKey='id'] - The id property of items
+	 * @param {string}   [settings.parentKey='parent'] - The key that holds the id of the parent item. _Performance improvement if indexed_
+	 * @param {string}   [settings.childKey='children'] - The key to save children under. _Performance improvement if indexed_
+	 * @param {string}   [settings.deleteParentKey=false] - Should the parent key be deleted after nesting
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -1167,7 +1170,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @param {String} [countKey] - If provided records the number of duplicates, starting at 1 for unique items
+	 * @param {string} [countKey] - If provided records the number of duplicates, starting at 1 for unique items
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
@@ -1209,7 +1212,7 @@ export default class Collection extends Array {
 	 * @category Immutable Retrieval
 	 *
 	 * @param {Colection|Collection[]} collections - Either a collection or array of collections to merge with this collection.
-	 * @param {String} idKey - The key to match items from the different collections.
+	 * @param {string} idKey - The key to match items from the different collections.
 	 * @param {Function} callback - Called for each unique idKey value. Provides the same number of args as the total number of collections being merged, in the order provided. The returned value is included in the ouptput collection.
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
@@ -1258,12 +1261,12 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @param {Array|Collection} value - One or more arrays
+	 * @param {...Array|Collection} collections - One or more collections or arrays
 	 *
 	 * @returns {Collection}
 	 */
-	concat(...args) {
-		return this[spawn](super.concat(...args));
+	concat(...collections) {
+		return this[spawn](super.concat(...collections));
 	}
 
 	/**
@@ -1274,7 +1277,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @returns {String}
+	 * @returns {string}
 	 */
 
 	/**
@@ -1286,9 +1289,9 @@ export default class Collection extends Array {
 	 * @category Immutable Retrieval
 	 *
 	 * @param {Array} [locales]
-	 * @param {Object} [options]
+	 * @param {object} [options]
 	 *
-	 * @returns {String}
+	 * @returns {string}
 	 */
 
 	/**
@@ -1299,9 +1302,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @param {String} [separator=',']
+	 * @param {string} [separator=',']
 	 *
-	 * @returns {String}
+	 * @returns {string}
 	 */
 
 	/**
@@ -1334,11 +1337,12 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @returns {Object}
+	 * @returns {object}
 	 */
 
 	//          MUTABLE
 
+	/* eslint-disable jsdoc/check-param-names */
 	/**
 	 * Shallow copies a portion of the collection to another location within the collection.
 	 *
@@ -1353,10 +1357,12 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @param {Number} target
-	 * @param {Number} [start]
-	 * @param {Number} [end]
+	 * @param {number} target
+	 * @param {number} [start]
+	 * @param {number} [end]
 	 */
+
+	/* eslint-enable jsdoc/check-param-names */
 	copyWithin(...args) {
 		const self = this;
 
@@ -1370,6 +1376,7 @@ export default class Collection extends Array {
 		return self;
 	}
 
+	/* eslint-disable jsdoc/check-param-names */
 	/**
 	 * Fills all or a portion of the collection with a static value.
 	 *
@@ -1385,9 +1392,11 @@ export default class Collection extends Array {
 	 * @category Mutable
 	 *
 	 * @param {*} value
-	 * @param {Number} [start]
-	 * @param {Number} [end]
+	 * @param {number} [start]
+	 * @param {number} [end]
 	 */
+
+	/* eslint-enable jsdoc/check-param-names */
 	fill(...args) {
 		const self = this;
 
@@ -1440,7 +1449,7 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @param {function} [compareFunction=List.comparers.default]
+	 * @param {Function} [compareFunction=List.comparers.default]
 	 */
 	sort(compareFunction = List.comparers.default) {
 		const self = this;
@@ -1456,7 +1465,7 @@ export default class Collection extends Array {
 	}
 
 	/**
-	 * Changes the contents of an collection in place by removing or replacing existing elements and/or adding new elements
+	 * Changes the contents of an collection in place by removing or replacing existing elements and/or adding new elements.
 	 *
 	 * @summary
 	 * _`✎ Updates indexes`_
@@ -1467,36 +1476,35 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Mutable
 	 *
-	 * @param {Number} start
-	 * @param {Number} [deleteCount]
-	 * @param {*} [item1, item2, ...]
+	 * @param {number} start - Index to start the splice
+	 * @param {number} [deleteCount=0] - Number of elements to delete
+	 * @param {...*} [newValues] - Any values to add
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection. Contains the elements removed from the calling collection.
 	 */
-	splice(start, deleteCount, ...args) {
+	splice(start, deleteCount, ...newValues) {
 		const self = this;
-		const argLength = args.length;
 
 		if (_(self).indexer) {
 			_(self).indexer.isHandled = true;
 		}
 
-		if (argLength && _(self).model) {
-			args = args.map((item) => _(self).model.apply(item));
+		if (newValues.length !== 0 && _(self).model) {
+			newValues = newValues.map((item) => _(self).model.apply(item));
 		}
 
-		const result = super.splice(start, deleteCount, ...args);
+		const result = super.splice(start, deleteCount, ...newValues);
 
 		if (_(self).indexer) {
 			result.forEach((item, index) => {
 				_(self).indexer.discard(item, start + index);
 			});
 
-			if (argLength - deleteCount) {
-				_(self).indexer.increment(argLength - deleteCount, start + deleteCount);
+			if (newValues.length - deleteCount !== 0) {
+				_(self).indexer.increment(newValues.length - deleteCount, start + deleteCount);
 			}
 
-			args.forEach((item, index) => {
+			newValues.forEach((item, index) => {
 				_(self).indexer.add(item, start + index);
 			});
 

@@ -95,9 +95,9 @@ export default class Model {
 	 * @memberOf Model
 	 * @instance
 	 *
-	 * @param {Object} object
+	 * @param {object} object
 	 *
-	 * @returns {Object}
+	 * @returns {object}
 	 */
 	apply(object) {
 		const self = this;
@@ -211,7 +211,7 @@ Object.assign(Model.prototype, {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {function} callback - Provides three args: path, value, and previous value. Context is the model that changed.
+	 * @param {Function} callback - Provides three args: path, value, and previous value. Context is the model that changed.
 	 *
 	 * @returns {Queue}
 	 */
@@ -228,7 +228,7 @@ Object.assign(Model.prototype, {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {function} callback - Provides one arg: an array of errors. Context is the model that changed.
+	 * @param {Function} callback - Provides one arg: an array of errors. Context is the model that changed.
 	 *
 	 * @returns {Queue}
 	 */

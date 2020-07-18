@@ -7,10 +7,10 @@ import processValue from './processValue.js';
 /**
  * Schema validation errors
  *
- * @typedef {Object} SchemaError
+ * @typedef {object} SchemaError
  *
- * @param {String} error - A message about the type of error
- * @param {String} path - The path within the given item to the value causing the error
+ * @param {string} error - A message about the type of error
+ * @param {string} path - The path within the given item to the value causing the error
  * @param {*} value - The value at this path
  * @param {*} item - The original item being validated
  */
@@ -49,21 +49,21 @@ import processValue from './processValue.js';
  * });
  * ```
  *
- * @typedef {*|Object} SchemaDefinition
+ * @typedef {*|object} SchemaDefinition
  *
  * @param {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model.
- * @param {Boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
- * @param {Boolean} [default] - If isRequired is true, then schema.enforce() will set this value if the key is undefined.
- * @param {Boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().
- * @param {Number} [min] - For Number, 'integer', and 'float'
- * @param {Number} [max] - For Number, 'integer', and 'float'
- * @param {Number} [minLength] - For Arrays and Strings
- * @param {Number} [maxLength] - For Arrays and Strings
- * @param {Boolean} [clamp=false] - Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted.
+ * @param {boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
+ * @param {boolean} [default] - If isRequired is true, then schema.enforce() will set this value if the key is undefined.
+ * @param {boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().
+ * @param {number} [min] - For Number, 'integer', and 'float'
+ * @param {number} [max] - For Number, 'integer', and 'float'
+ * @param {number} [minLength] - For Arrays and Strings
+ * @param {number} [maxLength] - For Arrays and Strings
+ * @param {boolean} [clamp=false] - Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted.
  * @param {Enum} [enum] - If type is Enum, then this is required
- * @param {Object|Array} [content] - For arrays and objects to specify further content
- * @param {function} [enforce] - This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info)
- * @param {function} [check] - This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info)
+ * @param {object|Array} [content] - For arrays and objects to specify further content
+ * @param {Function} [enforce] - This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info)
+ * @param {Function} [check] - This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info)
  */
 
 const process = (item, rules, path, isEnforce, replace) => {
@@ -137,7 +137,7 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @param {Object} item
+	 * @param {object} item
 	 * @param {Array} [path=[]] - If provided then only the value at that path will be validated
 	 *
 	 * @returns {SchemaError[]}
@@ -152,7 +152,7 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @param {Object} item
+	 * @param {object} item
 	 * @param {Array} [path=[]]
 	 * @param {*} [replace] - If the current value at path is invalid, replace it with this.
 	 *
@@ -180,7 +180,7 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @param {SchemaDefinition|Schema}
+	 * @param {SchemaDefinition|Schema} schema
 	 *
 	 * @returns {Schema}
 	 */

@@ -37,10 +37,10 @@ const compare = (a, b) => {
  *
  * @function compare
  *
- * @param {Array|String} [paths] - The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on.
- * @param {Boolean} [desc=false] - If true then inverse values are returned
+ * @param {Array|string} [paths] - The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on.
+ * @param {boolean} [desc=false] - If true then inverse values are returned
  *
- * @returns {function} Accepts two arguments to be compared. Returns -1, 0, or 1.
+ * @returns {Function} Accepts two arguments to be compared. Returns -1, 0, or 1.
  */
 export default (paths, desc = false) => {
 	if (paths !== undefined) {

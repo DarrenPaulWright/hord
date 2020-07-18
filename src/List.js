@@ -41,7 +41,7 @@ export const _ = new PrivateVars();
  * @class List
  * @classdesc Always sorted array.
  *
- * @arg {Array} [values]
+ * @param {Array} [values]
  */
 export default class List {
 	constructor(values = []) {
@@ -72,7 +72,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {Function} comparer
+	 * @param {Function} comparer
 	 *
 	 * @returns {Function}
 	 */
@@ -110,7 +110,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {*} item - Item is inserted into the list such that the items are still sorted.
+	 * @param {*} item - Item is inserted into the list such that the items are still sorted.
 	 *
 	 */
 	add(item) {
@@ -128,7 +128,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {*} item - Item is inserted into the list such that the items are still sorted.
+	 * @param {*} item - Item is inserted into the list such that the items are still sorted.
 	 */
 	addUnique(item) {
 		const _self = _(this);
@@ -180,7 +180,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {*} values
+	 * @param {*} values
 	 */
 	concat(...args) {
 		const _self = _(this);
@@ -200,7 +200,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 */
 	discard(item) {
 		const _self = _(this);
@@ -217,7 +217,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {*} index
+	 * @param {*} index
 	 */
 	discardAt(index) {
 		_(this).array.splice(index, 1);
@@ -245,7 +245,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {Array} [values] - Replaces any previous values and immediately sorts them.
+	 * @param {Array} [values] - Replaces any previous values and immediately sorts them.
 	 *
 	 * @returns {Array} A shallow clone of the values
 	 */
@@ -265,7 +265,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -281,7 +281,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -297,7 +297,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Boolean}
 	 */
@@ -311,7 +311,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {*} The item or undefined
 	 */
@@ -325,7 +325,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {*} The item or undefined
 	 */
@@ -339,7 +339,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {List}
 	 */
@@ -356,7 +356,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -370,7 +370,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {*} item - Uses the comparer function to determine equality.
+	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -410,8 +410,8 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {function} callback
-	 * @arg {Object} [thisArg]
+	 * @param {function} callback
+	 * @param {Object} [thisArg]
 	 *
 	 * @returns {List}
 	 */
@@ -427,7 +427,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {List|Array} array
+	 * @param {List|Array} array
 	 *
 	 * @returns {List}
 	 */
@@ -443,8 +443,8 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @arg {Int} [low=0]
-	 * @arg {Int} [high=n]
+	 * @param {Int} [low=0]
+	 * @param {Int} [high=n]
 	 *
 	 * @returns {Number}
 	 */
@@ -613,8 +613,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
+ * @param {Function} callback
+ * @param {Object} [thisArg]
  *
  * @returns {Boolean}
  */
@@ -625,8 +625,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
+ * @param {Function} callback
+ * @param {Object} [thisArg]
  *
  * @returns {undefined}
  */
@@ -637,8 +637,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Array} [locales]
- * @arg {Object} [options]
+ * @param {Array} [locales]
+ * @param {Object} [options]
  *
  * @returns {String}
  */
@@ -649,7 +649,7 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {String} [separator=',']
+ * @param {String} [separator=',']
  *
  * @returns {String}
  */
@@ -660,8 +660,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
+ * @param {Function} callback
+ * @param {Object} [thisArg]
  *
  * @returns {Array}
  */
@@ -672,8 +672,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
+ * @param {Function} callback
+ * @param {Object} [thisArg]
  *
  * @returns {*}
  */
@@ -684,8 +684,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
+ * @param {Function} callback
+ * @param {Object} [thisArg]
  *
  * @returns {*}
  */
@@ -696,8 +696,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
+ * @param {Function} callback
+ * @param {Object} [thisArg]
  *
  * @returns {Boolean}
  */
@@ -723,8 +723,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Function} callback
- * @arg {Object} [thisArg]
+ * @param {Function} callback
+ * @param {Object} [thisArg]
  *
  * @returns {List}
  */
@@ -735,8 +735,8 @@ List.comparers = comparers;
  * @memberOf List
  * @instance
  *
- * @arg {Number} [begin=0]
- * @arg {Number} [end=array.length]
+ * @param {Number} [begin=0]
+ * @param {Number} [end=array.length]
  *
  * @returns {List}
  */

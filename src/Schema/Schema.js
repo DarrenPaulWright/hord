@@ -9,10 +9,10 @@ import processValue from './processValue.js';
  *
  * @typedef {Object} SchemaError
  *
- * @arg {String} error - A message about the type of error
- * @arg {String} path - The path within the given item to the value causing the error
- * @arg {*} value - The value at this path
- * @arg {*} item - The original item being validated
+ * @param {String} error - A message about the type of error
+ * @param {String} path - The path within the given item to the value causing the error
+ * @param {*} value - The value at this path
+ * @param {*} item - The original item being validated
  */
 
 /**
@@ -51,19 +51,19 @@ import processValue from './processValue.js';
  *
  * @typedef {*|Object} SchemaDefinition
  *
- * @arg {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model.
- * @arg {Boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
- * @arg {Boolean} [default] - If isRequired is true, then schema.enforce() will set this value if the key is undefined.
- * @arg {Boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().
- * @arg {Number} [min] - For Number, 'integer', and 'float'
- * @arg {Number} [max] - For Number, 'integer', and 'float'
- * @arg {Number} [minLength] - For Arrays and Strings
- * @arg {Number} [maxLength] - For Arrays and Strings
- * @arg {Boolean} [clamp=false] - Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted.
- * @arg {Enum} [enum] - If type is Enum, then this is required
- * @arg {Object|Array} [content] - For arrays and objects to specify further content
- * @arg {function} [enforce] - This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info)
- * @arg {function} [check] - This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info)
+ * @param {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model.
+ * @param {Boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
+ * @param {Boolean} [default] - If isRequired is true, then schema.enforce() will set this value if the key is undefined.
+ * @param {Boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().
+ * @param {Number} [min] - For Number, 'integer', and 'float'
+ * @param {Number} [max] - For Number, 'integer', and 'float'
+ * @param {Number} [minLength] - For Arrays and Strings
+ * @param {Number} [maxLength] - For Arrays and Strings
+ * @param {Boolean} [clamp=false] - Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted.
+ * @param {Enum} [enum] - If type is Enum, then this is required
+ * @param {Object|Array} [content] - For arrays and objects to specify further content
+ * @param {function} [enforce] - This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info)
+ * @param {function} [check] - This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info)
  */
 
 const process = (item, rules, path, isEnforce, replace) => {
@@ -121,7 +121,7 @@ const _ = new PrivateVars();
  * @class Schema
  * @classdesc Schema enforcement.
  *
- * @arg {SchemaDefinition} schema
+ * @param {SchemaDefinition} schema
  */
 export default class Schema {
 	constructor(schema) {
@@ -137,8 +137,8 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @arg {Object} item
-	 * @arg {Array} [path=[]] - If provided then only the value at that path will be validated
+	 * @param {Object} item
+	 * @param {Array} [path=[]] - If provided then only the value at that path will be validated
 	 *
 	 * @returns {SchemaError[]}
 	 */
@@ -152,9 +152,9 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @arg {Object} item
-	 * @arg {Array} [path=[]]
-	 * @arg {*} [replace] - If the current value at path is invalid, replace it with this.
+	 * @param {Object} item
+	 * @param {Array} [path=[]]
+	 * @param {*} [replace] - If the current value at path is invalid, replace it with this.
 	 *
 	 * @returns {SchemaError[]}
 	 */
@@ -168,7 +168,7 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @arg {Function} callback - Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level.
+	 * @param {Function} callback - Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level.
 	 */
 	eachRule(callback) {
 		eachRule(this, callback);
@@ -180,7 +180,7 @@ export default class Schema {
 	 * @memberOf Schema
 	 * @instance
 	 *
-	 * @arg {SchemaDefinition|Schema}
+	 * @param {SchemaDefinition|Schema}
 	 *
 	 * @returns {Schema}
 	 */

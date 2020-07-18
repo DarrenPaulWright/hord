@@ -166,7 +166,7 @@ const spawn = Symbol();
  * @extends Array
  * @classdesc An array of objects with optional model enforcement and indexed queries.
  *
- * @arg {Array|Object} - Accepts an array of objects or multiple args of objects.
+ * @param {Array|Object} - Accepts an array of objects or multiple args of objects.
  */
 export default class Collection extends Array {
 	constructor(...args) {
@@ -318,7 +318,7 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @arg {Model|Object} - Can be an instance of class:Model or an object with a schema structure.
+	 * @param {Model|Object} - Can be an instance of class:Model or an object with a schema structure.
 	 *
 	 * @returns {Model}
 	 */
@@ -412,7 +412,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Add / Remove
 	 *
-	 * @arg {*} item
+	 * @param {*} item
 	 *
 	 * @returns {Number} The new length of the collection
 	 */
@@ -482,7 +482,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Add / Remove
 	 *
-	 * @arg {*} item
+	 * @param {*} item
 	 *
 	 * @returns {Number} The new length of the collection
 	 */
@@ -554,8 +554,8 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 * @chainable
 	 *
-	 * @arg {Function} callback
-	 * @arg {*} [thisArg=this]
+	 * @param {Function} callback
+	 * @param {*} [thisArg=this]
 	 */
 	forEach(callback, thisArg) {
 		super.forEach(callback, thisArg || this);
@@ -572,8 +572,8 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 * @chainable
 	 *
-	 * @arg {Function} callback
-	 * @arg {*} [thisArg=this]
+	 * @param {Function} callback
+	 * @param {*} [thisArg=this]
 	 */
 	forEachRight(callback, thisArg) {
 		callback = callback.bind(thisArg || this);
@@ -593,8 +593,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Function} callback
-	 * @arg {Object} [thisArg]
+	 * @param {Function} callback
+	 * @param {Object} [thisArg]
 	 *
 	 * @returns {Boolean}
 	 */
@@ -606,8 +606,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Function} callback
-	 * @arg {Object} [thisArg]
+	 * @param {Function} callback
+	 * @param {Object} [thisArg]
 	 *
 	 * @returns {Boolean}
 	 */
@@ -624,8 +624,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Function} callback
-	 * @arg {Object} [thisArg]
+	 * @param {Function} callback
+	 * @param {Object} [thisArg]
 	 *
 	 * @returns {Boolean}
 	 */
@@ -638,8 +638,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Function} callback
-	 * @arg {Object} [thisArg]
+	 * @param {Function} callback
+	 * @param {Object} [thisArg]
 	 *
 	 * @returns {*}
 	 */
@@ -652,8 +652,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Function} callback
-	 * @arg {Object} [thisArg]
+	 * @param {Function} callback
+	 * @param {Object} [thisArg]
 	 *
 	 * @returns {*}
 	 */
@@ -666,8 +666,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Function} callback - Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection.
-	 * @arg {*} thisArg - Applied to the context of the callback
+	 * @param {Function} callback - Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection.
+	 * @param {*} thisArg - Applied to the context of the callback
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -682,10 +682,10 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Function} onChild - Called for each item and child item. If true is returned, all iteration stops. Provides three args: the child item, the nested depth of the item, and the items parent. Context is set to this Collection.
-	 * @arg {Object}   [settings]
-	 * @arg {String}   [settings.childKey=children] - The key that contains children items
-	 * @arg {Function} [settings.onParent] - Called for each item that contains children. If true is returned, then the children will not get processed. Provides the same args and context as the onChild callback.
+	 * @param {Function} onChild - Called for each item and child item. If true is returned, all iteration stops. Provides three args: the child item, the nested depth of the item, and the items parent. Context is set to this Collection.
+	 * @param {Object}   [settings]
+	 * @param {String}   [settings.childKey=children] - The key that contains children items
+	 * @param {Function} [settings.onParent] - Called for each item that contains children. If true is returned, then the children will not get processed. Provides the same args and context as the onChild callback.
 	 */
 	eachChild(onChild, settings = {}) {
 		const self = this;
@@ -721,7 +721,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {Number} [depth=1]
+	 * @param {Number} [depth=1]
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -736,8 +736,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @arg {function} callback
-	 * @arg {*} thisArg
+	 * @param {function} callback
+	 * @param {*} thisArg
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -754,7 +754,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {Object} item
+	 * @param {Object} item
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -791,7 +791,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {Object} item
+	 * @param {Object} item
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -828,7 +828,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {Object} item
+	 * @param {Object} item
 	 *
 	 * @returns {Boolean}
 	 */
@@ -846,7 +846,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {predicate} predicate
+	 * @param {predicate} predicate
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -887,7 +887,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {predicate} predicate
+	 * @param {predicate} predicate
 	 *
 	 * @returns {Number} The index of the item or -1
 	 */
@@ -928,7 +928,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {predicate} predicate
+	 * @param {predicate} predicate
 	 *
 	 * @returns {Object} The item or undefined
 	 */
@@ -946,7 +946,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {predicate} predicate
+	 * @param {predicate} predicate
 	 *
 	 * @returns {Object} The item or undefined
 	 */
@@ -964,7 +964,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {predicate} predicate
+	 * @param {predicate} predicate
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
@@ -999,8 +999,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Queries
 	 *
-	 * @arg {predicate} beginPredicate
-	 * @arg {predicate} [endPredicate=collection.length]
+	 * @param {predicate} beginPredicate
+	 * @param {predicate} [endPredicate=collection.length]
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
@@ -1046,8 +1046,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {Object} begin - Index at which to begin extraction.
-	 * @arg {Object} [end=collection.length] - Index before which to end extraction
+	 * @param {Object} begin - Index at which to begin extraction.
+	 * @param {Object} [end=collection.length] - Index before which to end extraction
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
@@ -1062,11 +1062,11 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {Object}   [settings]
-	 * @arg {String}   [settings.childKey='children']
-	 * @arg {Boolean}  [settings.saveDepth=false] - if true appends a property "depth" to each returned object with the nested depth of the original object
-	 * @arg {Function} [settings.onParent] - Called on every parent item. Provides two args: the parent item and that item's parent. Context is set to the Collection. If true is returned, then the children will not be flattened.
-	 * @arg {Function} [settings.onChild] - Called on every child item. Provides two args: the child item and that item's parent. Context is set to the Collection. If true is returned, then this item (and any children) will not be included in the output.
+	 * @param {Object}   [settings]
+	 * @param {String}   [settings.childKey='children']
+	 * @param {Boolean}  [settings.saveDepth=false] - if true appends a property "depth" to each returned object with the nested depth of the original object
+	 * @param {Function} [settings.onParent] - Called on every parent item. Provides two args: the parent item and that item's parent. Context is set to the Collection. If true is returned, then the children will not be flattened.
+	 * @param {Function} [settings.onChild] - Called on every child item. Provides two args: the child item and that item's parent. Context is set to the Collection. If true is returned, then this item (and any children) will not be included in the output.
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
@@ -1117,11 +1117,11 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {Object}   [settings]
-	 * @arg {String}   [settings.idKey='id'] - The id property of items
-	 * @arg {String}   [settings.parentKey='parent'] - The key that holds the id of the parent item. _Performance improvement if indexed_
-	 * @arg {String}   [settings.childKey='children'] - The key to save children under. _Performance improvement if indexed_
-	 * @arg {String}   [settings.deleteParentKey=false] - Should the parent key be deleted after nesting
+	 * @param {Object}   [settings]
+	 * @param {String}   [settings.idKey='id'] - The id property of items
+	 * @param {String}   [settings.parentKey='parent'] - The key that holds the id of the parent item. _Performance improvement if indexed_
+	 * @param {String}   [settings.childKey='children'] - The key to save children under. _Performance improvement if indexed_
+	 * @param {String}   [settings.deleteParentKey=false] - Should the parent key be deleted after nesting
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -1167,7 +1167,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {String} [countKey] - If provided records the number of duplicates, starting at 1 for unique items
+	 * @param {String} [countKey] - If provided records the number of duplicates, starting at 1 for unique items
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
@@ -1208,9 +1208,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {Colection|Collection[]} collections - Either a collection or array of collections to merge with this collection.
-	 * @arg {String} idKey - The key to match items from the different collections.
-	 * @arg {Function} callback - Called for each unique idKey value. Provides the same number of args as the total number of collections being merged, in the order provided. The returned value is included in the ouptput collection.
+	 * @param {Colection|Collection[]} collections - Either a collection or array of collections to merge with this collection.
+	 * @param {String} idKey - The key to match items from the different collections.
+	 * @param {Function} callback - Called for each unique idKey value. Provides the same number of args as the total number of collections being merged, in the order provided. The returned value is included in the ouptput collection.
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection.
 	 */
@@ -1258,7 +1258,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {Array|Collection} value - One or more arrays
+	 * @param {Array|Collection} value - One or more arrays
 	 *
 	 * @returns {Collection}
 	 */
@@ -1285,8 +1285,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {Array} [locales]
-	 * @arg {Object} [options]
+	 * @param {Array} [locales]
+	 * @param {Object} [options]
 	 *
 	 * @returns {String}
 	 */
@@ -1299,7 +1299,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
-	 * @arg {String} [separator=',']
+	 * @param {String} [separator=',']
 	 *
 	 * @returns {String}
 	 */
@@ -1353,9 +1353,9 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @arg {Number} target
-	 * @arg {Number} [start]
-	 * @arg {Number} [end]
+	 * @param {Number} target
+	 * @param {Number} [start]
+	 * @param {Number} [end]
 	 */
 	copyWithin(...args) {
 		const self = this;
@@ -1384,9 +1384,9 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @arg {*} value
-	 * @arg {Number} [start]
-	 * @arg {Number} [end]
+	 * @param {*} value
+	 * @param {Number} [start]
+	 * @param {Number} [end]
 	 */
 	fill(...args) {
 		const self = this;
@@ -1440,7 +1440,7 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @arg {function} [compareFunction=List.comparers.default]
+	 * @param {function} [compareFunction=List.comparers.default]
 	 */
 	sort(compareFunction = List.comparers.default) {
 		const self = this;
@@ -1467,9 +1467,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Mutable
 	 *
-	 * @arg {Number} start
-	 * @arg {Number} [deleteCount]
-	 * @arg {*} [item1, item2, ...]
+	 * @param {Number} start
+	 * @param {Number} [deleteCount]
+	 * @param {*} [item1, item2, ...]
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection. Contains the elements removed from the calling collection.
 	 */

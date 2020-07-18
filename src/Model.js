@@ -58,7 +58,7 @@ export const MODEL_ERROR_LEVEL = new Enum({
  * @class Model
  * @classdesc Data models with automatic schema enforcement.
  *
- * @arg {Schema} schema
+ * @param {Schema} schema
  */
 export default class Model {
 	constructor(schema) {
@@ -95,7 +95,7 @@ export default class Model {
 	 * @memberOf Model
 	 * @instance
 	 *
-	 * @arg {Object} object
+	 * @param {Object} object
 	 *
 	 * @returns {Object}
 	 */
@@ -143,7 +143,7 @@ export default class Model {
 	 * @memberOf Model
 	 * @instance
 	 *
-	 * @arg {Model|Schema|SchemaDefinition} model
+	 * @param {Model|Schema|SchemaDefinition} model
 	 *
 	 * @returns {Model}
 	 */
@@ -174,7 +174,7 @@ export default class Model {
  * @static
  * @default MODEL_ERROR_LEVEL.WARN
  *
- * @arg {MODEL_ERROR_LEVEL} errorLevel
+ * @param {MODEL_ERROR_LEVEL} errorLevel
  *
  * @returns {MODEL_ERROR_LEVEL}
  */
@@ -193,7 +193,7 @@ Object.assign(Model.prototype, {
 	 * @chainable
 	 * @default MODEL_ERROR_LEVEL.UNSET
 	 *
-	 * @arg {MODEL_ERROR_LEVEL} errorLevel
+	 * @param {MODEL_ERROR_LEVEL} errorLevel
 	 *
 	 * @returns {MODEL_ERROR_LEVEL}
 	 */
@@ -211,7 +211,7 @@ Object.assign(Model.prototype, {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {function} callback - Provides three args: path, value, and previous value. Context is the model that changed.
+	 * @param {function} callback - Provides three args: path, value, and previous value. Context is the model that changed.
 	 *
 	 * @returns {Queue}
 	 */
@@ -228,7 +228,7 @@ Object.assign(Model.prototype, {
 	 * @instance
 	 * @chainable
 	 *
-	 * @arg {function} callback - Provides one arg: an array of errors. Context is the model that changed.
+	 * @param {function} callback - Provides one arg: an array of errors. Context is the model that changed.
 	 *
 	 * @returns {Queue}
 	 */

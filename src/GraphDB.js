@@ -81,11 +81,11 @@ const _ = new PrivateVars();
  * import { GraphDB } from 'hord';
  * ```
  *
- * @arg {Object} [settings]
- * @arg {Model} [settings.nodeModel]
- * @arg {Model} [settings.linkModel]
- * @arg {Array} [settings.nodes]
- * @arg {Array} [settings.links]
+ * @param {Object} [settings]
+ * @param {Model} [settings.nodeModel]
+ * @param {Model} [settings.linkModel]
+ * @param {Array} [settings.nodes]
+ * @param {Array} [settings.links]
  */
 export default class GraphDB {
 	constructor(settings = {}) {
@@ -186,7 +186,7 @@ export default class GraphDB {
 	 * @memberOf GraphDB
 	 * @instance
 	 *
-	 * @arg {Array|Collection} nodes
+	 * @param {Array|Collection} nodes
 	 *
 	 * @returns {Promise} If getting the nodes then resolves with the nodes
 	 */
@@ -212,7 +212,7 @@ export default class GraphDB {
 	 * @memberOf GraphDB
 	 * @instance
 	 *
-	 * @arg {Array|Collection} nodes
+	 * @param {Array|Collection} nodes
 	 *
 	 * @returns {Promise}
 	 */
@@ -235,7 +235,7 @@ export default class GraphDB {
 	 * @memberOf GraphDB
 	 * @instance
 	 *
-	 * @arg {Array|Collection} links
+	 * @param {Array|Collection} links
 	 *
 	 * @returns {Promise} If getting the nodes then resolves with the nodes
 	 */
@@ -264,7 +264,7 @@ export default class GraphDB {
 	 * @memberOf GraphDB
 	 * @instance
 	 *
-	 * @arg {Array|Collection} links
+	 * @param {Array|Collection} links
 	 *
 	 * @returns {Promise}
 	 */

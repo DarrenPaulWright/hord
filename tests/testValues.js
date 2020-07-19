@@ -1,4 +1,24 @@
 import {
+	enforceBoolean,
+	enforceDate,
+	enforceFloat,
+	enforceFunction,
+	enforceInstanceOf,
+	enforceInteger,
+	enforceNumber,
+	enforceRegExp,
+	enforceString,
+	isBoolean,
+	isDate,
+	isFloat,
+	isFunction,
+	isInstanceOf,
+	isInteger,
+	isNumber,
+	isRegExp,
+	isString
+} from 'type-enforcer';
+import {
 	booleanData,
 	dateData,
 	floatData,
@@ -11,28 +31,7 @@ import {
 	TestClass,
 	testValues
 } from 'type-enforcer-test-helper';
-import {
-	enforceBoolean,
-	enforceDate,
-	enforceElement,
-	enforceFloat,
-	enforceFunction,
-	enforceInstanceOf,
-	enforceInteger,
-	enforceNumber,
-	enforceRegExp,
-	enforceString,
-	isBoolean,
-	isDate,
-	isElement,
-	isFloat,
-	isFunction,
-	isInstanceOf,
-	isInteger,
-	isNumber,
-	isRegExp,
-	isString
-} from 'type-enforcer-ui';
+import { enforceElement, isElement } from 'type-enforcer-ui';
 import { Model, Schema } from '../index.js';
 import { enforceAnything, isAnything, TYPE_RULES } from '../src/Schema/parse/typeRules.js';
 

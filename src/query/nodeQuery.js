@@ -6,7 +6,7 @@ import linkQuery from './linkQuery.js';
 import outLink from './outLink.js';
 
 const nodeQuery = function(promise, mainNodes, mainLinks) {
-	const nextLinks = (promise, callback) => {
+	const nextLinks = (callback) => {
 		return linkQuery(promise.then(callback(mainLinks)), mainNodes, mainLinks);
 	};
 
@@ -24,40 +24,31 @@ const nodeQuery = function(promise, mainNodes, mainLinks) {
 			return this.bothLink.bothNode;
 		},
 		get inLink() {
-			return nextLinks(promise, inLink);
+			return nextLinks(inLink);
 		},
 		get outLink() {
-			return nextLinks(promise, outLink);
+			return nextLinks(outLink);
 		},
 		get bothLink() {
-			return nextLinks(promise, bothLink);
+			return nextLinks(bothLink);
 		},
 		extent(depth = 1) {
 			return new Promise((resolve) => {
-				promise = promise.then((nodes) => {
-					return {
-						nodes,
-						links: []
-					};
-				});
+				promise = promise.then((nodes) => ({ nodes, links: [] }));
 
 				repeat(depth, () => {
-					promise = promise.then((graph) => new Promise((resolve) => {
-						nodeQuery(new Promise((resolve) => {
-							resolve(graph.nodes);
-						}), mainNodes, mainLinks)
+					promise = promise.then((graph) => new Promise((innerResolve) => {
+						nodeQuery(Promise.resolve(graph.nodes), mainNodes, mainLinks)
 							.bothLink
 							.then((links) => {
 								graph.links = links.concat(graph.links);
 
-								return linkQuery(new Promise((resolve) => {
-									resolve(graph.links);
-								}), mainNodes, mainLinks)
+								return linkQuery(Promise.resolve(graph.links), mainNodes, mainLinks)
 									.bothNode;
 							})
 							.then((nodes) => {
 								graph.nodes = graph.nodes.concat(nodes);
-								resolve(graph);
+								innerResolve(graph);
 							});
 					}));
 				});

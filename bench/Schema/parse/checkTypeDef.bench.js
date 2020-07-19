@@ -2,7 +2,7 @@ import { benchSettings } from 'karma-webpack-bundle';
 import checkSchemaType from '../../../src/Schema/parse/checkTypeDef.js';
 
 suite('checkSchemaType', () => {
-	let sandbox;
+	let sandbox = 0;
 
 	benchmark('string', () => {
 		sandbox = checkSchemaType(String, false);

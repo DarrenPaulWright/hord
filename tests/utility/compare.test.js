@@ -3,10 +3,10 @@ import { assert } from 'type-enforcer';
 import { compare } from '../../index.js';
 
 describe('compare', () => {
-	const values = [1, 2, 'string', 'string2', NaN, null, undefined];
+	const mainValues = [1, 2, 'string', 'string2', NaN, null, undefined];
 
-	values.forEach((value1, index1) => {
-		values.forEach((value2, index2) => {
+	mainValues.forEach((value1, index1) => {
+		mainValues.forEach((value2, index2) => {
 			const expected = index1 < index2 ? -1 : (index1 > index2 ? 1 : 0);
 
 			it(`should return ${displayValue(expected)} for ${displayValue(value1)} and ${displayValue(value2)}`, () => {

@@ -871,83 +871,107 @@ describe('List', () => {
 		});
 	});
 
-	it('.toString should return a string of the array', () => {
-		assert.equal(new List([1, 2, 3]).toString(), '1,2,3');
-	});
-
-	it('.keys should return a string of the array', () => {
-		let testVar = 0;
-		const keys = new List([1, 2, 3]).keys();
-
-		for (const key of keys) {
-			if (key !== undefined) {
-				testVar++;
-			}
-		}
-		assert.is(testVar, 3);
-	});
-
-	it('.every should return a boolean', () => {
-		assert.equal(new List([1, 2, 3]).every((item) => item > 0), true);
-	});
-
-	it('.filter should return a new array', () => {
-		const output = new List([1, 2, 3]).filter((item) => item > 1);
-		assert.is(output instanceof List, true);
-		assert.equal(output.values(), [2, 3]);
-	});
-
-	it('.forEach should call a callback for every item in array', () => {
-		let testVar = 0;
-		const list = new List([1, 2, 3]);
-		list.forEach((item) => {
-			if (item > 0 && item < 4) {
-				testVar++;
-			}
+	describe('.toString', () => {
+		it('should return a string of the array', () => {
+			assert.equal(new List([1, 2, 3]).toString(), '1,2,3');
 		});
-		assert.equal(testVar, 3);
 	});
 
-	it('.toLocaleString should return a string of the array', () => {
-		assert.equal(new List([1,
-			'a',
-			new Date('21 Dec 1997 14:12:00 UTC')]).toLocaleString('en', { timeZone: 'UTC' }), '1,a,12/21/1997, 2:12:00 PM');
-	});
+	describe('.keys', () => {
+		it('should return a string of the array', () => {
+			let testVar = 0;
+			const keys = new List([1, 2, 3]).keys();
 
-	it('.join should return a string of the array', () => {
-		assert.equal(new List([1, 2, 3]).join('|'), '1|2|3');
-	});
-
-	it('.map should return a mapped version of the array as a list', () => {
-		const mapper = (item) => item + 'px';
-		const output = new List([1, 2, 3]).map(mapper);
-
-		assert.equal(output, ['1px', '2px', '3px']);
-	});
-
-	it('.reduce should return the result', () => {
-		const mapper = (accumulator, currentValue) => accumulator + currentValue;
-		assert.equal(new List([1, 2, 3]).reduce(mapper), 6);
-	});
-
-	it('.reduceRight should return the result', () => {
-		const mapper = (accumulator, currentValue) => accumulator + currentValue;
-		assert.equal(new List([1, 2, 3]).reduceRight(mapper), 6);
-	});
-
-	it('.slice should return a new List', () => {
-		const output = new List([1, 2, 3, 4, 5, 6]).slice(2, 4);
-		assert.is(output instanceof List, true);
-		assert.equal(output.values(), [3, 4]);
-	});
-
-	it('.some should call a callback for every item in array until true is returned', () => {
-		let testVar = 0;
-		const list = new List([1, 2, 3]);
-		list.some((item) => {
-			testVar++;
-			return item === 2;
+			for (const key of keys) {
+				if (key !== undefined) {
+					testVar++;
+				}
+			}
+			assert.is(testVar, 3);
 		});
-		assert.equal(testVar, 2);
+	});
+
+	describe('.every', () => {
+		it('should return a boolean', () => {
+			assert.equal(new List([1, 2, 3]).every((item) => item > 0), true);
+		});
+	});
+
+	describe('.filter', () => {
+		it('should return a new array', () => {
+			const output = new List([1, 2, 3]).filter((item) => item > 1);
+			assert.is(output instanceof List, true);
+			assert.equal(output.values(), [2, 3]);
+		});
+	});
+
+	describe('.forEach', () => {
+		it('should call a callback for every item in array', () => {
+			let testVar = 0;
+			const list = new List([1, 2, 3]);
+			list.forEach((item) => {
+				if (item > 0 && item < 4) {
+					testVar++;
+				}
+			});
+			assert.equal(testVar, 3);
+		});
+	});
+
+	describe('.toLocaleString', () => {
+		it('should return a string of the array', () => {
+			assert.equal(new List([1,
+				'a',
+				new Date('21 Dec 1997 14:12:00 UTC')]).toLocaleString('en', { timeZone: 'UTC' }), '1,a,12/21/1997, 2:12:00 PM');
+		});
+	});
+
+	describe('.join', () => {
+		it('should return a string of the array', () => {
+			assert.equal(new List([1, 2, 3]).join('|'), '1|2|3');
+		});
+	});
+
+	describe('.map', () => {
+		it('should return a mapped version of the array as a list', () => {
+			const mapper = (item) => item + 'px';
+			const output = new List([1, 2, 3]).map(mapper);
+
+			assert.equal(output, ['1px', '2px', '3px']);
+		});
+	});
+
+	describe('.reduce', () => {
+		it('should return the result', () => {
+			const mapper = (accumulator, currentValue) => accumulator + currentValue;
+			assert.equal(new List([1, 2, 3]).reduce(mapper), 6);
+		});
+	});
+
+	describe('.reduceRight', () => {
+		it('should return the result', () => {
+			const mapper = (accumulator, currentValue) => accumulator + currentValue;
+			assert.equal(new List([1, 2, 3]).reduceRight(mapper), 6);
+		});
+	});
+
+	describe('.slice', () => {
+		it('should return a new List', () => {
+			const output = new List([1, 2, 3, 4, 5, 6]).slice(2, 4);
+			assert.is(output instanceof List, true);
+			assert.equal(output.values(), [3, 4]);
+		});
+	});
+
+	describe('.some', () => {
+		it('should call a callback for every item in array until true is returned', () => {
+			let testVar = 0;
+			const list = new List([1, 2, 3]);
+			list.some((item) => {
+				testVar++;
+				return item === 2;
+			});
+			assert.equal(testVar, 2);
+		});
 	});
 });

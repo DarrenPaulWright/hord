@@ -1,9 +1,9 @@
 import { benchSettings } from 'karma-webpack-bundle';
-import { enforceNumber } from 'type-enforcer-ui';
+import { enforceNumber } from 'type-enforcer';
 import { checkLength, checkNumericRange } from '../../../src/Schema/parse/typeRules.js';
 
 suite('checkNumericRange', () => {
-	let sandbox;
+	let sandbox = false;
 
 	benchmark('clamp false', () => {
 		sandbox = checkNumericRange({
@@ -33,7 +33,7 @@ suite('checkNumericRange', () => {
 });
 
 suite('checkLength', () => {
-	let sandbox;
+	let sandbox = false;
 
 	benchmark('no limits', () => {
 		sandbox = checkLength({}, [1, 2, 3]);

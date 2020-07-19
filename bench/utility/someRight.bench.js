@@ -2,7 +2,7 @@ import { benchSettings } from 'karma-webpack-bundle';
 import someRight from '../../src/utility/someRight.js';
 
 suite('someRight', () => {
-	let sandbox;
+	let sandbox = false;
 	const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	const returnFalse = (value) => value === 10;
 	const returnTrueLate = (value) => value === 1;

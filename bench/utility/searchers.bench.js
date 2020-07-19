@@ -7,7 +7,7 @@ import scanSearchLeft from '../../src/utility/searchers/scanSearchLeft.js';
 import scanSearchRight from '../../src/utility/searchers/scanSearchRight.js';
 
 const benchSearch = (searcher) => {
-	let sandbox;
+	let sandbox = 0;
 	const comparer = (a, b) => a - b;
 
 	[5, 10, 20, 100, 500, 1000, 10000]

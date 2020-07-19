@@ -1,11 +1,20 @@
 import { get } from 'object-agent';
-import { isArray, isNumber } from 'type-enforcer-ui';
+import { isArray, isNumber } from 'type-enforcer';
 
 const kindOf = (value) => {
-	return value === undefined && 3 ||
-		value === null && 2 ||
-		value !== value && 1 ||
-		isNumber(value) && -1 || 0;
+	if (value === undefined) {
+		return 3;
+	}
+
+	if (value === null) {
+		return 2;
+	}
+
+	if (value !== value) { //eslint-disable-line no-self-compare
+		return 1;
+	}
+
+	return isNumber(value) ? -1 : 0;
 };
 
 const compare = (a, b) => {
@@ -17,7 +26,7 @@ const compare = (a, b) => {
 		b = kindB;
 	}
 
-	return a < b && -1 || a > b && 1 || 0;
+	return (a < b && -1) || (a > b && 1) || 0;
 };
 
 /**
@@ -38,7 +47,7 @@ const compare = (a, b) => {
  * @function compare
  *
  * @param {Array|string} [paths] - The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on.
- * @param {boolean} [desc=false] - If true then inverse values are returned
+ * @param {boolean} [desc=false] - If true then inverse values are returned.
  *
  * @returns {Function} Accepts two arguments to be compared. Returns -1, 0, or 1.
  */

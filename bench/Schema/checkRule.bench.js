@@ -2,7 +2,7 @@ import { benchSettings } from 'karma-webpack-bundle';
 import checkRule from '../../src/Schema/checkRule.js';
 
 suite('checkRule', () => {
-	let sandbox;
+	let sandbox = 0;
 	let rule = {
 		isRequired: true,
 		types: []

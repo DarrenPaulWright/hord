@@ -1,4 +1,4 @@
-import { castArray, PrivateVars } from 'type-enforcer-ui';
+import { castArray, isArray, PrivateVars } from 'type-enforcer';
 import compare from './utility/compare.js';
 import binarySearchLeft from './utility/searchers/binarySearchLeft.js';
 import binarySearchRight from './utility/searchers/binarySearchRight.js';
@@ -41,17 +41,24 @@ export const _ = new PrivateVars();
  * @class List
  * @classdesc Always sorted array.
  *
- * @param {Array} [values]
+ * @param {...*|Array} values - Accepts an array of objects or multiple args of objects.
  */
 export default class List {
-	constructor(values = []) {
-		if (arguments[1] === spawn) {
-			_.set(this, values);
+	constructor(...values) {
+		if (values[values.length - 1] === spawn) {
+			_.set(this, values[0]);
 		}
 		else {
+			if (values.length === 1 && isArray(values[0])) {
+				values = values[0];
+			}
+
 			_.set(this, {
 				comparer: comparers.default,
-				array: castArray(values).sort(comparers.default)
+				array: castArray(values).sort(comparers.default),
+				spawn() {
+					return new List().comparer();
+				}
 			});
 		}
 	}
@@ -59,25 +66,22 @@ export default class List {
 	/**
 	 * Used by .sort() and the binary search to determine equality.
 	 *
-	 * See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.
-	 * A few simple comparer functions are provided via the static property [List.comparers](#List.comparers)
-	 *
-	 * If you're setting this, you may want to call this before setting the values, like this:
+	 * If you're setting this, you may want to call this before setting the values to prevent sorting twice, like this:
 	 * ``` javascript
 	 * import { List } from 'hord';
 	 *
-	 * const list = new List().comparer(List.comparers.number.asc).values([1,2,3]);
+	 * const list = new List().comparer(List.comparers.number.asc).values([1, 2, 3]);
 	 * ```
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
-	 * @param {Function} comparer
+	 * @param {Function} comparer - See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details. A few simple comparer functions are provided via the static property [List.comparers](#List.comparers).
 	 *
 	 * @returns {Function}
 	 */
 	comparer(comparer) {
-		if (arguments.length) {
+		if (arguments.length !== 0) {
 			_(this).comparer = comparer;
 
 			return this.sort();
@@ -89,9 +93,11 @@ export default class List {
 	/**
 	 * Sort the items.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
+	 *
+	 * @returns {object} Returns `this`.
 	 */
 	sort() {
 		const _self = _(this);
@@ -106,12 +112,13 @@ export default class List {
 	/**
 	 * Add an item to the list. Uses binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
 	 *
 	 * @param {*} item - Item is inserted into the list such that the items are still sorted.
 	 *
+	 * @returns {object} Returns `this`.
 	 */
 	add(item) {
 		const _self = _(this);
@@ -124,11 +131,13 @@ export default class List {
 	/**
 	 * Add an item to the list if it isn't already included. Uses binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
 	 *
 	 * @param {*} item - Item is inserted into the list such that the items are still sorted.
+	 *
+	 * @returns {object} Returns `this`.
 	 */
 	addUnique(item) {
 		const _self = _(this);
@@ -150,7 +159,7 @@ export default class List {
 	/**
 	 * Get a new List of the unique (as determined by the comparer) values in this List.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @returns {List}
@@ -176,7 +185,7 @@ export default class List {
 	/**
 	 * Returns a shallow clone of this list with the contents of one or more arrays or lists appended.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
 	 *
@@ -198,11 +207,13 @@ export default class List {
 	/**
 	 * Discard an item from the list. Uses binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
+	 *
+	 * @returns {object} Returns `this`.
 	 */
 	discard(item) {
 		const _self = _(this);
@@ -215,11 +226,13 @@ export default class List {
 	/**
 	 * Discard an item from the list at a specified index.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {*} index
+	 * @param {*} index - The index of the item to be discarded.
+	 *
+	 * @returns {object} Returns `this`.
 	 */
 	discardAt(index) {
 		_(this).array.splice(index, 1);
@@ -230,9 +243,11 @@ export default class List {
 	/**
 	 * Discard all items from the list.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
+	 *
+	 * @returns {object} Returns `this`.
 	 */
 	discardAll() {
 		_(this).array.length = 0;
@@ -243,13 +258,13 @@ export default class List {
 	/**
 	 * The current items in the list.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @chainable
 	 *
 	 * @param {Array} [values] - Replaces any previous values and immediately sorts them.
 	 *
-	 * @returns {Array} A shallow clone of the values
+	 * @returns {Array} A shallow clone of the values.
 	 */
 	values(values) {
 		if (values !== undefined) {
@@ -264,12 +279,12 @@ export default class List {
 	/**
 	 * Gets the index of the first matching item. Uses a binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number} The index of the item or -1
+	 * @returns {number.int} The index of the item or -1.
 	 */
 	indexOf(item) {
 		const _self = _(this);
@@ -280,12 +295,12 @@ export default class List {
 	/**
 	 * Gets the index of the last matching item. Uses a binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number} The index of the item or -1
+	 * @returns {number.int} The index of the item or -1.
 	 */
 	lastIndexOf(item) {
 		const _self = _(this);
@@ -296,7 +311,7 @@ export default class List {
 	/**
 	 * Determines if an item exists in the list. Uses a binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -310,12 +325,12 @@ export default class List {
 	/**
 	 * Gets the first matching item from the list. Uses a binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {*} The item or undefined
+	 * @returns {*} The item or undefined.
 	 */
 	find(item) {
 		return _(this).array[this.indexOf(item)];
@@ -324,12 +339,12 @@ export default class List {
 	/**
 	 * Gets the last matching item from the list. Uses a binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {*} The item or undefined
+	 * @returns {*} The item or undefined.
 	 */
 	findLast(item) {
 		return _(this).array[this.lastIndexOf(item)];
@@ -338,7 +353,7 @@ export default class List {
 	/**
 	 * Gets all the matching items from the list. Uses a binary search.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -353,28 +368,28 @@ export default class List {
 	}
 
 	/**
-	 * Gets the index of the first matching item. Uses a binary search. (Identical to indexOf)
+	 * Gets the index of the first matching item. Uses a binary search (Identical to indexOf).
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number} The index of the item or -1
+	 * @returns {number.int} The index of the item or -1.
 	 */
 	findIndex(item) {
 		return this.indexOf(item);
 	}
 
 	/**
-	 * Gets the index of the last matching item. Uses a binary search. (Identical to lastIndexOf)
+	 * Gets the index of the last matching item. Uses a binary search (Identical to lastIndexOf).
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number} The index of the item or -1
+	 * @returns {number.int} The index of the item or -1.
 	 */
 	findLastIndex(item) {
 		return this.lastIndexOf(item);
@@ -383,7 +398,7 @@ export default class List {
 	/**
 	 * Gets the first item in the list without removing it.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @returns {*}
@@ -395,7 +410,7 @@ export default class List {
 	/**
 	 * Gets the last item in the list without removing it.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @returns {*}
@@ -407,13 +422,13 @@ export default class List {
 	}
 
 	/**
-	 * Like .some(), but starts on the last (greatest index) item and progresses backwards
+	 * Like .some(), but starts on the last (greatest index) item and progresses backwards.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
-	 * @param {Function} callback
-	 * @param {object} [thisArg]
+	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
 	 *
 	 * @returns {List}
 	 */
@@ -426,10 +441,10 @@ export default class List {
 	/**
 	 * Gets the items that exist both in this list and in another list or array. Equality of items is determined by the comparer.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
-	 * @param {List|Array} array
+	 * @param {List|Array} array - Another list or array.
 	 *
 	 * @returns {List}
 	 */
@@ -442,16 +457,17 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return the median value. If there are an odd number of elements, then the value of the middle element is returned. If there are an even number of elements then the mean of the middle two elements is returned. To get the mean of a range of elements, low and high can be provided.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
-	 * @param {Int} [low=0]
-	 * @param {Int} [high=n]
+	 * @param {number.int} [low=0] - Index of a range to start at.
+	 * @param {number.int} [high=n] - Index of a range to end at.
 	 *
 	 * @returns {number}
 	 */
-	median(low = 0, high) {
+	median(low, high) {
 		const array = _(this).array;
+		low = low || 0;
 		const length = (high === undefined ? array.length - 1 : high) - low + 1;
 		const halfLength = length / 2;
 
@@ -465,7 +481,7 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return the total value of all the elements added together.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @returns {number}
@@ -477,7 +493,7 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return the mean(average) of all the elements.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @returns {number}
@@ -489,7 +505,7 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return an object with a [quartile](https://en.wikipedia.org/wiki/Quartile) summary.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 *
 	 * @returns {object} Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).
@@ -531,13 +547,13 @@ export default class List {
 	}
 
 	/**
-	 * The number of items in the list
+	 * The number of items in the list.
 	 *
-	 * @memberOf List
+	 * @memberof List
 	 * @instance
 	 * @readonly
 	 *
-	 * @returns {number}
+	 * @returns {number.int}
 	 */
 	get length() {
 		return _(this).array.length;
@@ -547,11 +563,11 @@ export default class List {
 /**
  * Some simple comparer functions.
  *
- * @memberOf List
+ * @memberof List
  * @readonly
  * @static
  *
- * @property {Function} default - Replicates the default behavior of Array.sort()
+ * @property {Function} default - Replicates the default behavior of Array.sort().
  * @property {object} string
  * @property {Function} string.asc - Uses localeCompare to sort strings. This is less efficient, but is useful for lists that will be displayed to users.
  * @property {Function} string.desc - Inverse of string.asc
@@ -565,7 +581,7 @@ List.comparers = comparers;
  * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
  *
  * @method pop
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @returns {*}
@@ -574,7 +590,7 @@ List.comparers = comparers;
  * See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
  *
  * @method shift
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @returns {*}
@@ -583,7 +599,7 @@ List.comparers = comparers;
  * See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
  *
  * @method toString
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @returns {string}
@@ -592,7 +608,7 @@ List.comparers = comparers;
  * See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
  *
  * @method keys
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @returns {object}
@@ -612,11 +628,11 @@ List.comparers = comparers;
  * See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
  *
  * @method every
- * @memberOf List
+ * @memberof List
  * @instance
  *
- * @param {Function} callback
- * @param {object} [thisArg]
+ * @param {Function} callback - Provides two arguments, the element and the index of the element.
+ * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
  *
  * @returns {boolean}
  */
@@ -624,11 +640,11 @@ List.comparers = comparers;
  * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
  *
  * @method forEach
- * @memberOf List
+ * @memberof List
  * @instance
  *
- * @param {Function} callback
- * @param {object} [thisArg]
+ * @param {Function} callback - Provides two arguments, the element and the index of the element.
+ * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
  *
  * @returns {undefined}
  */
@@ -636,7 +652,7 @@ List.comparers = comparers;
  * See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
  *
  * @method toLocaleString
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @param {Array} [locales]
@@ -648,7 +664,7 @@ List.comparers = comparers;
  * See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
  *
  * @method join
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @param {string} [separator=',']
@@ -659,11 +675,11 @@ List.comparers = comparers;
  * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
  *
  * @method map
- * @memberOf List
+ * @memberof List
  * @instance
  *
- * @param {Function} callback
- * @param {object} [thisArg]
+ * @param {Function} callback - Provides two arguments, the element and the index of the element.
+ * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
  *
  * @returns {Array}
  */
@@ -671,11 +687,11 @@ List.comparers = comparers;
  * See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
  *
  * @method reduce
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @param {Function} callback
- * @param {object} [thisArg]
+ * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
  *
  * @returns {*}
  */
@@ -683,11 +699,11 @@ List.comparers = comparers;
  * See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
  *
  * @method reduceRight
- * @memberOf List
+ * @memberof List
  * @instance
  *
  * @param {Function} callback
- * @param {object} [thisArg]
+ * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
  *
  * @returns {*}
  */
@@ -695,11 +711,11 @@ List.comparers = comparers;
  * See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
  *
  * @method some
- * @memberOf List
+ * @memberof List
  * @instance
  *
- * @param {Function} callback
- * @param {object} [thisArg]
+ * @param {Function} callback - Provides two arguments, the element and the index of the element.
+ * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
  *
  * @returns {boolean}
  */
@@ -722,11 +738,11 @@ List.comparers = comparers;
  * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
  *
  * @method filter
- * @memberOf List
+ * @memberof List
  * @instance
  *
- * @param {Function} callback
- * @param {object} [thisArg]
+ * @param {Function} callback - Provides two arguments, the element and the index of the element.
+ * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
  *
  * @returns {List}
  */
@@ -734,11 +750,11 @@ List.comparers = comparers;
  * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
  *
  * @method slice
- * @memberOf List
+ * @memberof List
  * @instance
  *
- * @param {number} [begin=0]
- * @param {number} [end=array.length]
+ * @param {number.int} [begin=0]
+ * @param {number.int} [end=array.length]
  *
  * @returns {List}
  */

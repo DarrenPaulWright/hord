@@ -1,5 +1,5 @@
 import onChange from 'on-change';
-import { Enum, isInstanceOf, methodEnum, methodQueue, PrivateVars } from 'type-enforcer-ui';
+import { Enum, isInstanceOf, methodEnum, methodQueue, PrivateVars, Queue } from 'type-enforcer';
 import Schema from './Schema/Schema.js';
 
 const _ = new PrivateVars();
@@ -25,7 +25,7 @@ export const MODEL_ERROR_LEVEL = new Enum({
 });
 
 /**
- *  Once the Model is instantiated the schema can't be changed.
+ * Once the Model is instantiated the schema can't be changed.
  *
  * The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
  *
@@ -71,7 +71,7 @@ export default class Model {
 	[processErrors](errors) {
 		const self = this;
 
-		if (errors.length) {
+		if (errors.length !== 0) {
 			self.onError().trigger(null, [errors], errors[0].item);
 
 			errors.forEach((error) => {
@@ -90,12 +90,12 @@ export default class Model {
 	}
 
 	/**
-	 * Apply this model to an object
+	 * Apply this model to an object.
 	 *
-	 * @memberOf Model
+	 * @memberof Model
 	 * @instance
 	 *
-	 * @param {object} object
+	 * @param {object} object - The object to apply this model to.
 	 *
 	 * @returns {object}
 	 */
@@ -140,10 +140,10 @@ export default class Model {
 	/**
 	 * Returns a new Model with a new [extended](docs/Schema.md#Schema+extend) Schema. Retains the errorLevel from the calling Model.
 	 *
-	 * @memberOf Model
+	 * @memberof Model
 	 * @instance
 	 *
-	 * @param {Model|Schema|SchemaDefinition} model
+	 * @param {Model|Schema|Schema.SchemaDefinition} model - The model to superimpose on this one.
 	 *
 	 * @returns {Model}
 	 */
@@ -153,9 +153,9 @@ export default class Model {
 	}
 
 	/**
-	 * Get the schema for this model
+	 * Get the schema for this model.
 	 *
-	 * @memberOf Model
+	 * @memberof Model
 	 * @instance
 	 * @readonly
 	 *
@@ -169,7 +169,7 @@ export default class Model {
 /**
  * How to handle errors on all models
  *
- * @memberOf Model
+ * @memberof Model
  * @method defaultErrorLevel
  * @static
  * @default MODEL_ERROR_LEVEL.WARN
@@ -187,7 +187,7 @@ Object.assign(Model.prototype, {
 	/**
 	 * How to handle errors on this model. Overrides Model.defaultErrorLevel()
 	 *
-	 * @memberOf Model
+	 * @memberof Model
 	 * @method errorLevel
 	 * @instance
 	 * @chainable
@@ -206,7 +206,7 @@ Object.assign(Model.prototype, {
 	 *
 	 * @see [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)
 	 *
-	 * @memberOf Model
+	 * @memberof Model
 	 * @method onChange
 	 * @instance
 	 * @chainable
@@ -223,7 +223,7 @@ Object.assign(Model.prototype, {
 	 *
 	 * @see [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)
 	 *
-	 * @memberOf Model
+	 * @memberof Model
 	 * @method onError
 	 * @instance
 	 * @chainable

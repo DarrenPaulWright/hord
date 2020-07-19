@@ -1,4 +1,4 @@
-export default (array, item, comparer, isInsert = false, isRight = false, high = array.length) => {
+export default (array, item, comparer, isInsert = false, isRight = false, high = array.length) => { //eslint-disable-line max-params
 	let low = 0;
 	let mid = 0;
 	const max = high - 1;
@@ -7,10 +7,10 @@ export default (array, item, comparer, isInsert = false, isRight = false, high =
 	while (low !== high) {
 		diff = comparer(array[mid = high + low >>> 1], item);
 
-		if (diff < 0 || isRight === true && diff === 0 && mid < max && comparer(array[mid + 1], item) === 0) {
+		if (diff < 0 || (isRight === true && diff === 0 && mid < max && comparer(array[mid + 1], item)) === 0) {
 			low = mid + 1;
 		}
-		else if (diff > 0 || isRight === false && mid !== 0 && comparer(array[mid - 1], item) === 0) {
+		else if (diff > 0 || (isRight === false && mid !== 0 && comparer(array[mid - 1], item) === 0)) {
 			high = mid;
 		}
 		else {
@@ -18,5 +18,5 @@ export default (array, item, comparer, isInsert = false, isRight = false, high =
 		}
 	}
 
-	return isInsert === true ? (diff > 0 && --mid || mid) : -1;
+	return isInsert === true ? ((diff > 0 && --mid) || mid) : -1;
 };

@@ -2,7 +2,7 @@ import { benchSettings } from 'karma-webpack-bundle';
 import findRule from '../../src/Schema/findRule.js';
 
 suite('findRule', () => {
-	let sandbox;
+	let sandbox = {};
 	const rules = {
 		content: [{
 			key: 'foo',

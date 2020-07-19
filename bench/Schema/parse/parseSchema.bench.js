@@ -2,7 +2,7 @@ import { benchSettings } from 'karma-webpack-bundle';
 import parseSchema from '../../../src/Schema/parse/parseSchema.js';
 
 suite('parseSchema', () => {
-	let sandbox;
+	let sandbox = {};
 	let schema = {
 		key1: String
 	};

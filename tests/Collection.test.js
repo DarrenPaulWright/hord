@@ -433,8 +433,8 @@ describe('Collection', () => {
 
 		it('should call the onParent callback if provided', () => {
 			let total = 0;
-			let parentContext;
-			let childContext;
+			let parentContext = null;
+			let childContext = null;
 			const testCollection = new Collection({
 				prop: 'test 1'
 			}, {
@@ -944,8 +944,8 @@ describe('Collection', () => {
 				depth: 0,
 				testProperty: 'child test 3'
 			}];
-			let parentContext;
-			let childContext;
+			let parentContext = null;
+			let childContext = null;
 			const settings = {
 				childKey: 'children2',
 				saveDepth: true,
@@ -1693,7 +1693,7 @@ describe('Collection', () => {
 			last: 'Jones'
 		};
 
-		let queryCollection;
+		let queryCollection = null;
 
 		const reset = () => {
 			queryCollection[0] = person1;

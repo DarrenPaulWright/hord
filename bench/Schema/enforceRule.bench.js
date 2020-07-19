@@ -3,7 +3,7 @@ import { get } from 'object-agent';
 import enforceRule from '../../src/Schema/enforceRule.js';
 
 suite('enforceRule', () => {
-	let sandbox;
+	let sandbox = false;
 	const returnTrue = () => true;
 	const returnFalse = () => false;
 	const returnInput = (input) => input;

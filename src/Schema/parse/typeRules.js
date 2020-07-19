@@ -2,7 +2,6 @@ import {
 	enforceArray,
 	enforceBoolean,
 	enforceDate,
-	enforceElement,
 	enforceEnum,
 	enforceFloat,
 	enforceFunction,
@@ -21,7 +20,6 @@ import {
 	isArray,
 	isBoolean,
 	isDate,
-	isElement,
 	isFloat,
 	isFunction,
 	isInstanceOf,
@@ -36,7 +34,8 @@ import {
 	isWeakMap,
 	isWeakSet,
 	strictEquality
-} from 'type-enforcer-ui';
+} from 'type-enforcer';
+import { enforceElement, isElement } from 'type-enforcer-ui';
 
 export const isAnything = () => true;
 export const enforceAnything = (value) => value;

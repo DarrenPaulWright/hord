@@ -1,6 +1,6 @@
 import { walkPath } from 'object-agent';
 
-const NUMBERIC_REGEX = /^\d+$/;
+const NUMBERIC_REGEX = /^\d+$/u;
 
 export default (path, schemaValues) => {
 	walkPath(path, (key) => {

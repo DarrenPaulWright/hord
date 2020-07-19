@@ -10,7 +10,7 @@ export default (array, item, comparer, isInsert = false) => {
 		if (diff < 0) {
 			low = mid + 1;
 		}
-		else if (diff > 0 || mid !== 0 && comparer(array[mid - 1], item) === 0) {
+		else if (diff > 0 || (mid !== 0 && comparer(array[mid - 1], item) === 0)) {
 			high = mid - 1;
 		}
 		else {
@@ -18,5 +18,5 @@ export default (array, item, comparer, isInsert = false) => {
 		}
 	}
 
-	return isInsert ? (diff > 0 && --mid || mid) : -1;
+	return isInsert ? ((diff > 0 && --mid) || mid) : -1;
 };

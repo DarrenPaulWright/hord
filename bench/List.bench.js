@@ -3,7 +3,7 @@ import { fill } from 'object-agent';
 import { List } from '../index.js';
 
 suite('List', () => {
-	let sandbox;
+	let sandbox = {};
 	let list = new List();
 	let list2 = new List();
 	let array = [];

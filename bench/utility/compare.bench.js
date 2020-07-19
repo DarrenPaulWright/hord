@@ -1,7 +1,7 @@
 import displayValue from 'display-value';
 import { benchSettings } from 'karma-webpack-bundle';
 import { combo } from 'object-agent';
-import { isDate } from 'type-enforcer-ui';
+import { isDate } from 'type-enforcer';
 import { compare } from '../../index.js';
 
 const values = ['test', 'test2', undefined, 3, 4, new Date('1/2/2000')];
@@ -11,7 +11,7 @@ const parseDisplay = (value) => {
 };
 
 suite('compare', () => {
-	let sandbox;
+	let sandbox = {};
 	const simpleCompare = compare();
 	const simpleCompareDesc = compare(undefined, true);
 	const pathCompare = compare('key');

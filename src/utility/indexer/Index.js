@@ -89,7 +89,7 @@ export default class Index {
 	}
 
 	query(value, operator) {
-		let items;
+		let items = undefined;
 
 		if (operator === operators.EQUAL) {
 			items = equal(value, this.list);
@@ -101,12 +101,7 @@ export default class Index {
 			value.forEach((item) => {
 				const result = equal(item, this.list);
 
-				if (!items) {
-					items = result;
-				}
-				else {
-					items = items.concat(result);
-				}
+				items = items === undefined ? result : items.concat(result);
 			});
 
 			items = items.unique();
@@ -129,11 +124,11 @@ export default class Index {
 			items = lessThanOrEqual(value, this.list);
 		}
 
-		if (!items) {
+		if (items === undefined) {
 			return new List();
 		}
 
-		return new List(items.map((item) => item.i), true);
+		return new List(items.map((item) => item.i));
 	}
 
 	increment(amount, start = 0) {

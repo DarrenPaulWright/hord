@@ -1,7 +1,6 @@
 import { deepEqual } from 'object-agent';
-import { assert } from 'type-enforcer';
+import { assert, isObject } from 'type-enforcer';
 import { multiTest } from 'type-enforcer-test-helper';
-import { isObject } from 'type-enforcer-ui';
 import Model from '../../../src/Model.js';
 import traverseSchema from '../../../src/Schema/parse/traverseSchema.js';
 import Schema from '../../../src/Schema/Schema.js';
@@ -72,7 +71,7 @@ describe('traverseSchema', () => {
 		assert.is(testVar, 1);
 	});
 
-	it('should call the callback for an object with key "type"', () => {
+	it('should call the callback for an empty object', () => {
 		let total = 0;
 		let testVar = 0;
 		const testSchema = {
@@ -81,7 +80,7 @@ describe('traverseSchema', () => {
 
 		traverseSchema(testSchema, (path, value) => {
 			total++;
-			if (deepEqual(path, 'test') && value === Object) {
+			if (path === 'test' && value === Object) {
 				testVar++;
 			}
 		});
@@ -100,7 +99,7 @@ describe('traverseSchema', () => {
 		};
 
 		traverseSchema(testSchema, (path, value) => {
-			if (deepEqual(path, 'test') && value === testTypeObject) {
+			if (path === 'test' && value === testTypeObject) {
 				testVar++;
 			}
 		});

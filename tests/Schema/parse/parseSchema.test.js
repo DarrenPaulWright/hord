@@ -1,7 +1,6 @@
 import displayValue from 'display-value';
-import { assert } from 'type-enforcer';
-import { multiTest } from 'type-enforcer-test-helper';
 import {
+	assert,
 	enforceArray,
 	enforceBoolean,
 	enforceObject,
@@ -11,7 +10,8 @@ import {
 	isObject,
 	isString,
 	strictEquality
-} from 'type-enforcer-ui';
+} from 'type-enforcer';
+import { multiTest } from 'type-enforcer-test-helper';
 import parseSchema from '../../../src/Schema/parse/parseSchema.js';
 import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/typeRules.js';
 import Schema from '../../../src/Schema/Schema.js';
@@ -524,32 +524,32 @@ describe('parseSchema', () => {
 					}
 
 					return {
-							input: {
-								level1: {
-									type: type.value,
-									isRequired: true,
+						input: {
+							level1: {
+								type: type.value,
+								isRequired: true,
+								min: 0,
+								max: 10
+							}
+						},
+						output: {
+							types: [{
+								check: isObject,
+								enforce: enforceObject,
+								name: 'Object',
+								type: Object
+							}],
+							keys: ['level1'],
+							content: [{
+								key: 'level1',
+								isRequired: true,
+								types: [{
+									...getTypeRule(type),
 									min: 0,
 									max: 10
-								}
-							},
-							output: {
-								types: [{
-									check: isObject,
-									enforce: enforceObject,
-									name: 'Object',
-									type: Object
-								}],
-								keys: ['level1'],
-								content: [{
-									key: 'level1',
-									isRequired: true,
-									types: [{
-										...getTypeRule(type),
-										min: 0,
-										max: 10
-									}]
 								}]
-							}
+							}]
+						}
 					};
 				}),
 				message(input) {

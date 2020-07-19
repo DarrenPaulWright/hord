@@ -1,5 +1,5 @@
 import { forOwn, initialInPath, isEmpty, lastInPath, traverse } from 'object-agent';
-import { castArray, Enum, isFunction, isNumber } from 'type-enforcer-ui';
+import { castArray, Enum, isFunction, isNumber } from 'type-enforcer';
 import Model from '../../Model.js';
 import findRule from '../findRule.js';
 import Schema from '../Schema.js';
@@ -10,8 +10,6 @@ import { checkLength, checkNumericRange, instanceRule, sameRule, TYPE_RULES } fr
 const EXCLUDE_KEYS = ['content', 'type', 'name', 'isRequired', 'default'];
 
 const buildRule = (type, value, isAnObject) => {
-	let rule;
-
 	if (isAnObject) {
 		if (type === Enum && value.enum === undefined) {
 			throw new Error(ERRORS.MISSING_ENUM);
@@ -21,24 +19,23 @@ const buildRule = (type, value, isAnObject) => {
 		}
 	}
 
-	if (type instanceof Schema || type instanceof Model) {
-		rule = Object.assign({}, TYPE_RULES.get('Schema'), {
+	const rule = (type instanceof Schema || type instanceof Model) ?
+		{
+			...TYPE_RULES.get('Schema'),
 			type: Schema,
 			schema: type.schema || type
-		});
-	}
-	else {
-		rule = Object.assign({}, TYPE_RULES.get(type) ||
-			(isFunction(type) ?
-				Object.assign({}, instanceRule, {
-					name: type.name
-				}) :
-				Object.assign({}, sameRule, {
-					name: type + ''
-				})), {
+		} :
+		{
+			...(TYPE_RULES.get(type) ||
+				(isFunction(type) ?
+					Object.assign({}, instanceRule, {
+						name: type.name
+					}) :
+					Object.assign({}, sameRule, {
+						name: type + ''
+					}))),
 			type
-		});
-	}
+		};
 
 	if (isAnObject) {
 		forOwn(value, (subValue, subKey) => {
@@ -59,7 +56,7 @@ const buildRule = (type, value, isAnObject) => {
 };
 
 export default (schema) => {
-	let schemaValues;
+	let schemaValues = {};
 
 	traverseSchema(schema, (path, value, isAnObject, isSchemaType) => {
 		const rule = {

@@ -1,5 +1,5 @@
 import { forOwn, get, mapOwn, set, traverse } from 'object-agent';
-import { isArray, isObject } from 'type-enforcer-ui';
+import { isArray, isObject } from 'type-enforcer';
 import List from '../../List.js';
 import operators from '../operators.js';
 import Index from './Index.js';
@@ -56,8 +56,7 @@ export default class Indexer {
 
 	query(matcher) {
 		const self = this;
-		let match;
-		let matches;
+		let matches = undefined;
 		let usedIndexes = false;
 		const nonIndexedSearches = {};
 		let didSubQuery = false;
@@ -65,13 +64,13 @@ export default class Indexer {
 		const subQuery = (path, value, operator) => {
 			didSubQuery = true;
 
-			if (!self.hasIndex(path)) {
-				set(nonIndexedSearches, path, value);
+			if (self.hasIndex(path)) {
+				usedIndexes = true;
+				const match = self.indexes[path].query(value[operator], operator);
+				matches = matches === undefined ? match : matches.intersection(match);
 			}
 			else {
-				usedIndexes = true;
-				match = self.indexes[path].query(value[operator], operator);
-				matches = matches ? matches.intersection(match) : match;
+				set(nonIndexedSearches, path, value);
 			}
 		};
 
@@ -94,7 +93,7 @@ export default class Indexer {
 			}
 		}, true);
 
-		if (!matches) {
+		if (matches === undefined) {
 			matches = new List();
 		}
 

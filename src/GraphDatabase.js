@@ -1,4 +1,4 @@
-import { castArray, PrivateVars, Queue } from 'type-enforcer-ui';
+import { castArray, PrivateVars, Queue } from 'type-enforcer';
 import Collection from './Collection.js';
 import List from './List.js';
 import Model, { MODEL_ERROR_LEVEL } from './Model.js';
@@ -73,12 +73,12 @@ const _ = new PrivateVars();
 /**
  * A Graph Database designed for front end data visualization
  *
- * @class GraphDB
+ * @class GraphDatabase
  * @private
  * @summary
  *
  * ``` javascript
- * import { GraphDB } from 'hord';
+ * import { GraphDatabase } from 'hord';
  * ```
  *
  * @param {object} [settings]
@@ -87,7 +87,7 @@ const _ = new PrivateVars();
  * @param {Array} [settings.nodes]
  * @param {Array} [settings.links]
  */
-export default class GraphDB {
+export default class GraphDatabase {
 	constructor(settings = {}) {
 		const self = this;
 
@@ -183,12 +183,12 @@ export default class GraphDB {
 	/**
 	 * Set the nodes. An 'id' property is required for all nodes and can be a `String` or a `Number`.
 	 *
-	 * @memberOf GraphDB
+	 * @memberof GraphDatabase
 	 * @instance
 	 *
-	 * @param {Array|Collection} nodes
+	 * @param {Array|Collection} nodes - The nodes or vertices of the graph.
 	 *
-	 * @returns {Promise} If getting the nodes then resolves with the nodes
+	 * @returns {Promise} If getting the nodes then resolves with the nodes.
 	 */
 	nodes(nodes) {
 		const self = this;
@@ -209,10 +209,10 @@ export default class GraphDB {
 	/**
 	 * Add nodes. An 'id' property is required for all nodes and can be a `String` or a `Number`.
 	 *
-	 * @memberOf GraphDB
+	 * @memberof GraphDatabase
 	 * @instance
 	 *
-	 * @param {Array|Collection} nodes
+	 * @param {Array|Collection} nodes - The nodes or vertices of the graph.
 	 *
 	 * @returns {Promise}
 	 */
@@ -230,14 +230,14 @@ export default class GraphDB {
 	}
 
 	/**
-	 * Set the links. If link.source or link.target of any link doesn't map to an existing node.id, or is not already mapped to a node, then the link is removed
+	 * Set the links. If link.source or link.target of any link doesn't map to an existing node.id, or is not already mapped to a node, then the link is removed.
 	 *
-	 * @memberOf GraphDB
+	 * @memberof GraphDatabase
 	 * @instance
 	 *
-	 * @param {Array|Collection} links
+	 * @param {Array|Collection} links - The links or edges of the graph.
 	 *
-	 * @returns {Promise} If getting the nodes then resolves with the nodes
+	 * @returns {Promise} If getting the nodes then resolves with the nodes.
 	 */
 	links(links) {
 		const self = this;
@@ -259,12 +259,12 @@ export default class GraphDB {
 	}
 
 	/**
-	 * Add links. If link.source or link.target of any link doesn't map to an existing node.id, or is not already mapped to a node, then the link is removed
+	 * Add links. If link.source or link.target of any link doesn't map to an existing node.id, or is not already mapped to a node, then the link is removed.
 	 *
-	 * @memberOf GraphDB
+	 * @memberof GraphDatabase
 	 * @instance
 	 *
-	 * @param {Array|Collection} links
+	 * @param {Array|Collection} links - The links or edges of the graph.
 	 *
 	 * @returns {Promise}
 	 */
@@ -319,7 +319,7 @@ export default class GraphDB {
 							paths = [[linkedNode, node]];
 							return true;
 						}
-						else if (distance < shortest && linkedNode.both.length) {
+						else if (distance < shortest && linkedNode.both.length !== 0) {
 							checkFurther.push(linkedNode);
 						}
 					}

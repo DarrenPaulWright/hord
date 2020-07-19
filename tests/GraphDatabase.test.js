@@ -1,6 +1,6 @@
 import { clone } from 'object-agent';
 import { assert } from 'type-enforcer';
-import { GraphDB } from '../index.js';
+import { GraphDatabase } from '../index.js';
 
 const testNodes = [{
 	id: 0,
@@ -103,18 +103,18 @@ const testLinksProcessed = testLinks.map((link) => {
 	};
 });
 
-describe('GraphDB', () => {
+describe('GraphDatabase', () => {
 	describe('init', () => {
 		it('should initialize without settings', () => {
 			assert.notThrows(() => {
-				new GraphDB();
+				new GraphDatabase();
 			});
 		});
 	});
 
 	describe('.nodes', () => {
 		it('should accept an array of nodes in settings', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				nodeModel: testNodeModel
 			});
@@ -126,7 +126,7 @@ describe('GraphDB', () => {
 		});
 
 		it('should accept an array of nodes', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodeModel: testNodeModel
 			});
 
@@ -140,7 +140,7 @@ describe('GraphDB', () => {
 
 	describe('.addNodes', () => {
 		it('should add a node', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				nodeModel: testNodeModel
 			});
@@ -161,7 +161,7 @@ describe('GraphDB', () => {
 		});
 
 		it('should add a multiple nodes', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				nodeModel: testNodeModel
 			});
@@ -190,7 +190,7 @@ describe('GraphDB', () => {
 
 	describe('.links', () => {
 		it('should accept an array of links in settings', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				links: clone(testLinks)
 			});
@@ -202,7 +202,7 @@ describe('GraphDB', () => {
 		});
 
 		it('should accept an array of links', () => {
-			const graph = new GraphDB();
+			const graph = new GraphDatabase();
 
 			return graph.nodes(clone(testNodes))
 				.then(() => graph.links(clone(testLinks)))
@@ -215,7 +215,7 @@ describe('GraphDB', () => {
 
 	describe('.addLinks', () => {
 		it('should add a link', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				links: clone(testLinks)
 			});
@@ -237,7 +237,7 @@ describe('GraphDB', () => {
 		});
 
 		it('should add multiple links', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				links: clone(testLinks)
 			});
@@ -267,21 +267,21 @@ describe('GraphDB', () => {
 
 	describe('.query', () => {
 		const doTests = (model) => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				links: clone(testLinks),
 				nodeModel: model
 			});
 
 			describe('.nodes', () => {
-				it('.should return the nodes', () => {
+				it('should return the nodes', () => {
 					return graph.query.nodes
 						.then((result) => {
 							assert.equal(result, testNodes);
 						});
 				});
 
-				it('.filter should filter the results', () => {
+				it('should filter the results when .filter is called', () => {
 					return graph.query.nodes
 						.filter({ label: 'person' })
 						.then((result) => {
@@ -289,7 +289,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.filter should filter the results twice', () => {
+				it('should filter the results twice when .filter is called twice', () => {
 					return graph.query.nodes
 						.filter({ label: 'person' })
 						.filter({ last: 'Smith' })
@@ -298,7 +298,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.inLink should return the links pointing to the selected nodes', () => {
+				it('should return the links pointing to the selected nodes when .inLink is called', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
@@ -314,7 +314,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.in should return the links pointing to the selected nodes', () => {
+				it('should return the links pointing to the selected nodes when .in is called', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
@@ -328,7 +328,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.outLink should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .outLink is called', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
@@ -348,7 +348,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.out should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .out is called', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
@@ -363,7 +363,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.bothLink should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .bothLink is called', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
@@ -383,7 +383,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.both should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .both is called', () => {
 					return graph.query.nodes
 						.filter({
 							label: 'person',
@@ -399,7 +399,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.extent should return nodes and links of depth 1', () => {
+				it('should return nodes and links of depth 1 when .extent is called', () => {
 					return graph.query.nodes
 						.filter({ id: 1 })
 						.extent()
@@ -416,7 +416,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.extent should return nodes and links of depth 2', () => {
+				it('should return nodes and links of depth 2 when .extent is called', () => {
 					return graph.query.nodes
 						.filter({ id: 1 })
 						.extent(2)
@@ -437,13 +437,13 @@ describe('GraphDB', () => {
 			});
 
 			describe('.links', () => {
-				it('.should return the links', () => {
+				it('should return the links', () => {
 					return graph.query.links.then((result) => {
 						assert.equal(result, testLinksProcessed);
 					});
 				});
 
-				it('.filter should filter the results', () => {
+				it('should filter the results when .filter is called', () => {
 					return graph.query.links
 						.filter({ label: 'married' })
 						.then((result) => {
@@ -451,7 +451,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.filter should filter the results twice', () => {
+				it('should filter the results twice when .filter is called twice', () => {
 					return graph.query.links
 						.filter({ label: 'married' })
 						.filter({ id: 'link3' })
@@ -460,7 +460,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.inNode should return the links pointing to the selected nodes', () => {
+				it('should return the links pointing to the selected nodes when .inNode is called', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
@@ -475,7 +475,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.in should return the links pointing to the selected nodes', () => {
+				it('should return the links pointing to the selected nodes when .in is called', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
@@ -491,7 +491,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.outNode should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .outNode is called', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
@@ -506,7 +506,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.out should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .out is called', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
@@ -521,7 +521,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.bothNode should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .bothNode is called', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
@@ -537,7 +537,7 @@ describe('GraphDB', () => {
 						});
 				});
 
-				it('.both should return the links pointing from the selected nodes', () => {
+				it('should return the links pointing from the selected nodes when .both is called', () => {
 					return graph.query.links
 						.filter({
 							label: 'married',
@@ -568,7 +568,7 @@ describe('GraphDB', () => {
 
 	describe('.shortestPaths', () => {
 		it('should return an empty array if two nodes are not linked', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				links: clone(testLinks)
 			});
@@ -581,7 +581,7 @@ describe('GraphDB', () => {
 		});
 
 		it('should find the shortest path between two nodes', () => {
-			const graph = new GraphDB({
+			const graph = new GraphDatabase({
 				nodes: clone(testNodes),
 				links: clone(testLinks)
 			});

@@ -1,5 +1,5 @@
 import { appendToPath, clone, superimpose } from 'object-agent';
-import { PrivateVars } from 'type-enforcer-ui';
+import { Enum, PrivateVars } from 'type-enforcer';
 import findRule from './findRule.js';
 import parseSchema from './parse/parseSchema.js';
 import processValue from './processValue.js';
@@ -51,46 +51,46 @@ import processValue from './processValue.js';
  *
  * @typedef {*|object} SchemaDefinition
  *
- * @param {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model.
- * @param {boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
- * @param {boolean} [default] - If isRequired is true, then schema.enforce() will set this value if the key is undefined.
- * @param {boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().
- * @param {number} [min] - For Number, 'integer', and 'float'
- * @param {number} [max] - For Number, 'integer', and 'float'
- * @param {number} [minLength] - For Arrays and Strings
- * @param {number} [maxLength] - For Arrays and Strings
- * @param {boolean} [clamp=false] - Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted.
- * @param {Enum} [enum] - If type is Enum, then this is required
- * @param {object|Array} [content] - For arrays and objects to specify further content
- * @param {Function} [enforce] - This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info)
- * @param {Function} [check] - This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info)
+ * @property {*|Array} type - Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model.
+ * @property {boolean} [isRequired=false] - Empty arrays or objects that aren't required will be removed by schema.enforce().
+ * @property {boolean} [default] - If isRequired is true, then schema.enforce() will set this value if the key is undefined.
+ * @property {boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().
+ * @property {number} [min] - For Number, 'integer', and 'float'
+ * @property {number} [max] - For Number, 'integer', and 'float'
+ * @property {number.int} [minLength] - For Arrays and Strings
+ * @property {number.int} [maxLength] - For Arrays and Strings
+ * @property {boolean} [clamp=false] - Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted.
+ * @property {Enum} [enum] - If type is Enum, then this is required
+ * @property {object|Array} [content] - For arrays and objects to specify further content
+ * @property {Function} [enforce] - This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info)
+ * @property {Function} [check] - This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info)
  */
 
 const process = (item, rules, path, isEnforce, replace) => {
 	const errors = [];
 
 	if (rules !== undefined) {
-		processValue(item, rules, path, (message, path, value) => {
-			errors.push({
-				error: message,
-				path,
-				value,
-				item
-			});
+		processValue(item, rules, path, (error, subPath, value) => {
+			errors.push({ error, path: subPath, value, item });
 		}, isEnforce, replace);
 	}
 
 	return errors;
 };
 
-const eachRule = (self, callback, path = '', rule) => {
+const eachRule = (self, callback, path, rule) => {
+	path = path || '';
 	rule = rule || _(self).rules;
 
-	return rule.types[0].schema !== undefined ?
-		!eachRule(rule.types[0].schema, callback, path) :
-		callback(path, rule) ||
-		rule.content !== undefined &&
-		!rule.content.some((item) => eachRule(self, callback, appendToPath(path, item.key || 0), item));
+	if (rule.types[0].schema !== undefined) {
+		return !eachRule(rule.types[0].schema, callback, path);
+	}
+
+	return callback(path, rule) ||
+		(rule.content !== undefined &&
+			!rule.content.some((item) => {
+				return eachRule(self, callback, appendToPath(path, item.key || 0), item);
+			}));
 };
 
 const _ = new PrivateVars();
@@ -132,13 +132,13 @@ export default class Schema {
 	}
 
 	/**
-	 * Validate an item against the schema
+	 * Validate an item against the schema.
 	 *
-	 * @memberOf Schema
+	 * @memberof Schema
 	 * @instance
 	 *
-	 * @param {object} item
-	 * @param {Array} [path=[]] - If provided then only the value at that path will be validated
+	 * @param {object} item - The object validate against this schema.
+	 * @param {Array} [path=[]] - If provided then only the value at that path will be validated.
 	 *
 	 * @returns {SchemaError[]}
 	 */
@@ -149,23 +149,23 @@ export default class Schema {
 	/**
 	 * Enforce an items structure against the schema. This function mutates the original item.
 	 *
-	 * @memberOf Schema
+	 * @memberof Schema
 	 * @instance
 	 *
-	 * @param {object} item
-	 * @param {Array} [path=[]]
+	 * @param {object} item - The object enforce against this schema.
+	 * @param {Array} [path=[]] - If provided then only the value at that path will be enforced.
 	 * @param {*} [replace] - If the current value at path is invalid, replace it with this.
 	 *
 	 * @returns {SchemaError[]}
 	 */
-	enforce(item, path = '', replace) {
+	enforce(item, path = '', replace = undefined) {
 		return process(item, findRule(path, _(this).rules), path, true, replace);
 	}
 
 	/**
 	 * Calls a callback for each rule that will be used to validate this schema.
 	 *
-	 * @memberOf Schema
+	 * @memberof Schema
 	 * @instance
 	 *
 	 * @param {Function} callback - Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level.
@@ -177,10 +177,10 @@ export default class Schema {
 	/**
 	 * Returns a new Schema with the rules from the provided schema [superimposed](https://github.com/DarrenPaulWright/object-agent/blob/master/docs/superimpose.md) on the rules from this schema. If no args are provided, then the returned Schema is effectively a clone of this one.
 	 *
-	 * @memberOf Schema
+	 * @memberof Schema
 	 * @instance
 	 *
-	 * @param {SchemaDefinition|Schema} schema
+	 * @param {SchemaDefinition|Schema} schema - The schema to superimpose on this one.
 	 *
 	 * @returns {Schema}
 	 */

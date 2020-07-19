@@ -2,7 +2,7 @@ import { benchSettings } from 'karma-webpack-bundle';
 import traverseSchema from '../../../src/Schema/parse/traverseSchema.js';
 
 suite('traverseSchema', () => {
-	let sandbox;
+	let sandbox = {};
 
 	benchmark('empty', () => {
 		sandbox = traverseSchema({}, () => {

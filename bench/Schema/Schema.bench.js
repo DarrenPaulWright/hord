@@ -2,7 +2,7 @@ import { benchSettings } from 'karma-webpack-bundle';
 import Schema from '../../src/Schema/Schema.js';
 
 suite('Schema', () => {
-	let sandbox;
+	let sandbox = false;
 	const returnTrue = () => true;
 	const returnFalse = () => false;
 	const returnInput = (input) => input;

@@ -1,6 +1,5 @@
 import { deepEqual, diffUpdate, intersection, set } from 'object-agent';
-import { assert } from 'type-enforcer';
-import { isObject } from 'type-enforcer-ui';
+import { assert, isObject } from 'type-enforcer';
 import { Model, MODEL_ERROR_LEVEL, Schema } from '../index.js';
 
 describe('Model', () => {
@@ -496,10 +495,10 @@ describe('Model', () => {
 					clamp: true
 				}
 			});
-			let context;
-			let returnedPath;
-			let returnedValue;
-			let returnedPrevious;
+			let context = '';
+			let returnedPath = '';
+			let returnedValue = '';
+			let returnedPrevious = '';
 			let callCount = 0;
 
 			Person.onChange(function(path, value, previous) {
@@ -536,10 +535,10 @@ describe('Model', () => {
 					clamp: true
 				}
 			});
-			let context;
-			let returnedPath;
-			let returnedValue;
-			let returnedPrevious;
+			let context = '';
+			let returnedPath = '';
+			let returnedValue = '';
+			let returnedPrevious = '';
 			let callCount = 0;
 
 			Person.onChange(function(path, value, previous) {
@@ -588,8 +587,8 @@ describe('Model', () => {
 					max: 120
 				}
 			});
-			let context;
-			let returnedErrors;
+			let context = '';
+			let returnedErrors = '';
 			let callCount = 0;
 
 			Person

@@ -1,7 +1,6 @@
 import displayValue from 'display-value';
 import { clone, deepEqual } from 'object-agent';
-import { assert } from 'type-enforcer';
-import { Enum } from 'type-enforcer-ui';
+import { assert, Enum } from 'type-enforcer';
 import { Schema } from '../../index.js';
 import Model from '../../src/Model.js';
 import { schemaTestTypes } from '../testValues.js';

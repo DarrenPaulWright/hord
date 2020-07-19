@@ -4,7 +4,7 @@ import checkSchemaType from '../../../src/Schema/parse/checkTypeDef.js';
 import { schemaTestTypes } from '../../testValues.js';
 
 describe('checkSchemaType', () => {
-	const falseValues = [undefined, 'test', true, false, [], {}, 3, /g/];
+	const falseValues = [undefined, 'test', true, false, [], {}, 3, /g/u];
 
 	it('should return true for null', () => {
 		assert.is(checkSchemaType(null, false), true);
@@ -144,12 +144,6 @@ describe('checkSchemaType', () => {
 			}, true);
 		},
 		assertion: 'false'
-	});
-
-	it('should return true for multiple types and null in an array in an object with key "type"', () => {
-		assert.is(checkSchemaType({
-			type: [String, Boolean, null]
-		}, true), true);
 	});
 
 	it('should return true for an object with key "enforce" that is assigned a value that is a function', () => {

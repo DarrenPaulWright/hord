@@ -116,105 +116,43 @@ suite('List', () => {
 		}
 	});
 
-	benchmark(`intersection no lists, ${smallArrayLength}`, () => {
-		sandbox = list.filter((item) => array.includes(item));
-	}, {
-		...benchSettings,
-		onCycle() {
-			array = fill(smallArrayLength, (x) => x + smallArrayLength - overlap);
-			list = fill(smallArrayLength);
-		}
-	});
+	const benchIntersection = (length) => {
+		benchmark(`intersection no lists, ${length}`, () => {
+			sandbox = list.filter((item) => array.includes(item));
+		}, {
+			...benchSettings,
+			onCycle() {
+				array = fill(length, (x) => x + length - overlap);
+				list = fill(length);
+			}
+		});
 
-	benchmark(`intersection array, ${smallArrayLength}`, () => {
-		sandbox = list.intersection(array);
-	}, {
-		...benchSettings,
-		onStart() {
-			array = fill(smallArrayLength, (x) => x + smallArrayLength - overlap);
-			list = new List(fill(smallArrayLength));
-		},
-		onCycle() {
-			array = fill(smallArrayLength, (x) => x + smallArrayLength - overlap);
-			list = new List(fill(smallArrayLength));
-		}
-	});
+		benchmark(`intersection array, ${length}`, () => {
+			sandbox = list.intersection(array);
+		}, {
+			...benchSettings,
+			onStart() {
+				array = fill(length, (x) => x + length - overlap);
+				list = new List(fill(length));
+			},
+			onCycle() {
+				array = fill(length, (x) => x + length - overlap);
+				list = new List(fill(length));
+			}
+		});
 
-	benchmark(`intersection list, ${smallArrayLength}`, () => {
-		sandbox = list.intersection(list2);
-	}, {
-		...benchSettings,
-		onCycle() {
-			list = new List(fill(smallArrayLength));
-			list2 = new List(fill(smallArrayLength, (x) => x + smallArrayLength - overlap));
-		}
-	});
+		benchmark(`intersection list, ${length}`, () => {
+			sandbox = list.intersection(list2);
+		}, {
+			...benchSettings,
+			onCycle() {
+				list = new List(fill(length));
+				list2 = new List(fill(length, (x) => x + length - overlap));
+			}
+		});
+	};
 
-	benchmark(`intersection no lists, ${mediumArrayLength}`, () => {
-		sandbox = list.filter((item) => array.includes(item));
-	}, {
-		...benchSettings,
-		onCycle() {
-			array = fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap);
-			list = fill(mediumArrayLength);
-		}
-	});
-
-	benchmark(`intersection array, ${mediumArrayLength}`, () => {
-		sandbox = list.intersection(array);
-	}, {
-		...benchSettings,
-		onStart() {
-			array = fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap);
-			list = new List(fill(mediumArrayLength));
-		},
-		onCycle() {
-			array = fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap);
-			list = new List(fill(mediumArrayLength));
-		}
-	});
-
-	benchmark(`intersection list, ${mediumArrayLength}`, () => {
-		sandbox = list.intersection(list2);
-	}, {
-		...benchSettings,
-		onCycle() {
-			list = new List(fill(mediumArrayLength));
-			list2 = new List(fill(mediumArrayLength, (x) => x + mediumArrayLength - overlap));
-		}
-	});
-
-	benchmark(`intersection no lists, ${largeArrayLength}`, () => {
-		sandbox = list.filter((item) => array.includes(item));
-	}, {
-		...benchSettings,
-		onCycle() {
-			array = fill(largeArrayLength, (x) => x + largeArrayLength - overlap);
-			list = fill(largeArrayLength);
-		}
-	});
-
-	benchmark(`intersection array, ${largeArrayLength}`, () => {
-		sandbox = list.intersection(array);
-	}, {
-		...benchSettings,
-		onStart() {
-			array = fill(largeArrayLength, (x) => x + largeArrayLength - overlap);
-			list = new List(fill(largeArrayLength));
-		},
-		onCycle() {
-			array = fill(largeArrayLength, (x) => x + largeArrayLength - overlap);
-			list = new List(fill(largeArrayLength));
-		}
-	});
-
-	benchmark(`intersection list, ${largeArrayLength}`, () => {
-		sandbox = list.intersection(list2);
-	}, {
-		...benchSettings,
-		onCycle() {
-			list = new List(fill(largeArrayLength));
-			list2 = new List(fill(largeArrayLength, (x) => x + largeArrayLength - overlap));
-		}
-	});
+	benchIntersection(smallArrayLength);
+	benchIntersection(mediumArrayLength);
+	benchIntersection(largeArrayLength);
 });

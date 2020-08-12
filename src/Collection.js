@@ -382,7 +382,7 @@ export default class Collection extends Array {
 	 * @see [Array.length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length)
 	 *
 	 *
-	 * @memberof {number.int} length
+	 * @member {number.int} length
 	 * @memberof Collection
 	 * @instance
 	 */

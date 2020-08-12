@@ -1323,7 +1323,7 @@ describe('Collection', () => {
 			assert.is(result instanceof Collection, true);
 		});
 
-		it('should return a new collection with zipped data from three arrays with multiples of some IDs', () => {
+		it('should return a new collection with zipped data from three arrays with multiples of some ids', () => {
 			const testCollection1 = new Collection({
 				id: 2,
 				value: 'test 2'

@@ -1126,8 +1126,8 @@ export default class Collection extends Array {
 		const deleteParentKey = enforceBoolean(settings.deleteParentKey, false);
 		const filterObject = {};
 
-		const nest = (parentID) => {
-			filterObject[parentKey] = parentID;
+		const nest = (parentId) => {
+			filterObject[parentKey] = parentId;
 
 			return self
 				.filter(filterObject)

@@ -21,7 +21,7 @@
     * [new Model(schema)](#new_Model_new)
     * _instance_
         * [.schema](#Model+schema) ⇒ <code>Schema</code>
-        * [.apply(object)](#Model+apply) ⇒ <code>Object</code>
+        * [.apply(object)](#Model+apply) ⇒ <code>object</code>
         * [.extend(model)](#Model+extend) ⇒ [<code>Model</code>](#Model)
         * [.errorLevel(errorLevel)](#Model+errorLevel) ⇒ [<code>MODEL\_ERROR\_LEVEL</code>](#MODEL_ERROR_LEVEL)
         * [.onChange(callback)](#Model+onChange) ⇒ <code>Queue</code>
@@ -33,7 +33,9 @@
 <br><a name="new_Model_new"></a>
 
 ### new Model(schema)
-> Once the Model is instantiated the schema can't be changed.> > The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
+> Once the Model is instantiated the schema can't be changed.
+> 
+> The Model class uses the [on-change](https://github.com/sindresorhus/on-change) library (uses the [`Proxy` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)) to detect changes and enforce the schema.
 
 
 | Param | Type |
@@ -41,24 +43,47 @@
 | schema | <code>Schema</code> | 
 
 **Example**  
-``` javascriptimport { Model } from 'hord';const Person = new Model({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});const johnDoe = Person.apply({ first: 'John', last: 'Doe', age: 21});johnDoe.hobbies = ['programming', 10];console.log(johnDoe);// => { first: 'John', last: 'Doe', age: 21, hobbies: ['programming'] }```
+``` javascript
+import { Model } from 'hord';
+
+const Person = new Model({
+ first: String,
+ last: String,
+ age: 'integer',
+ hobbies: {
+     type: Array,
+     content: String
+ }
+});
+
+const johnDoe = Person.apply({
+ first: 'John',
+ last: 'Doe',
+ age: 21
+});
+
+johnDoe.hobbies = ['programming', 10];
+
+console.log(johnDoe);
+// => { first: 'John', last: 'Doe', age: 21, hobbies: ['programming'] }
+```
 
 <br><a name="Model+schema"></a>
 
 ### model.schema ⇒ <code>Schema</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
-> Get the schema for this model
+> Get the schema for this model.
 
 
 <br><a name="Model+apply"></a>
 
-### model.apply(object) ⇒ <code>Object</code>
-> Apply this model to an object
+### model.apply(object) ⇒ <code>object</code>
+> Apply this model to an object.
 
 
-| Param | Type |
-| --- | --- |
-| object | <code>Object</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| object | <code>object</code> | The object to apply this model to. |
 
 
 <br><a name="Model+extend"></a>
@@ -67,9 +92,9 @@
 > Returns a new Model with a new [extended](docs/Schema.md#Schema+extend) Schema. Retains the errorLevel from the calling Model.
 
 
-| Param | Type |
-| --- | --- |
-| model | [<code>Model</code>](#Model), <code>Schema</code>, <code>SchemaDefinition</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| model | [<code>Model</code>](#Model), <code>Schema</code>, <code>Schema.SchemaDefinition</code> | The model to superimpose on this one. |
 
 
 <br><a name="Model+errorLevel"></a>
@@ -95,7 +120,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| callback | <code>function</code> | Provides three args: path, value, and previous value. Context is the model that changed. |
+| callback | <code>function</code> | Provides four args: path, value, previous value, and the name of the method that produced the change. Context is the model that changed. |
 
 
 <br><a name="Model+onError"></a>

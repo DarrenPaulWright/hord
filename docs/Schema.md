@@ -34,18 +34,37 @@
 | schema | [<code>SchemaDefinition</code>](#SchemaDefinition) | 
 
 **Example**  
-``` javascriptimport { Schema } from 'hord';const person = new Schema({ first: String, last: String, age: 'integer', hobbies: {     type: Array,     content: String }});person.validate({ first: 'John', last: 'Doe', age: 21});// => []```
+``` javascript
+import { Schema } from 'hord';
+
+const person = new Schema({
+ first: String,
+ last: String,
+ age: 'integer',
+ hobbies: {
+     type: Array,
+     content: String
+ }
+});
+
+person.validate({
+ first: 'John',
+ last: 'Doe',
+ age: 21
+});
+// => []
+```
 
 <br><a name="Schema+validate"></a>
 
 ### schema.validate(item, [path]) ⇒ [<code>Array.&lt;SchemaError&gt;</code>](#SchemaError)
-> Validate an item against the schema
+> Validate an item against the schema.
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| item | <code>Object</code> |  |  |
-| [path] | <code>Array</code> | <code>[]</code> | If provided then only the value at that path will be validated |
+| item | <code>object</code> |  | The object validate against this schema. |
+| [path] | <code>Array</code> | <code>[]</code> | If provided then only the value at that path will be validated. |
 
 
 <br><a name="Schema+enforce"></a>
@@ -56,8 +75,8 @@
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| item | <code>Object</code> |  |  |
-| [path] | <code>Array</code> | <code>[]</code> |  |
+| item | <code>object</code> |  | The object enforce against this schema. |
+| [path] | <code>Array</code> | <code>[]</code> | If provided then only the value at that path will be enforced. |
 | [replace] | <code>\*</code> |  | If the current value at path is invalid, replace it with this. |
 
 
@@ -78,49 +97,78 @@
 > Returns a new Schema with the rules from the provided schema [superimposed](https://github.com/DarrenPaulWright/object-agent/blob/master/docs/superimpose.md) on the rules from this schema. If no args are provided, then the returned Schema is effectively a clone of this one.
 
 
-| Param | Type |
-| --- | --- |
-| schema | [<code>SchemaDefinition</code>](#SchemaDefinition), [<code>Schema</code>](#Schema) | 
+| Param | Type | Description |
+| --- | --- | --- |
+| schema | [<code>SchemaDefinition</code>](#SchemaDefinition), [<code>Schema</code>](#Schema) | The schema to superimpose on this one. |
 
 
 <br><a name="SchemaError"></a>
 
-## SchemaError : <code>Object</code>
+## SchemaError : <code>object</code>
 > Schema validation errors
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| error | <code>String</code> | A message about the type of error |
-| path | <code>String</code> | The path within the given item to the value causing the error |
+| error | <code>string</code> | A message about the type of error |
+| path | <code>string</code> | The path within the given item to the value causing the error |
 | value | <code>\*</code> | The value at this path |
 | item | <code>\*</code> | The original item being validated |
 
 
 <br><a name="SchemaDefinition"></a>
 
-## SchemaDefinition : <code>\*</code> \| <code>Object</code>
-> Schema type definitions. Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.> > '*' can be used as a key to indicate that any keys are allowed in an object.
+## SchemaDefinition : <code>\*</code> \| <code>object</code>
+> Schema type definitions. Can be just the type as defined below, or an array of types, or an object with the following options. Any extra options provided will be copied to the rule, which can be accessed via the schema.eachRule() method.
+> 
+> '*' can be used as a key to indicate that any keys are allowed in an object.
 
+**Properties**
 
-| Param | Type | Default | Description |
+| Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| type | <code>\*</code>, <code>Array</code> |  | Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model. |
-| [isRequired] | <code>Boolean</code> | <code>false</code> | Empty arrays or objects that aren't required will be removed by schema.enforce(). |
-| [default] | <code>Boolean</code> |  | If isRequired is true, then schema.enforce() will set this value if the key is undefined. |
-| [coerce] | <code>Boolean</code> | <code>false</code> | If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce(). |
-| [min] | <code>Number</code> |  | For Number, 'integer', and 'float' |
-| [max] | <code>Number</code> |  | For Number, 'integer', and 'float' |
-| [minLength] | <code>Number</code> |  | For Arrays and Strings |
-| [maxLength] | <code>Number</code> |  | For Arrays and Strings |
-| [clamp] | <code>Boolean</code> | <code>false</code> | Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted. |
+| type | <code>\*</code> \| <code>Array</code> |  | Supported native types are Array, Boolean, Date, Element, Function, Number, Object, RegExp, String. Also supports '*', 'integer', 'float', Enum (from type-enforcer), custom constructors (classes or constructor functions), or instances of Schema or Model. |
+| [isRequired] | <code>boolean</code> | <code>false</code> | Empty arrays or objects that aren't required will be removed by schema.enforce(). |
+| [default] | <code>boolean</code> |  | If isRequired is true, then schema.enforce() will set this value if the key is undefined. |
+| [coerce] | <code>boolean</code> | <code>false</code> | If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce(). |
+| [min] | <code>number</code> |  | For Number, 'integer', and 'float' |
+| [max] | <code>number</code> |  | For Number, 'integer', and 'float' |
+| [minLength] | <code>number.int</code> |  | For Arrays and Strings |
+| [maxLength] | <code>number.int</code> |  | For Arrays and Strings |
+| [clamp] | <code>boolean</code> | <code>false</code> | Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted. |
 | [enum] | <code>Enum</code> |  | If type is Enum, then this is required |
-| [content] | <code>Object</code>, <code>Array</code> |  | For arrays and objects to specify further content |
+| [content] | <code>object</code> \| <code>Array</code> |  | For arrays and objects to specify further content |
 | [enforce] | <code>function</code> |  | This is automatically included, but can be overridden. (See [type-enforcer enforce](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/enforce.md) for more info) |
 | [check] | <code>function</code> |  | This is automatically included, but can be overridden. (See [type-enforcer checks](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/checks.md) for more info) |
 
 **Example**  
-``` javascriptimport { Schema } from 'hord';// Can be a native type or stringconst person = new Schema({ first: String, last: String, age: 'integer'});// Or with options:const person = new Schema({ first: {     type: String,     isRequired: true }, last: {     type: String,     isRequired: true }, age: {     type: 'integer'     min: 0,     coerce: true }});```
+``` javascript
+import { Schema } from 'hord';
+
+// Can be a native type or string
+const person = new Schema({
+ first: String,
+ last: String,
+ age: 'integer'
+});
+
+// Or with options:
+const person = new Schema({
+ first: {
+     type: String,
+     isRequired: true
+ },
+ last: {
+     type: String,
+     isRequired: true
+ },
+ age: {
+     type: 'integer'
+     min: 0,
+     coerce: true
+ }
+});
+```
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord

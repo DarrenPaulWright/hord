@@ -18,47 +18,47 @@
 
 
 * [List](#List)
-    * [new List([values])](#new_List_new)
+    * [new List(values)](#new_List_new)
     * _instance_
-        * [.total](#List+total) ⇒ <code>Number</code>
-        * [.length](#List+length) ⇒ <code>Number</code>
+        * [.total](#List+total) ⇒ <code>number</code>
+        * [.length](#List+length) ⇒ <code>number.int</code>
         * [.comparer(comparer)](#List+comparer) ⇒ <code>function</code>
-        * [.sort()](#List+sort) ↩︎
-        * [.add(item)](#List+add) ↩︎
-        * [.addUnique(item)](#List+addUnique) ↩︎
+        * [.sort()](#List+sort) ⇒ <code>object</code>
+        * [.add(item)](#List+add) ⇒ <code>object</code>
+        * [.addUnique(item)](#List+addUnique) ⇒ <code>object</code>
         * [.unique()](#List+unique) ⇒ [<code>List</code>](#List)
-        * [.concat(values)](#List+concat) ↩︎
-        * [.discard(item)](#List+discard) ↩︎
-        * [.discardAt(index)](#List+discardAt) ↩︎
-        * [.discardAll()](#List+discardAll) ↩︎
+        * [.concat(...lists)](#List+concat) ⇒ [<code>List</code>](#List)
+        * [.discard(item)](#List+discard) ⇒ <code>object</code>
+        * [.discardAt(index)](#List+discardAt) ⇒ <code>object</code>
+        * [.discardAll()](#List+discardAll) ⇒ <code>object</code>
         * [.values([values])](#List+values) ⇒ <code>Array</code>
-        * [.indexOf(item)](#List+indexOf) ⇒ <code>Number</code>
-        * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>Number</code>
-        * [.includes(item)](#List+includes) ⇒ <code>Boolean</code>
+        * [.indexOf(item)](#List+indexOf) ⇒ <code>number.int</code>
+        * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>number.int</code>
+        * [.includes(item)](#List+includes) ⇒ <code>boolean</code>
         * [.find(item)](#List+find) ⇒ <code>\*</code>
         * [.findLast(item)](#List+findLast) ⇒ <code>\*</code>
         * [.findAll(item)](#List+findAll) ⇒ [<code>List</code>](#List)
-        * [.findIndex(item)](#List+findIndex) ⇒ <code>Number</code>
-        * [.findLastIndex(item)](#List+findLastIndex) ⇒ <code>Number</code>
+        * [.findIndex(item)](#List+findIndex) ⇒ <code>number.int</code>
+        * [.findLastIndex(item)](#List+findLastIndex) ⇒ <code>number.int</code>
         * [.first()](#List+first) ⇒ <code>\*</code>
         * [.last()](#List+last) ⇒ <code>\*</code>
         * [.someRight(callback, [thisArg])](#List+someRight) ⇒ [<code>List</code>](#List)
         * [.intersection(array)](#List+intersection) ⇒ [<code>List</code>](#List)
-        * [.median([low], [high])](#List+median) ⇒ <code>Number</code>
-        * [.mean()](#List+mean) ⇒ <code>Number</code>
-        * [.quartiles()](#List+quartiles) ⇒ <code>Object</code>
+        * [.median([low], [high])](#List+median) ⇒ <code>number</code>
+        * [.mean()](#List+mean) ⇒ <code>number</code>
+        * [.quartiles()](#List+quartiles) ⇒ <code>object</code>
         * [.pop()](#List+pop) ⇒ <code>\*</code>
         * [.shift()](#List+shift) ⇒ <code>\*</code>
-        * [.toString()](#List+toString) ⇒ <code>String</code>
-        * [.keys()](#List+keys) ⇒ <code>Object</code>
-        * [.every(callback, [thisArg])](#List+every) ⇒ <code>Boolean</code>
+        * [.toString()](#List+toString) ⇒ <code>string</code>
+        * [.keys()](#List+keys) ⇒ <code>object</code>
+        * [.every(callback, [thisArg])](#List+every) ⇒ <code>boolean</code>
         * [.forEach(callback, [thisArg])](#List+forEach) ⇒ <code>undefined</code>
-        * [.toLocaleString([locales], [options])](#List+toLocaleString) ⇒ <code>String</code>
-        * [.join([separator])](#List+join) ⇒ <code>String</code>
+        * [.toLocaleString([locales], [options])](#List+toLocaleString) ⇒ <code>string</code>
+        * [.join([separator])](#List+join) ⇒ <code>string</code>
         * [.map(callback, [thisArg])](#List+map) ⇒ <code>Array</code>
         * [.reduce(callback, [thisArg])](#List+reduce) ⇒ <code>\*</code>
         * [.reduceRight(callback, [thisArg])](#List+reduceRight) ⇒ <code>\*</code>
-        * [.some(callback, [thisArg])](#List+some) ⇒ <code>Boolean</code>
+        * [.some(callback, [thisArg])](#List+some) ⇒ <code>boolean</code>
         * [.filter(callback, [thisArg])](#List+filter) ⇒ [<code>List</code>](#List)
         * [.slice([begin], [end])](#List+slice) ⇒ [<code>List</code>](#List)
     * _static_
@@ -67,52 +67,64 @@
 
 <br><a name="new_List_new"></a>
 
-### new List([values])
-> ``` javascript> import { List } from 'hord';> ```> List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
+### new List(values)
+> ``` javascript
+> import { List } from 'hord';
+> ```
+> List maintains a sorted state internally, but doesn't observe changes to it's contents, so items manipulated externally can cause problems. If you must do this, the .sort() method is provided to resort the list.
 
 
-| Param | Type |
-| --- | --- |
-| [values] | <code>Array</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| values | <code>\*</code>, <code>Array</code> | Accepts an array of objects or multiple args of objects. |
 
 
 <br><a name="List+total"></a>
 
-### list.total ⇒ <code>Number</code>
+### list.total ⇒ <code>number</code>
 > If the values in the list are Numbers, then this will return the total value of all the elements added together.
 
 
 <br><a name="List+length"></a>
 
-### list.length ⇒ <code>Number</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
+### list.length ⇒ <code>number.int</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
-> The number of items in the list
+> The number of items in the list.
 
 
 <br><a name="List+comparer"></a>
 
 ### list.comparer(comparer) ⇒ <code>function</code>
-> Used by .sort() and the binary search to determine equality.> > See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details.> A few simple comparer functions are provided via the static property [List.comparers](#List.comparers)> > If you're setting this, you may want to call this before setting the values, like this:> ``` javascript> import { List } from 'hord';> > const list = new List().comparer(List.comparers.number.asc).values([1,2,3]);> ```
+> Used by .sort() and the binary search to determine equality.
+> 
+> If you're setting this, you may want to call this before setting the values to prevent sorting twice, like this:
+> ``` javascript
+> import { List } from 'hord';
+> 
+> const list = new List().comparer(List.comparers.number.asc).values([1, 2, 3]);
+> ```
 
 
-| Param | Type |
-| --- | --- |
-| comparer | <code>function</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| comparer | <code>function</code> | See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details. A few simple comparer functions are provided via the static property [List.comparers](#List.comparers). |
 
 
 <br><a name="List+sort"></a>
 
-### list.sort() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.sort() ⇒ <code>object</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Sort the items.
 
+**Returns**: <code>object</code> - Returns `this`.  
 
 <br><a name="List+add"></a>
 
-### list.add(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.add(item) ⇒ <code>object</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Add an item to the list. Uses binary search.
 
+**Returns**: <code>object</code> - Returns `this`.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -121,10 +133,11 @@
 
 <br><a name="List+addUnique"></a>
 
-### list.addUnique(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.addUnique(item) ⇒ <code>object</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Add an item to the list if it isn't already included. Uses binary search.
 
+**Returns**: <code>object</code> - Returns `this`.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -139,22 +152,23 @@
 
 <br><a name="List+concat"></a>
 
-### list.concat(values) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.concat(...lists) ⇒ [<code>List</code>](#List)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Returns a shallow clone of this list with the contents of one or more arrays or lists appended.
 
 
-| Param | Type |
-| --- | --- |
-| values | <code>\*</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| ...lists | <code>Array</code>, [<code>List</code>](#List) | One or more lists or arrays to concat to this list. |
 
 
 <br><a name="List+discard"></a>
 
-### list.discard(item) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.discard(item) ⇒ <code>object</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Discard an item from the list. Uses binary search.
 
+**Returns**: <code>object</code> - Returns `this`.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -163,22 +177,24 @@
 
 <br><a name="List+discardAt"></a>
 
-### list.discardAt(index) ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.discardAt(index) ⇒ <code>object</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Discard an item from the list at a specified index.
 
+**Returns**: <code>object</code> - Returns `this`.  
 
-| Param | Type |
-| --- | --- |
-| index | <code>\*</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| index | <code>\*</code> | The index of the item to be discarded. |
 
 
 <br><a name="List+discardAll"></a>
 
-### list.discardAll() ↩︎&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
+### list.discardAll() ⇒ <code>object</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔗 Chainable`_
 
 > Discard all items from the list.
 
+**Returns**: <code>object</code> - Returns `this`.  
 
 <br><a name="List+values"></a>
 
@@ -186,7 +202,7 @@
 
 > The current items in the list.
 
-**Returns**: <code>Array</code> - A shallow clone of the values  
+**Returns**: <code>Array</code> - A shallow clone of the values.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -195,10 +211,10 @@
 
 <br><a name="List+indexOf"></a>
 
-### list.indexOf(item) ⇒ <code>Number</code>
+### list.indexOf(item) ⇒ <code>number.int</code>
 > Gets the index of the first matching item. Uses a binary search.
 
-**Returns**: <code>Number</code> - The index of the item or -1  
+**Returns**: <code>number.int</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -207,10 +223,10 @@
 
 <br><a name="List+lastIndexOf"></a>
 
-### list.lastIndexOf(item) ⇒ <code>Number</code>
+### list.lastIndexOf(item) ⇒ <code>number.int</code>
 > Gets the index of the last matching item. Uses a binary search.
 
-**Returns**: <code>Number</code> - The index of the item or -1  
+**Returns**: <code>number.int</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -219,7 +235,7 @@
 
 <br><a name="List+includes"></a>
 
-### list.includes(item) ⇒ <code>Boolean</code>
+### list.includes(item) ⇒ <code>boolean</code>
 > Determines if an item exists in the list. Uses a binary search.
 
 
@@ -233,7 +249,7 @@
 ### list.find(item) ⇒ <code>\*</code>
 > Gets the first matching item from the list. Uses a binary search.
 
-**Returns**: <code>\*</code> - The item or undefined  
+**Returns**: <code>\*</code> - The item or undefined.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -245,7 +261,7 @@
 ### list.findLast(item) ⇒ <code>\*</code>
 > Gets the last matching item from the list. Uses a binary search.
 
-**Returns**: <code>\*</code> - The item or undefined  
+**Returns**: <code>\*</code> - The item or undefined.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -265,10 +281,10 @@
 
 <br><a name="List+findIndex"></a>
 
-### list.findIndex(item) ⇒ <code>Number</code>
-> Gets the index of the first matching item. Uses a binary search. (Identical to indexOf)
+### list.findIndex(item) ⇒ <code>number.int</code>
+> Gets the index of the first matching item. Uses a binary search (Identical to indexOf).
 
-**Returns**: <code>Number</code> - The index of the item or -1  
+**Returns**: <code>number.int</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -277,10 +293,10 @@
 
 <br><a name="List+findLastIndex"></a>
 
-### list.findLastIndex(item) ⇒ <code>Number</code>
-> Gets the index of the last matching item. Uses a binary search. (Identical to lastIndexOf)
+### list.findLastIndex(item) ⇒ <code>number.int</code>
+> Gets the index of the last matching item. Uses a binary search (Identical to lastIndexOf).
 
-**Returns**: <code>Number</code> - The index of the item or -1  
+**Returns**: <code>number.int</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -302,13 +318,13 @@
 <br><a name="List+someRight"></a>
 
 ### list.someRight(callback, [thisArg]) ⇒ [<code>List</code>](#List)
-> Like .some(), but starts on the last (greatest index) item and progresses backwards
+> Like .some(), but starts on the last (greatest index) item and progresses backwards.
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+intersection"></a>
@@ -317,35 +333,35 @@
 > Gets the items that exist both in this list and in another list or array. Equality of items is determined by the comparer.
 
 
-| Param | Type |
-| --- | --- |
-| array | [<code>List</code>](#List), <code>Array</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| array | [<code>List</code>](#List), <code>Array</code> | Another list or array. |
 
 
 <br><a name="List+median"></a>
 
-### list.median([low], [high]) ⇒ <code>Number</code>
+### list.median([low], [high]) ⇒ <code>number</code>
 > If the values in the list are Numbers, then this will return the median value. If there are an odd number of elements, then the value of the middle element is returned. If there are an even number of elements then the mean of the middle two elements is returned. To get the mean of a range of elements, low and high can be provided.
 
 
-| Param | Type | Default |
-| --- | --- | --- |
-| [low] | <code>Int</code> | <code>0</code> | 
-| [high] | <code>Int</code> | <code>n</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [low] | <code>number.int</code> | <code>0</code> | Index of a range to start at. |
+| [high] | <code>number.int</code> | <code>n</code> | Index of a range to end at. |
 
 
 <br><a name="List+mean"></a>
 
-### list.mean() ⇒ <code>Number</code>
+### list.mean() ⇒ <code>number</code>
 > If the values in the list are Numbers, then this will return the mean(average) of all the elements.
 
 
 <br><a name="List+quartiles"></a>
 
-### list.quartiles() ⇒ <code>Object</code>
+### list.quartiles() ⇒ <code>object</code>
 > If the values in the list are Numbers, then this will return an object with a [quartile](https://en.wikipedia.org/wiki/Quartile) summary.
 
-**Returns**: <code>Object</code> - Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).  
+**Returns**: <code>object</code> - Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).  
 
 <br><a name="List+pop"></a>
 
@@ -361,26 +377,26 @@
 
 <br><a name="List+toString"></a>
 
-### list.toString() ⇒ <code>String</code>
+### list.toString() ⇒ <code>string</code>
 > See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
 
 
 <br><a name="List+keys"></a>
 
-### list.keys() ⇒ <code>Object</code>
+### list.keys() ⇒ <code>object</code>
 > See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
 
 
 <br><a name="List+every"></a>
 
-### list.every(callback, [thisArg]) ⇒ <code>Boolean</code>
+### list.every(callback, [thisArg]) ⇒ <code>boolean</code>
 > See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+forEach"></a>
@@ -389,33 +405,33 @@
 > See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+toLocaleString"></a>
 
-### list.toLocaleString([locales], [options]) ⇒ <code>String</code>
+### list.toLocaleString([locales], [options]) ⇒ <code>string</code>
 > See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
 
 
 | Param | Type |
 | --- | --- |
 | [locales] | <code>Array</code> | 
-| [options] | <code>Object</code> | 
+| [options] | <code>object</code> | 
 
 
 <br><a name="List+join"></a>
 
-### list.join([separator]) ⇒ <code>String</code>
+### list.join([separator]) ⇒ <code>string</code>
 > See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
 
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [separator] | <code>String</code> | <code>&#x27;,&#x27;</code> | 
+| [separator] | <code>string</code> | <code>&quot;&#x27;,&#x27;&quot;</code> | 
 
 
 <br><a name="List+map"></a>
@@ -424,10 +440,10 @@
 > See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+reduce"></a>
@@ -436,10 +452,10 @@
 > See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  |  |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+reduceRight"></a>
@@ -448,22 +464,22 @@
 > See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  |  |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+some"></a>
 
-### list.some(callback, [thisArg]) ⇒ <code>Boolean</code>
+### list.some(callback, [thisArg]) ⇒ <code>boolean</code>
 > See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+filter"></a>
@@ -472,10 +488,10 @@
 > See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
 
-| Param | Type |
-| --- | --- |
-| callback | <code>function</code> | 
-| [thisArg] | <code>Object</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
+| [thisArg] | <code>object</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="List+slice"></a>
@@ -486,8 +502,8 @@
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [begin] | <code>Number</code> | <code>0</code> | 
-| [end] | <code>Number</code> | <code>array.length</code> | 
+| [begin] | <code>number.int</code> | <code>0</code> | 
+| [end] | <code>number.int</code> | <code>array.length</code> | 
 
 
 <br><a name="List.comparers"></a>
@@ -500,11 +516,11 @@
 
 | Name | Type | Description |
 | --- | --- | --- |
-| default | <code>function</code> | Replicates the default behavior of Array.sort() |
-| string | <code>Object</code> |  |
+| default | <code>function</code> | Replicates the default behavior of Array.sort(). |
+| string | <code>object</code> |  |
 | string.asc | <code>function</code> | Uses localeCompare to sort strings. This is less efficient, but is useful for lists that will be displayed to users. |
 | string.desc | <code>function</code> | Inverse of string.asc |
-| number | <code>Object</code> |  |
+| number | <code>object</code> |  |
 | number.asc | <code>function</code> | Sorts numbers in numeric order |
 | number.desc | <code>function</code> | Inverse of number.asc |
 

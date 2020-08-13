@@ -109,23 +109,24 @@ export default class Model {
 		}
 
 		const applied = _self.applied.get(object);
-		if (applied) {
+		if (applied !== undefined) {
 			return applied;
 		}
+
 		if (_self.applied.has(onChange.target(object))) {
 			return object;
 		}
 
 		self[processErrors](self.schema.enforce(object));
 
-		const proxy = onChange(object, function(path, value, previous) {
+		const proxy = onChange(object, function(path, value, previous, name) {
 			if (!isEnforcing) {
 				isEnforcing = true;
 
 				self[processErrors](self.schema.enforce(this, path, previous));
 
 				if (self.onChange()) {
-					self.onChange().trigger(null, [path, value, previous], this);
+					self.onChange().trigger(null, [path, value, previous, name], this);
 				}
 
 				isEnforcing = false;
@@ -211,7 +212,7 @@ Object.assign(Model.prototype, {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {Function} callback - Provides three args: path, value, and previous value. Context is the model that changed.
+	 * @param {Function} callback - Provides four args: path, value, previous value, and the name of the method that produced the change. Context is the model that changed.
 	 *
 	 * @returns {Queue}
 	 */

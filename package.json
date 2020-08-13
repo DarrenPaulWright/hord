@@ -86,7 +86,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"object-agent": "^1.4.13",
-		"on-change": "^2.1.0",
+		"on-change": "^2.1.2",
 		"type-enforcer": "^1.2.0",
 		"type-enforcer-ui": "^1.1.0"
 	},

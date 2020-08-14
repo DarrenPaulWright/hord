@@ -1047,9 +1047,11 @@ export default class Collection extends Array {
 
 		const flatten = (input, depth, parent) => {
 			if (isArray(input)) {
-				return input.reduce((result, item) => {
+				const output = input.reduce((result, item) => {
 					return result.concat(flatten(item, depth, parent));
-				}, input instanceof Collection ? this[spawn]() : []);
+				}, []);
+
+				return (input instanceof Collection) ? this[spawn](new Collection(output)) : output;
 			}
 
 			const child = clone(input, [childKey]);

@@ -92,7 +92,7 @@ export default class Model {
 	/**
 	 * Apply this model to an object.
 	 *
-	 * @memberof Model
+	 * @memberOf Model
 	 * @instance
 	 *
 	 * @param {object} object - The object to apply this model to.
@@ -141,7 +141,7 @@ export default class Model {
 	/**
 	 * Returns a new Model with a new [extended](docs/Schema.md#Schema+extend) Schema. Retains the errorLevel from the calling Model.
 	 *
-	 * @memberof Model
+	 * @memberOf Model
 	 * @instance
 	 *
 	 * @param {Model|Schema|Schema.SchemaDefinition} model - The model to superimpose on this one.
@@ -156,7 +156,7 @@ export default class Model {
 	/**
 	 * Get the schema for this model.
 	 *
-	 * @memberof Model
+	 * @memberOf Model
 	 * @instance
 	 * @readonly
 	 *
@@ -170,7 +170,7 @@ export default class Model {
 /**
  * How to handle errors on all models
  *
- * @memberof Model
+ * @memberOf Model
  * @method defaultErrorLevel
  * @static
  * @default MODEL_ERROR_LEVEL.WARN
@@ -188,7 +188,7 @@ Object.assign(Model.prototype, {
 	/**
 	 * How to handle errors on this model. Overrides Model.defaultErrorLevel()
 	 *
-	 * @memberof Model
+	 * @memberOf Model
 	 * @method errorLevel
 	 * @instance
 	 * @chainable
@@ -207,7 +207,7 @@ Object.assign(Model.prototype, {
 	 *
 	 * @see [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)
 	 *
-	 * @memberof Model
+	 * @memberOf Model
 	 * @method onChange
 	 * @instance
 	 * @chainable
@@ -224,7 +224,7 @@ Object.assign(Model.prototype, {
 	 *
 	 * @see [Queue](https://github.com/DarrenPaulWright/type-enforcer/blob/HEAD/docs/Queue.md)
 	 *
-	 * @memberof Model
+	 * @memberOf Model
 	 * @method onError
 	 * @instance
 	 * @chainable

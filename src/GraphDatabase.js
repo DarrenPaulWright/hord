@@ -183,7 +183,7 @@ export default class GraphDatabase {
 	/**
 	 * Set the nodes. An 'id' property is required for all nodes and can be a `String` or a `Number`.
 	 *
-	 * @memberof GraphDatabase
+	 * @memberOf GraphDatabase
 	 * @instance
 	 *
 	 * @param {Array|Collection} nodes - The nodes or vertices of the graph.
@@ -209,7 +209,7 @@ export default class GraphDatabase {
 	/**
 	 * Add nodes. An 'id' property is required for all nodes and can be a `String` or a `Number`.
 	 *
-	 * @memberof GraphDatabase
+	 * @memberOf GraphDatabase
 	 * @instance
 	 *
 	 * @param {Array|Collection} nodes - The nodes or vertices of the graph.
@@ -232,7 +232,7 @@ export default class GraphDatabase {
 	/**
 	 * Set the links. If link.source or link.target of any link doesn't map to an existing node.id, or is not already mapped to a node, then the link is removed.
 	 *
-	 * @memberof GraphDatabase
+	 * @memberOf GraphDatabase
 	 * @instance
 	 *
 	 * @param {Array|Collection} links - The links or edges of the graph.
@@ -261,7 +261,7 @@ export default class GraphDatabase {
 	/**
 	 * Add links. If link.source or link.target of any link doesn't map to an existing node.id, or is not already mapped to a node, then the link is removed.
 	 *
-	 * @memberof GraphDatabase
+	 * @memberOf GraphDatabase
 	 * @instance
 	 *
 	 * @param {Array|Collection} links - The links or edges of the graph.

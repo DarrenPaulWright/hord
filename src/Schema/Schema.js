@@ -134,7 +134,7 @@ export default class Schema {
 	/**
 	 * Validate an item against the schema.
 	 *
-	 * @memberof Schema
+	 * @memberOf Schema
 	 * @instance
 	 *
 	 * @param {object} item - The object validate against this schema.
@@ -149,7 +149,7 @@ export default class Schema {
 	/**
 	 * Enforce an items structure against the schema. This function mutates the original item.
 	 *
-	 * @memberof Schema
+	 * @memberOf Schema
 	 * @instance
 	 *
 	 * @param {object} item - The object enforce against this schema.
@@ -165,7 +165,7 @@ export default class Schema {
 	/**
 	 * Calls a callback for each rule that will be used to validate this schema.
 	 *
-	 * @memberof Schema
+	 * @memberOf Schema
 	 * @instance
 	 *
 	 * @param {Function} callback - Provides two args: the path and the rule. If true is returned then no more callbacks will happen further down this branch, but will continue up a level.
@@ -177,7 +177,7 @@ export default class Schema {
 	/**
 	 * Returns a new Schema with the rules from the provided schema [superimposed](https://github.com/DarrenPaulWright/object-agent/blob/master/docs/superimpose.md) on the rules from this schema. If no args are provided, then the returned Schema is effectively a clone of this one.
 	 *
-	 * @memberof Schema
+	 * @memberOf Schema
 	 * @instance
 	 *
 	 * @param {SchemaDefinition|Schema} schema - The schema to superimpose on this one.

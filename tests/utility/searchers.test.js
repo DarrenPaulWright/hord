@@ -94,26 +94,28 @@ const testSearch = (searcher, isRight) => {
 	});
 };
 
-describe('binarySearchLeft', () => {
-	testSearch(binarySearchLeft);
-});
+describe('searchers', () => {
+	describe('binarySearchLeft', () => {
+		testSearch(binarySearchLeft);
+	});
 
-describe('binarySearchRight', () => {
-	testSearch(binarySearchRight, true);
-});
+	describe('binarySearchRight', () => {
+		testSearch(binarySearchRight, true);
+	});
 
-describe('binarySearch', () => {
-	testSearch(binarySearch);
-});
+	describe('binarySearch', () => {
+		testSearch(binarySearch);
+	});
 
-describe('binarySearch Right', () => {
-	testSearch((array, item, comparer, isInsert) => binarySearch(array, item, comparer, isInsert, true), true);
-});
+	describe('binarySearch Right', () => {
+		testSearch((array, item, comparer, isInsert) => binarySearch(array, item, comparer, isInsert, true), true);
+	});
 
-describe('scanSearchLeft', () => {
-	testSearch(scanSearchLeft);
-});
+	describe('scanSearchLeft', () => {
+		testSearch(scanSearchLeft);
+	});
 
-describe('scanSearchRight', () => {
-	testSearch(scanSearchRight, true);
+	describe('scanSearchRight', () => {
+		testSearch(scanSearchRight, true);
+	});
 });

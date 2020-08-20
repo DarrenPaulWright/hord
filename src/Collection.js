@@ -309,7 +309,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`✎ Builds indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @method model
 	 * @instance
 	 * @chainable
@@ -360,7 +360,7 @@ export default class Collection extends Array {
 	/**
 	 * Removes all model onChange events and indexes and empties the collection.
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Mutable
 	 */
@@ -378,7 +378,7 @@ export default class Collection extends Array {
 	 *
 	 *
 	 * @member {number.int} length
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 */
 
@@ -393,7 +393,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
 	 *
 	 * @method push
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Add / Remove
 	 *
@@ -430,7 +430,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
 	 *
 	 * @method pop
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Add / Remove
 	 *
@@ -459,7 +459,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)
 	 *
 	 * @method unshift
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Add / Remove
 	 *
@@ -495,7 +495,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
 	 *
 	 * @method shift
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Add / Remove
 	 *
@@ -526,7 +526,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 	 *
 	 * @method forEach
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 * @chainable
@@ -545,7 +545,7 @@ export default class Collection extends Array {
 	/**
 	 * Like .forEach(), but starts on the last (greatest index) item and progresses backwards.
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 * @chainable
@@ -569,7 +569,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 	 *
 	 * @method some
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -582,7 +582,7 @@ export default class Collection extends Array {
 	/**
 	 * Like .some(), but starts on the last (greatest index) item and progresses backwards
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -600,7 +600,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 	 *
 	 * @method every
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -614,7 +614,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 	 *
 	 * @method reduce
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -628,7 +628,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
 	 *
 	 * @method reduceRight
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -641,7 +641,7 @@ export default class Collection extends Array {
 	/**
 	 * Returns a new collection with the results of calling a provided function on every element.
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -657,7 +657,7 @@ export default class Collection extends Array {
 	/**
 	 * Calls a callback for each nested child.
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -695,7 +695,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.flat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
 	 *
 	 * @method flat
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -710,7 +710,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.flatMap()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
 	 *
 	 * @method flatMap
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Iterative
 	 *
@@ -728,7 +728,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -763,7 +763,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -798,7 +798,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -816,7 +816,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -856,7 +856,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -895,7 +895,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -913,7 +913,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -931,7 +931,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -964,7 +964,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Queries
 	 *
@@ -985,7 +985,7 @@ export default class Collection extends Array {
 	/**
 	 * Gets the first item in the collection without removing it.
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -998,7 +998,7 @@ export default class Collection extends Array {
 	/**
 	 * Gets the last item in the collection without removing it.
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1011,7 +1011,7 @@ export default class Collection extends Array {
 	/**
 	 * Returns a shallow copy of a portion of the collection selected from begin to end (end not included).
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1027,7 +1027,7 @@ export default class Collection extends Array {
 	/**
 	 * Returns a new flattened collection.
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1083,7 +1083,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1132,7 +1132,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1173,7 +1173,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚡ Utilizes indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1231,7 +1231,7 @@ export default class Collection extends Array {
 	 *
 	 * @see [Array.prototype.concat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1247,7 +1247,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
 	 *
 	 * @method toString
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1258,7 +1258,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
 	 *
 	 * @method toLocaleString
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1272,7 +1272,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
 	 *
 	 * @method join
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1285,7 +1285,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
 	 *
 	 * @method entries
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1296,7 +1296,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values)
 	 *
 	 * @method values
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1307,7 +1307,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
 	 *
 	 * @method keys
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Immutable Retrieval
 	 *
@@ -1325,7 +1325,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)
 	 *
 	 * @method copyWithin
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @chainable
 	 * @category Mutable
@@ -1352,7 +1352,7 @@ export default class Collection extends Array {
 	 * @see [Array.prototype.fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)
 	 *
 	 * @method fill
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @chainable
 	 * @category Mutable
@@ -1378,7 +1378,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚠ Forces a rebuild of all indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @chainable
 	 * @category Mutable
@@ -1398,7 +1398,7 @@ export default class Collection extends Array {
 	 * @summary
 	 * _`⚠ Forces a rebuild of all indexes`_
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @chainable
 	 * @category Mutable
@@ -1422,7 +1422,7 @@ export default class Collection extends Array {
 	 *
 	 * @see [Array.prototype.splice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
 	 *
-	 * @memberof Collection
+	 * @memberOf Collection
 	 * @instance
 	 * @category Mutable
 	 *

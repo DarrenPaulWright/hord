@@ -73,7 +73,7 @@ export default class List {
 	 * const list = new List().comparer(List.comparers.number.asc).values([1, 2, 3]);
 	 * ```
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {Function} comparer - See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details. A few simple comparer functions are provided via the static property [List.comparers](#List.comparers).
@@ -93,7 +93,7 @@ export default class List {
 	/**
 	 * Sort the items.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -112,7 +112,7 @@ export default class List {
 	/**
 	 * Add an item to the list. Uses binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -131,7 +131,7 @@ export default class List {
 	/**
 	 * Add an item to the list if it isn't already included. Uses binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -159,7 +159,7 @@ export default class List {
 	/**
 	 * Get a new List of the unique (as determined by the comparer) values in this List.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @returns {List}
@@ -185,7 +185,7 @@ export default class List {
 	/**
 	 * Returns a shallow clone of this list with the contents of one or more arrays or lists appended.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -207,7 +207,7 @@ export default class List {
 	/**
 	 * Discard an item from the list. Uses binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -226,7 +226,7 @@ export default class List {
 	/**
 	 * Discard an item from the list at a specified index.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -243,7 +243,7 @@ export default class List {
 	/**
 	 * Discard all items from the list.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -258,7 +258,7 @@ export default class List {
 	/**
 	 * The current items in the list.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @chainable
 	 *
@@ -279,7 +279,7 @@ export default class List {
 	/**
 	 * Gets the index of the first matching item. Uses a binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -295,7 +295,7 @@ export default class List {
 	/**
 	 * Gets the index of the last matching item. Uses a binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -311,7 +311,7 @@ export default class List {
 	/**
 	 * Determines if an item exists in the list. Uses a binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -325,7 +325,7 @@ export default class List {
 	/**
 	 * Gets the first matching item from the list. Uses a binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -339,7 +339,7 @@ export default class List {
 	/**
 	 * Gets the last matching item from the list. Uses a binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -353,7 +353,7 @@ export default class List {
 	/**
 	 * Gets all the matching items from the list. Uses a binary search.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -370,7 +370,7 @@ export default class List {
 	/**
 	 * Gets the index of the first matching item. Uses a binary search (Identical to indexOf).
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -384,7 +384,7 @@ export default class List {
 	/**
 	 * Gets the index of the last matching item. Uses a binary search (Identical to lastIndexOf).
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {*} item - Uses the comparer function to determine equality.
@@ -398,7 +398,7 @@ export default class List {
 	/**
 	 * Gets the first item in the list without removing it.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @returns {*}
@@ -410,7 +410,7 @@ export default class List {
 	/**
 	 * Gets the last item in the list without removing it.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @returns {*}
@@ -424,7 +424,7 @@ export default class List {
 	/**
 	 * Like .some(), but starts on the last (greatest index) item and progresses backwards.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
@@ -441,7 +441,7 @@ export default class List {
 	/**
 	 * Gets the items that exist both in this list and in another list or array. Equality of items is determined by the comparer.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {List|Array} array - Another list or array.
@@ -457,7 +457,7 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return the median value. If there are an odd number of elements, then the value of the middle element is returned. If there are an even number of elements then the mean of the middle two elements is returned. To get the mean of a range of elements, low and high can be provided.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @param {number.int} [low=0] - Index of a range to start at.
@@ -481,7 +481,7 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return the total value of all the elements added together.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @returns {number}
@@ -493,7 +493,7 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return the mean(average) of all the elements.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @returns {number}
@@ -505,7 +505,7 @@ export default class List {
 	/**
 	 * If the values in the list are Numbers, then this will return an object with a [quartile](https://en.wikipedia.org/wiki/Quartile) summary.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 *
 	 * @returns {object} Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).
@@ -549,7 +549,7 @@ export default class List {
 	/**
 	 * The number of items in the list.
 	 *
-	 * @memberof List
+	 * @memberOf List
 	 * @instance
 	 * @readonly
 	 *
@@ -563,7 +563,7 @@ export default class List {
 /**
  * Some simple comparer functions.
  *
- * @memberof List
+ * @memberOf List
  * @readonly
  * @static
  *
@@ -581,7 +581,7 @@ List.comparers = comparers;
  * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
  *
  * @method pop
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @returns {*}
@@ -590,7 +590,7 @@ List.comparers = comparers;
  * See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
  *
  * @method shift
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @returns {*}
@@ -599,7 +599,7 @@ List.comparers = comparers;
  * See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
  *
  * @method toString
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @returns {string}
@@ -608,7 +608,7 @@ List.comparers = comparers;
  * See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
  *
  * @method keys
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @returns {object}
@@ -628,7 +628,7 @@ List.comparers = comparers;
  * See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
  *
  * @method every
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Function} callback - Provides two arguments, the element and the index of the element.
@@ -640,7 +640,7 @@ List.comparers = comparers;
  * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
  *
  * @method forEach
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Function} callback - Provides two arguments, the element and the index of the element.
@@ -652,7 +652,7 @@ List.comparers = comparers;
  * See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
  *
  * @method toLocaleString
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Array} [locales]
@@ -664,7 +664,7 @@ List.comparers = comparers;
  * See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
  *
  * @method join
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {string} [separator=',']
@@ -675,7 +675,7 @@ List.comparers = comparers;
  * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
  *
  * @method map
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Function} callback - Provides two arguments, the element and the index of the element.
@@ -687,7 +687,7 @@ List.comparers = comparers;
  * See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
  *
  * @method reduce
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Function} callback
@@ -699,7 +699,7 @@ List.comparers = comparers;
  * See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
  *
  * @method reduceRight
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Function} callback
@@ -711,7 +711,7 @@ List.comparers = comparers;
  * See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
  *
  * @method some
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Function} callback - Provides two arguments, the element and the index of the element.
@@ -738,7 +738,7 @@ List.comparers = comparers;
  * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
  *
  * @method filter
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {Function} callback - Provides two arguments, the element and the index of the element.
@@ -750,7 +750,7 @@ List.comparers = comparers;
  * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
  *
  * @method slice
- * @memberof List
+ * @memberOf List
  * @instance
  *
  * @param {number.int} [begin=0]

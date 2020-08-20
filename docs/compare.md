@@ -41,8 +41,8 @@ compare('id')({id: 1}, {id: 2});
 [build-url]: https://travis-ci.org/DarrenPaulWright/hord
 [coverage]: https://coveralls.io/repos/github/DarrenPaulWright/hord/badge.svg?branch&#x3D;master
 [coverage-url]: https://coveralls.io/github/DarrenPaulWright/hord?branch&#x3D;master
-[deps]: https://david-dm.org/darrenpaulwright/hord.svg
-[deps-url]: https://david-dm.org/darrenpaulwright/hord
+[deps]: https://david-dm.org/DarrenPaulWright/hord.svg
+[deps-url]: https://david-dm.org/DarrenPaulWright/hord
 [size]: https://packagephobia.now.sh/badge?p&#x3D;hord
 [size-url]: https://packagephobia.now.sh/result?p&#x3D;hord
 [vulnerabilities]: https://snyk.io/test/github/DarrenPaulWright/hord/badge.svg?targetFile&#x3D;package.json

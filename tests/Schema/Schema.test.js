@@ -787,13 +787,13 @@ describe('Schema', () => {
 		describe('numeric', () => {
 			it('should NOT return an error for an integer greater than min', () => {
 				const item = {
-					testKey: 12
+					testKey: 0
 				};
 
 				const schema = new Schema({
 					testKey: {
 						type: 'integer',
-						min: 10
+						min: 0
 					}
 				});
 

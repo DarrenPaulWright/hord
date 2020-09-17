@@ -3,6 +3,8 @@ import ERRORS from './schemaErrors.js';
 
 const OR_SEPARATOR = ' OR ';
 
+const NUMERIC_DEFAULT = Symbol();
+
 const checkRule = (type, value, path, onError) => {
 	if (type.schema !== undefined) {
 		type.check(value, type.schema).forEach((error) => {
@@ -17,7 +19,7 @@ const checkRule = (type, value, path, onError) => {
 	}
 
 	if (type.clamp !== true) {
-		if (type.numericRange !== undefined && !type.numericRange(type, value, false)) {
+		if (type.numericRange !== undefined && type.numericRange(type, value, NUMERIC_DEFAULT) === NUMERIC_DEFAULT) {
 			return ERRORS.NUMERIC_RANGE;
 		}
 		if (type.length !== undefined && !type.length(type, value)) {

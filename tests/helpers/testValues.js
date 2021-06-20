@@ -32,8 +32,12 @@ import {
 	testValues
 } from 'type-enforcer-test-helper';
 import { enforceElement, isElement } from 'type-enforcer-ui';
-import { Model, Schema } from '../index.js';
-import { enforceAnything, isAnything, TYPE_RULES } from '../src/Schema/parse/typeRules.js';
+import { Model, Schema } from '../../index.js';
+import {
+	enforceAnything,
+	isAnything,
+	TYPE_RULES
+} from '../../src/Schema/parse/typeRules.js';
 
 export const testSchema = new Schema({ key: String });
 export const testModel = new Model({ key: String });

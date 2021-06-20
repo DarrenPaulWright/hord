@@ -4,7 +4,7 @@ import { multiTest } from 'type-enforcer-test-helper';
 import Model from '../../../src/Model.js';
 import traverseSchema from '../../../src/Schema/parse/traverseSchema.js';
 import Schema from '../../../src/Schema/Schema.js';
-import { schemaTestTypes } from '../../testValues.js';
+import { schemaTestTypes } from '../../helpers/testValues.js';
 
 describe('traverseSchema', () => {
 	it('should call the callback twice for a nested empty array', () => {

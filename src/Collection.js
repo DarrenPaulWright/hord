@@ -172,9 +172,9 @@ export default class Collection extends Array {
 	constructor(...values) {
 		super(...(values.length === 1 && isArray(values[0]) ? values[0] : values));
 
-		return onChange(this, (path, value, previous, name) => {
+		return onChange(this, (path, value, previous, applyData) => {
 			if (this[INDEXER] !== undefined && this[INDEXER].isHandled === false) {
-				if (name === undefined && isNumber(path, true)) {
+				if (applyData === undefined && isNumber(path, true)) {
 					path = Number(path);
 					this[path] = this[MODEL].apply(this[path]);
 					this[INDEXER]

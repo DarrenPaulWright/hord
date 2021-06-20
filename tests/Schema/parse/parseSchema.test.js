@@ -13,16 +13,21 @@ import {
 } from 'type-enforcer';
 import { multiTest } from 'type-enforcer-test-helper';
 import parseSchema from '../../../src/Schema/parse/parseSchema.js';
-import { checkNumericRange, enforceAnything, isAnything } from '../../../src/Schema/parse/typeRules.js';
+import {
+	checkNumericRange,
+	enforceAnything,
+	isAnything
+} from '../../../src/Schema/parse/typeRules.js';
 import Schema from '../../../src/Schema/Schema.js';
-import { schemaTestTypes, testSchema } from '../../testValues.js';
+import { schemaTestTypes, testSchema } from '../../helpers/testValues.js';
 
 const testEnforce = () => {
 };
 
 const getTypeRule = (type) => {
 	const getName = (name) => {
-		return name.length === 1 ? name : name.charAt(0).toUpperCase() + name.slice(1);
+		return name.length === 1 ? name : name.charAt(0)
+			.toUpperCase() + name.slice(1);
 	};
 
 	const output = {

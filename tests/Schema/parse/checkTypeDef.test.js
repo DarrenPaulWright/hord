@@ -1,7 +1,7 @@
 import { assert } from 'type-enforcer';
 import { multiTest } from 'type-enforcer-test-helper';
 import checkSchemaType from '../../../src/Schema/parse/checkTypeDef.js';
-import { schemaTestTypes } from '../../testValues.js';
+import { schemaTestTypes } from '../../helpers/testValues.js';
 
 describe('checkSchemaType', () => {
 	const falseValues = [undefined, 'test', true, false, [], {}, 3, /g/u];

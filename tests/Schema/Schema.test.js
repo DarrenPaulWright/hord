@@ -3,7 +3,7 @@ import { clone, deepEqual } from 'object-agent';
 import { assert, Enum } from 'type-enforcer';
 import { Schema } from '../../index.js';
 import Model from '../../src/Model.js';
-import { schemaTestTypes } from '../testValues.js';
+import { schemaTestTypes } from '../helpers/testValues.js';
 
 const parseName = (data) => {
 	return data.name === 'function' ?

@@ -17,7 +17,7 @@ describe('Schema', () => {
 	describe('.validate', () => {
 		schemaTestTypes.forEach((data) => {
 			data.true.forEach((datum) => {
-				it(`should NOT return an error for a value that matches a ${data.name}`, () => {
+				it(`should NOT return an error for a value that matches a ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -31,7 +31,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should NOT return an error for a value that matches a ${data.name} and isRequired=true`, () => {
+				it(`should NOT return an error for a value that matches a ${ data.name } and isRequired=true`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -48,7 +48,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should return an error for a value of undefined when the type is ${data.name} and isRequired=true`, () => {
+				it(`should return an error for a value of undefined when the type is ${ data.name } and isRequired=true`, () => {
 					const item = {
 						testKey: undefined
 					};
@@ -70,7 +70,7 @@ describe('Schema', () => {
 					}]);
 				});
 
-				it(`should NOT return an error for a value of undefined when the type is ${data.name} and isRequired=true and a default value is given`, () => {
+				it(`should NOT return an error for a value of undefined when the type is ${ data.name } and isRequired=true and a default value is given`, () => {
 					const item = {
 						testKey: undefined
 					};
@@ -88,7 +88,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should NOT return an error for a value that matches a ${data.name} in a nested object`, () => {
+				it(`should NOT return an error for a value that matches a ${ data.name } in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -106,7 +106,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should return an error for a key with a ${data.name} not in the schema`, () => {
+				it(`should return an error for a key with a ${ data.name } not in the schema`, () => {
 					const item = {
 						testKey: 'test string',
 						testKey2: datum
@@ -126,7 +126,7 @@ describe('Schema', () => {
 					}]);
 				});
 
-				it(`should NOT return an error for a ${data.name} in an array`, () => {
+				it(`should NOT return an error for a ${ data.name } in an array`, () => {
 					const item = {
 						testKey: [datum]
 					};
@@ -140,7 +140,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should NOT return an error for a key that matches a ${data.name} in an object in an array`, () => {
+				it(`should NOT return an error for a key that matches a ${ data.name } in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -164,7 +164,7 @@ describe('Schema', () => {
 					return;
 				}
 
-				it(`should return an error for a value of ${displayValue(datum)} that doesn't match a ${data.name}`, () => {
+				it(`should return an error for a value of ${ displayValue(datum) } that doesn't match a ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -188,7 +188,7 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in a nested object`, () => {
+				it(`should return an error for a value of ${ displayValue(datum) } that doesn\'t match a ${ data.name } in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -216,7 +216,7 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should return an error for a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in an object in an array`, () => {
+				it(`should return an error for a value of ${ displayValue(datum) } that doesn\'t match a ${ data.name } in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -246,7 +246,7 @@ describe('Schema', () => {
 			});
 
 			data.coerceTrue.forEach((datum) => {
-				it(`should NOT return an error for a value that is coercable to ${data.name}`, () => {
+				it(`should NOT return an error for a value that is coercable to ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -269,7 +269,7 @@ describe('Schema', () => {
 					return;
 				}
 
-				it(`should return an error for a value that is not coercable to ${data.name}`, () => {
+				it(`should return an error for a value that is not coercable to ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1158,7 +1158,7 @@ describe('Schema', () => {
 					return;
 				}
 
-				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name}`, () => {
+				it(`should NOT modify the value ${ displayValue(datum) } that matches a ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1176,7 +1176,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name} and isRequired=true`, () => {
+				it(`should NOT modify the value ${ displayValue(datum) } that matches a ${ data.name } and isRequired=true`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1196,7 +1196,7 @@ describe('Schema', () => {
 				});
 
 				if (data.value !== '*') {
-					it(`should modify a value of undefined when the type is ${data.name} and isRequired=true`, () => {
+					it(`should modify a value of undefined when the type is ${ data.name } and isRequired=true`, () => {
 						const item = {
 							testKey: undefined
 						};
@@ -1222,7 +1222,7 @@ describe('Schema', () => {
 						}]);
 					});
 
-					it(`should NOT modify the value undefined when the type is ${data.name} and isRequired=true and a default value is given`, () => {
+					it(`should NOT modify the value undefined when the type is ${ data.name } and isRequired=true and a default value is given`, () => {
 						const item = {
 							testKey: undefined
 						};
@@ -1245,7 +1245,7 @@ describe('Schema', () => {
 					});
 				}
 
-				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name} in a nested object`, () => {
+				it(`should NOT modify the value ${ displayValue(datum) } that matches a ${ data.name } in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -1269,7 +1269,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should unset a key with a ${data.name} not in the schema`, () => {
+				it(`should unset a key with a ${ data.name } not in the schema`, () => {
 					const item = {
 						testKey: 'test string',
 						testKey2: datum
@@ -1293,7 +1293,7 @@ describe('Schema', () => {
 					}]);
 				});
 
-				it(`should NOT remove a ${data.name} in an array`, () => {
+				it(`should NOT remove a ${ data.name } in an array`, () => {
 					const item = {
 						testKey: [datum]
 					};
@@ -1311,7 +1311,7 @@ describe('Schema', () => {
 					assert.is(errors.length, 0);
 				});
 
-				it(`should NOT modify the value ${displayValue(datum)} that matches a ${data.name} in an object in an array`, () => {
+				it(`should NOT modify the value ${ displayValue(datum) } that matches a ${ data.name } in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
@@ -1341,7 +1341,7 @@ describe('Schema', () => {
 					return;
 				}
 
-				it(`should modify a value of ${displayValue(datum)} that doesn't match a ${data.name}`, () => {
+				it(`should modify a value of ${ displayValue(datum) } that doesn't match a ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1368,7 +1368,7 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in a nested object`, () => {
+				it(`should modify a value of ${ displayValue(datum) } that doesn't match a ${ data.name } in a nested object`, () => {
 					const item = {
 						testKey: {
 							testKey2: datum
@@ -1399,13 +1399,15 @@ describe('Schema', () => {
 					}
 				});
 
-				it(`should modify a value of ${displayValue(datum)} that doesn\'t match a ${data.name} in an object in an array`, () => {
+				it(`should modify a value of ${ displayValue(datum) } that doesn\'t match a ${ data.name } in an object in an array`, () => {
 					const item = {
 						testKey: [{
 							testKey2: datum
 						}]
 					};
-					const output = {};
+					const output = {
+						testKey: []
+					};
 
 					const schema = new Schema({
 						testKey: [{
@@ -1432,7 +1434,7 @@ describe('Schema', () => {
 			});
 
 			data.coerceTrue.forEach((datum) => {
-				it(`should NOT modify the value ${displayValue(datum)} that is coercable to ${data.name}`, () => {
+				it(`should NOT modify the value ${ displayValue(datum) } that is coercable to ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1459,7 +1461,7 @@ describe('Schema', () => {
 					return;
 				}
 
-				it(`should modify a value that is not coercable to ${data.name}`, () => {
+				it(`should modify a value that is not coercable to ${ data.name }`, () => {
 					const item = {
 						testKey: datum
 					};
@@ -1592,7 +1594,9 @@ describe('Schema', () => {
 			const item = {
 				testKey: ['test1', 'test2']
 			};
-			const output = {};
+			const output = {
+				testKey: []
+			};
 
 			const schema = new Schema({
 				testKey: [
@@ -3079,4 +3083,3 @@ describe('Schema', () => {
 		});
 	});
 });
-

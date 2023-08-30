@@ -1,5 +1,5 @@
 import onChange from 'on-change';
-import { Enum, isInstanceOf, methodEnum, methodQueue, PrivateVars, Queue } from 'type-enforcer';
+import { Enum, isInstanceOf, methodEnum, methodQueue, PrivateVars } from 'type-enforcer';
 import Schema from './Schema/Schema.js';
 
 const _ = new PrivateVars();

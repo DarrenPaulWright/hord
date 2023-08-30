@@ -580,7 +580,7 @@ export default class Collection extends Array {
 	 */
 
 	/**
-	 * Like .some(), but starts on the last (greatest index) item and progresses backwards
+	 * Like .some(), but starts on the last (greatest index) item and progresses backwards.
 	 *
 	 * @memberOf Collection
 	 * @instance
@@ -959,7 +959,7 @@ export default class Collection extends Array {
 	}
 
 	/**
-	 * Like .slice(), but finds the begin and end indexes via predicates. (end is included)
+	 * Like .slice(), but finds the begin and end indexes via predicates (end is included).
 	 *
 	 * @summary
 	 * _`⚡ Utilizes indexes`_

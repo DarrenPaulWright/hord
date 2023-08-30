@@ -81,11 +81,6 @@ export const TYPE_RULES = new Map()
 		check: isDate,
 		enforce: enforceDate
 	}))
-	.set(Element, Object.freeze({
-		name: 'Element',
-		check: isElement,
-		enforce: enforceElement
-	}))
 	.set(Enum, Object.freeze({
 		name: 'Enum',
 		check(value, enumerable) {
@@ -163,3 +158,12 @@ export const TYPE_RULES = new Map()
 			return isObject(item) ? item : undefined;
 		}
 	}));
+
+if (typeof Element !== 'undefined') {
+	TYPE_RULES
+		.set(Element, Object.freeze({
+			name: 'Element',
+			check: isElement,
+			enforce: enforceElement
+		}));
+}

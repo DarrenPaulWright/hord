@@ -1,5 +1,5 @@
 import { appendToPath, clone, superimpose } from 'object-agent';
-import { Enum, PrivateVars } from 'type-enforcer';
+import { PrivateVars } from 'type-enforcer';
 import findRule from './findRule.js';
 import parseSchema from './parse/parseSchema.js';
 import processValue from './processValue.js';

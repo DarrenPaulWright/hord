@@ -247,7 +247,7 @@ _`⚡ Utilizes indexes`_
 
 ### collection.sliceBy(beginPredicate, [endPredicate]) ⇒ [<code>Collection</code>](#Collection)
 _`⚡ Utilizes indexes`_
-> Like .slice(), but finds the begin and end indexes via predicates. (end is included)
+> Like .slice(), but finds the begin and end indexes via predicates (end is included).
 
 **Returns**: [<code>Collection</code>](#Collection) - A new Collection with the same model as the calling collection.  
 
@@ -440,7 +440,7 @@ _`⚡ Utilizes indexes`_
 <br><a name="Collection+someRight"></a>
 
 ### collection.someRight(callback, [thisArg]) ⇒ <code>boolean</code>
-> Like .some(), but starts on the last (greatest index) item and progresses backwards
+> Like .some(), but starts on the last (greatest index) item and progresses backwards.
 
 
 | Param | Type | Default | Description |

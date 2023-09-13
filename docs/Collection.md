@@ -20,18 +20,18 @@
 
 * [Collection](#Collection) ⇐ <code>Array</code>
     * [new Collection([values])](#new_Collection_new)
-    * [.length](#Collection+length) : <code>number.int</code>
+    * [.length](#Collection+length) : <code>number</code>
     * _Add / Remove_
-        * [.push(item)](#Collection+push) ⇒ <code>number.int</code>
-        * [.pop()](#Collection+pop) ⇒ <code>\*</code>
-        * [.unshift(item)](#Collection+unshift) ⇒ <code>number.int</code>
-        * [.shift()](#Collection+shift) ⇒ <code>\*</code>
+        * [.push(item)](#Collection+push) ⇒ <code>number</code>
+        * [.pop()](#Collection+pop) ⇒ <code>unknown</code>
+        * [.unshift(item)](#Collection+unshift) ⇒ <code>number</code>
+        * [.shift()](#Collection+shift) ⇒ <code>unknown</code>
     * _Immutable Queries_
         * [.indexOf(item)](#Collection+indexOf) ⇒ <code>number</code>
         * [.lastIndexOf(item)](#Collection+lastIndexOf) ⇒ <code>number</code>
         * [.includes(item)](#Collection+includes) ⇒ <code>boolean</code>
-        * [.findIndex(predicate)](#Collection+findIndex) ⇒ <code>number.int</code>
-        * [.findLastIndex(predicate)](#Collection+findLastIndex) ⇒ <code>number.int</code>
+        * [.findIndex(predicate)](#Collection+findIndex) ⇒ <code>number</code>
+        * [.findLastIndex(predicate)](#Collection+findLastIndex) ⇒ <code>number</code>
         * [.find(predicate)](#Collection+find) ⇒ <code>object</code>
         * [.findLast(predicate)](#Collection+findLast) ⇒ <code>object</code>
         * [.filter(predicate)](#Collection+filter) ⇒ [<code>Collection</code>](#Collection)
@@ -57,8 +57,8 @@
         * [.some(callback, [thisArg])](#Collection+some) ⇒ <code>boolean</code>
         * [.someRight(callback, [thisArg])](#Collection+someRight) ⇒ <code>boolean</code>
         * [.every(callback, [thisArg])](#Collection+every) ⇒ <code>boolean</code>
-        * [.reduce(callback, [thisArg])](#Collection+reduce) ⇒ <code>\*</code>
-        * [.reduceRight(callback, [thisArg])](#Collection+reduceRight) ⇒ <code>\*</code>
+        * [.reduce(callback, [thisArg])](#Collection+reduce) ⇒ <code>unknown</code>
+        * [.reduceRight(callback, [thisArg])](#Collection+reduceRight) ⇒ <code>unknown</code>
         * [.map(callback, thisArg)](#Collection+map) ⇒ [<code>Collection</code>](#Collection)
         * [.eachChild(onChild, [settings])](#Collection+eachChild)
         * [.flat([depth])](#Collection+flat) ⇒ [<code>Collection</code>](#Collection)
@@ -90,7 +90,7 @@
 
 <br><a name="Collection+length"></a>
 
-### collection.length : <code>number.int</code>
+### collection.length : <code>number</code>
 _`✎ Updates indexes`_
 > Set or return the number of elements in the collection.
 
@@ -98,21 +98,21 @@ _`✎ Updates indexes`_
 
 <br><a name="Collection+push"></a>
 
-### collection.push(item) ⇒ <code>number.int</code>
+### collection.push(item) ⇒ <code>number</code>
 _`✎ Updates indexes`_
 > Add an item to the end of the collection.
 
-**Returns**: <code>number.int</code> - The new length of the collection.  
+**Returns**: <code>number</code> - The new length of the collection.  
 **See**: [Array.prototype.push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | The item to add. |
+| item | <code>unknown</code> | The item to add. |
 
 
 <br><a name="Collection+pop"></a>
 
-### collection.pop() ⇒ <code>\*</code>
+### collection.pop() ⇒ <code>unknown</code>
 _`✎ Updates indexes`_
 > Remove the last item from the collection and return it.
 
@@ -120,21 +120,21 @@ _`✎ Updates indexes`_
 
 <br><a name="Collection+unshift"></a>
 
-### collection.unshift(item) ⇒ <code>number.int</code>
+### collection.unshift(item) ⇒ <code>number</code>
 _`✎ Updates indexes`_
 > Add an item to the beginning of the collection.
 
-**Returns**: <code>number.int</code> - The new length of the collection.  
+**Returns**: <code>number</code> - The new length of the collection.  
 **See**: [Array.prototype.unshift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | The item to add. |
+| item | <code>unknown</code> | The item to add. |
 
 
 <br><a name="Collection+shift"></a>
 
-### collection.shift() ⇒ <code>\*</code>
+### collection.shift() ⇒ <code>unknown</code>
 _`✎ Updates indexes`_
 > Remove the first item from the collection and return it.
 
@@ -180,11 +180,11 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+findIndex"></a>
 
-### collection.findIndex(predicate) ⇒ <code>number.int</code>
+### collection.findIndex(predicate) ⇒ <code>number</code>
 _`⚡ Utilizes indexes`_
 > Gets the index of the first (lowest index) matching item.
 
-**Returns**: <code>number.int</code> - The index of the item or -1.  
+**Returns**: <code>number</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -193,11 +193,11 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+findLastIndex"></a>
 
-### collection.findLastIndex(predicate) ⇒ <code>number.int</code>
+### collection.findLastIndex(predicate) ⇒ <code>number</code>
 _`⚡ Utilizes indexes`_
 > Gets the index of the last (greatest index) matching item.
 
-**Returns**: <code>number.int</code> - The index of the item or -1.  
+**Returns**: <code>number</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -409,7 +409,7 @@ _`⚡ Utilizes indexes`_
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
-| [thisArg] | <code>\*</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
+| [thisArg] | <code>unknown</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="Collection+forEachRight"></a>
@@ -423,7 +423,7 @@ _`⚡ Utilizes indexes`_
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | callback | <code>function</code> |  | Provides two arguments, the element and the index of the element. |
-| [thisArg] | <code>\*</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
+| [thisArg] | <code>unknown</code> | <code>this</code> | A value to use as `this` when executing `callback`. |
 
 
 <br><a name="Collection+some"></a>
@@ -462,7 +462,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+reduce"></a>
 
-### collection.reduce(callback, [thisArg]) ⇒ <code>\*</code>
+### collection.reduce(callback, [thisArg]) ⇒ <code>unknown</code>
 **See**: [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)  
 
 | Param | Type | Default | Description |
@@ -473,7 +473,7 @@ _`⚡ Utilizes indexes`_
 
 <br><a name="Collection+reduceRight"></a>
 
-### collection.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
+### collection.reduceRight(callback, [thisArg]) ⇒ <code>unknown</code>
 **See**: [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)  
 
 | Param | Type | Default | Description |
@@ -492,7 +492,7 @@ _`⚡ Utilizes indexes`_
 | Param | Type | Description |
 | --- | --- | --- |
 | callback | <code>function</code> | Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection. |
-| thisArg | <code>\*</code> | Applied to the context of the callback. |
+| thisArg | <code>unknown</code> | Applied to the context of the callback. |
 
 
 <br><a name="Collection+eachChild"></a>
@@ -519,7 +519,7 @@ _`⚡ Utilizes indexes`_
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [depth] | <code>number.int</code> | <code>1</code> | 
+| [depth] | <code>number</code> | <code>1</code> | 
 
 
 <br><a name="Collection+flatMap"></a>
@@ -533,7 +533,7 @@ _`⚡ Utilizes indexes`_
 | Param | Type |
 | --- | --- |
 | callback | <code>function</code> | 
-| thisArg | <code>\*</code> | 
+| thisArg | <code>unknown</code> | 
 
 
 <br><a name="Collection+model"></a>
@@ -609,9 +609,9 @@ _`⚠ Forces a rebuild of all indexes`_
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| target | <code>number.int</code> |  | Index at which to copy the sequence to. If negative, target will be counted from the end. If target is at or greater than arr.length, nothing will be copied. If target is positioned after start, the copied sequence will be trimmed to fit arr.length. |
-| [start] | <code>number.int</code> | <code>0</code> | Index at which to start copying elements from. If negative, start will be counted from the end. If start is omitted, copyWithin will copy from index 0. |
-| [end] | <code>number.int</code> | <code>this.length</code> | Index at which to end copying elements from. copyWithin copies up to but not including end. If negative, end will be counted from the end. If end is omitted, copyWithin will copy until the last index (default to arr.length). |
+| target | <code>number</code> |  | Index at which to copy the sequence to. If negative, target will be counted from the end. If target is at or greater than arr.length, nothing will be copied. If target is positioned after start, the copied sequence will be trimmed to fit arr.length. |
+| [start] | <code>number</code> | <code>0</code> | Index at which to start copying elements from. If negative, start will be counted from the end. If start is omitted, copyWithin will copy from index 0. |
+| [end] | <code>number</code> | <code>this.length</code> | Index at which to end copying elements from. copyWithin copies up to but not including end. If negative, end will be counted from the end. If end is omitted, copyWithin will copy until the last index (default to arr.length). |
 
 
 <br><a name="Collection+fill"></a>
@@ -626,9 +626,9 @@ _`⚠ Forces a rebuild of all indexes`_
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| value | <code>\*</code> |  | Value to fill the array with. |
-| [start] | <code>number.int</code> | <code>0</code> | Start index. |
-| [end] | <code>number.int</code> | <code>this.length</code> | End index. |
+| value | <code>unknown</code> |  | Value to fill the array with. |
+| [start] | <code>number</code> | <code>0</code> | Start index. |
+| [end] | <code>number</code> | <code>this.length</code> | End index. |
 
 
 <br><a name="Collection+reverse"></a>
@@ -666,8 +666,8 @@ _`✎ Updates indexes`_
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| start | <code>number.int</code> |  | Index to start the splice. |
-| [deleteCount] | <code>number.int</code> | <code>0</code> | Number of elements to delete. |
+| start | <code>number</code> |  | Index to start the splice. |
+| [deleteCount] | <code>number</code> | <code>0</code> | Number of elements to delete. |
 | [...newValues] | <code>\*</code> |  | Any values to add. |
 
 

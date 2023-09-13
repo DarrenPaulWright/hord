@@ -377,7 +377,7 @@ export default class Collection extends Array {
 	 * @see [Array.length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length)
 	 *
 	 *
-	 * @member {number.int} length
+	 * @member {number} length
 	 * @memberOf Collection
 	 * @instance
 	 */
@@ -397,9 +397,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Add / Remove
 	 *
-	 * @param {*} item - The item to add.
+	 * @param {unknown} item - The item to add.
 	 *
-	 * @returns {number.int} The new length of the collection.
+	 * @returns {number} The new length of the collection.
 	 */
 	push(item) {
 		if (this[INDEXER]) {
@@ -434,7 +434,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Add / Remove
 	 *
-	 * @returns {*}
+	 * @returns {unknown}
 	 */
 	pop() {
 		if (this[INDEXER]) {
@@ -463,9 +463,9 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Add / Remove
 	 *
-	 * @param {*} item - The item to add.
+	 * @param {unknown} item - The item to add.
 	 *
-	 * @returns {number.int} The new length of the collection.
+	 * @returns {number} The new length of the collection.
 	 */
 	unshift(item) {
 		if (this[INDEXER]) {
@@ -499,7 +499,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Add / Remove
 	 *
-	 * @returns {*}
+	 * @returns {unknown}
 	 */
 	shift() {
 		if (this[INDEXER]) {
@@ -532,7 +532,7 @@ export default class Collection extends Array {
 	 * @chainable
 	 *
 	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
-	 * @param {*} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 * @param {unknown} [thisArg=this] - A value to use as `this` when executing `callback`.
 	 *
 	 * @returns {object} Returns `this`.
 	 */
@@ -551,7 +551,7 @@ export default class Collection extends Array {
 	 * @chainable
 	 *
 	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
-	 * @param {*} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 * @param {unknown} [thisArg=this] - A value to use as `this` when executing `callback`.
 	 *
 	 * @returns {object} Returns `this`.
 	 */
@@ -621,7 +621,7 @@ export default class Collection extends Array {
 	 * @param {Function} callback
 	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
 	 *
-	 * @returns {*}
+	 * @returns {unknown}
 	 */
 
 	/**
@@ -635,7 +635,7 @@ export default class Collection extends Array {
 	 * @param {Function} callback
 	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
 	 *
-	 * @returns {*}
+	 * @returns {unknown}
 	 */
 
 	/**
@@ -646,7 +646,7 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} callback - Function that produces an element of the new Array, taking three arguments: the current item, index, and the collection. Context is also set to this collection.
-	 * @param {*} thisArg - Applied to the context of the callback.
+	 * @param {unknown} thisArg - Applied to the context of the callback.
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -699,7 +699,7 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Iterative
 	 *
-	 * @param {number.int} [depth=1]
+	 * @param {number} [depth=1]
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -715,7 +715,7 @@ export default class Collection extends Array {
 	 * @category Iterative
 	 *
 	 * @param {Function} callback
-	 * @param {*} thisArg
+	 * @param {unknown} thisArg
 	 *
 	 * @returns {Collection} A new Collection without a model.
 	 */
@@ -822,7 +822,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {predicate} predicate - A predicate to match against.
 	 *
-	 * @returns {number.int} The index of the item or -1.
+	 * @returns {number} The index of the item or -1.
 	 */
 	findIndex(predicate) {
 		if (this[INDEXER] && isObject(predicate)) {
@@ -862,7 +862,7 @@ export default class Collection extends Array {
 	 *
 	 * @param {predicate} predicate - A predicate to match against.
 	 *
-	 * @returns {number.int} The index of the item or -1.
+	 * @returns {number} The index of the item or -1.
 	 */
 	findLastIndex(predicate) {
 		if (this[INDEXER] && isObject(predicate)) {
@@ -1330,9 +1330,9 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @param {number.int} target - Index at which to copy the sequence to. If negative, target will be counted from the end. If target is at or greater than arr.length, nothing will be copied. If target is positioned after start, the copied sequence will be trimmed to fit arr.length.
-	 * @param {number.int} [start=0] - Index at which to start copying elements from. If negative, start will be counted from the end. If start is omitted, copyWithin will copy from index 0.
-	 * @param {number.int} [end=this.length] - Index at which to end copying elements from. copyWithin copies up to but not including end. If negative, end will be counted from the end. If end is omitted, copyWithin will copy until the last index (default to arr.length).
+	 * @param {number} target - Index at which to copy the sequence to. If negative, target will be counted from the end. If target is at or greater than arr.length, nothing will be copied. If target is positioned after start, the copied sequence will be trimmed to fit arr.length.
+	 * @param {number} [start=0] - Index at which to start copying elements from. If negative, start will be counted from the end. If start is omitted, copyWithin will copy from index 0.
+	 * @param {number} [end=this.length] - Index at which to end copying elements from. copyWithin copies up to but not including end. If negative, end will be counted from the end. If end is omitted, copyWithin will copy until the last index (default to arr.length).
 	 *
 	 * @returns {object} Returns `this'.
 	 */
@@ -1357,9 +1357,9 @@ export default class Collection extends Array {
 	 * @chainable
 	 * @category Mutable
 	 *
-	 * @param {*} value - Value to fill the array with.
-	 * @param {number.int} [start=0] - Start index.
-	 * @param {number.int} [end=this.length] - End index.
+	 * @param {unknown} value - Value to fill the array with.
+	 * @param {number} [start=0] - Start index.
+	 * @param {number} [end=this.length] - End index.
 	 *
 	 * @returns {object} Returns `this'.
 	 */
@@ -1426,8 +1426,8 @@ export default class Collection extends Array {
 	 * @instance
 	 * @category Mutable
 	 *
-	 * @param {number.int} start - Index to start the splice.
-	 * @param {number.int} [deleteCount=0] - Number of elements to delete.
+	 * @param {number} start - Index to start the splice.
+	 * @param {number} [deleteCount=0] - Number of elements to delete.
 	 * @param {...*} [newValues] - Any values to add.
 	 *
 	 * @returns {Collection} A new Collection with the same model as the calling collection. Contains the elements removed from the calling collection.

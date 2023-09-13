@@ -63,12 +63,12 @@ const processObject = (item, rule, path, value, onError, isEnforce) => { // esli
  * @function processValue
  * @private
  *
- * @param {*} item - The value to validate.
+ * @param {unknown} item - The value to validate.
  * @param {object} rule - The rule to process.
  * @param {string} path - The path that the item is located at.
  * @param {Function} onError - Function to call if a validation error is found.
  * @param {boolean} [isEnforce=false] - Enforce the rule.
- * @param {*} replace - The value to replace item with if not valid.
+ * @param {unknown} replace - The value to replace item with if not valid.
  *
  * @returns {boolean}
  */

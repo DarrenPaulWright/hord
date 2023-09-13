@@ -43,7 +43,7 @@ _Requires Babel 7.2+_
 ## Functions
 
 <dl>
-<dt><a href="docs/compare.md">compare([paths], [desc])</a> ⇒ <code>function</code></dt>
+<dt><a href="docs/compare.md">compare([paths], [desc])</a> ⇒ <code><a href="#sortCompareFunction">sortCompareFunction</a></code></dt>
 <dd><p>Returns a function that compares two values. If paths are provided, compares the values at that path on objects.</p>
 <p>Notes:</p>
 <ul>

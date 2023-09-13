@@ -30,6 +30,12 @@ const compare = (a, b) => {
 };
 
 /**
+ * @callback sortCompareFunction
+ * @param {unknown} a
+ * @param {unknown} b
+ * @returns {number}
+ */
+/**
  * Returns a function that compares two values. If paths are provided, compares the values at that path on objects.
  *
  * Notes:
@@ -46,10 +52,10 @@ const compare = (a, b) => {
  *
  * @function compare
  *
- * @param {Array|string} [paths] - The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on.
+ * @param {Array<string>|string} [paths] - The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on.
  * @param {boolean} [desc=false] - If true then inverse values are returned.
  *
- * @returns {Function} Accepts two arguments to be compared. Returns -1, 0, or 1.
+ * @returns {sortCompareFunction} Accepts two arguments to be compared. Returns -1, 0, or 1.
  */
 export default (paths, desc = false) => {
 	if (paths !== undefined) {

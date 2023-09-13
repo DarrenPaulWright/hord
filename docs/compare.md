@@ -13,18 +13,18 @@
 
 <br><a name="compare"></a>
 
-## compare([paths], [desc]) ⇒ <code>function</code>
+## compare([paths], [desc]) ⇒ [<code>sortCompareFunction</code>](#sortCompareFunction)
 > Returns a function that compares two values. If paths are provided, compares the values at that path on objects.
 > 
 > Notes:
 > - Handles undefined, null, and NaN.
 > - Distinguishes numbers from strings.
 
-**Returns**: <code>function</code> - Accepts two arguments to be compared. Returns -1, 0, or 1.  
+**Returns**: [<code>sortCompareFunction</code>](#sortCompareFunction) - Accepts two arguments to be compared. Returns -1, 0, or 1.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [paths] | <code>Array</code>, <code>string</code> |  | The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on. |
+| [paths] | <code>Array.&lt;string&gt;</code>, <code>string</code> |  | The path or paths to compare. If multiple paths are provided, then the first key is compared first, if the values are equal then the second key is compared, and so on. |
 | [desc] | <code>boolean</code> | <code>false</code> | If true then inverse values are returned. |
 
 **Example**  
@@ -34,6 +34,16 @@ import { compare } from 'hord';
 compare('id')({id: 1}, {id: 2});
 // => -1
 ```
+
+<br><a name="sortCompareFunction"></a>
+
+## sortCompareFunction ⇒ <code>number</code>
+
+| Param | Type |
+| --- | --- |
+| a | <code>unknown</code> | 
+| b | <code>unknown</code> | 
+
 
 [npm]: https://img.shields.io/npm/v/hord.svg
 [npm-url]: https://npmjs.com/package/hord

@@ -78,7 +78,7 @@ export default class List {
 	 *
 	 * @param {Function} comparer - See the compare function for [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters) for details. A few simple comparer functions are provided via the static property [List.comparers](#List.comparers).
 	 *
-	 * @returns {Function}
+	 * @returns {Function | this}
 	 */
 	comparer(comparer) {
 		if (arguments.length !== 0) {
@@ -116,7 +116,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {*} item - Item is inserted into the list such that the items are still sorted.
+	 * @param {unknown} item - Item is inserted into the list such that the items are still sorted.
 	 *
 	 * @returns {object} Returns `this`.
 	 */
@@ -135,7 +135,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {*} item - Item is inserted into the list such that the items are still sorted.
+	 * @param {unknown} item - Item is inserted into the list such that the items are still sorted.
 	 *
 	 * @returns {object} Returns `this`.
 	 */
@@ -211,7 +211,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {object} Returns `this`.
 	 */
@@ -230,7 +230,7 @@ export default class List {
 	 * @instance
 	 * @chainable
 	 *
-	 * @param {*} index - The index of the item to be discarded.
+	 * @param {unknown} index - The index of the item to be discarded.
 	 *
 	 * @returns {object} Returns `this`.
 	 */
@@ -282,9 +282,9 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number.int} The index of the item or -1.
+	 * @returns {number} The index of the item or -1.
 	 */
 	indexOf(item) {
 		const _self = _(this);
@@ -298,9 +298,9 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number.int} The index of the item or -1.
+	 * @returns {number} The index of the item or -1.
 	 */
 	lastIndexOf(item) {
 		const _self = _(this);
@@ -314,7 +314,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {boolean}
 	 */
@@ -328,9 +328,9 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {*} The item or undefined.
+	 * @returns {unknown} The item or undefined.
 	 */
 	find(item) {
 		return _(this).array[this.indexOf(item)];
@@ -342,9 +342,9 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {*} The item or undefined.
+	 * @returns {unknown} The item or undefined.
 	 */
 	findLast(item) {
 		return _(this).array[this.lastIndexOf(item)];
@@ -356,7 +356,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
 	 * @returns {List}
 	 */
@@ -373,9 +373,9 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number.int} The index of the item or -1.
+	 * @returns {number} The index of the item or -1.
 	 */
 	findIndex(item) {
 		return this.indexOf(item);
@@ -387,9 +387,9 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {*} item - Uses the comparer function to determine equality.
+	 * @param {unknown} item - Uses the comparer function to determine equality.
 	 *
-	 * @returns {number.int} The index of the item or -1.
+	 * @returns {number} The index of the item or -1.
 	 */
 	findLastIndex(item) {
 		return this.lastIndexOf(item);
@@ -401,7 +401,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @returns {*}
+	 * @returns {unknown}
 	 */
 	first() {
 		return _(this).array[0];
@@ -413,7 +413,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @returns {*}
+	 * @returns {unknown}
 	 */
 	last() {
 		const _self = _(this);
@@ -460,8 +460,8 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @param {number.int} [low=0] - Index of a range to start at.
-	 * @param {number.int} [high=n] - Index of a range to end at.
+	 * @param {number} [low=0] - Index of a range to start at.
+	 * @param {number} [high=n] - Index of a range to end at.
 	 *
 	 * @returns {number}
 	 */
@@ -508,7 +508,7 @@ export default class List {
 	 * @memberOf List
 	 * @instance
 	 *
-	 * @returns {object} Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).
+	 * @returns {{ min: number, Q1: number, median: number, Q3: number, max: number, outliers: Array<number> }} Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).
 	 */
 	quartiles() {
 		const array = _(this).array;
@@ -553,10 +553,227 @@ export default class List {
 	 * @instance
 	 * @readonly
 	 *
-	 * @returns {number.int}
+	 * @returns {number}
 	 */
 	get length() {
 		return _(this).array.length;
+	}
+
+	/**
+	 * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+	 *
+	 * @method pop
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {unknown}
+	 */
+	pop() {
+		return _(this).array.pop();
+	}
+
+	/**
+	 * See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
+	 *
+	 * @method shift
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {unknown}
+	 */
+	shift() {
+		return _(this).array.shift();
+	}
+
+	/**
+	 * See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
+	 *
+	 * @method toString
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {string}
+	 */
+	toString() {
+		return _(this).array.toString();
+	}
+
+	/**
+	 * See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
+	 *
+	 * @method keys
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @returns {object}
+	 */
+	keys() {
+		return _(this).array.keys();
+	}
+
+	/**
+	 * See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+	 *
+	 * @method every
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 *
+	 * @returns {boolean}
+	 */
+	every(...args) {
+		return _(this).array.every(...args);
+	}
+
+	/**
+	 * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+	 *
+	 * @method forEach
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 *
+	 * @returns {undefined}
+	 */
+	forEach(...args) {
+		return _(this).array.forEach(...args);
+	}
+
+	/**
+	 * See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
+	 *
+	 * @method toLocaleString
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Array} [locales]
+	 * @param {object} [options]
+	 *
+	 * @returns {string}
+	 */
+	toLocaleString(...args) {
+		return _(this).array.toLocaleString(...args);
+	}
+
+	/**
+	 * See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+	 *
+	 * @method join
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {string} [separator=',']
+	 *
+	 * @returns {string}
+	 */
+	join(...args) {
+		return _(this).array.join(...args);
+	}
+
+	/**
+	 * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+	 *
+	 * @method map
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 *
+	 * @returns {Array}
+	 */
+	map(...args) {
+		return _(this).array.map(...args);
+	}
+
+	/**
+	 * See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+	 *
+	 * @method reduce
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Function} callback
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 *
+	 * @returns {unknown}
+	 */
+	reduce(...args) {
+		return _(this).array.reduce(...args);
+	}
+
+	/**
+	 * See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
+	 *
+	 * @method reduceRight
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Function} callback
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 *
+	 * @returns {unknown}
+	 */
+	reduceRight(...args) {
+		return _(this).array.reduceRight(...args);
+	}
+
+	/**
+	 * See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+	 *
+	 * @method some
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 *
+	 * @returns {boolean}
+	 */
+	some(...args) {
+		return _(this).array.some(...args);
+	}
+
+	/**
+	 * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+	 *
+	 * @method filter
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {Function} callback - Provides two arguments, the element and the index of the element.
+	 * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
+	 *
+	 * @returns {List}
+	 */
+	filter(...args) {
+		return new List({
+			array: _(this).array.filter(...args),
+			comparer: _(this).comparer
+		}, spawn);
+	}
+
+	/**
+	 * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+	 *
+	 * @method slice
+	 * @memberOf List
+	 * @instance
+	 *
+	 * @param {number} [begin=0]
+	 * @param {number} [end=array.length]
+	 *
+	 * @returns {List}
+	 */
+	slice(...args) {
+		return new List({
+			array: _(this).array.slice(...args),
+			comparer: _(this).comparer
+		}, spawn);
 	}
 }
 
@@ -576,196 +793,3 @@ export default class List {
  * @property {Function} number.desc - Inverse of number.asc
  */
 List.comparers = comparers;
-
-/**
- * See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
- *
- * @method pop
- * @memberOf List
- * @instance
- *
- * @returns {*}
- */
-/**
- * See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
- *
- * @method shift
- * @memberOf List
- * @instance
- *
- * @returns {*}
- */
-/**
- * See [Array.prototype.toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
- *
- * @method toString
- * @memberOf List
- * @instance
- *
- * @returns {string}
- */
-/**
- * See [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
- *
- * @method keys
- * @memberOf List
- * @instance
- *
- * @returns {object}
- */
-[
-	'pop',
-	'shift',
-	'toString',
-	'keys'
-].forEach((key) => {
-	List.prototype[key] = function() {
-		return _(this).array[key]();
-	};
-});
-
-/**
- * See [Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
- *
- * @method every
- * @memberOf List
- * @instance
- *
- * @param {Function} callback - Provides two arguments, the element and the index of the element.
- * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
- *
- * @returns {boolean}
- */
-/**
- * See [Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
- *
- * @method forEach
- * @memberOf List
- * @instance
- *
- * @param {Function} callback - Provides two arguments, the element and the index of the element.
- * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
- *
- * @returns {undefined}
- */
-/**
- * See [Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
- *
- * @method toLocaleString
- * @memberOf List
- * @instance
- *
- * @param {Array} [locales]
- * @param {object} [options]
- *
- * @returns {string}
- */
-/**
- * See [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
- *
- * @method join
- * @memberOf List
- * @instance
- *
- * @param {string} [separator=',']
- *
- * @returns {string}
- */
-/**
- * See [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
- *
- * @method map
- * @memberOf List
- * @instance
- *
- * @param {Function} callback - Provides two arguments, the element and the index of the element.
- * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
- *
- * @returns {Array}
- */
-/**
- * See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
- *
- * @method reduce
- * @memberOf List
- * @instance
- *
- * @param {Function} callback
- * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
- *
- * @returns {*}
- */
-/**
- * See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
- *
- * @method reduceRight
- * @memberOf List
- * @instance
- *
- * @param {Function} callback
- * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
- *
- * @returns {*}
- */
-/**
- * See [Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
- *
- * @method some
- * @memberOf List
- * @instance
- *
- * @param {Function} callback - Provides two arguments, the element and the index of the element.
- * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
- *
- * @returns {boolean}
- */
-[
-	'every',
-	'forEach',
-	'toLocaleString',
-	'join',
-	'map',
-	'reduce',
-	'reduceRight',
-	'some'
-].forEach((key) => {
-	List.prototype[key] = function(...args) {
-		return _(this).array[key](...args);
-	};
-});
-
-/**
- * See [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
- *
- * @method filter
- * @memberOf List
- * @instance
- *
- * @param {Function} callback - Provides two arguments, the element and the index of the element.
- * @param {object} [thisArg=this] - A value to use as `this` when executing `callback`.
- *
- * @returns {List}
- */
-/**
- * See [Array.prototype.slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
- *
- * @method slice
- * @memberOf List
- * @instance
- *
- * @param {number.int} [begin=0]
- * @param {number.int} [end=array.length]
- *
- * @returns {List}
- */
-[
-	'filter',
-	'slice'
-].forEach((key) => {
-	List.prototype[key] = function(...args) {
-		return new List({
-			array: _(this).array[key](...args),
-			comparer: _(this).comparer
-		}, spawn);
-	};
-});

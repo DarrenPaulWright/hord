@@ -11,8 +11,8 @@ import processValue from './processValue.js';
  *
  * @param {string} error - A message about the type of error
  * @param {string} path - The path within the given item to the value causing the error
- * @param {*} value - The value at this path
- * @param {*} item - The original item being validated
+ * @param {unknown} value - The value at this path
+ * @param {unknown} item - The original item being validated
  */
 
 /**
@@ -57,8 +57,8 @@ import processValue from './processValue.js';
  * @property {boolean} [coerce=false] - If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce().
  * @property {number} [min] - For Number, 'integer', and 'float'
  * @property {number} [max] - For Number, 'integer', and 'float'
- * @property {number.int} [minLength] - For Arrays and Strings
- * @property {number.int} [maxLength] - For Arrays and Strings
+ * @property {number} [minLength] - For Arrays and Strings
+ * @property {number} [maxLength] - For Arrays and Strings
  * @property {boolean} [clamp=false] - Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted.
  * @property {Enum} [enum] - If type is Enum, then this is required
  * @property {object|Array} [content] - For arrays and objects to specify further content
@@ -154,7 +154,7 @@ export default class Schema {
 	 *
 	 * @param {object} item - The object enforce against this schema.
 	 * @param {Array} [path=[]] - If provided then only the value at that path will be enforced.
-	 * @param {*} [replace] - If the current value at path is invalid, replace it with this.
+	 * @param {unknown} [replace] - If the current value at path is invalid, replace it with this.
 	 *
 	 * @returns {SchemaError[]}
 	 */

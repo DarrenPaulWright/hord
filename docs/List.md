@@ -21,8 +21,8 @@
     * [new List(values)](#new_List_new)
     * _instance_
         * [.total](#List+total) ⇒ <code>number</code>
-        * [.length](#List+length) ⇒ <code>number.int</code>
-        * [.comparer(comparer)](#List+comparer) ⇒ <code>function</code>
+        * [.length](#List+length) ⇒ <code>number</code>
+        * [.comparer(comparer)](#List+comparer) ⇒ <code>function</code> \| <code>this</code>
         * [.sort()](#List+sort) ⇒ <code>object</code>
         * [.add(item)](#List+add) ⇒ <code>object</code>
         * [.addUnique(item)](#List+addUnique) ⇒ <code>object</code>
@@ -32,23 +32,23 @@
         * [.discardAt(index)](#List+discardAt) ⇒ <code>object</code>
         * [.discardAll()](#List+discardAll) ⇒ <code>object</code>
         * [.values([values])](#List+values) ⇒ <code>Array</code>
-        * [.indexOf(item)](#List+indexOf) ⇒ <code>number.int</code>
-        * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>number.int</code>
+        * [.indexOf(item)](#List+indexOf) ⇒ <code>number</code>
+        * [.lastIndexOf(item)](#List+lastIndexOf) ⇒ <code>number</code>
         * [.includes(item)](#List+includes) ⇒ <code>boolean</code>
-        * [.find(item)](#List+find) ⇒ <code>\*</code>
-        * [.findLast(item)](#List+findLast) ⇒ <code>\*</code>
+        * [.find(item)](#List+find) ⇒ <code>unknown</code>
+        * [.findLast(item)](#List+findLast) ⇒ <code>unknown</code>
         * [.findAll(item)](#List+findAll) ⇒ [<code>List</code>](#List)
-        * [.findIndex(item)](#List+findIndex) ⇒ <code>number.int</code>
-        * [.findLastIndex(item)](#List+findLastIndex) ⇒ <code>number.int</code>
-        * [.first()](#List+first) ⇒ <code>\*</code>
-        * [.last()](#List+last) ⇒ <code>\*</code>
+        * [.findIndex(item)](#List+findIndex) ⇒ <code>number</code>
+        * [.findLastIndex(item)](#List+findLastIndex) ⇒ <code>number</code>
+        * [.first()](#List+first) ⇒ <code>unknown</code>
+        * [.last()](#List+last) ⇒ <code>unknown</code>
         * [.someRight(callback, [thisArg])](#List+someRight) ⇒ [<code>List</code>](#List)
         * [.intersection(array)](#List+intersection) ⇒ [<code>List</code>](#List)
         * [.median([low], [high])](#List+median) ⇒ <code>number</code>
         * [.mean()](#List+mean) ⇒ <code>number</code>
-        * [.quartiles()](#List+quartiles) ⇒ <code>object</code>
-        * [.pop()](#List+pop) ⇒ <code>\*</code>
-        * [.shift()](#List+shift) ⇒ <code>\*</code>
+        * [.quartiles()](#List+quartiles) ⇒ <code>Object</code>
+        * [.pop()](#List+pop) ⇒ <code>unknown</code>
+        * [.shift()](#List+shift) ⇒ <code>unknown</code>
         * [.toString()](#List+toString) ⇒ <code>string</code>
         * [.keys()](#List+keys) ⇒ <code>object</code>
         * [.every(callback, [thisArg])](#List+every) ⇒ <code>boolean</code>
@@ -56,8 +56,8 @@
         * [.toLocaleString([locales], [options])](#List+toLocaleString) ⇒ <code>string</code>
         * [.join([separator])](#List+join) ⇒ <code>string</code>
         * [.map(callback, [thisArg])](#List+map) ⇒ <code>Array</code>
-        * [.reduce(callback, [thisArg])](#List+reduce) ⇒ <code>\*</code>
-        * [.reduceRight(callback, [thisArg])](#List+reduceRight) ⇒ <code>\*</code>
+        * [.reduce(callback, [thisArg])](#List+reduce) ⇒ <code>unknown</code>
+        * [.reduceRight(callback, [thisArg])](#List+reduceRight) ⇒ <code>unknown</code>
         * [.some(callback, [thisArg])](#List+some) ⇒ <code>boolean</code>
         * [.filter(callback, [thisArg])](#List+filter) ⇒ [<code>List</code>](#List)
         * [.slice([begin], [end])](#List+slice) ⇒ [<code>List</code>](#List)
@@ -87,14 +87,14 @@
 
 <br><a name="List+length"></a>
 
-### list.length ⇒ <code>number.int</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
+### list.length ⇒ <code>number</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_`🔒 Read only`_
 
 > The number of items in the list.
 
 
 <br><a name="List+comparer"></a>
 
-### list.comparer(comparer) ⇒ <code>function</code>
+### list.comparer(comparer) ⇒ <code>function</code> \| <code>this</code>
 > Used by .sort() and the binary search to determine equality.
 > 
 > If you're setting this, you may want to call this before setting the values to prevent sorting twice, like this:
@@ -128,7 +128,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Item is inserted into the list such that the items are still sorted. |
+| item | <code>unknown</code> | Item is inserted into the list such that the items are still sorted. |
 
 
 <br><a name="List+addUnique"></a>
@@ -141,7 +141,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Item is inserted into the list such that the items are still sorted. |
+| item | <code>unknown</code> | Item is inserted into the list such that the items are still sorted. |
 
 
 <br><a name="List+unique"></a>
@@ -172,7 +172,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+discardAt"></a>
@@ -185,7 +185,7 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| index | <code>\*</code> | The index of the item to be discarded. |
+| index | <code>unknown</code> | The index of the item to be discarded. |
 
 
 <br><a name="List+discardAll"></a>
@@ -211,26 +211,26 @@
 
 <br><a name="List+indexOf"></a>
 
-### list.indexOf(item) ⇒ <code>number.int</code>
+### list.indexOf(item) ⇒ <code>number</code>
 > Gets the index of the first matching item. Uses a binary search.
 
-**Returns**: <code>number.int</code> - The index of the item or -1.  
+**Returns**: <code>number</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+lastIndexOf"></a>
 
-### list.lastIndexOf(item) ⇒ <code>number.int</code>
+### list.lastIndexOf(item) ⇒ <code>number</code>
 > Gets the index of the last matching item. Uses a binary search.
 
-**Returns**: <code>number.int</code> - The index of the item or -1.  
+**Returns**: <code>number</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+includes"></a>
@@ -241,31 +241,31 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+find"></a>
 
-### list.find(item) ⇒ <code>\*</code>
+### list.find(item) ⇒ <code>unknown</code>
 > Gets the first matching item from the list. Uses a binary search.
 
-**Returns**: <code>\*</code> - The item or undefined.  
+**Returns**: <code>unknown</code> - The item or undefined.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findLast"></a>
 
-### list.findLast(item) ⇒ <code>\*</code>
+### list.findLast(item) ⇒ <code>unknown</code>
 > Gets the last matching item from the list. Uses a binary search.
 
-**Returns**: <code>\*</code> - The item or undefined.  
+**Returns**: <code>unknown</code> - The item or undefined.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findAll"></a>
@@ -276,42 +276,42 @@
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findIndex"></a>
 
-### list.findIndex(item) ⇒ <code>number.int</code>
+### list.findIndex(item) ⇒ <code>number</code>
 > Gets the index of the first matching item. Uses a binary search (Identical to indexOf).
 
-**Returns**: <code>number.int</code> - The index of the item or -1.  
+**Returns**: <code>number</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+findLastIndex"></a>
 
-### list.findLastIndex(item) ⇒ <code>number.int</code>
+### list.findLastIndex(item) ⇒ <code>number</code>
 > Gets the index of the last matching item. Uses a binary search (Identical to lastIndexOf).
 
-**Returns**: <code>number.int</code> - The index of the item or -1.  
+**Returns**: <code>number</code> - The index of the item or -1.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>\*</code> | Uses the comparer function to determine equality. |
+| item | <code>unknown</code> | Uses the comparer function to determine equality. |
 
 
 <br><a name="List+first"></a>
 
-### list.first() ⇒ <code>\*</code>
+### list.first() ⇒ <code>unknown</code>
 > Gets the first item in the list without removing it.
 
 
 <br><a name="List+last"></a>
 
-### list.last() ⇒ <code>\*</code>
+### list.last() ⇒ <code>unknown</code>
 > Gets the last item in the list without removing it.
 
 
@@ -346,8 +346,8 @@
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [low] | <code>number.int</code> | <code>0</code> | Index of a range to start at. |
-| [high] | <code>number.int</code> | <code>n</code> | Index of a range to end at. |
+| [low] | <code>number</code> | <code>0</code> | Index of a range to start at. |
+| [high] | <code>number</code> | <code>n</code> | Index of a range to end at. |
 
 
 <br><a name="List+mean"></a>
@@ -358,20 +358,20 @@
 
 <br><a name="List+quartiles"></a>
 
-### list.quartiles() ⇒ <code>object</code>
+### list.quartiles() ⇒ <code>Object</code>
 > If the values in the list are Numbers, then this will return an object with a [quartile](https://en.wikipedia.org/wiki/Quartile) summary.
 
-**Returns**: <code>object</code> - Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).  
+**Returns**: <code>Object</code> - Contains min, Q1, median, Q3, max, and outliers. All are numbers except outliers, which is an array of all outliers (low and high).  
 
 <br><a name="List+pop"></a>
 
-### list.pop() ⇒ <code>\*</code>
+### list.pop() ⇒ <code>unknown</code>
 > See [Array.prototype.pop()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
 
 
 <br><a name="List+shift"></a>
 
-### list.shift() ⇒ <code>\*</code>
+### list.shift() ⇒ <code>unknown</code>
 > See [Array.prototype.shift()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
 
 
@@ -448,7 +448,7 @@
 
 <br><a name="List+reduce"></a>
 
-### list.reduce(callback, [thisArg]) ⇒ <code>\*</code>
+### list.reduce(callback, [thisArg]) ⇒ <code>unknown</code>
 > See [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 
 
@@ -460,7 +460,7 @@
 
 <br><a name="List+reduceRight"></a>
 
-### list.reduceRight(callback, [thisArg]) ⇒ <code>\*</code>
+### list.reduceRight(callback, [thisArg]) ⇒ <code>unknown</code>
 > See [Array.prototype.reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
 
 
@@ -502,8 +502,8 @@
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [begin] | <code>number.int</code> | <code>0</code> | 
-| [end] | <code>number.int</code> | <code>array.length</code> | 
+| [begin] | <code>number</code> | <code>0</code> | 
+| [end] | <code>number</code> | <code>array.length</code> | 
 
 
 <br><a name="List.comparers"></a>

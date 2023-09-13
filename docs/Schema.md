@@ -77,7 +77,7 @@ person.validate({
 | --- | --- | --- | --- |
 | item | <code>object</code> |  | The object enforce against this schema. |
 | [path] | <code>Array</code> | <code>[]</code> | If provided then only the value at that path will be enforced. |
-| [replace] | <code>\*</code> |  | If the current value at path is invalid, replace it with this. |
+| [replace] | <code>unknown</code> |  | If the current value at path is invalid, replace it with this. |
 
 
 <br><a name="Schema+eachRule"></a>
@@ -112,8 +112,8 @@ person.validate({
 | --- | --- | --- |
 | error | <code>string</code> | A message about the type of error |
 | path | <code>string</code> | The path within the given item to the value causing the error |
-| value | <code>\*</code> | The value at this path |
-| item | <code>\*</code> | The original item being validated |
+| value | <code>unknown</code> | The value at this path |
+| item | <code>unknown</code> | The original item being validated |
 
 
 <br><a name="SchemaDefinition"></a>
@@ -133,8 +133,8 @@ person.validate({
 | [coerce] | <code>boolean</code> | <code>false</code> | If true then values that can be coerced into the specified type will not return errors and will be coerced in schema.enforce(). |
 | [min] | <code>number</code> |  | For Number, 'integer', and 'float' |
 | [max] | <code>number</code> |  | For Number, 'integer', and 'float' |
-| [minLength] | <code>number.int</code> |  | For Arrays and Strings |
-| [maxLength] | <code>number.int</code> |  | For Arrays and Strings |
+| [minLength] | <code>number</code> |  | For Arrays and Strings |
+| [maxLength] | <code>number</code> |  | For Arrays and Strings |
 | [clamp] | <code>boolean</code> | <code>false</code> | Works with min, max, minength, and maxLength. If true then values outside the range will be forced within the range. If false then values outside the range will be deleted. |
 | [enum] | <code>Enum</code> |  | If type is Enum, then this is required |
 | [content] | <code>object</code> \| <code>Array</code> |  | For arrays and objects to specify further content |
